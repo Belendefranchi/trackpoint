@@ -1,5 +1,5 @@
 <div class="flex gap-6">
-  <form method="post" action="?ciclo=cicloII&module=recepcionMP&page=form" class="w-1/2 bg-white p-6 rounded shadow">
+  <form method="post" action="?module=recepcionMP&page=form" class="w-1/2 bg-white p-6 rounded shadow">
     <h2 class="text-xl font-semibold mb-4">Recepción de Materia Prima</h2>
 
     <div class="mb-4">

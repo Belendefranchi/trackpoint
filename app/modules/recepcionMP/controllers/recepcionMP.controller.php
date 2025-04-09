@@ -1,12 +1,12 @@
 <?php
 /* require_once '../models/recepcionMP.model.php'; */
 function formAction() {
-    include '../app/modules/cicloII/recepcionMP/views/form.view.php';
+    include '../app/modules/recepcionMP/views/form.view.php';
 }
 
 function listadoAction() {
     $registros = obtenerRegistros();
-    include __DIR__ . '../app/modules/cicloII/recepcionMP/views/listado.view.php';
+    include __DIR__ . '../app/modules/recepcionMP/views/listado.view.php';
 }
 
 function guardarAction() {
@@ -19,7 +19,7 @@ function guardarAction() {
 
         if (validarDatos($data)) {
             guardarRecepcion($data);
-            header("Location: index.php?module=cicloII/recepcionMP&action=listado");
+            header("Location: index.php?module=recepcionMP&action=listado");
             exit;
         } else {
             echo "Datos inválidos.";

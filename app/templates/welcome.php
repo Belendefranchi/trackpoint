@@ -1,3 +1,5 @@
+<?php /* require_once '../app/middleware/auth.middleware.php'; */ ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,8 +46,8 @@
           </button>
           <div id='ciclo2' class='hidden pl-4'>
             <ul class="space-y-2">
-              <li><a href="?ciclo=cicloII&module=recepcionMP&page=form" class="block px-3 py-2 rounded hover:bg-[#00B0E6] hover:text-white">Recepción MP</a></li>
-              <li><a href="?ciclo=cicloII&module=depositos&page=form" class="block px-3 py-2 rounded hover:bg-[#00B0E6] hover:text-white">Depósitos</a></li>
+              <li><a href="?module=recepcionMP&page=form" class="block px-3 py-2 rounded hover:bg-[#00B0E6] hover:text-white">Recepción MP</a></li>
+              <li><a href="?module=depositos&page=form" class="block px-3 py-2 rounded hover:bg-[#00B0E6] hover:text-white">Depósitos</a></li>
               <li><span class="block px-3 py-2 rounded text-gray-400 cursor-not-allowed">Cuarteo</span></li>
               <li><span class="block px-3 py-2 rounded text-gray-400 cursor-not-allowed">Desposte</span></li>
               <li><span class="block px-3 py-2 rounded text-gray-400 cursor-not-allowed">Expedición</span></li>
@@ -60,7 +62,8 @@
       <!-- Encabezado -->
       <header class="bg-white shadow p-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-[#22265D]">Control de Producción</h1>
-        <button class="bg-[#22265D] text-white px-4 py-2 rounded hover:bg-[#00B0E6]">Cuenta</button>
+        <!-- <button class="bg-[#22265D] text-white px-4 py-2 rounded hover:bg-[#00B0E6]">Cuenta</button> -->
+        <a href="../app/modules/auth/logout.php" class="text-[#22265D]-500 hover:underline">Cerrar sesión</a>
       </header>
 
       <!-- Contenido dinámico -->
