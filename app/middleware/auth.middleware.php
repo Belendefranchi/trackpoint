@@ -22,7 +22,7 @@ if (!in_array($rutaActual, $rutasPublicas) && !isset($_SESSION['user'])) {
 
 // Si el usuario ya está logueado y va al login o registro, redirigir al inicio
 if (isset($_SESSION['user']) && in_array($rutaActual, $rutasPublicas)) {
-  require_once "../app/templates/welcome.php";
+  header('Location: index.php?module=dashboard&page=home');
   exit;
 }
 

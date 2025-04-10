@@ -6,6 +6,7 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nombre = $_POST['nombre_completo'] ?? '';
+  $email = $_POST['email'] ?? '';
   $username = $_POST['username'] ?? '';
   $password = $_POST['password'] ?? '';
   $rol = $_POST['rol'] ?? '';
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $error = "El usuario ya existe.";
     } else {
       $hash = password_hash($password, PASSWORD_DEFAULT);
-      crearUsuario($nombre, $username, $hash, $rol);
+      crearUsuario($nombre, $email, $username, $hash, $rol);
       $success = "Usuario registrado correctamente.";
     }
   } else {

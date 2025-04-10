@@ -19,6 +19,11 @@
   </div>
 
   <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+    <input name="email" type="text" class="shadow border rounded w-full py-2 px-3 text-gray-700" required />
+  </div>
+
+  <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2">Usuario</label>
     <input name="username" type="text" class="shadow border rounded w-full py-2 px-3 text-gray-700" required />
   </div>

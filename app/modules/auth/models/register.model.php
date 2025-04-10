@@ -1,5 +1,5 @@
 <?php
-require_once '../config/db.php';
+require_once '../../config/db.php';
 
 function userExists($username) {
   $conn = getConnection();
@@ -8,8 +8,8 @@ function userExists($username) {
   return $stmt->fetch() !== false;
 }
 
-function crearUsuario($nombre, $username, $hash, $rol) {
+function crearUsuario($nombre, $email, $username, $hash, $rol) {
   $conn = getConnection();
-  $stmt = $conn->prepare("INSERT INTO users (nombre_completo, username, password, rol) VALUES (?, ?, ?, ?)");
-  return $stmt->execute([$nombre, $username, $hash, $rol]);
+  $stmt = $conn->prepare("INSERT INTO auth.users (email, nombre_completo, username, password, rol) VALUES (?, ?, ?, ?, ?)");
+  return $stmt->execute([$email, $nombre, $username, $hash, $rol]);
 }
