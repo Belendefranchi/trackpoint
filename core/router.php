@@ -10,3 +10,4 @@ function handle_route($route) {
         echo "Página no encontrada";
     }
 }
+
