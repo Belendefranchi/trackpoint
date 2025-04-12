@@ -1,5 +1,3 @@
-<!-- app/auth/views/login.view.php -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
+  
+  <?php
+    require_once __DIR__ . '/../controllers/login.controller.php';
+  ?>
 </head>
 <body class="bg-[#D3EBF9] min-h-screen flex items-center justify-center">
 
@@ -17,27 +20,36 @@
 
     <h2 class="text-2xl font-bold text-[#22265D] text-center mb-6">Iniciar Sesión</h2>
 
-    <form action="/trackpoint/public/login" method="POST" class="space-y-4">
+    <form method="POST" class="space-y-4">
       <div>
         <label class="block text-[#22265D] font-semibold mb-1" for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" required
+        <input type="text" id="email" name="email"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
       </div>
 
       <div>
         <label class="block text-[#22265D] font-semibold mb-1" for="password">Contraseña</label>
-        <input type="password" id="password" name="password" required
+        <input type="password" id="password" name="password"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
       </div>
 
-      <?php if (!empty($error)): ?>
-        <div class="bg-red-100 text-red-700 text-sm p-3 rounded mb-4">
-          <?= htmlspecialchars($error) ?>
-        </div>
-      <?php endif; ?>
+      
+      <div class="text-center p-2">
+        <?php
+          if (isset($message)) {
+        ?>
 
-      <button type="submit"
-        class="w-full bg-[#22265D] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#00B0E6] transition">Ingresar</button>
+        <div class="block text-[#00B0E6]">
+          <p><?php echo $message; ?></p>
+        </div>
+
+        <?php
+          }
+        ?>
+      </div>
+
+      <input type="submit"
+        class="w-full bg-[#22265D] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#00B0E6] transition" value='Ingresar'></input>
     </form>
     
     <div class="text-center text-sm text-gray-600 mt-4 space-y-1">
