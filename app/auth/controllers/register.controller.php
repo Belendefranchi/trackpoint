@@ -1,35 +1,37 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/config/db.php';
 require_once 'app/auth/views/register.view.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
+    $nombre_completo = ($_POST['nombre_completo']);
+    $email = ($_POST['email']);
+    $username = ($_POST['username']);
     $password = $_POST['password'];
-    $nombre   = trim($_POST['nombre']);
-
-    if (empty($username) || empty($password) || empty($nombre)) {
-        echo "Todos los campos son obligatorios.";
-        exit;
-    }
-
-    // Hashear la contraseña
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $rol = ($_POST['rol']);
 
     try {
         $conn = getConnection();
 
         // Verificar si el usuario ya existe
-        $stmt = $conn->prepare("SELECT id FROM usuarios WHERE username = ?");
-        $stmt->execute([$username]);
+        $stmt = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $stmt->execute([$email]);
 
         if ($stmt->fetch()) {
             echo "El usuario ya existe.";
             exit;
         }
 
+        // Hashear la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         // Insertar usuario
-        $stmt = $conn->prepare("INSERT INTO usuarios (username, password, nombre) VALUES (?, ?, ?)");
-        $stmt->execute([$username, $hashedPassword, $nombre]);
+        $stmt = $conn->prepare("INSERT INTO usuarios (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
+        $stmt->bindParam(':nombre_completo', $nombre_completo);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':rol', $rol);
+        $stmt->execute();
+
 
         header("Location: /login");
         exit;

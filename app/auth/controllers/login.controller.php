@@ -30,18 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['user'] = [
         'id' => $user['id'],
         'email' => $user['email'],
-        'nombre' => $user['nombre'] ?? ''
+        'username' => $user['username']
       ];
-      /* header('Location: /');*/
-      exit(); 
+      $message = "Autenticación exitosa. Redirigiendo...";
+      /* exit(); */
+    } else {
+        // Error de autenticación
+        $message = "Email o contraseña incorrectos.";
     }
-    
-    $message = "Autenticación exitosa. Redirigiendo...". $user;
-  } else {
-      // Error de autenticación
-      $message = "Email o contraseña incorrectos.";
   }
-} 
+}
 
-/* require_once __DIR__ . '/../views/login.view.php'; */
+require_once __DIR__ . '/../views/login.view.php';
 

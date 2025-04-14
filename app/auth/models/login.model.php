@@ -4,30 +4,77 @@ require_once __DIR__ . '/../../../config/db.php';
 function loginUser($email, $password) {
     try {
         $conn = getConnection();
-        if (!$conn) return false;
+        if (!$conn) {
+            return false;
+        }
+
+        // Seleccionamos todos los campos que necesitamos
+        $stmt = $conn->prepare("
+            SELECT id, email, username, password, rol 
+            FROM users 
+            WHERE email = :email
+        ");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificamos si existe el usuario y si la contraseña es correcta
+        if ($user && password_verify($password, $user['password'])) {
+            // No devolvemos la contraseña
+            unset($user['password']);
+            return $user;
+        }else{
+            return false;
+        }
+
+
+    } catch (Exception $e) {
+        // En producción usarías un logger, por ahora podés guardar el error en un archivo:
+        error_log("loginUser error: " . $e->getMessage(), 3, '/../../../logs/error.log');
+        return false;
+    }
+}
+
+
+/* function loginUserConPruebas($email, $password) {
+    try {
+        $conn = getConnection();
+        var_dump($conn);
+        if (!$conn) {
+            echo "Sin conexión\n";
+            return false;
+        }
 
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         
-/*         while ($row = $result->fetchArray()) {
-            $db_email = $row["email"];
-            $db_password_hash = $row["password"];
-            $db_rol = $row["rol"];
-            if ($email == $db_email && $password == password_verify($password, $db_password_hash)) {
-                $_SESSION["email"] = $db_email;
-                $_SESSION["rol"] = $db_rol;
-            }
-            return $db_rol; 
-        } */
-        $dbUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($dbUser && password_verify($password, $dbUuser['password'])) {
-            return $dbUser;
+        if (!$user) {
+            echo "Usuario no encontrado\n";
+            return false;
         }
 
+        echo "Password ingresado: $password\n";
+        echo "Password en DB: " . $user['password'] . "\n";
+
+        if (password_verify($password, $user['password'])) {
+            echo "Verificación: OK\n";
+            return $user;
+        } else {
+            echo "Verificación: FALLA\n";
+        }
+
+        return false;
+
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        echo "Error: " . $e->getMessage() . "\n";
         return false;
     }
-}
+
+    echo "</pre>";
+} */
+
+
