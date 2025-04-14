@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Carga del ruteador y las rutas
 require_once __DIR__ . '/../core/router.php';

@@ -1,7 +1,6 @@
 <?php
-
-/* session_start();
-
+session_start();
+/*
 if (isset($_SESSION['role'])) {
   if ($role == "admin"){
     header("Location: /");
@@ -14,8 +13,8 @@ if (isset($_SESSION['role'])) {
 require_once __DIR__ . '/../models/login.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $email = $_POST['email'] ?? '';
-  $password = $_POST['password'] ?? '';
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
   if (empty($email) && empty($password)) {
     $message = "Por favor ingrese el usuario y la contraseña";
@@ -24,17 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   } elseif (empty($password)) {
     $message = "Por favor ingrese la contraseña";
   } elseif ($email && $password) {
+
     $user = loginUser($email, $password);
-    // Autenticación exitosa
-    $_SESSION['user'] = [
+
+    if ($user) {
+      $_SESSION['user'] = [
         'id' => $user['id'],
         'email' => $user['email'],
         'nombre' => $user['nombre'] ?? ''
-    ];
-    echo "user: " . $_SESSION['user']['email'];
-    echo "pass: " . $_SESSION['user']['password'];
-    /* header('Location: /'); */
-    /* exit; */
+      ];
+      /* header('Location: /');*/
+      exit(); 
+    }
+    
+    $message = "Autenticación exitosa. Redirigiendo...". $user;
   } else {
       // Error de autenticación
       $message = "Email o contraseña incorrectos.";
