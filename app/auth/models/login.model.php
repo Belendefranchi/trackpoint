@@ -4,12 +4,12 @@ require_once __DIR__ . '/../../../config/db.php';
 function loginUser($email, $password) {
     try {
         $conn = getConnection();
-        if (!$conn) {
+/*         if (!$conn) {
             return false;
-        }
+        } */
 
         $stmt = $conn->prepare("
-            SELECT id, email, username, password, rol 
+            SELECT id, email, username, rol, password 
             FROM users 
             WHERE email = :email
         ");

@@ -1,15 +1,4 @@
 <?php
-session_start();
-/*
-if (isset($_SESSION['role'])) {
-  if ($role == "admin"){
-    header("Location: /");
-  }else{
-    header("Location: /");
-  }
-  exit();
-} */
-
 require_once __DIR__ . '/../models/login.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,21 +14,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   } elseif ($email && $password) {
 
     $user = loginUser($email, $password);
-
     if ($user) {
-      $_SESSION['user'] = [
-        'id' => $user['id'],
-        'email' => $user['email'],
-        'username' => $user['username']
-      ];
+      $_SESSION['id'] = $user['id'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['username'] = $user['username'];
+      $_SESSION['rol'] = $user['rol'];
+      
       $message = "Autenticación exitosa. Redirigiendo...";
-      /* exit(); */
+
+      header("Location: /trackpoint/public/home");
+      exit();
     } else {
         // Error de autenticación
         $message = "Email o contraseña incorrectos.";
     }
   }
 }
-
-require_once __DIR__ . '/../views/login.view.php';
 

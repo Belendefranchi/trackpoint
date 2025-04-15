@@ -1,5 +1,7 @@
 <?php
 
+/* require_once "../app/middleware/auth.middleware.php"; */
+
 // Carga del ruteador y las rutas
 require_once __DIR__ . '/../core/router.php';
 require_once __DIR__ . '/../config/routes.php';
