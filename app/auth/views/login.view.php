@@ -56,8 +56,6 @@
       <a href="/trackpoint/public/register" class="block text-[#00B0E6] font-medium hover:underline">¿No tenés una cuenta? Registrate</a>
       <a href="#" class="block text-[#00B0E6] hover:underline">¿Olvidaste tu contraseña?</a>
     </div>
-
   </div>
-
 </body>
 </html>

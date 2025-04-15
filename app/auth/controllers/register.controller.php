@@ -1,42 +1,50 @@
 <?php
-require_once 'app/auth/views/register.view.php';
+require_once __DIR__ . '/../models/register.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre_completo = ($_POST['nombre_completo']);
-    $email = ($_POST['email']);
-    $username = ($_POST['username']);
-    $password = $_POST['password'];
-    $rol = ($_POST['rol']);
-
-    try {
-        $conn = getConnection();
-
-        // Verificar si el usuario ya existe
-        $stmt = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
-        $stmt->execute([$email]);
-
-        if ($stmt->fetch()) {
-            echo "El usuario ya existe.";
-            exit;
-        }
-
-        // Hashear la contraseña
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Insertar usuario
-        $stmt = $conn->prepare("INSERT INTO usuarios (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
-        $stmt->bindParam(':nombre_completo', $nombre_completo);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':rol', $rol);
-        $stmt->execute();
-
-
-        header("Location: /login");
-        exit;
-    } catch (PDOException $e) {
-        echo "Error al registrar: " . $e->getMessage();
-        exit;
-    }
+	$nombre_completo = ($_POST['nombre_completo']);
+	$email = ($_POST['email']);
+	$username = ($_POST['username']);
+	$password = $_POST['password'];
+	$rol = ($_POST['rol']);
+	
+	if (empty($nombre_completo) && empty($email) && empty($username) && empty($password)) {
+		$message = "Por favor ingrese todos los datos";
+	} elseif (empty($nombre_completo)) {
+		$message = "Por favor ingrese el nombre completo";
+	} elseif (empty($email)) {
+		$message = "Por favor ingrese el email";
+	} elseif (empty($username)) {
+		$message = "Por favor ingrese el nombre de usuario";
+	} elseif (empty($password)) {
+		$message = "Por favor ingrese la contraseña";
+	} elseif (empty($rol)) {
+		$message = "Por favor seleccione un rol";
+	} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		$message = "El email no es válido";
+	} elseif (strlen($password) < 8) {
+		$message = "La contraseña debe tener al menos 8 caracteres";
+	} elseif ($nombre_completo && $email && $username && $password && $rol) {
+		// Verificar si el rol es válido
+		if (!in_array($rol, ['admin', 'operario', 'supervisor'])) {
+			$message = "Rol no válido";
+		} else {
+			// Verificar si el usuario ya existe
+			$user = userExists($email);
+			if ($user) {
+				$message =  "Ya hay un usuario registrado con ese email, por favor intente con otro.";
+			} else {
+				// Hashear la contraseña
+				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+				
+				// Llamar a la función para crear el usuario
+				crearUsuario($nombre_completo, $email, $username, $hashedPassword, $rol);
+				
+				$message =  "Usuario creado correctamente, por favor inicie sesión.";
+				
+				// Redirigir a la página de inicio de sesión
+				/* header("Location: /login"); */
+			}
+		}
+	}
 }

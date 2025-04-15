@@ -1,15 +1,47 @@
 <?php
-require_once '../../config/db.php';
+require_once __DIR__ . '/../../../config/db.php';
 
 function userExists($email) {
-  $conn = getConnection();
-  $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-  $stmt->execute([$email]);
-  return $stmt->fetch() !== false;
+  try {
+    $conn = getConnection();
+    if (!$conn) {
+        return false;
+    }
+    
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $user ? true : false;
+  } catch (PDOException $e) {
+    // Manejo de errores
+    error_log("Error al verificar si el usuario existe: " . $e->getMessage(), 3, __DIR__ . '/../../../logs/error.log');
+    return false;
+  }
 }
 
-function crearUsuario($nombre, $email, $username, $hash, $rol) {
-  $conn = getConnection();
-  $stmt = $conn->prepare("INSERT INTO auth.users (email, nombre_completo, username, password, rol) VALUES (?, ?, ?, ?, ?)");
-  return $stmt->execute([$email, $nombre, $username, $hash, $rol]);
+function crearUsuario($nombre_completo, $email, $username, $hashedPassword, $rol) {
+  try {
+    $conn = getConnection();
+    if (!$conn) {
+        return false;
+    }
+    
+    $stmt = $conn->prepare("INSERT INTO users (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
+    $stmt->bindParam(':nombre_completo', $nombre_completo);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password', $hashedPassword);
+    $stmt->bindParam(':rol', $rol);
+    $result = $stmt->execute();
+  
+    return $result;
+  } catch (PDOException $e) {
+    // Manejo de errores
+    error_log("Error al crear usuario: " . $e->getMessage(), 3, __DIR__ . '/../../../logs/error.log');
+    return false;
+  }
 }
+
