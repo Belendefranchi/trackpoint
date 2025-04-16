@@ -18,7 +18,7 @@
 
   <?php require_once __DIR__ . '/../controllers/home.controller.php'; ?>
 </head>
-<body class="bg-light min-vh-100 d-flex align-items-center justify-content-center" style="background-color: #D3EBF9;">
+<body style="background-color: #D3EBF9;" class="d-flex align-items-center justify-content-center min-vh-100">
 <div class="container py-5">
   <a href="/trackpoint/public/logout" class="text-decoration-none text-info d-block mb-3">Cerrar sesión</a>
 

@@ -1,14 +1,28 @@
 <?php
 
 function handle_route($route) {
-    global $routes;
+  // Definí tus rutas en config/routes.php, algo como:
+  // $routes = [
+  //   '/' => 'dashboard/home.controller.php',
+  //   '/login' => 'auth/controllers/login.controller.php',
+  //   '/produccion' => 'modules/produccion/controllers/produccion.controller.php'
+  // ];
 
-    if (isset($routes[$route])) {
-        require_once __DIR__ . '/../' . $routes[$route];
+  global $routes;
+
+  if (array_key_exists($route, $routes)) {
+    $controllerPath = __DIR__ . '/../' . $routes[$route];
+
+    if (file_exists($controllerPath)) {
+      require_once $controllerPath;
     } else {
-        http_response_code(404);
-        echo "Página no encontrada" . $route;
-        
+      // Controlador declarado pero archivo no existe: módulo aún no implementado
+      require_once __DIR__ . '/en_construccion.controller.php';
+      mostrarVistaEnConstruccion();
     }
+  } else {
+    // Ruta no definida en routes.php
+    require_once __DIR__ . '/en_construccion.controller.php';
+    mostrarVistaEnConstruccion();
+  }
 }
-

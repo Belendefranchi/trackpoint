@@ -13,7 +13,7 @@
 
   <?php require_once __DIR__ . '/../controllers/login.controller.php'; ?>
 </head>
-<body class="bg-light d-flex align-items-center justify-content-center min-vh-100" style="background-color: #D3EBF9;">
+<body style="background-color: #D3EBF9;" class="d-flex align-items-center justify-content-center min-vh-100">
 
   <div class="bg-white rounded-4 shadow p-4 p-md-5 w-100" style="max-width: 420px;">
     <div class="text-center mb-4">
