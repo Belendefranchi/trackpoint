@@ -9,7 +9,7 @@ function loginUser($email, $password) {
         } */
 
         $stmt = $conn->prepare("
-            SELECT id, email, username, rol, password 
+            SELECT *
             FROM users 
             WHERE email = :email
         ");

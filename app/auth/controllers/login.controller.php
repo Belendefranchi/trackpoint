@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['email'] = $user['email'];
       $_SESSION['username'] = $user['username'];
       $_SESSION['rol'] = $user['rol'];
+      $_SESSION['nombre_completo'] = $user['nombre_completo'];
       
       $message = "Autenticación exitosa. Redirigiendo...";
 

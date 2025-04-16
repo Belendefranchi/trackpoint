@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
 
   <!-- Texto de bienvenida -->
   <div>
-    <h2 class="text-xl font-semibold text-[#22265D]">Bienvenido, <?= htmlspecialchars($_SESSION['rol']); ?></h2>
+    <h2 class="text-xl font-semibold text-[#22265D]">Hola <?= htmlspecialchars($_SESSION['nombre_completo']); ?></h2>
     <p class="text-gray-600 text-sm">Resumen general de la producción</p>
   </div>
 </div>
@@ -133,8 +133,4 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
     }
   });
 </script>
-
-<?php
-ob_end_flush();
-?>
 
