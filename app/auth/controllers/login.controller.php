@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION['id'])) {
+  header('Location: /trackpoint/public/home');
+  exit();
+}
 require_once __DIR__ . '/../models/login.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
