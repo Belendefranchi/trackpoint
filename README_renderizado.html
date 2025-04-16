@@ -1,0 +1,136 @@
+<h1>🐖 TrackPoint - Sistema de control de producción</h1>
+
+<p>Aplicación web para el control de producción en una industria faenadora de porcinos. Desarrollado en PHP siguiendo el patrón MVC, con interfaz moderna usando Tailwind CSS.</p>
+
+<hr />
+
+<h2>🚀 Requisitos</h2>
+
+<ul>
+<li>PHP &gt;= 7.4</li>
+<li>Composer (opcional, si se agregan librerías más adelante)</li>
+<li>Node.js + npm</li>
+<li>Servidor Apache o Nginx</li>
+<li>Extensiones SQL Server (<code>pdo_sqlsrv</code>, <code>sqlsrv</code>) habilitadas en PHP</li>
+</ul>
+
+<hr />
+
+<h2>📁 Estructura de carpetas</h2>
+
+<p><code>
+app/
+  auth/
+    controllers/
+    models/
+    views/
+      login.view.php
+  dashboard/
+    controllers/
+    models/
+    views/
+      home.view.php
+  middleware/
+    auth.middleware.php
+layouts/
+  auth.layout.php
+  app.layout.php
+public/
+  assets/
+    css/
+      style.css
+    images/
+    js/
+  index.php
+src/
+  input.css
+tailwind.config.js
+postcss.config.js
+package.json
+</code></p>
+
+<hr />
+
+<h2>🎨 Tailwind CSS</h2>
+
+<h3>Instalación inicial (una sola vez por desarrollador)</h3>
+
+<p><code>bash
+npm install
+</code></p>
+
+<h3>Desarrollo (modo watch)</h3>
+
+<p><code>bash
+npm run dev
+</code></p>
+
+<h3>Producción (minificado)</h3>
+
+<p><code>bash
+npm run build
+</code></p>
+
+<hr />
+
+<h2>🔒 Middleware de autenticación</h2>
+
+<p>Para proteger vistas privadas, incluir en la parte superior del archivo <code>.php</code>:</p>
+
+<p><code>php
+require_once __DIR__ . '/../../middleware/auth.middleware.php';
+</code></p>
+
+<p>Este middleware redirige al login si no hay sesión iniciada.</p>
+
+<hr />
+
+<h2>🧪 Login de prueba</h2>
+
+<p>Credenciales configuradas en la base de datos (hasheadas con <code>password_hash()</code>).</p>
+
+<hr />
+
+<h2>📌 Notas para los desarrolladores</h2>
+
+<ul>
+<li>Siempre correr <code>npm run dev</code> mientras trabajás en el frontend.</li>
+<li>Recordá ejecutar <code>npm install</code> la primera vez que clones el proyecto.</li>
+<li>Usá <code>public/index.php</code> como punto de entrada del sistema.</li>
+<li>Todo nuevo módulo debe seguir la estructura de carpetas MVC.</li>
+<li>Usar siempre <code>session_start();</code> al inicio de controladores o middleware.</li>
+</ul>
+
+<hr />
+
+<h2>🛠️ En desarrollo</h2>
+
+<ul>
+<li>[x] Login</li>
+<li>[x] Middleware de sesión</li>
+<li>[x] Dashboard estático</li>
+<li>[ ] Conexión dinámica con base de datos</li>
+<li>[ ] Módulo de producción</li>
+<li>[ ] Módulo de expedición</li>
+<li>[ ] Panel de configuración</li>
+</ul>
+
+<hr />
+
+<h2>📸 Logo</h2>
+
+<p>El logo debe estar en:<br />
+<code>/public/assets/images/logo_fondo_transparente.png</code></p>
+
+<hr />
+
+<h2>👥 Créditos</h2>
+
+<p>Desarrollado por:</p>
+
+<ul>
+<li>[Tu Nombre]</li>
+<li>[Compañero/a]</li>
+</ul>
+
+<hr />
