@@ -1,0 +1,24 @@
+{
+  "name": "trackpoint",
+  "version": "1.0.0",
+  "description": "Aplicación web para el control de producción en una industria faenadora de porcinos. Desarrollado en PHP siguiendo el patrón MVC, con interfaz moderna usando Tailwind CSS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Belendefranchi/trackpoint.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Belendefranchi/trackpoint/issues"
+  },
+  "homepage": "https://github.com/Belendefranchi/trackpoint#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.11.3"
+  }
+}

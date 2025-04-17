@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../../middleware/auth.middleware.php'; ?>
+<?php require_once __DIR__ . '/../middleware/auth.middleware.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,8 +7,8 @@
   <title>Home</title>
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión</title>
 
-  <!-- Bootstrap 5 CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <!-- Bootstrap -->
+  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
 
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
 
-  <?php require_once __DIR__ . '/../controllers/login.controller.php'; ?>
+  <?php
+    require_once __DIR__ . '/../controllers/login.controller.php';
+  ?>
+
 </head>
 <body style="background-color: #D3EBF9;" class="d-flex align-items-center justify-content-center min-vh-100">
 
@@ -24,12 +27,12 @@
 
     <form method="POST">
       <div class="mb-3">
-        <label for="email" class="form-label text-dark fw-semibold">Correo electrónico</label>
+        <label class="form-label text-dark fw-semibold" for="email">Correo electrónico</label>
         <input type="text" class="form-control" id="email" name="email">
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label text-dark fw-semibold">Contraseña</label>
+        <label class="form-label text-dark fw-semibold" for="password">Contraseña</label>
         <input type="password" class="form-control" id="password" name="password">
       </div>
 
@@ -40,7 +43,7 @@
       <?php endif; ?>
 
       <div class="d-grid">
-        <input type="submit" value="Ingresar" class="btn btn-primary fw-bold">
+        <input class="btn btn-primary fw-bold" type="submit" value="Ingresar">
       </div>
     </form>
 
@@ -49,6 +52,5 @@
       <a href="#" class="d-block text-decoration-none text-primary">¿Olvidaste tu contraseña?</a>
     </div>
   </div>
-
 </body>
 </html>

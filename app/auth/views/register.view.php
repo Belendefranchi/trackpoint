@@ -4,50 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro de usuario</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap -->
+  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
+
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
 
   <?php
     require_once __DIR__ . '/../controllers/register.controller.php';
   ?>
+
 </head>
-<body class="bg-[#D3EBF9] min-h-screen flex items-center justify-center">
+<body style="background-color: #D3EBF9;" class="d-flex align-items-center justify-content-center min-vh-100">
   
-<div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-    <div class="flex justify-center mb-6">
-      <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" alt="Logo" class="h-20 opacity-80">
+  <div class="bg-white rounded-4 shadow p-4 p-md-5 w-100" style="max-width: 420px;">
+    <div class="text-center mb-4">
+      <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" alt="Logo" class="img-fluid opacity-75" style="max-height: 80px;">
     </div>
 
-    <h1 class="text-2xl font-bold text-center text-[#22265D] mb-6">Crear Usuario</h1>
+    <h2 class="text-center text-primary fw-bold mb-4">Crear Usuario</h2>
 
-    <form method="POST" class="space-y-4">
-      <div>
-        <label class="block text-[#22265D] font-semibold mb-1" for="nombre_completo">Nombre completo</label>
-        <input type="text" id="nombre_completo" name="nombre_completo"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label text-dark fw-semibold" for="nombre_completo">Nombre completo</label>
+        <input class="form-control" type="text" id="nombre_completo" name="nombre_completo">
       </div>
 
       <div>
-        <label class="block text-[#22265D] font-semibold mb-1" for="email">Email</label>
-        <input type="email" id="email" name="email"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
+        <label class="form-label text-dark fw-semibold" for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email">
       </div>
 
       <div>
-        <label class="block text-[#22265D] font-semibold mb-1" for="username">Usuario</label>
-        <input type="text" id="username" name="username"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
+        <label class="form-label text-dark fw-semibold" for="username">Usuario</label>
+        <input class="form-control" type="text" id="username" name="username">
       </div>
 
       <div>
-        <label class="block text-[#22265D] font-semibold mb-1" for="password">Contraseña</label>
-        <input type="password" id="password" name="password"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
+        <label class="form-label text-dark fw-semibold" for="password">Contraseña</label>
+        <input class="form-control" type="password" id="password" name="password">
       </div>
 
       <div>
-        <label class="block text-[#22265D] font-semibold mb-1" for="rol">Rol</label>
-        <select name="rol" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00B0E6]">
+        <label class="form-label text-dark fw-semibold" for="rol">Rol</label>
+        <select class="form-control" name="rol">
           <option value="">Seleccionar rol</option>
           <option value="admin">Administrador</option>
           <option value="operario">Operario</option>
@@ -55,26 +56,19 @@
         </select>
       </div>
 
-      <div class="text-center p-2">
-        <?php
-          if (isset($message)) {
-        ?>
-
-        <div class="block text-[#00B0E6]">
-          <p><?php echo $message; ?></p>
+      <?php if (isset($message)): ?>
+        <div class="alert alert-info text-center py-2">
+          <?= $message; ?>
         </div>
+      <?php endif; ?>
 
-        <?php
-          }
-        ?>
+      <div class="d-grid">
+        <input class="btn btn-primary fw-bold" type="submit" value="Registrarse">
       </div>
-
-      <input type="submit"
-        class="w-full bg-[#22265D] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#00B0E6] transition" value='Registrarse'></input>
     </form>
 
-    <div class="text-center text-sm text-gray-600 mt-4 space-y-1">
-      <a href="/trackpoint/public/login" class="text-[#00B0E6] hover:underline">¿Ya tenés cuenta? Iniciar sesión</a>
+    <div class="text-center mt-3 small text-muted">
+      <a href="/trackpoint/public/login" class="d-block text-decoration-none text-primary">¿Ya tenés cuenta? Iniciar sesión</a>
     </div>
   </div>
 </body>
