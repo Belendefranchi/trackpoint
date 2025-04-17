@@ -6,6 +6,6 @@ $routes = [
     '/logout' => 'app/auth/controllers/logout.php',
     '/register' => 'app/auth/views/register.view.php',
     '/home' => 'app/dashboard/views/home.view.php',
-    '/layout' => 'layouts/layout.view.php',
+    '/layout' => 'app/layouts/layout.view.php',
 ];
 
