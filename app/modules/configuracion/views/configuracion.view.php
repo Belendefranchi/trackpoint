@@ -45,6 +45,9 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
           <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-light" href="/trackpoint/public/reportes">REPORTES</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
         </li>
       </ul>
@@ -69,57 +72,22 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
     <!-- Aside -->
     <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
       <nav class="nav flex-column">
-
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuOperadores" role="button" aria-expanded="false" aria-controls="submenuOperadores">
-          Operadores
-        </a>
-        <div class="collapse ps-3" id="submenuOperadores">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/operadores">Operadores</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/perfiles">Perfiles</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/perfilesPorOperador">Perfiles por Operador</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisos">Permisos</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisosPorOperador">Permisos por Operador</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisosPorPerfil">Permisos por Perfil</a>
-        </div>
-
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuPersonas" role="button" aria-expanded="false" aria-controls="submenuPersonas">
-          Personas
-        </a>
-        <div class="collapse ps-3" id="submenuPersonas">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/personas/nuevaPersonas">Nueva Persona</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/personas/personas">Personas</a>
-        </div>
-
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuNumeradores" role="button" aria-expanded="false" aria-controls="submenuNumeradores">
-          Numeradores
-        </a>
-        <div class="collapse ps-3" id="submenuNumeradores">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/numeradores/nuevoNumerador">Nuevo Numerador</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/numeradores/nuemradores">Numeradores</a>
-        </div>
         
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuDestinos" role="button" aria-expanded="false" aria-controls="submenuDestinos">
-          Destinos
+      <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="false" aria-controls="submenuABMs">
+          ABMs
         </a>
-        <div class="collapse ps-3" id="submenuDestinos">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/destinos/nuevaPersonas">Nuevo Destino</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/destinos/personas">Destinos</a>
-        </div>
-
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuTransportes" role="button" aria-expanded="false" aria-controls="submenuTransportes">
-          Transportes
-        </a>
-        <div class="collapse ps-3" id="submenuTransportes">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/transportes/nuevoTransporte">Nuevo Transporte</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/transportes/transportes">Transportes</a>
-        </div>
-
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuVehiculos" role="button" aria-expanded="false" aria-controls="submenuVehiculos">
-          Vehículos
-        </a>
-        <div class="collapse ps-3" id="submenuVehiculos">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/vehiculos/nuevoVehiculo">Nuevo Vehículo</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/vehiculos/vehiculos">Vehículos</a>
+        <div class="collapse ps-3" id="submenuABMs">
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/nuemradores">Numeradores</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/personas">Destinos</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
         </div>
         
         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="false" aria-controls="submenuConfigPC">

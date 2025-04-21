@@ -45,6 +45,9 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
           <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-light" href="/trackpoint/public/reportes">REPORTES</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-light" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
         </li>
       </ul>
