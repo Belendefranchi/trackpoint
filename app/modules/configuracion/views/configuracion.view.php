@@ -1,6 +1,37 @@
 <?php
+
+$currentUri = $_SERVER['REQUEST_URI'];
+
+$abmsOpen = str_contains($currentUri, '/configuracion/ABMs') ? 'show' : '';
+$abmsActive = str_contains($currentUri, '/configuracion/ABMs') ? 'active' : '';
+
+$configPCOpen = str_contains($currentUri, '/configuracion/configPC') ? 'show' : '';
+$configPCActive = str_contains($currentUri, '/configuracion/configPC') ? 'active' : '';
+
+// Ítems del submenú ABMs
+$activeItems = [
+  'operadores' => str_contains($currentUri, 'operadores') ? 'fw-semibold text-primary' : '',
+  'perfiles' => str_contains($currentUri, 'perfiles') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
+  'perfilesPorOperador' => str_contains($currentUri, 'perfilesPorOperador') ? 'fw-semibold text-primary' : '',
+  'permisos' => str_contains($currentUri, 'permisos') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
+  'permisosPorOperador' => str_contains($currentUri, 'permisosPorOperador') ? 'fw-semibold text-primary' : '',
+  'permisosPorPerfil' => str_contains($currentUri, 'permisosPorPerfil') ? 'fw-semibold text-primary' : '',
+  'personas' => str_contains($currentUri, 'personas') ? 'fw-semibold text-primary' : '',
+  'numeradores' => str_contains($currentUri, 'numeradores') ? 'fw-semibold text-primary' : '',
+  'destinos' => str_contains($currentUri, 'destinos') ? 'fw-semibold text-primary' : '',
+  'transportes' => str_contains($currentUri, 'transportes') ? 'fw-semibold text-primary' : '',
+  'vehiculos' => str_contains($currentUri, 'vehiculos') ? 'fw-semibold text-primary' : '',
+
+  // Submenú Config PC
+  'impresoras' => str_contains($currentUri, 'impresoras') ? 'fw-semibold text-primary' : '',
+  'balanzas' => str_contains($currentUri, 'balanzas') ? 'fw-semibold text-primary' : '',
+];
+
 require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../controllers/configuracion.controller.php';
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +45,16 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
 
   <!-- Estilos personalizados -->
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
+  <style>
+    .nav-link.active-lateral {
+      color: #22265D !important;
+      font-weight: 600;
+      border-left: 4px solid #22265D;
+      padding-left: 0.75rem; /* igual a ps-3 */
+      background-color: #e9ecef; /* opcional, mejora contraste */
+    }
+  </style>
+
 </head>
 
 <body style="background-color: #D3EBF9;">
@@ -65,7 +106,6 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
   </div>
 </nav>
 
-
 <!-- Layout con Aside + Main -->
 <div class="container-fluid">
   <div class="row">
@@ -73,29 +113,28 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
     <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
       <nav class="nav flex-column">
         
-      <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="false" aria-controls="submenuABMs">
+        <a class="nav-link text-dark fw-semibold <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
           ABMs
         </a>
-        <div class="collapse ps-3" id="submenuABMs">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/nuemradores">Numeradores</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/personas">Destinos</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
+        <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
+          <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
+          <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
+          <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
+          <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
+          <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
+          <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
+          <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
+          <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
+          <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
+          <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
+          <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
         </div>
-        
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="false" aria-controls="submenuConfigPC">
+        <a class="nav-link text-dark fw-semibold <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
           Configuración PC
         </a>
-        <div class="collapse ps-3" id="submenuConfigPC">
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
+        <div class="collapse ps-3 <?= $configPCOpen ?>" id="submenuConfigPC">
+          <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
+          <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
         </div>
       </nav>
     </aside>
@@ -103,7 +142,15 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
     <!-- Contenido principal -->
     <main class="col-md-9 col-lg-10 py-4">
       <div class="container">
-        <?= $content ?? '' ?>
+        <?php if (!empty($content) && file_exists($content)) {
+            require $content;
+        } else { ?>
+            <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
+              <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
+                  alt="Fondo" 
+                  style="opacity: 0.1; max-width: 60%; max-height: 60%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+            </div>
+        <?php } ?>
       </div>
     </main>
   </div>
@@ -111,3 +158,6 @@ require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
 
 </body>
 </html>
+
+
+

@@ -8,10 +8,12 @@ $routes = [
     '/home' => 'app/dashboard/views/home.view.php',
     
     '/produccion' => 'app/modules/produccion/views/produccion.view.php',
-    '/produccion.nuevaReceta' => 'app/modules/produccion/views/produccion.nuevaReceta.view.php',
-    '/produccion.recetas' => 'app/modules/produccion/views/produccion.recetas.view.php',
+    '/produccion/nuevaReceta' => 'app/modules/produccion/views/produccion.nuevaReceta.view.php',
+    '/produccion/recetas' => 'app/modules/produccion/views/produccion.recetas.view.php',
 
     '/configuracion' => 'app/modules/configuracion/views/configuracion.view.php',
+    '/configuracion/ABMs/operadores' => 'app/modules/configuracion/views/abm.operadores.view.php',
+    '/configuracion/ABMs/perfiles' => 'app/modules/configuracion/views/abm.perfiles.view.php',
 
 ];
 
