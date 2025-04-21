@@ -1,0 +1,41 @@
+name: Build and Deploy PHP to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Cambia "main" por la rama que utilices
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Clonar el repositorio
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2. Configurar PHP
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1' # Cambia según la versión que uses
+        extensions: mbstring, xml, curl
+
+    # 3. Instalar dependencias (si usas Composer)
+    # - name: Install Dependencies
+    # run: composer install
+
+    # 4. Ejecutar el servidor PHP para generar contenido estático
+    - name: Generate Static Files
+      run: |
+        mkdir public
+        php -S localhost:8000 -t . & # Levantar un servidor PHP
+        sleep 5 # Dar tiempo al servidor para iniciar
+        wget -mkEpnp -P public http://localhost:8000 # Descargar contenido como HTML estático
+
+    # 5. Desplegar en GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
