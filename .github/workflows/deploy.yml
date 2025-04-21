@@ -22,8 +22,8 @@ jobs:
         extensions: mbstring, xml, curl
 
     # 3. Instalar dependencias (si usas Composer)
-    - name: Install Dependencies
-      run: composer install
+    # - name: Install Dependencies
+    # run: composer install
 
     # 4. Ejecutar el servidor PHP para generar contenido estático
     - name: Generate Static Files
