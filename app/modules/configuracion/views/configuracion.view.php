@@ -1,0 +1,101 @@
+<?php
+require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><?= $title ?? 'Panel de Control' ?></title>
+
+  <!-- Bootstrap -->
+  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
+
+  <!-- Estilos personalizados -->
+  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
+</head>
+
+<body style="background-color: #D3EBF9;">
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark" style="background-color: #22265D;">
+  <div class="container-fluid">
+    
+    <div class="col-2 d-flex align-items-center justify-content-center">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/trackpoint/public/">
+        <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
+        TrackPoint
+      </a>
+    </div>
+
+    <div class="col-6 d-flex justify-content-start align-items-center">
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a class="nav-link text-light" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="/trackpoint/public/depositos">DEPÓSITOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-4 d-flex align-items-center justify-content-end">
+      <div class="search-bar d-flex align-items-center me-3">
+        <i class="bd-search"></i>
+        <input type="text" class="form-control search-input" id="search" placeholder="Buscar..." aria-label="Search" />
+      </div>
+
+      <a class="nav-link text-light p-2" href="/trackpoint/public/home">Dashboard</a>
+      <a class="nav-link text-info p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Layout con Aside + Main -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Aside -->
+    <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
+      <nav class="nav flex-column">
+        
+
+        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuOperadores" role="button" aria-expanded="false" aria-controls="submenuOperadores">
+          Operadores
+        </a>
+        <div class="collapse ps-3" id="submenuOperadores">
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/operadores">Operadores</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/perfiles">Perfiles</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/perfilesPorOperador">Perfiles por Operador</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisos">Permisos</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisosPorOperador">Permisos por Operador</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/configuracion/operadores/permisosPorPerfil">Permisos por Perfil</a>
+
+
+        </div>
+        
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="col-md-9 col-lg-10 py-4">
+      <div class="container">
+        <?= $content ?? '' ?>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

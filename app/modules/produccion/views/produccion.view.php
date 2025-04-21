@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,19 +33,19 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
 
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link text-light"  href="#">INGRESO A PLANTA</a>
+          <a class="nav-link text-light" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">PRODUCCIÓN</a>
+          <a class="nav-link active" aria-current="page" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">DEPÓSITOS</a>
+          <a class="nav-link text-light" href="/trackpoint/public/depositos">DEPÓSITOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">EXPEDICIÓN</a>
+          <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">CONFIGURACIÓN</a>
+          <a class="nav-link text-light" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
         </li>
       </ul>
     </div>
@@ -70,48 +70,68 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
     <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
       <nav class="nav flex-column">
         
-        <!--  -->
-        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuRecetas" role="button" aria-expanded="false" aria-controls="submenuRecetas">Recetas</a>
+
+        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuRecetas" role="button" aria-expanded="false" aria-controls="submenuRecetas">
+          Recetas
+        </a>
         <div class="collapse ps-3" id="submenuRecetas">
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/recetas/nuevaReceta">Nueva Recetas</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/recetas/nuevaReceta">Nueva Receta</a>
           <a class="nav-link text-muted" href="/trackpoint/public/produccion/recetas/recetas">Recetas</a>
         </div>
-
-        <!--  -->
+        
         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuPlanificacion" role="button" aria-expanded="false" aria-controls="submenuPlanificacion">
-        Planificación de la producción
+          Planificación de la producción
         </a>
         <div class="collapse ps-3" id="submenuPlanificacion">
           <a class="nav-link text-muted" href="/trackpoint/public/produccion/planificacion/planConSeleccion">Plan con Selección de Stock</a>
           <a class="nav-link text-muted" href="/trackpoint/public/produccion/planificacion/planSinSeleccion">Plan sin Selección de Stock</a>
         </div>
 
-        <!--   -->
         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuIngreso" role="button" aria-expanded="false" aria-controls="submenuIngreso">
-        Ingreso a producción
+          Ingreso a producción
         </a>
         <div class="collapse ps-3" id="submenuIngreso">
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/ingreso/planConSeleccion">Plan con Selección de Stock</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/ingreso/planSinSeleccion">Plan sin Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/ingreso/planConSeleccion">Ingreso a proceso con Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/ingreso/planSinSeleccion">Ingreso a proceso sin Selección de Stock</a>
         </div>
 
-        <!--   -->
         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuEtqPrimarias" role="button" aria-expanded="false" aria-controls="submenuEtqPrimarias">
-        Emisión de Etiquetas Primarias
+          Emisión de Etiquetas Primarias
         </a>
         <div class="collapse ps-3" id="submenuEtqPrimarias">
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqPrimarias/planConSeleccion">Plan con Selección de Stock</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqPrimarias/planSinSeleccion">Plan sin Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqPrimarias/planConSeleccion">Etiquetas primarias con Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqPrimarias/planSinSeleccion">Etiquetas primarias sin Selección de Stock</a>
         </div>
 
-        <!--   -->
         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#submenuEtqSecundarias" role="button" aria-expanded="false" aria-controls="submenuEtqSecundarias">
-        Emisión de Etiquetas Secundarias
+          Emisión de Etiquetas Secundarias
         </a>
         <div class="collapse ps-3" id="submenuEtqSecundarias">
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqSecundarias/planConSeleccion">Plan con Selección de Stock</a>
-          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqSecundarias/planSinSeleccion">Plan sin Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqSecundarias/planConSeleccion">Etiquetas secundarias con Selección de Stock</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/etqSecundarias/planSinSeleccion">Etiquetas secundarias sin Selección de Stock</a>
         </div>
+
+<!--         <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#conSelStock" role="button" aria-expanded="false" aria-controls="conSelStock">
+          Con selección de stock
+        </a>
+        <div class="collapse ps-3" id="conSelStock">
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/conSelStock/recetas">Recetas</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/conSelStock/planificacion">Planificación de la Producción</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/conSelStock/ingresoaProd">Ingreso a Producción</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/conSelStock/etqsPrimarias">Etiquetas Primarias</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/conSelStock/etqsSecundarias">Etiquetas Secundarias</a>
+        </div>
+
+        <a class="nav-link text-dark fw-semibold" data-bs-toggle="collapse" href="#sinSelStock" role="button" aria-expanded="false" aria-controls="sinSelStock">
+          Sin selección de stock
+        </a>
+        <div class="collapse ps-3" id="sinSelStock">
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/sinSelStock/recetas">Recetas</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/sinSelStock/planificacion">Planificación de la Producción</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/sinSelStock/ingresoaProd">Ingreso a Producción</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/sinSelStock/etqsPrimarias">Etiquetas Primarias</a>
+          <a class="nav-link text-muted" href="/trackpoint/public/produccion/sinSelStock/etqsSecundarias">Etiquetas Secundarias</a>
+        </div> -->
       </nav>
     </aside>
 

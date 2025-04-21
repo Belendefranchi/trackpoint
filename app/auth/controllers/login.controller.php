@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       
       $message = "Autenticación exitosa. Redirigiendo...";
 
-      header("Location: /trackpoint/public/layout");
+      header("Location: /trackpoint/public/produccion");
       exit();
     } else {
         // Error de autenticación

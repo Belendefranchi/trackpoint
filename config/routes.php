@@ -6,6 +6,12 @@ $routes = [
     '/logout' => 'app/auth/controllers/logout.php',
     '/register' => 'app/auth/views/register.view.php',
     '/home' => 'app/dashboard/views/home.view.php',
-    '/layout' => 'app/layouts/layout.view.php',
+    
+    '/produccion' => 'app/modules/produccion/views/produccion.view.php',
+    '/produccion.nuevaReceta' => 'app/modules/produccion/views/produccion.nuevaReceta.view.php',
+    '/produccion.recetas' => 'app/modules/produccion/views/produccion.recetas.view.php',
+
+    '/configuracion' => 'app/modules/configuracion/views/configuracion.view.php',
+
 ];
 
