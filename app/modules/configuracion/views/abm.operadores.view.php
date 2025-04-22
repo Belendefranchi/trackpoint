@@ -2,12 +2,12 @@
 require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
 ?>
 
-<div class="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-6">
-    <h2 class="text-xl font-bold text-[#22265D] mb-4">Listado de Operadores</h2>
-    <button type="button" name="actualizar" class="text-green-600 hover:underline">Nuevo operador</button>
-    <table class="w-full table-auto border border-gray-300">
-        <thead class="bg-[#D3EBF9] text-[#22265D]">
-            <tr>
+<div class="bg-white rounded-2xl shadow-lg mt-2 p-4">
+    <h2 class="text-xl font-bold text-[#22265D] m-4">Operadores</h2>
+    <button type="button" name="crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4">Nuevo operador</button>
+    <table class="m-4">
+        <thead class="table-primary">
+            <tr class="text-center text-light table-primary">
                 <th class="p-2 border">ID</th>
                 <th class="p-2 border">Nombre</th>
                 <th class="p-2 border">Email</th>
@@ -20,20 +20,28 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
             <?php foreach ($operadores as $operador): ?>
                 <?php if (isset($_GET['editar']) && $_GET['editar'] == $operador['id']): ?>
                     <!-- Modo edición -->
-                    <tr class="text-center border-t bg-gray-100">
-                        <form method="POST">
+                    <form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>">
+                        <tr id="fila<?= $operador['id'] ?>" class="text-center border-t bg-gray-100">
                             <td class="p-2 border"><?= $operador['id'] ?></td>
-                            <td class="p-2 border"><input type="text" name="nombre_completo" value="<?= $operador['nombre_completo'] ?>" required class="w-full p-1"></td>
-                            <td class="p-2 border"><input type="email" name="email" value="<?= $operador['email'] ?>" required class="w-full p-1"></td>
-                            <td class="p-2 border"><input type="text" name="rol" value="<?= $operador['rol'] ?>" required class="w-full p-1"></td>
-                            <td class="p-2 border"><input type="text" name="fecha" value="<?= $operador['creado_en'] ?>" required class="w-full p-1"></td>
+                            <td class="p-2 border">
+                                <input type="text" name="nombre_completo" value="<?= htmlspecialchars($operador['nombre_completo']) ?>" required class="w-full p-1">
+                            </td>
+                            <td class="p-2 border">
+                                <input type="email" name="email" value="<?= htmlspecialchars($operador['email']) ?>" required class="w-full p-1">
+                            </td>
+                            <td class="p-2 border">
+                                <input type="text" name="rol" value="<?= htmlspecialchars($operador['rol']) ?>" required class="w-full p-1">
+                            </td>
+                            <td class="p-2 border">
+                                <input type="text" name="creado_en" value="<?= htmlspecialchars($operador['creado_en']) ?>" readonly class="w-full p-1">
+                            </td>
                             <td class="p-2 border">
                                 <input type="hidden" name="id" value="<?= $operador['id'] ?>">
-                                <input type="submit" name="actualizar" class="text-green-600 hover:underline">Guardar</input>
-                                <a href="?" class="text-gray-500 hover:underline ml-2">Cancelar</a>
+                                <input type="submit" name="editar" class="btn btn-sm btn-success" value="Aceptar">
+                                <a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-secondary">Cancelar</a>
                             </td>
-                        </form>
-                    </tr>
+                        </tr>
+                    </form>
                 <?php else: ?>
                     <!-- Modo visual -->
                     <tr class="text-center border-t">
@@ -43,12 +51,16 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
                         <td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
                         <td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
                         <td class="p-2 border">
-                            <p><a href="?editar=<?= $operador['id'] ?>" class="text-blue-600 hover:underline">Editar</a></p>
-                            <p><a href="?eliminar=<?= $operador['id'] ?>" class="text-blue-600 hover:underline">Eliminar</a></p>
+                            <form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['id'] ?>">
+                                <a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>" class="btn btn-sm btn-warning ms-2">Editar</a>
+                                <input type="hidden" name="id" value="<?= $operador['id'] ?>">
+                                <input type="submit" name="eliminar" class="btn btn-sm btn-danger ms-2" value="Eliminar">
+                            </form>
                         </td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
-        </tbody>
+            </tbody>
+
     </table>
 </div>

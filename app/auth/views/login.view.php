@@ -9,6 +9,8 @@
   <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
   <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
 
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
 
   <?php

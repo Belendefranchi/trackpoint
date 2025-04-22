@@ -1,0 +1,36 @@
+/* Colores personalizados */
+:root {
+ --bs-primary: #22265D;
+ --bs-secondary: #00B0E6;
+/*  --bs-light: #D3EBF9;
+ --bs-body-bg: #D3EBF9; */
+}
+
+/* Sobrescribir botones */
+.btn-primary {
+ background-color: var(--bs-primary) !important;
+ border-color: var(--bs-primary) !important;
+}
+
+/* .btn-secondary {
+ background-color: var(--bs-secondary) !important;
+ border-color: var(--bs-secondary) !important;
+} */
+
+/* Colores de texto */
+.text-primary {
+ color: var(--bs-primary) !important;
+}
+
+.text-secondary {
+ color: var(--bs-secondary) !important;
+}
+
+.table-primary{
+ background-color: var(--bs-primary) !important;
+}
+
+/* Color de fondo general */
+body {
+ background-color: var(--bs-body-bg);
+}

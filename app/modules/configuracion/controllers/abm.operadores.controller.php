@@ -4,21 +4,31 @@ require_once __DIR__ . '/configuracion.controller.php';
 
 // Lógica de crear, eliminar, actualizar
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['crear'])) {
-        crearOperador($_POST['nombre_completo'], $_POST['email'], $_POST['rol']);
-    }
+    if (isset($_POST['editar'])) {
+        $id = $_POST['id'];
+        $nombre_completo = $_POST['nombre_completo'];
+        $email = $_POST['email'];
+        $rol = $_POST['rol'];
+        $fecha = $_POST['creado_en'];
 
-    if (isset($_POST['eliminar'])) {
-        eliminarOperador($_POST['id']);
-    }
+        // Llamar a la función que actualiza los datos
+        editarOperador($id, $nombre_completo, $email, $rol);
 
-    if (isset($_POST['actualizar'])) {
-        actualizarOperador($_POST['id'], $_POST['nombre_completo'], $_POST['email'], $_POST['rol']);
-    }
+        // Redirigimos para evitar reenvío del formulario
+        header('Location: index.php?route=/configuracion/ABMs/operadores');
+        exit;
+    } elseif (isset($_POST['eliminar'])) {
+        $id = $_POST['id'];
 
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
+        // Llamar a la función que elimina el operador
+        eliminarOperador($id);
+
+        // Redirigimos para evitar reenvío del formulario
+        header('Location: index.php?route=/configuracion/ABMs/operadores');
+        exit;
+    }
 }
+
 
 // Obtener datos para pasar a la vista
 $operadores = obtenerOperadores();

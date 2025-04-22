@@ -9,6 +9,8 @@
   <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
   <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
 
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
 
   <?php
@@ -31,22 +33,22 @@
         <input class="form-control" type="text" id="nombre_completo" name="nombre_completo">
       </div>
 
-      <div>
+      <div class="mb-3">
         <label class="form-label text-dark fw-semibold" for="email">Email</label>
         <input class="form-control" type="email" id="email" name="email">
       </div>
 
-      <div>
+      <div class="mb-3">
         <label class="form-label text-dark fw-semibold" for="username">Usuario</label>
         <input class="form-control" type="text" id="username" name="username">
       </div>
 
-      <div>
+      <div class="mb-3">
         <label class="form-label text-dark fw-semibold" for="password">Contraseña</label>
         <input class="form-control" type="password" id="password" name="password">
       </div>
 
-      <div>
+      <div class="mb-3">
         <label class="form-label text-dark fw-semibold" for="rol">Rol</label>
         <select class="form-control" name="rol">
           <option value="">Seleccionar rol</option>
