@@ -15,7 +15,7 @@ $routes = [
 
     '/configuracion' => 'app/modules/configuracion/views/configuracion.view.php',
     '/configuracion/ABMs/operadores' => 'app/modules/configuracion/views/abm.operadores.view.php',
-    '/configuracion/ABMs/operadores' => 'app/modules/configuracion/controllers/abm.operadores.controller.php',
+    '/configuracion/ABMs/operadores/nuevo' => 'app/modules/configuracion/controllers/abm.operadores.controller.php',
 
     '/configuracion/ABMs/perfiles' => 'app/modules/configuracion/views/abm.perfiles.view.php',
 

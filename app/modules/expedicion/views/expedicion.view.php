@@ -128,6 +128,9 @@ $activeItems = [
                     alt="Fondo" 
                     style="opacity: 0.1; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
               </div>
+              <div class="d-flex justify-content-center align-items-center fs-3" style="opacity: 0.5">
+                <p class="text-primary fw-bold pt-4">Selecciona una pantalla para comenzar</p>
+              </div>
           <?php } ?>
         </div>
       </main>

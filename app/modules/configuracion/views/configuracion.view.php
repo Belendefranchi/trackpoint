@@ -39,8 +39,11 @@ $activeItems = [
   <title><?= $title ?? 'Configuración' ?></title>
 
   <!-- Bootstrap -->
-  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/bootstrap.min.css" />
   <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
+  <link rel="stylesheet" href="/trackpoint/public/assets/icons/font/bootstrap-icons.css">
+
+
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
@@ -142,6 +145,9 @@ $activeItems = [
           <?php if (!empty($content) && file_exists($content)) {
               require $content;
           } else { ?>
+              <div class="d-flex justify-content-center align-items-center fs-3" style="opacity: 0.5">
+                <p class="text-primary fw-bold pt-4">Selecciona una pantalla para comenzar</p>
+              </div>
               <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
                 <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
                     alt="Fondo" 

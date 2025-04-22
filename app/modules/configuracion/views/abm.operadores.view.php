@@ -4,7 +4,8 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
 
 <div class="bg-white rounded-2xl shadow-lg mt-2 p-4">
     <h2 class="text-xl font-bold text-[#22265D] m-4">Operadores</h2>
-    <button type="button" name="crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4">Nuevo operador</button>
+    <a href="/trackpoint/public/index.php?route=/register" class="btn btn-primary btn-sm fw-bold hover:underline ms-4">Nuevo operador</a>
+
     <table class="m-4">
         <thead class="table-primary">
             <tr class="text-center text-light table-primary">
@@ -37,8 +38,8 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
                             </td>
                             <td class="p-2 border">
                                 <input type="hidden" name="id" value="<?= $operador['id'] ?>">
-                                <input type="submit" name="editar" class="btn btn-sm btn-success" value="Aceptar">
-                                <a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-secondary">Cancelar</a>
+                                <input type="submit" name="editar" class="btn btn-sm btn-success me-1" value="Aceptar">
+                                <a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-secondary me-1">Cancelar</a>
                             </td>
                         </tr>
                     </form>
@@ -52,9 +53,14 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
                         <td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
                         <td class="p-2 border">
                             <form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['id'] ?>">
-                                <a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>" class="btn btn-sm btn-warning ms-2">Editar</a>
+                                <a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>" class="btn btn-sm btn-warning ms-2">
+                                    <i class="bi bi-pencil me-1"></i>Editar
+                                </a>
                                 <input type="hidden" name="id" value="<?= $operador['id'] ?>">
-                                <input type="submit" name="eliminar" class="btn btn-sm btn-danger ms-2" value="Eliminar">
+                                <button type="submit" name="eliminar" class="btn btn-sm btn-danger ms-2">
+                                    <i class="bi bi-trash me-1"></i>Eliminar
+                                </button>
+                                <!-- <input type="submit" name="eliminar" class="btn btn-sm btn-danger ms-2" value="Eliminar"> -->
                             </form>
                         </td>
                     </tr>
