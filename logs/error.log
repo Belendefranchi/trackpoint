@@ -3,3 +3,16 @@ Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for 
 Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]No se puede insertar el valor NULL en la columna 'password', tabla 'trackpoint.dbo.users'. La columna no admite valores NULL. Error de INSERT.
 Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Infracción de la restricción UNIQUE KEY 'UQ__users__F3DBC57224B7805A'. No se puede insertar una clave duplicada en el objeto 'dbo.users'. El valor de la clave duplicada es (prueba).
 Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Infracción de la restricción UNIQUE KEY 'UQ__users__F3DBC57224B7805A'. No se puede insertar una clave duplicada en el objeto 'dbo.users'. El valor de la clave duplicada es (prueba).
+
+
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log
+Test log

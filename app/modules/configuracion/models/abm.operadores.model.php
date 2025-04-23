@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/../../../../config/db.php';
+require_once __DIR__ . '/../../../../config/helpers.php';
+
+error_log("Test log\n", 3, __DIR__ . '/../../../../logs/error.log');
+
 
 function obtenerOperadores() {
     try {
