@@ -50,7 +50,6 @@
     </form>
 
     <div class="text-center mt-3 small text-muted">
-      <a href="/trackpoint/public/register" class="d-block text-decoration-none text-primary">¿No tenés una cuenta? Registrate</a>
       <a href="#" class="d-block text-decoration-none text-primary">¿Olvidaste tu contraseña?</a>
     </div>
   </div>
