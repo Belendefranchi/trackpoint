@@ -1,9 +1,11 @@
 [2025-04-24 08:34:59] | ERROR | Invitado | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
 [2025-04-24 08:38:36] | ERROR | admin | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
 [2025-04-24 08:39:28] | ERROR | admin | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
-
 [2025-04-24 11:27:56] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'perfiles' no es válido.
 [2025-04-24 11:30:56] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'perfiles' no es válido.
 [2025-04-24 11:32:58] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'perfiles' no es válido.
 [2025-04-24 11:33:06] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'perfiles' no es válido.
 [2025-04-24 11:42:37] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'perfiles' no es válido.
+[2025-04-24 20:02:20] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
+[2025-04-24 20:03:20] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
+[2025-04-24 20:03:28] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
