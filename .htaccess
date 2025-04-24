@@ -1,0 +1,5 @@
+# Evitar listado de directorios
+Options -Indexes
+
+# Si acceden a esta carpeta directamente, redirigir a /public/
+DirectoryIndex redirect.php

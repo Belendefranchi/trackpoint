@@ -4,10 +4,10 @@ function registrarEvento($mensaje, $tipo = 'INFO') {
  $fechaHora = date('Y-m-d H:i:s');
 
  // Usuario actual si está logueado
- $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : 'Invitado';
+ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : 'Invitado';
 
  // Formato del mensaje
- $linea = "[$fechaHora]\nTipo: $tipo\nUsuario: $usuario\nMensaje: $mensaje\n" . str_repeat('-', 60) . "\n";
+ $linea = "[$fechaHora] | $tipo | $usuario | $mensaje\n"/*  . str_repeat('-', 60) . "\n" */;
 
  // Ruta del archivo de log según el tipo
  if (in_array($tipo, ['ERROR', 'CRITICAL'])) {

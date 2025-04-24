@@ -5,34 +5,39 @@ if (isset($_SESSION['id'])) {
   exit();
 }
 require_once __DIR__ . '/../models/login.model.php';
+require_once __DIR__ . '/../../../config/helpers.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $email = $_POST['email'];
+  $username = $_POST['username'];
   $password = $_POST['password'];
 
-  if (empty($email) && empty($password)) {
+  if (empty($username) && empty($password)) {
     $message = "Por favor ingrese el usuario y la contraseña";
-  } elseif (empty($email)) {
+  } elseif (empty($username)) {
     $message = "Por favor ingrese el usuario";
   } elseif (empty($password)) {
     $message = "Por favor ingrese la contraseña";
-  } elseif ($email && $password) {
+  } elseif ($username && $password) {
 
-    $user = loginUser($email, $password);
+    $user = loginUser($username, $password);
     if ($user) {
       $_SESSION['id'] = $user['id'];
-      $_SESSION['email'] = $user['email'];
       $_SESSION['username'] = $user['username'];
+      $_SESSION['email'] = $user['email'];
       $_SESSION['rol'] = $user['rol'];
       $_SESSION['nombre_completo'] = $user['nombre_completo'];
       
-      $message = "Autenticación exitosa. Redirigiendo...";
+      registrarEvento("Autenticación correcta", "INFO");
 
       header("Location: /trackpoint/public/home");
       exit();
     } else {
-        // Error de autenticación
-        $message = "Email o contraseña incorrectos.";
+      $_SESSION['username'] = $_POST['username'];
+
+      // Error de autenticación
+      $message = "username o contraseña incorrectos.";
+      registrarEvento("Autenticación incorrecta", "INFO");
     }
   }
 }

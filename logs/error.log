@@ -1,18 +1,3 @@
-Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
-Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
-Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]No se puede insertar el valor NULL en la columna 'password', tabla 'trackpoint.dbo.users'. La columna no admite valores NULL. Error de INSERT.
-Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Infracción de la restricción UNIQUE KEY 'UQ__users__F3DBC57224B7805A'. No se puede insertar una clave duplicada en el objeto 'dbo.users'. El valor de la clave duplicada es (prueba).
-Error al crear el usuario: SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Infracción de la restricción UNIQUE KEY 'UQ__users__F3DBC57224B7805A'. No se puede insertar una clave duplicada en el objeto 'dbo.users'. El valor de la clave duplicada es (prueba).
-
-
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
-Test log
+[2025-04-24 08:34:59] | ERROR | Invitado | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
+[2025-04-24 08:38:36] | ERROR | admin | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.
+[2025-04-24 08:39:28] | ERROR | admin | Error al autenticar al usuario: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Sintaxis incorrecta cerca de la palabra clave 'user'.

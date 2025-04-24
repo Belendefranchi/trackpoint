@@ -1,19 +1,13 @@
 <?php
 require_once __DIR__ . '/../../../config/db.php';
+require_once __DIR__ . '/../../../config/helpers.php';
 
-function loginUser($email, $password) {
+function loginUser($username, $password) {
     try {
         $conn = getConnection();
-/*         if (!$conn) {
-            return false;
-        } */
 
-        $stmt = $conn->prepare("
-            SELECT *
-            FROM users 
-            WHERE email = :email
-        ");
-        $stmt->bindParam(':email', $email);
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $username);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,8 +22,10 @@ function loginUser($email, $password) {
         }
 
     } catch (PDOException $e) {
+        $_SESSION['username'] = $_POST['username'];
+
         // Manejo de errores
-        error_log("Error al autenticar al usuario: " . $e->getMessage(), 3, __DIR__ . '/../../../logs/error.log');
+        registrarEvento("Error al autenticar al usuario: " . $e->getMessage(), "ERROR");
         return false;
     }
 }

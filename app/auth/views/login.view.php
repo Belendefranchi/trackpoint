@@ -29,8 +29,8 @@
 
     <form method="POST">
       <div class="mb-3">
-        <label class="form-label text-dark fw-semibold" for="email">Correo electrónico</label>
-        <input type="text" class="form-control" id="email" name="email">
+        <label class="form-label text-dark fw-semibold" for="username">Usuario</label>
+        <input type="text" class="form-control" id="username" name="username">
       </div>
 
       <div class="mb-3">

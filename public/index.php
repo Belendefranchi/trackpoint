@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("America/Argentina/Buenos_Aires");
+
 // Carga del ruteador y las rutas
 require_once __DIR__ . '/../core/router.php';
 require_once __DIR__ . '/../config/routes.php';
