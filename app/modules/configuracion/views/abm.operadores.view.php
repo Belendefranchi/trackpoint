@@ -3,7 +3,6 @@ require_once __DIR__ . '/../controllers/abm.operadores.controller.php';
 require_once __DIR__ . '/../../../../config/constants.php';
 require_once __DIR__ . '/../../../../core/permisos.php';
 
-
 ?>
 
 <div class="bg-white rounded-2xl shadow-lg mt-2 p-4">

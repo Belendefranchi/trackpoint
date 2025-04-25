@@ -2,10 +2,10 @@
 require_once __DIR__ . '/../../../../config/db.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-function obtenerPerfiles() {
+function obtenerPermisos() {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->query("SELECT * FROM configuracion_abm_perfiles");
+		$stmt = $conn->query("SELECT * FROM configuracion_abm_permisos");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -14,51 +14,51 @@ function obtenerPerfiles() {
 	}
 }
 
-function perfilExists($nombre) {
+function permisoExists($nombre) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT nombre FROM configuracion_abm_perfiles WHERE nombre = :nombre");
+		$stmt = $conn->prepare("SELECT nombre FROM configuracion_abm_permisos WHERE nombre = :nombre");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->execute();
 		$perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $perfil ?: false;
 	} catch (PDOException $e) {
-		registrarEvento("Error al verificar si el perfil existe: " . $e->getMessage(), "ERROR");
+		registrarEvento("Error al verificar si el permiso existe: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
 
-function crearPerfil($nombre, $descripcion) {
+function crearPermiso($nombre, $descripcion) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_perfiles (nombre, descripcion) VALUES (:nombre, :descripcion)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permisos (nombre, descripcion) VALUES (:nombre, :descripcion)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al crear el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Error al crear el permiso: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
 
-function eliminarPerfil($id) {
+function eliminarPermiso($id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_perfiles WHERE id = :id");
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_permisos WHERE id = :id");
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al eliminar el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Error al eliminar el permiso: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
 
-function editarPerfil($id, $nombre, $descripcion, $activo) {
+function editarPermiso($id, $nombre, $descripcion, $activo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion, activo = :activo WHERE id = :id");
+		$stmt = $conn->prepare("UPDATE configuracion_abm_permisos SET nombre = :nombre, descripcion = :descripcion, activo = :activo WHERE id = :id");
 		$stmt->bindParam(':id', $id);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
@@ -67,7 +67,7 @@ function editarPerfil($id, $nombre, $descripcion, $activo) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al actualizar el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Error al actualizar el permiso: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

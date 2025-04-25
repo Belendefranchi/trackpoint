@@ -1,12 +1,13 @@
 -- Crear la tabla de usuarios
-CREATE TABLE users (
+CREATE TABLE configuracion_abm_operadores (
     id INT PRIMARY KEY IDENTITY(1,1),
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     nombre_completo VARCHAR(100),
     email VARCHAR(100),
     rol VARCHAR(50),
-    creado_en DATETIME DEFAULT GETDATE()
+    creado_en DATETIME DEFAULT GETDATE(),
+    activo BIT DEFAULT 1
 );
 
 -- Insertar un usuario de ejemplo
