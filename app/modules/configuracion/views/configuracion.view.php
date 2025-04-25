@@ -50,22 +50,22 @@ $activeItems = [
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
   <style>
     .nav-link.active-lateral {
-      color: #22265D !important;
+      color: #00B0E6 !important;
       font-weight: 600;
-      border-left: 4px solid #22265D;
+      border-left: 4px solid #00B0E6;
       padding-left: 0.75rem; /* igual a ps-3 */
-      background-color: #e9ecef; /* opcional, mejora contraste */
+      background-color: #3A4280; /* opcional, mejora contraste */
     }
   </style>
 </head>
 
-<body style="background-color: #D3EBF9;">
+<body style="background-color:rgb(241, 250, 255);">
   <!-- Navbar -->
-  <nav class="navbar navbar-dark" style="background-color: #22265D;">
+  <nav class="navbar navbar-dark" style="background-color: #3A4280;">
     <div class="container-fluid">
       
       <div class="col-2 d-flex align-items-center justify-content-center">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/trackpoint/public/">
+        <a class="navbar-brand d-flex align-items-center gap-2 text-white" href="/trackpoint/public/">
           <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
           TrackPoint
         </a>
@@ -74,22 +74,22 @@ $activeItems = [
       <div class="col-6 d-flex justify-content-start align-items-center">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-          <a class="nav-link text-light" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+            <a class="nav-link text-white" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
+            <a class="nav-link text-white" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/depositos">DEPÓSITOS</a>
+            <a class="nav-link text-white" href="/trackpoint/public/depositos">DEPÓSITOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
+            <a class="nav-link text-white" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/reportes">REPORTES</a>
+            <a class="nav-link text-white" href="/trackpoint/public/reportes">REPORTES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
+            <a class="nav-link table-primary text-white active" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
           </li>
         </ul>
       </div>
@@ -101,7 +101,7 @@ $activeItems = [
         </div>
 
         <a class="nav-link text-light p-2" href="/trackpoint/public/home">Dashboard</a>
-        <a class="nav-link text-info p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
+        <a class="nav-link text-white p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
       </div>
     </div>
   </nav>
@@ -110,34 +110,34 @@ $activeItems = [
   <div class="container-fluid">
     <div class="row">
       <!-- Aside -->
-      <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
-        <nav class="nav flex-column">
-          
-          <a class="nav-link text-dark fw-semibold <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
+      <aside class="col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
+        <div class="nav flex-column">
+          <a class="nav-link text-white fw-semibold <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
             ABMs
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
-            <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
-            <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
-            <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
-            <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
-            <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
-            <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
-            <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
-            <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
-            <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
-            <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
-            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
+            <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
+            <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
+            <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
+            <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
+            <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
+            <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
+            <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
+            <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
+            <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
+            <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
+            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
           </div>
-          <a class="nav-link text-dark fw-semibold <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
+          <a class="nav-link text-white fw-semibold <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
             Configuración PC
           </a>
           <div class="collapse ps-3 <?= $configPCOpen ?>" id="submenuConfigPC">
-            <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
-            <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'text-muted' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
+            <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
+            <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
           </div>
-        </nav>
+        </div>
       </aside>
+
 
       <!-- Contenido principal -->
       <main class="col-md-9 col-lg-10 py-4">
@@ -145,13 +145,13 @@ $activeItems = [
           <?php if (!empty($content) && file_exists($content)) {
               require $content;
           } else { ?>
-              <div class="d-flex justify-content-center align-items-center fs-3" style="opacity: 0.5">
-                <p class="text-primary fw-bold pt-4">Selecciona una pantalla para comenzar</p>
+              <div class="d-flex justify-content-center align-items-center fs-3" style="opacity: 0.5;">
+                <p class="text-primary pt-4">Selecciona una pantalla para comenzar</p>
               </div>
               <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
                 <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
                     alt="Fondo" 
-                    style="opacity: 0.1; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+                    style="opacity: 0.4; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
               </div>
           <?php } ?>
         </div>

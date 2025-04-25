@@ -1,6 +1,7 @@
 <?php
 
 function registrarEvento($mensaje, $tipo = 'INFO') {
+
     $fechaHora = date('Y-m-d H:i:s');
 
     // Usuario actual si está logueado

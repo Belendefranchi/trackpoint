@@ -2,8 +2,8 @@
 :root {
  --bs-primary: #22265D;
  --bs-secondary: #00B0E6;
-/*  --bs-light: #D3EBF9;
- --bs-body-bg: #D3EBF9; */
+/*  --bs-light: #D3EBF9;*/
+/*  --bs-body-bg: #D3EBF9; */ 
 }
 
 /* Sobrescribir botones */
@@ -31,6 +31,12 @@
 }
 
 /* Color de fondo general */
-body {
+/* body {
  background-color: var(--bs-body-bg);
+} */
+
+.active-lateral {
+  border-left: 4px solid #00B0E6;
+  padding-left: 0.75rem; /* opcional: para que no se monte el texto encima del borde */
+  background-color: rgba(0, 176, 230, 0.1); /* opcional: un leve fondo para destacar */
 }

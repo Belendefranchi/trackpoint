@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/db.php';
+
 function obtenerPermisosDelOperador($conn, $operador_id) {
 	$sql = "SELECT p.nombre 
 					FROM operador_perfil op
