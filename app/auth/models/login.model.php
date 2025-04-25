@@ -6,7 +6,7 @@ function loginUser($username, $password) {
     try {
         $conn = getConnection();
 
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt = $conn->prepare("SELECT * FROM configuracion_abm_operadores WHERE username = :username");
         $stmt->bindParam(':username', $username);
         $stmt->execute();
 
