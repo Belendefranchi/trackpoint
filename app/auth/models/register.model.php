@@ -8,7 +8,7 @@ function userExists($email) {
         return false;
     }
     
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
+    $stmt = $conn->prepare("SELECT id FROM configuracion_abm_operadores WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     
@@ -29,7 +29,7 @@ function crearUsuario($nombre_completo, $email, $username, $hashedPassword, $rol
         return false;
     }
     
-    $stmt = $conn->prepare("INSERT INTO users (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
+    $stmt = $conn->prepare("INSERT INTO configuracion_abm_operadores (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
     $stmt->bindParam(':nombre_completo', $nombre_completo);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
