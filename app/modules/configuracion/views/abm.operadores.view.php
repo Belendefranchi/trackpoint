@@ -84,6 +84,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<th class="p-2 border">Email</th>
 				<th class="p-2 border">Rol</th>
 				<th class="p-2 border">Fecha de creación</th>
+				<th class="p-2 border">Activo</th>
 				<th class="p-2 border">Acciones</th>
 			</tr>
 		</thead>
@@ -120,6 +121,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								<?= $operador['creado_en'] ?>
 							</td>
 							<td class="p-2 border">
+								<select name="activo" required>
+									<option value="1" <?= $operador['activo'] === '1' ? 'selected' : '' ?>>Sí</option>
+									<option value="0" <?= $operador['activo'] === '0' ? 'selected' : '' ?>>No</option>
+								</select>
+							</td>
+							<td class="p-2 border">
 								<input type="hidden" name="id" value="<?= $operador['id'] ?>">
 								<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 									<i class="bi bi-check-circle m-1"></i>
@@ -140,6 +147,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
+						<td class="p-2 border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
 							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['id'] ?>">
 								<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>" class="btn btn-sm btn-warning me-1">

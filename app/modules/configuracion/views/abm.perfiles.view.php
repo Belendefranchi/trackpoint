@@ -60,6 +60,7 @@ require_once __DIR__ . '/../../../../config/constants.php';
 				<th class="p-2 border">Perfil</th>
 				<th class="p-2 border">Descripción</th>
 				<th class="p-2 border">Fecha de creación</th>
+				<th class="p-2 border">Activo</th>
 				<th class="p-2 border">Acciones</th>
 			</tr>
 	</thead>
@@ -81,6 +82,12 @@ require_once __DIR__ . '/../../../../config/constants.php';
 							<?= $perfil['creado_en'] ?>
 						</td>
 						<td class="p-2 border">
+							<select name="activo" required>
+								<option value="1" <?= $perfil['activo'] === '1' ? 'selected' : '' ?>>Sí</option>
+								<option value="0" <?= $perfil['activo'] === '0' ? 'selected' : '' ?>>No</option>
+							</select>
+						</td>
+						<td class="p-2 border">
 							<input type="hidden" name="id" value="<?= $perfil['id'] ?>">
 							<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 								<i class="bi bi-check-circle m-1"></i>
@@ -98,6 +105,7 @@ require_once __DIR__ . '/../../../../config/constants.php';
 						<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
+						<td class="p-2 border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
 								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['id'] ?>">
 									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['id'] ?>" class="btn btn-sm btn-warning me-1">

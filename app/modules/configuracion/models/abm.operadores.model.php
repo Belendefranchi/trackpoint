@@ -58,14 +58,15 @@ function eliminarOperador($id) {
 	}
 }
 
-function editarOperador($id, $nombre_completo, $email, $rol) {
+function editarOperador($id, $nombre_completo, $email, $rol, $activo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET nombre_completo = :nombre_completo, email = :email, rol = :rol WHERE id = :id");
+		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET nombre_completo = :nombre_completo, email = :email, rol = :rol, activo = :activo WHERE id = :id");
 		$stmt->bindParam(':id', $id);
 		$stmt->bindParam(':nombre_completo', $nombre_completo);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':rol', $rol);
+		$stmt->bindParam(':activo', $activo);
 		$stmt->execute();
 		return $stmt->execute();
 	} catch (PDOException $e) {

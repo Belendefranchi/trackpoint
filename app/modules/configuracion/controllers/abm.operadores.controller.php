@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$nombre_completo = $_POST['nombre_completo'];
 		$email = $_POST['email'];
 		$rol = $_POST['rol'];
+		$activo = ($_POST['activo']);
 
-		if (empty($nombre_completo) && empty($email)) {
+		if (empty($nombre_completo) && empty($email) && empty($activo)) {
 			$message = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre_completo)) {
 			$message = "Por favor ingrese el nombre completo";
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$message = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
 				} else {
 					// Llamar a la función que actualiza los datos
-					editarOperador($id, $nombre_completo, $email, $rol);
+					editarOperador($id, $nombre_completo, $email, $rol, $activo);
 
 					// Redirigimos para evitar reenvío del formulario
 					header('Location: index.php?route=/configuracion/ABMs/operadores');

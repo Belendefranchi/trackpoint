@@ -55,18 +55,39 @@ function eliminarPerfil($id) {
 	}
 }
 
-function editarPerfil($id, $nombre, $descripcion) {
+function editarPerfil($id, $nombre, $descripcion, $activo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion WHERE id = :id");
+		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion, activo = :activo WHERE id = :id");
 		$stmt->bindParam(':id', $id);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
+		$stmt->bindParam(':activo', $activo);
 		$stmt->execute();
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Error al actualizar el perfil: " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function cambiarEstadoPerfil($id, $activo) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET activo = :activo WHERE id = :id");
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':activo', $activo);
+		$stmt = $conn->prepare($sql);
+		return $stmt->execute([
+				':estado' => $estado,
+				':id' => $id
+		]);
+		registrarEvento("El estado del perfil se cambio correctamente", "INFO");
+
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Error al cambiar el estado del perfil: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

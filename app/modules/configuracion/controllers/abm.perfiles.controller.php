@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$id = $_POST['id'];
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
+		$activo = ($_POST['activo']);
 
-		if (empty($nombre) && empty($descripcion)) {
+		if (empty($nombre) && empty($descripcion) && empty($activo)) {
 			$message = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
 			$message = "Por favor ingrese el nombre";
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$message = "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que actualiza los datos
-				editarPerfil($id, $nombre, $descripcion);
+				editarPerfil($id, $nombre, $descripcion, $activo);
 
 				// Redirigimos para evitar reenvío del formulario
 				header('Location: index.php?route=/configuracion/ABMs/perfiles');
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		}
 	}
-} 
+}
 
 // Obtener datos para pasar a la vista
 $perfiles = obtenerPerfiles();

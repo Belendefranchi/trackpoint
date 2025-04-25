@@ -9,3 +9,5 @@
 [2025-04-24 20:02:20] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
 [2025-04-24 20:03:20] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
 [2025-04-24 20:03:28] | ERROR | Invitado | Error al obtener los usuarios: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'users' no es válido.
+[2025-04-25 16:56:17] | ERROR | Invitado | Error al actualizar el perfil: SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Error de conversión al convertir el valor nvarchar 'admin' al tipo de datos bit.
+[2025-04-25 16:56:57] | ERROR | Invitado | Error al actualizar el perfil: SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Error de conversión al convertir el valor nvarchar 'admin' al tipo de datos bit.
