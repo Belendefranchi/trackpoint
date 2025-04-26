@@ -1,7 +1,18 @@
 <?php
 
-function cargarVistaConfiguracion($rutaVistaRelativa, $variables = []) {
-    extract($variables); // Hace que $operadores, $perfiles, etc. estén disponibles en la vista
-    $content = __DIR__ . '/../views/' . $rutaVistaRelativa;
-    require_once __DIR__ . '/../views/configuracion.view.php';
+function cargarVistaConfiguracion($rutaVistaRelativa = null, $variables = []) {
+	extract($variables); // Hace disponibles $operadores, $perfiles, etc.
+
+	// Si pasaron una vista interna, la prepara
+	if ($rutaVistaRelativa) {
+			$content = __DIR__ . '/../views/' . $rutaVistaRelativa;
+	} else {
+			$content = null;
+	}
+
+	require __DIR__ . '/../views/configuracion.view.php';
+}
+
+if (!defined('VISTA_INTERNA')) {
+	cargarVistaConfiguracion();
 }

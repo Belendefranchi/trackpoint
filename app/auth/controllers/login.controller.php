@@ -1,9 +1,18 @@
 <?php
+session_set_cookie_params([
+  'lifetime' => 0,
+  'path' => '/trackpoint/public', // SOLO para /trackpoint y sus subrutas
+  'domain' => '',          // vacío en localhost
+  'secure' => false,       // true si se usa HTTPS
+  'httponly' => true,
+  'samesite' => 'Lax'
+]);
 session_start();
 if (isset($_SESSION['id'])) {
   header('Location: /trackpoint/public/home');
   exit();
 }
+require_once __DIR__ . '/../views/login.view.php';
 require_once __DIR__ . '/../models/login.model.php';
 require_once __DIR__ . '/../../../config/helpers.php';
 
@@ -28,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['rol'] = $user['rol'];
       $_SESSION['nombre_completo'] = $user['nombre_completo'];
       
-      registrarEvento("Autenticación correcta", "INFO");
+      registrarEvento("Login Controller: Autenticación correcta", "INFO");
 
       header("Location: /trackpoint/public/home");
       exit();
@@ -36,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['username'] = $_POST['username'];
 
       // Error de autenticación
-      $message = "username o contraseña incorrectos.";
-      registrarEvento("Autenticación incorrecta", "INFO");
+      $message = "Usuario o contraseña incorrectos";
+      registrarEvento("Login Controller: Autenticación incorrecta", "INFO");
     }
   }
 }

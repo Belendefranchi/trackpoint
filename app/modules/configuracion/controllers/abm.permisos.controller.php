@@ -1,4 +1,5 @@
 <?php
+define('VISTA_INTERNA', true);
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.permisos.model.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
@@ -81,11 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Obtener datos para pasar a la vista
-$permisoes = obtenerPermisos();
+$permisos = obtenerPermisos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
-  'permisos' => $permisoes
+  'permisos' => $permisos
 ];
 
 if (isset($message)) {

@@ -1,5 +1,7 @@
 <?php
+require_once __DIR__ . '/../views/register.view.php';
 require_once __DIR__ . '/../models/register.model.php';
+require_once __DIR__ . '/../../../config/helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$nombre_completo = ($_POST['nombre_completo']);
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Verificar si el usuario ya existe
 			$user = userExists($email);
 			if ($user) {
-				$message =  "Ya hay un usuario registrado con ese email, por favor intente con otro.";
+				$message = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
 			} else {
 				// Hashear la contraseña
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -41,9 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				crearUsuario($nombre_completo, $email, $username, $hashedPassword, $rol);
 				
 				$message =  "Usuario creado correctamente, por favor inicie sesión.";
-				
-				// Redirigir a la página de inicio de sesión
-				/* header("Location: /login"); */
+				registrarEvento("Register Controller: Usuario creado correctamente", "INFO");
 			}
 		}
 	}

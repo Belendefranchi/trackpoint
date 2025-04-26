@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
-require_once __DIR__ . '/../controllers/configuracion.controller.php';
 
 $currentUri = $_SERVER['REQUEST_URI'];
 
@@ -131,8 +130,8 @@ $activeItems = [
       <!-- Contenido principal -->
       <main class="col-md-9 col-lg-10 py-4">
         <div class="container">
-          <?php if (!empty($content) && file_exists($content)) {
-              require $content;
+          <?php if (isset($content) && file_exists($content)) {
+            require_once $content;
           } else { ?>
               <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
 <!--                 <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 

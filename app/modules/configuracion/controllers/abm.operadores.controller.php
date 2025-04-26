@@ -1,4 +1,5 @@
 <?php
+define('VISTA_INTERNA', true);
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
 require_once __DIR__ . '/../../../../config/helpers.php';

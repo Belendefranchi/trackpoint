@@ -13,10 +13,6 @@
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon">
 
-  <?php
-    require_once __DIR__ . '/../controllers/register.controller.php';
-  ?>
-
 </head>
 <body style="background-color: #D3EBF9;" class="d-flex align-items-center justify-content-center min-vh-100">
   

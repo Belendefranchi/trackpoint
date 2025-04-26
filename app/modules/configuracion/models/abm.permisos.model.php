@@ -31,7 +31,7 @@ function permisoExists($nombre) {
 function crearPermiso($nombre, $descripcion, $pantalla) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permisos (nombre, descripcion, pantalla) VALUES (:nombre, :descripcion, :pantalla)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permiso (nombre, descripcion, pantalla) VALUES (:nombre, :descripcion, :pantalla)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':pantalla', $pantalla);

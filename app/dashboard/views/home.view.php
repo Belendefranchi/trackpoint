@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../../middleware/auth.middleware.php';
-require_once __DIR__ . '/../controllers/home.controller.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,7 +36,7 @@ require_once __DIR__ . '/../controllers/home.controller.php';
     <div class="container-fluid">
 
       <div class="col-2 d-flex align-items-center justify-content-center">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/trackpoint/public/">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/trackpoint/public/home">
           <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
           TrackPoint
         </a>
