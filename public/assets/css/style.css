@@ -1,42 +1,71 @@
 /* Colores personalizados */
 :root {
- --bs-primary: #22265D;
- --bs-secondary: #00B0E6;
+	--bs-primary: #22265D;
+	--bs-secondary: #00B0E6;
 /*  --bs-light: #D3EBF9;*/
 /*  --bs-body-bg: #D3EBF9; */ 
 }
 
 /* Sobrescribir botones */
 .btn-primary {
- background-color: var(--bs-primary) !important;
- border-color: var(--bs-primary) !important;
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
 }
 
 /* .btn-secondary {
- background-color: var(--bs-secondary) !important;
- border-color: var(--bs-secondary) !important;
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
 } */
 
 /* Colores de texto */
 .text-primary {
- color: var(--bs-primary) !important;
+  color: var(--bs-primary) !important;
 }
 
 .text-secondary {
- color: var(--bs-secondary) !important;
+  color: var(--bs-secondary) !important;
 }
 
 .table-primary{
- background-color: var(--bs-primary) !important;
+  background-color: var(--bs-primary) !important;
 }
 
 /* Color de fondo general */
 /* body {
- background-color: var(--bs-body-bg);
+  background-color: var(--bs-body-bg);
 } */
 
 .active-lateral {
   border-left: 4px solid #00B0E6;
   padding-left: 0.75rem; /* opcional: para que no se monte el texto encima del borde */
-  background-color: rgba(0, 176, 230, 0.1); /* opcional: un leve fondo para destacar */
+  background-color: #3A4280; /* opcional: un leve fondo para destacar */
+}
+
+.nav-link.active-lateral {
+	color: white !important;
+	font-weight: 600;
+	border-left: 4px solid #00B0E6;
+	padding-left: 0.75rem; /* igual a ps-3 */
+	background-color: #3A4280; /* opcional, mejora contraste */
+}
+
+.shadow-custom {
+	transition: top 0.5s, trasnform 0.5s;;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.nav-tabs {
+	border-bottom: #22265D !important;
+}
+
+.nav-tabs :hover {
+	border-color: #3A4280 !important;
+}
+
+.nav-tabs .nav-link.active {
+	background-color: #3A4280 !important;
+	color: white !important;
+	font-weight: 600;
+	border-radius: 0.25rem;
+	border-color: #3A4280 !important;
 }

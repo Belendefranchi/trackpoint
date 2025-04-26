@@ -43,25 +43,14 @@ $activeItems = [
   <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
   <link rel="stylesheet" href="/trackpoint/public/assets/icons/font/bootstrap-icons.css">
 
-
-
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
-  <style>
-    .nav-link.active-lateral {
-      color: #00B0E6 !important;
-      font-weight: 600;
-      border-left: 4px solid #00B0E6;
-      padding-left: 0.75rem; /* igual a ps-3 */
-      background-color: #3A4280; /* opcional, mejora contraste */
-    }
-  </style>
 </head>
 
 <body style="background-color: #f4f7fc;">
   <!-- Navbar -->
-  <nav class="navbar navbar-dark shadow-lg" style="background-color: #22265D;">
+  <nav class="navbar navbar-dark shadow-custom" style="background-color: #22265D;">
     <div class="container-fluid">
       
       <div class="col-2 d-flex align-items-center justify-content-center">
@@ -89,7 +78,7 @@ $activeItems = [
             <a class="nav-link text-white" href="/trackpoint/public/reportes">REPORTES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link table-primary text-white active" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
+            <a class="nav-link text-white active" style="background-color: #3A4280;" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
           </li>
         </ul>
       </div>

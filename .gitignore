@@ -12,5 +12,5 @@ Thumbs.db
 # Entornos o secretos
 .env
 
+logs/
 
-old
