@@ -45,6 +45,7 @@
 	color: white !important;
 	font-weight: 600;
 	border-left: 4px solid #00B0E6;
+	border-radius: 0.25rem;
 	padding-left: 0.75rem; /* igual a ps-3 */
 	background-color: #3A4280; /* opcional, mejora contraste */
 }

@@ -1,25 +1,34 @@
 <?php
 
 function registrarEvento($mensaje, $tipo = 'INFO') {
-
     $fechaHora = date('Y-m-d H:i:s');
+    $fechaArchivo = date('Y-m-d'); // formato YYYY-MM-DD
 
     // Usuario actual si está logueado
     $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : 'Invitado';
 
     // Formato del mensaje
-    $linea = "[$fechaHora] | $tipo | $usuario | $mensaje\n"/*  . str_repeat('-', 60) . "\n" */;
+    $linea = "[$fechaHora] | $tipo | $usuario | $mensaje\n";
 
-    // Ruta del archivo de log según el tipo
-    if (in_array($tipo, ['ERROR', 'CRITICAL'])) {
-        $rutaLog = __DIR__ . '/../logs/error.log';
-    } else {
-        $rutaLog = __DIR__ . '/../logs/eventos.log';
+    // Carpeta de logs
+    $carpetaLogs = __DIR__ . '/../logs';
+
+    // Crear carpeta si no existe
+    if (!file_exists($carpetaLogs)) {
+        mkdir($carpetaLogs, 0777, true);
     }
 
-    // Escribir en el archivo
+    // Nombre del archivo según tipo y fecha
+    if (in_array($tipo, ['ERROR', 'CRITICAL'])) {
+        $rutaLog = "$carpetaLogs/error_$fechaArchivo.log";
+    } else {
+        $rutaLog = "$carpetaLogs/eventos_$fechaArchivo.log";
+    }
+
+    // Escribir en el archivo correspondiente
     error_log($linea, 3, $rutaLog);
 }
+
 
 /* ################################### EJEMPLOS DE USO ################################# */
 
