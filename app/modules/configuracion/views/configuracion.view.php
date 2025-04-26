@@ -59,9 +59,9 @@ $activeItems = [
   </style>
 </head>
 
-<body style="background-color:rgb(241, 250, 255);">
+<body style="background-color: #f4f7fc;">
   <!-- Navbar -->
-  <nav class="navbar navbar-dark" style="background-color: #3A4280;">
+  <nav class="navbar navbar-dark shadow-lg" style="background-color: #22265D;">
     <div class="container-fluid">
       
       <div class="col-2 d-flex align-items-center justify-content-center">
