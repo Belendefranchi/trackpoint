@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$id = $_POST['id'];
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
+		$pantalla = $_POST['pantalla'];
 
 		if (empty($nombre) && empty($descripcion) && empty($activo)) {
 			$message = "Por favor ingrese todos los datos";
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$message = "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que actualiza los datos
-				editarPermiso($id, $nombre, $descripcion, $activo);
+				editarPermiso($id, $nombre, $descripcion, $pantalla);
 
 				// Redirigimos para evitar reenvío del formulario
 				header('Location: index.php?route=/configuracion/ABMs/permisos');
@@ -51,26 +52,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} elseif (isset($_POST['crear'])) {
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
+		$pantalla = $_POST['pantalla'];
 
-		if (empty($nombre) && empty($descripcion)) {
+		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
 			$message = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
 			$message = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
 			$message = "Por favor ingrese la descripción";
+		} elseif (empty($pantalla)) {
+			$message = "Por favor ingrese la pantalla";
 		} elseif ($nombre && $descripcion) {
 
-			// Verificar si el perfil ya existe
-			$permiso = perfilExists($nombre);
+			// Verificar si el permiso ya existe
+			$permiso = permisoExists($nombre);
 			if ($permiso) {
 				$message =  "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que crea el perfil
-				crearPermiso($nombre, $descripcion);
-				registrarEvento("Permiso creado correctamente", "INFO");
+				crearPermiso($nombre, $descripcion, $pantalla);
 
 				// Redirigimos para evitar reenvío del formulario
-				header('Location: index.php?route=/configuracion/ABMs/perfiles');
+				header('Location: index.php?route=/configuracion/ABMs/permisos');
 				exit;
 			}
 		}

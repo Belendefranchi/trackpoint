@@ -1,11 +1,10 @@
 -- Crear la tabla permisos
 CREATE TABLE configuracion_abm_permisos (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255) NOT NULL,
 		pantalla VARCHAR(100) NOT NULL,
-    creado_en DATETIME DEFAULT GETDATE(),
-		actualizado_en DATETIME DEFAULT GETDATE()
+    creado_en DATETIME DEFAULT GETDATE()
 );
 
 -- Crear la tabla pivote, relación muchos a muchos: perfiles ↔ permisos

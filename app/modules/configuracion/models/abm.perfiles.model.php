@@ -9,7 +9,7 @@ function obtenerPerfiles() {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al obtener los permisos: " . $e->getMessage(), "ERROR");
+		registrarEvento("Error al obtener los perfiles: " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

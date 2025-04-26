@@ -134,13 +134,10 @@ $activeItems = [
           <?php if (!empty($content) && file_exists($content)) {
               require $content;
           } else { ?>
-              <div class="d-flex justify-content-center align-items-center fs-3" style="opacity: 0.5;">
-                <p class="text-primary pt-4">Selecciona una pantalla para comenzar</p>
-              </div>
               <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
-                <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
+<!--                 <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
                     alt="Fondo" 
-                    style="opacity: 0.4; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+                    style="opacity: 0.4; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" /> -->
               </div>
           <?php } ?>
         </div>

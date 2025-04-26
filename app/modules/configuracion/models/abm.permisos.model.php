@@ -28,13 +28,15 @@ function permisoExists($nombre) {
 	}
 }
 
-function crearPermiso($nombre, $descripcion) {
+function crearPermiso($nombre, $descripcion, $pantalla) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permisos (nombre, descripcion) VALUES (:nombre, :descripcion)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permisos (nombre, descripcion, pantalla) VALUES (:nombre, :descripcion, :pantalla)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
+		$stmt->bindParam(':pantalla', $pantalla);
 		return $stmt->execute();
+		registrarEvento("Permiso creado correctamente", "INFO");
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Error al crear el permiso: " . $e->getMessage(), "ERROR");
