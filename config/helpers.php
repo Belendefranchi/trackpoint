@@ -1,6 +1,9 @@
 <?php
 
 function registrarEvento($mensaje, $tipo = 'INFO') {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     $fechaHora = date('Y-m-d H:i:s');
     $fechaArchivo = date('Y-m-d'); // formato YYYY-MM-DD
 

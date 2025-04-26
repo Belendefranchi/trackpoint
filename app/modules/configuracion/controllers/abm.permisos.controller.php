@@ -14,13 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'];
 		$pantalla = $_POST['pantalla'];
 
-		if (empty($nombre) && empty($descripcion) && empty($activo)) {
+		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
 			$message = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
 			$message = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
 			$message = "Por favor ingrese la descripción";
-		} elseif ($nombre && $descripcion) {
+		} elseif (empty($pantalla)) {
+			$message = "Por favor ingrese la pantalla";
+		} elseif ($nombre && $descripcion && $pantalla) {
 
 			// Verificar si el permiso ya existe
 			$permiso = permisoExists($nombre);

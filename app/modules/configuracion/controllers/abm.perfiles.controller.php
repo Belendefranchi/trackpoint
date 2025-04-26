@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			} else {
 				// Llamar a la función que crea el perfil
 				crearPerfil($nombre, $descripcion);
-				registrarEvento("Perfil creado correctamente", "INFO");
+				registrarEvento("Perfiles Controller: Perfil creado correctamente => " . $nombre, "INFO");
 
 				// Redirigimos para evitar reenvío del formulario
 				header('Location: index.php?route=/configuracion/ABMs/perfiles');

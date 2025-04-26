@@ -9,7 +9,7 @@ function obtenerPerfiles() {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al obtener los perfiles: " . $e->getMessage(), "ERROR");
+		registrarEvento("Perfiles Model: Error al obtener los perfiles, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -23,7 +23,7 @@ function perfilExists($nombre) {
 		$perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $perfil ?: false;
 	} catch (PDOException $e) {
-		registrarEvento("Error al verificar si el perfil existe: " . $e->getMessage(), "ERROR");
+		registrarEvento("Perfiles Model: Error al verificar si el perfil existe, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -37,7 +37,7 @@ function crearPerfil($nombre, $descripcion) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al crear el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Perfiles Model: Error al crear el perfil, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -50,7 +50,7 @@ function eliminarPerfil($id) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al eliminar el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Perfiles Model: Error al eliminar el perfil, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -64,10 +64,11 @@ function editarPerfil($id, $nombre, $descripcion, $activo) {
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':activo', $activo);
 		$stmt->execute();
+		registrarEvento("Perfiles Model: perfil editado corectamente, " . htmlspecialchars($_SESSION['nombre_completo']), "INFO");
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al actualizar el perfil: " . $e->getMessage(), "ERROR");
+		registrarEvento("Perfiles Model: Error al editar el perfil, " . $e->getMessage() . htmlspecialchars($_SESSION['nombre_completo']), "ERROR");
 		return false;
 	}
 }

@@ -130,6 +130,7 @@ $activeItems = [
       <!-- Contenido principal -->
       <main class="col-md-9 col-lg-10 py-4">
         <div class="container">
+          <h2 class="fw-semibold text-dark">Hola <?= htmlspecialchars($_SESSION['nombre_completo']); ?></h2>
           <?php if (isset($content) && file_exists($content)) {
             require_once $content;
           } else { ?>

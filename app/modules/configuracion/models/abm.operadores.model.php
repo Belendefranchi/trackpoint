@@ -9,7 +9,7 @@ function obtenerOperadores() {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al obtener los usuarios: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al obtener los operadores, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -23,7 +23,7 @@ function userExists($email) {
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $user ?: false;
 	} catch (PDOException $e) {
-		registrarEvento("Error al verificar si el usuario existe: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al verificar si el operador existe, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -40,7 +40,7 @@ function crearOperador($username, $hashedPassword, $nombre_completo, $email, $ro
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al crear el usuario: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al crear el operador, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -53,7 +53,7 @@ function eliminarOperador($id) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al eliminar el usuario: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al eliminar el operador, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -71,7 +71,7 @@ function editarOperador($id, $nombre_completo, $email, $rol, $activo) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al actualizar el usuario: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al actualizar el operador, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -85,7 +85,7 @@ function restablecerPassword($id, $newHashedPassword) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al restablecer la contraseña: " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al restablecer la contraseña, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

@@ -9,7 +9,7 @@ function obtenerPermisos() {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al obtener los permisos: " . $e->getMessage(), "ERROR");
+		registrarEvento("Permisos Model: Error al obtener los permisos, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -23,7 +23,7 @@ function permisoExists($nombre) {
 		$perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $perfil ?: false;
 	} catch (PDOException $e) {
-		registrarEvento("Error al verificar si el permiso existe: " . $e->getMessage(), "ERROR");
+		registrarEvento("Permisos Model: Error al verificar si el permiso existe, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -31,15 +31,15 @@ function permisoExists($nombre) {
 function crearPermiso($nombre, $descripcion, $pantalla) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permiso (nombre, descripcion, pantalla) VALUES (:nombre, :descripcion, :pantalla)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_permisos (nombre, descripcion, pantalla) VALUES (:nombre, :descripcion, :pantalla)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':pantalla', $pantalla);
+		registrarEvento("Permisos Model: Permiso creado correctamente", "INFO");
 		return $stmt->execute();
-		registrarEvento("Permiso creado correctamente", "INFO");
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al crear el permiso: " . $e->getMessage(), "ERROR");
+		registrarEvento("Permisos Model: Error al crear el permiso, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -52,24 +52,24 @@ function eliminarPermiso($id) {
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al eliminar el permiso: " . $e->getMessage(), "ERROR");
+		registrarEvento("Permisos Model: Error al eliminar el permiso, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
 
-function editarPermiso($id, $nombre, $descripcion, $activo) {
+function editarPermiso($id, $nombre, $descripcion, $pantalla) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_permisos SET nombre = :nombre, descripcion = :descripcion, activo = :activo WHERE id = :id");
+		$stmt = $conn->prepare("UPDATE configuracion_abm_permisos SET nombre = :nombre, descripcion = :descripcion, pantalla = :pantalla WHERE id = :id");
 		$stmt->bindParam(':id', $id);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
-		$stmt->bindParam(':activo', $activo);
-		$stmt->execute();
+		$stmt->bindParam(':pantalla', $pantalla);
+		registrarEvento("Permisos Model: Permiso editado correctamente", "INFO");
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Error al actualizar el permiso: " . $e->getMessage(), "ERROR");
+		registrarEvento("Permisos Model: Error al actualizar el permiso, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
