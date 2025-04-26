@@ -15,3 +15,5 @@
 [2025-04-25 21:37:27] | ERROR | admin | Error al autenticar al usuario: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'configuracion_abm_operadores' no es válido.
 [2025-04-25 23:11:06] | ERROR | Invitado | Error al obtener los permisos: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'configuracion_abm_perfiles' no es válido.
 [2025-04-25 23:12:41] | ERROR | Invitado | Error al obtener los permisos: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'configuracion_abm_perfiles' no es válido.
+[2025-04-25 23:35:31] | ERROR | Invitado | Error al obtener los permisos: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'configuracion_abm_perfiles' no es válido.
+[2025-04-25 23:35:33] | ERROR | Invitado | Error al obtener los permisos: SQLSTATE[42S02]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]El nombre de objeto 'configuracion_abm_perfiles' no es válido.

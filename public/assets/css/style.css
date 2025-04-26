@@ -55,7 +55,7 @@
 }
 
 .nav-tabs {
-	border-bottom: #22265D !important;
+	border-bottom: none !important;
 }
 
 .nav-tabs :hover {
