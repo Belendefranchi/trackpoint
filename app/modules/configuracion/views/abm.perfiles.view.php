@@ -15,12 +15,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
-	<?php if (isset($successMessage)): ?>
-		<div class="alert alert-info rounded m-4" role="alert">
-			<strong class="font-bold">Éxito: </strong>
-			<span class="block sm:inline"><?= htmlspecialchars($successMessage) ?></span>
-		</div>
-	<?php endif; ?>
+
 	<!-- Modo creación -->
 	<table class="m-4">
 		<thead class="table-primary">
@@ -62,6 +57,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<th class="p-2 border">Perfil</th>
 				<th class="p-2 border">Descripción</th>
 				<th class="p-2 border">Fecha de creación</th>
+				<th class="p-2 border">Fecha de actualización</th>
 				<th class="p-2 border">Activo</th>
 				<th class="p-2 border">Acciones</th>
 			</tr>
@@ -82,6 +78,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						</td>
 						<td class="p-2 border">
 							<?= $perfil['creado_en'] ?>
+						</td>
+						<td class="p-2 border">
+							<?= $perfil['actualizado_en'] ?>
 						</td>
 						<td class="p-2 border">
 							<select name="activo" required>
@@ -107,6 +106,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($perfil['actualizado_en']) ?></td>
 						<td class="p-2 border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
 								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['id'] ?>">

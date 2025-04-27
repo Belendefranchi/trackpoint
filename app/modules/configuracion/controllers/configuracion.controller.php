@@ -1,7 +1,7 @@
 <?php
 
 function cargarVistaConfiguracion($rutaVistaRelativa = null, $variables = []) {
-	extract($variables); // Hace disponibles $operadores, $perfiles, etc.
+	extract($variables); // Hace disponibles $operadores, $perfiles, $message, etc.
 
 	// Si pasaron una vista interna, la prepara
 	if ($rutaVistaRelativa) {

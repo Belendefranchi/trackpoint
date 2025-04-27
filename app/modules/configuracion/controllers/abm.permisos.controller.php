@@ -15,19 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$pantalla = $_POST['pantalla'];
 
 		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
-			$message = "Por favor ingrese todos los datos";
+			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
-			$message = "Por favor ingrese el nombre";
+			$_SESSION['message'] = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
-			$message = "Por favor ingrese la descripción";
+			$_SESSION['message'] = "Por favor ingrese la descripción";
 		} elseif (empty($pantalla)) {
-			$message = "Por favor ingrese la pantalla";
+			$_SESSION['message'] = "Por favor ingrese la pantalla";
 		} elseif ($nombre && $descripcion && $pantalla) {
 
 			// Verificar si el permiso ya existe
 			$permiso = permisoExists($nombre);
 			if ($permiso && $permiso['nombre'] != $nombre) {
-				$message = "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
+				$_SESSION['message'] = "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que actualiza los datos
 				editarPermiso($id, $nombre, $descripcion, $pantalla);
@@ -58,19 +58,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$pantalla = $_POST['pantalla'];
 
 		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
-			$message = "Por favor ingrese todos los datos";
+			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
-			$message = "Por favor ingrese el nombre";
+			$_SESSION['message'] = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
-			$message = "Por favor ingrese la descripción";
+			$_SESSION['message'] = "Por favor ingrese la descripción";
 		} elseif (empty($pantalla)) {
-			$message = "Por favor ingrese la pantalla";
+			$_SESSION['message'] = "Por favor ingrese la pantalla";
 		} elseif ($nombre && $descripcion) {
 
 			// Verificar si el permiso ya existe
 			$permiso = permisoExists($nombre);
 			if ($permiso) {
-				$message =  "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
+				$_SESSION['message'] =  "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que crea el perfil
 				crearPermiso($nombre, $descripcion, $pantalla);
@@ -91,12 +91,9 @@ $datosVista = [
   'permisos' => $permisos
 ];
 
-if (isset($message)) {
-  $datosVista['message'] = $message;
-}
-
-if (isset($successMessage)) {
-  $datosVista['successMessage'] = $successMessage;
+if (isset($_SESSION['message'])) {
+  $datosVista['message'] = $_SESSION['message'];
+	unset($_SESSION['message']);
 }
 
 cargarVistaConfiguracion('abm.permisos.view.php', $datosVista);

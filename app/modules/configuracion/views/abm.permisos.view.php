@@ -15,12 +15,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
-	<?php if (isset($successMessage)): ?>
-		<div class="alert alert-info rounded m-4" role="alert">
-			<strong class="font-bold">Éxito: </strong>
-			<span class="block sm:inline"><?= htmlspecialchars($successMessage) ?></span>
-		</div>
-	<?php endif; ?>
+
 	<!-- Modo creación -->
 	<table class="m-4">
 		<thead class="table-primary">
@@ -67,6 +62,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<th class="p-2 border">Descripción</th>
 				<th class="p-2 border">Pantalla</th>
 				<th class="p-2 border">Fecha de creación</th>
+				<th class="p-2 border">Fecha de actualización</th>
 				<th class="p-2 border">Acciones</th>
 			</tr>
 	</thead>
@@ -91,6 +87,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<?= $permiso['creado_en'] ?>
 						</td>
 						<td class="p-2 border">
+							<?= $permiso['actualizado_en'] ?>
+						</td>
+						<td class="p-2 border">
 							<input type="hidden" name="id" value="<?= $permiso['id'] ?>">
 							<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 								<i class="bi bi-check-circle m-1"></i>
@@ -109,6 +108,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<td class="p-2 border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['creado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($permiso['actualizado_en']) ?></td>
 						<td class="p-2 border">
 								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&eliminar=<?= $permiso['id'] ?>">
 									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar=<?= $permiso['id'] ?>" class="btn btn-sm btn-warning me-1">

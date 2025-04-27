@@ -14,10 +14,11 @@ function obtenerOperadores() {
 	}
 }
 
-function userExists($email) {
+function userExists($username, $email) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT id FROM configuracion_abm_operadores WHERE email = :email");
+		$stmt = $conn->prepare("SELECT id FROM configuracion_abm_operadores WHERE email = :email OR username = :username");
+		$stmt->bindParam(':username', $username);
 		$stmt->bindParam(':email', $email);
 		$stmt->execute();
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);

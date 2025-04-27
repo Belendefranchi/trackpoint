@@ -15,23 +15,18 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
-	<?php if (isset($successMessage)): ?>
-		<div class="alert alert-info rounded m-4" role="alert">
-			<strong class="font-bold">Éxito: </strong>
-			<span class="block sm:inline"><?= htmlspecialchars($successMessage) ?></span>
-		</div>
-	<?php endif; ?>
+
 		<!-- Modo creación -->
 		<table class="m-4">
 			<thead class="table-primary">
 				<tr class="text-center text-light">
-					<th class="p-2 border">ID</th>
-					<th class="p-2 border">Usuario</th>
-					<th class="p-2 border">Contraseña</th>
-					<th class="p-2 border">Nombre</th>
-					<th class="p-2 border">Email</th>
-					<th class="p-2 border">Rol</th>
-					<th class="p-2 border">Acciones</th>
+					<td class="p-2 border">ID</td>
+					<td class="p-2 border">Usuario</td>
+					<td class="p-2 border">Contraseña</td>
+					<td class="p-2 border">Nombre</td>
+					<td class="p-2 border">Email</td>
+					<td class="p-2 border">Rol</td>
+					<td class="p-2 border">Acciones</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -76,15 +71,16 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<table class="m-4">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Usuario</th>
-				<th class="p-2 border">Contraseña</th>
-				<th class="p-2 border">Nombre</th>
-				<th class="p-2 border">Email</th>
-				<th class="p-2 border">Rol</th>
-				<th class="p-2 border">Fecha de creación</th>
-				<th class="p-2 border">Activo</th>
-				<th class="p-2 border">Acciones</th>
+				<td class="p-2 border">ID</td>
+				<td class="p-2 border">Usuario</td>
+				<td class="p-2 border">Contraseña</td>
+				<td class="p-2 border">Nombre</td>
+				<td class="p-2 border">Email</td>
+				<td class="p-2 border">Rol</td>
+				<td class="p-2 border">Fecha de creación</td>
+				<td class="p-2 border">Fecha de actualización</td>
+				<td class="p-2 border">Activo</td>
+				<td class="p-2 border">Acciones</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -120,6 +116,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								<?= $operador['creado_en'] ?>
 							</td>
 							<td class="p-2 border">
+								<?= $operador['actualizado_en'] ?>
+							</td>
+							<td class="p-2 border">
 								<select name="activo" required>
 									<option value="1" <?= $operador['activo'] === '1' ? 'selected' : '' ?>>Sí</option>
 									<option value="0" <?= $operador['activo'] === '0' ? 'selected' : '' ?>>No</option>
@@ -146,6 +145,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($operador['actualizado_en']) ?></td>
 						<td class="p-2 border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
 							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['id'] ?>">

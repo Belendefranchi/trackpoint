@@ -16,22 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$activo = ($_POST['activo']);
 
 		if (empty($nombre_completo) && empty($email) && empty($activo)) {
-			$message = "Por favor ingrese todos los datos";
+			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre_completo)) {
-			$message = "Por favor ingrese el nombre completo";
+			$_SESSION['message'] = "Por favor ingrese el nombre completo";
 		} elseif (empty($email)) {
-			$message = "Por favor ingrese el email";
+			$_SESSION['message'] = "Por favor ingrese el email";
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$message = "El email no es válido";
+			$_SESSION['message'] = "El email no es válido";
 		} elseif ($nombre_completo && $email && $rol) {
 			// Verificar si el rol es válido
 			if (!in_array($rol, ['administrador', 'operador'])) {
-				$message = "Rol no válido";
+				$_SESSION['message'] = "Rol no válido";
 			} else {
 				// Verificar si el usuario ya existe
 				$user = userExists($email);
 				if ($user && $user['id'] != $id) {
-					$message = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
+					$_SESSION['message'] = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
 				} else {
 					// Llamar a la función que actualiza los datos
 					editarOperador($id, $nombre_completo, $email, $rol, $activo);
@@ -65,30 +65,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$rol = $_POST['rol'];
 
 		if (empty($nombre_completo) && empty($email) && empty($username) && empty($password)) {
-				$message = "Por favor ingrese todos los datos";
+				$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre_completo)) {
-				$message = "Por favor ingrese el nombre completo";
+				$_SESSION['message'] = "Por favor ingrese el nombre completo";
 		} elseif (empty($email)) {
-				$message = "Por favor ingrese el email";
+				$_SESSION['message'] = "Por favor ingrese el email";
 		} elseif (empty($username)) {
-				$message = "Por favor ingrese el nombre de usuario";
+				$_SESSION['message'] = "Por favor ingrese el nombre de usuario";
 		} elseif (empty($password)) {
-				$message = "Por favor ingrese la contraseña";
+				$_SESSION['message'] = "Por favor ingrese la contraseña";
 		} elseif (empty($rol)) {
-				$message = "Por favor seleccione un rol";
+				$_SESSION['message'] = "Por favor seleccione un rol";
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$message = "El email no es válido";
+				$_SESSION['message'] = "El email no es válido";
 		} elseif (strlen($password) < 6) {
-				$message = "La contraseña debe tener al menos 6 caracteres";
+				$_SESSION['message'] = "La contraseña debe tener al menos 6 caracteres";
 		} elseif ($nombre_completo && $email && $username && $password && $rol) {
 				// Verificar si el rol es válido
 			if (!in_array($rol, ['administrador', 'operador'])) {
-				$message = "Rol no válido";
+				$_SESSION['message'] = "Rol no válido";
 			} else {
 				// Verificar si el usuario ya existe
-				$user = userExists($email);
+				$user = userExists($username, $email);
 				if ($user) {
-					$message =  "Ya hay un usuario registrado con ese email, por favor intente con otro.";
+					$_SESSION['message'] =  "Ya hay un operador registrado con ese nombre de usuario o email, por favor intente nuevamente.";
 				} else {
 					// Hashear la contraseña
 					$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -114,12 +114,9 @@ $datosVista = [
   'operadores' => $operadores
 ];
 
-if (isset($message)) {
-  $datosVista['message'] = $message;
-}
-
-if (isset($successMessage)) {
-  $datosVista['successMessage'] = $successMessage;
+if (isset($_SESSION['message'])) {
+  $datosVista['message'] = $_SESSION['message'];
+	unset($_SESSION['message']);
 }
 
 cargarVistaConfiguracion('abm.operadores.view.php', $datosVista);

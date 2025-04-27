@@ -15,17 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$activo = ($_POST['activo']);
 
 		if (empty($nombre) && empty($descripcion) && empty($activo)) {
-			$message = "Por favor ingrese todos los datos";
+			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
-			$message = "Por favor ingrese el nombre";
+			$_SESSION['message'] = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
-			$message = "Por favor ingrese la descripción";
+			$_SESSION['message'] = "Por favor ingrese la descripción";
 		} elseif ($nombre && $descripcion) {
 
 			// Verificar si el perfil ya existe
 			$perfil = perfilExists($nombre);
 			if ($perfil && $perfil['nombre'] != $nombre) {
-				$message = "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
+				$_SESSION['message'] = "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que actualiza los datos
 				editarPerfil($id, $nombre, $descripcion, $activo);
@@ -55,17 +55,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'];
 
 		if (empty($nombre) && empty($descripcion)) {
-			$message = "Por favor ingrese todos los datos";
+			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
-			$message = "Por favor ingrese el nombre";
+			$_SESSION['message'] = "Por favor ingrese el nombre";
 		} elseif (empty($descripcion)) {
-			$message = "Por favor ingrese la descripción";
+			$_SESSION['message'] = "Por favor ingrese la descripción";
 		} elseif ($nombre && $descripcion) {
 
 			// Verificar si el perfil ya existe
 			$perfil = perfilExists($nombre);
 			if ($perfil) {
-				$message =  "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
+				$_SESSION['message'] =  "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que crea el perfil
 				crearPerfil($nombre, $descripcion);
@@ -87,12 +87,9 @@ $datosVista = [
   'perfiles' => $perfiles
 ];
 
-if (isset($message)) {
-  $datosVista['message'] = $message;
-}
-
-if (isset($successMessage)) {
-  $datosVista['successMessage'] = $successMessage;
+if (isset($_SESSION['message'])) {
+  $datosVista['message'] = $_SESSION['message'];
+	unset($_SESSION['message']);
 }
 
 cargarVistaConfiguracion('abm.perfiles.view.php', $datosVista);
