@@ -31,7 +31,7 @@ CREATE TABLE configuracion_abm_perfiles (
 	activo BIT DEFAULT 1
 );
 
-CREATE TABLE configuracion_abm_operadores_perfiles (
+CREATE TABLE configuracion_abm_perfilesPorOperador (
 	operador_id INT,
 	perfil_id INT,
 	PRIMARY KEY (operador_id, perfil_id),
@@ -48,7 +48,7 @@ CREATE TABLE configuracion_abm_permisos (
 	actualizado_en DATETIME NULL
 );
 
-CREATE TABLE configuracion_abm_perfiles_permisos (
+CREATE TABLE configuracion_abm_permisosPorPerfil (
 	perfil_id INT,
 	permiso_id INT,
 	PRIMARY KEY (perfil_id, permiso_id),

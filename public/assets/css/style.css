@@ -26,7 +26,11 @@
   color: var(--bs-secondary) !important;
 }
 
-.table-primary{
+.table {
+  background-color: var(--bs-primary) !important;
+}
+
+.table-primary {
   background-color: var(--bs-primary) !important;
 }
 

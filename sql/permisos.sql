@@ -9,7 +9,7 @@ CREATE TABLE configuracion_abm_permisos (
 );
 
 -- Crear la tabla pivote, relación muchos a muchos: perfiles ↔ permisos
-CREATE TABLE configuracion_abm_perfiles_permisos (
+CREATE TABLE configuracion_abm_permisosPorPerfil (
 	perfil_id INT,
 	permiso_id INT,
 	PRIMARY KEY (perfil_id, permiso_id),

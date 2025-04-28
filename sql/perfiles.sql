@@ -9,7 +9,7 @@ CREATE TABLE configuracion_abm_perfiles (
 );
 
 -- Crear la tabla pivote, relación muchos a muchos: operadores ↔ perfiles
-CREATE TABLE configuracion_abm_operadores_perfiles (
+CREATE TABLE configuracion_abm_perfilesPorOperador (
   operador_id INT,
   perfil_id INT,
   PRIMARY KEY (operador_id, perfil_id),

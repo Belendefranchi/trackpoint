@@ -5,8 +5,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 
 ?>
 
-<div class="bg-white rounded-2xl shadow-lg mt-2 p-4">
-	<h2 class="text-xl font-bold text-[#22265D] m-4">Perfiles</h2>
+<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
+	<h2 class="m-4">Perfiles</h2>
 	<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
 	<?php if (isset($_GET['crear'])): ?>
 	<?php if (isset($message)): ?>
