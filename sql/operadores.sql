@@ -3,7 +3,7 @@ CREATE TABLE configuracion_abm_operadores (
 	id INT PRIMARY KEY IDENTITY(1,1),
 	username VARCHAR(10) NOT NULL UNIQUE,
 	password VARCHAR(20) NOT NULL,
-	nombre_completo VARCHAR(20),
+	nombre_completo VARCHAR(50),
 	email VARCHAR(100) NOT NULL UNIQUE,
 	rol VARCHAR(10),
 	creado_en DATETIME DEFAULT GETDATE(),

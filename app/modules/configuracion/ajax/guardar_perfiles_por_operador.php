@@ -1,24 +1,31 @@
 <?php
+// guardar_perfiles_por_operador.php
 
 require_once __DIR__ . '/../models/abm.perfilesPorOperador.model.php';
 
-// Verificamos que se hayan recibido los datos correctos
-if (isset($_POST['operadorId']) && isset($_POST['perfiles'])) {
-    $operadorId = (int) $_POST['operadorId'];  // ID del operador
-    $perfiles = $_POST['perfiles'];  // Array con los IDs de los perfiles seleccionados
-
-    // Llamamos a la función que guarda los perfiles asignados
-    $resultado = guardarPerfilesPorOperador($operadorId, $perfiles);
-
-    // Si el resultado es verdadero, se guardaron los datos
-    if ($resultado) {
-        echo json_encode(['success' => true, 'message' => 'Perfiles asignados correctamente']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Hubo un error al guardar los perfiles']);
-    }
-} else {
-    // Si no se recibieron los datos correctos
-    echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+// Asegurar que venga por POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['error' => 'Método no permitido']);
+    exit;
 }
 
+// Obtener datos enviados
+$idOperador = isset($_POST['id_operador']) ? (int)$_POST['id_operador'] : null;
+$perfiles = isset($_POST['perfiles']) ? $_POST['perfiles'] : [];
+
+// Validar datos
+if (!$idOperador || !is_array($perfiles)) {
+    echo json_encode(['error' => 'Datos inválidos']);
+    exit;
+}
+
+// Procesar el guardado en la base de datos
+try {
+    // Función modelo que deberías tener en abm.perfilesPorOperador.model.php
+    guardarPerfilesPorOperador($idOperador, $perfiles);
+
+    echo json_encode(['success' => true, 'message' => 'Perfiles asignados correctamente']);
+} catch (Exception $e) {
+    echo json_encode(['error' => 'Error al guardar perfiles: ' . $e->getMessage()]);
+}
 exit;
