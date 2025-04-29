@@ -8,28 +8,29 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
 	<h2 class="m-4">Perfiles por Operador</h2>
 	<!-- Tabla de Operadores -->
-	<table class="m-4 table table-hover" id="operadoresTable">
-		<thead class="table-primary" style="background-color: #22265D;">
-			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Usuario</th>
-				<th class="p-2 border">Nombre</th>
-				<th class="p-2 border">Email</th>
-				<th class="p-2 border">Rol</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($operadores as $operador): ?>
-				<tr class="text-center" data-operador-id="<?= htmlspecialchars($operador['id']) ?>" style="cursor: pointer;">
-					<td class="p-2 border text-start"><?= htmlspecialchars($operador['id']) ?></td>
-					<td class="p-2 border text-start"><?= htmlspecialchars($operador['username']) ?></td>
-					<td class="p-2 border text-start"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-					<td class="p-2 border text-start"><?= htmlspecialchars($operador['email']) ?></td>
-					<td class="p-2 border text-start"><?= htmlspecialchars($operador['rol']) ?></td>
+	<form method="GET">
+		<table class="m-4 table table-hover" id="operadoresTable">
+			<thead class="table-primary" style="background-color: #22265D;">
+				<tr class="text-center text-light">
+					<th class="p-2 border">ID</th>
+					<th class="p-2 border">Usuario</th>
+					<th class="p-2 border">Nombre</th>
+					<th class="p-2 border">Email</th>
+					<th class="p-2 border">Rol</th>
 				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php foreach ($operadores as $operador): ?>
+					<tr class="text-center" data-operador-id="<?= htmlspecialchars($operador['id']) ?>" style="cursor: pointer;">
+						<td class="p-2 border text-start"><?= htmlspecialchars($operador['id']) ?></td>
+						<td class="p-2 border text-start"><?= htmlspecialchars($operador['username']) ?></td>
+						<td class="p-2 border text-start"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+						<td class="p-2 border text-start"><?= htmlspecialchars($operador['email']) ?></td>
+						<td class="p-2 border text-start"><?= htmlspecialchars($operador['rol']) ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 
 	<!-- Tabla de Perfiles -->
 	<table class="m-4 table table-hover" id="perfilesTable">

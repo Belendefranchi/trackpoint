@@ -101,7 +101,7 @@ $activeItems = [
       <aside class="col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
         <div class="nav flex-column">
           <a class="nav-link text-white fw-semibold table-hover rounded <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
-            ABMs
+            ABM
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
             <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
@@ -117,7 +117,7 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
           </div>
           <a class="nav-link text-white fw-semibold table-hover rounded <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
-            Configuración PC
+            CONFIGURACIÓN PC
           </a>
           <div class="collapse ps-3 <?= $configPCOpen ?>" id="submenuConfigPC">
             <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>

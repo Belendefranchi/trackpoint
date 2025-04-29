@@ -19,7 +19,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<?php endif; ?>
 
 		<!-- Modo creación -->
-		<table class="m-4">
+		<table class="m-2">
 			<thead class="table-primary">
 				<tr class="text-center text-light">
 					<td class="p-2 border">ID</td>
@@ -70,7 +70,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 		</table>
 	<?php endif; ?>
 	<!-- Modo edición -->
-	<table class="m-4">
+	<table class="m-2">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
 				<td class="p-2 border">ID</td>
