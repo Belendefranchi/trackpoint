@@ -8,9 +8,9 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE configuracion_abm_operadores
-	SET actualizado_en = GETDATE()
+	SET editado_en = GETDATE()
 	FROM configuracion_abm_operadores o
-	INNER JOIN inserted i ON o.id = i.id;
+	INNER JOIN inserted i ON o.operador_id = i.operador_id;
 END;
 
 
@@ -23,9 +23,9 @@ BEGIN
   SET NOCOUNT ON;
 
   UPDATE configuracion_abm_perfiles
-  SET actualizado_en = GETDATE()
+  SET editado_en = GETDATE()
   FROM configuracion_abm_perfiles p
-  INNER JOIN inserted i ON p.id = i.id;
+  INNER JOIN inserted i ON p.perfil_id = i.perfil_id;
 END;
 
 
@@ -38,7 +38,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE configuracion_abm_permisos
-	SET actualizado_en = GETDATE()
+	SET editado_en = GETDATE()
 	FROM configuracion_abm_permisos per
-	INNER JOIN inserted i ON per.id = i.id;
+	INNER JOIN inserted i ON per.permiso_id = i.permiso_id;
 END;

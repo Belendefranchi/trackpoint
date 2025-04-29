@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../config/db.php';
 function userExists($email) {
   try {
     $conn = getConnection();
-    $stmt = $conn->prepare("SELECT id FROM configuracion_abm_operadores WHERE email = :email");
+    $stmt = $conn->prepare("SELECT operador_id FROM configuracion_abm_operadores WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);

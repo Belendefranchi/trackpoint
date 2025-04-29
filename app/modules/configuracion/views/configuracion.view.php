@@ -52,7 +52,7 @@ $activeItems = [
   <nav class="navbar navbar-dark shadow-custom" style="background-color: #22265D;">
     <div class="container-fluid">
       
-      <div class="col-2 d-flex align-items-center justify-content-center">
+      <div class="col-2 d-flex align-items-center justify-content-start px-3">
         <a class="navbar-brand d-flex align-items-center gap-2 text-white" href="/trackpoint/">
           <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
           TrackPoint
@@ -87,8 +87,6 @@ $activeItems = [
           <i class="bd-search"></i>
           <input type="text" class="form-control search-input" id="search" placeholder="Buscar..." aria-label="Search" />
         </div>
-
-        <a class="nav-link text-light p-2" href="/trackpoint/public/home">Dashboard</a>
         <a class="nav-link text-white p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
       </div>
     </div>
@@ -128,18 +126,16 @@ $activeItems = [
 
 
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 py-4">
-        <div class="container">
-          <?php if (isset($content) && file_exists($content)) {
-            require_once $content;
-          } else { ?>
-              <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
+      <main class="col-md-9 col-lg-10 p-4">
+        <?php if (isset($content) && file_exists($content)) {
+          require_once $content;
+        } else { ?>
+            <div class="d-flex justify-content-center align-items-center" style="height: 70vh; position: relative;">
 <!--                 <img src="/trackpoint/public/assets/images/logo_fondo_transparente.png" 
-                    alt="Fondo" 
-                    style="opacity: 0.4; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" /> -->
-              </div>
-          <?php } ?>
-        </div>
+                  alt="Fondo" 
+                  style="opacity: 0.4; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" /> -->
+            </div>
+        <?php } ?>
       </main>
     </div>
   </div>

@@ -8,7 +8,7 @@ session_set_cookie_params([
   'samesite' => 'Lax'
 ]);
 session_start();
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['operador_id'])) {
   header('Location: /trackpoint/public/home');
   exit();
 }
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $user = loginUser($username, $password);
     if ($user) {
-      $_SESSION['id'] = $user['id'];
+      $_SESSION['operador_id'] = $user['operador_id'];
       $_SESSION['username'] = $user['username'];
       $_SESSION['email'] = $user['email'];
       $_SESSION['rol'] = $user['rol'];

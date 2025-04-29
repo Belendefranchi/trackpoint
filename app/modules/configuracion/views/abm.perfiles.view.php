@@ -6,24 +6,26 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-	<h2 class="m-4">Perfiles</h2>
-	<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
+	<div class="d-flex justify-content-between align-items-center pe-2">
+		<h2 class="m-2">Perfiles</h2>
+		<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
+	</div>
 	<?php if (isset($_GET['crear'])): ?>
 	<?php if (isset($message)): ?>
-		<div class="alert alert-danger rounded m-4" role="alert">
-			<strong class="font-bold">Error: </strong>
+		<div class="alert alert-danger rounded m-2" role="alert">
+			<strong>Error: </strong>
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
 
 	<!-- Modo creación -->
-	<table class="m-4">
+	<table class="m-2">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Perfil</th>
-				<th class="p-2 border">Descripción</th>
-				<th class="p-2 border">Acciones</th>
+				<td class="p-2 border">ID</td>
+				<td class="p-2 border">Perfil</td>
+				<td class="p-2 border">Descripción</td>
+				<td class="p-2 border">Acciones</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -50,25 +52,27 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	</table>
 	<?php endif; ?>
 	<!-- Modo edición -->
-	<table class="m-4">
+	<table class="m-2">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Perfil</th>
-				<th class="p-2 border">Descripción</th>
-				<th class="p-2 border">Fecha de creación</th>
-				<th class="p-2 border">Fecha de actualización</th>
-				<th class="p-2 border">Activo</th>
-				<th class="p-2 border">Acciones</th>
+				<td class="p-2 border">ID</td>
+				<td class="p-2 border">Perfil</td>
+				<td class="p-2 border">Descripción</td>
+				<td class="p-2 border">Fecha de creación</td>
+				<td class="p-2 border">Creado por</td>
+				<td class="p-2 border">Fecha de edición</td>
+				<td class="p-2 border">Editado por</td>
+				<td class="p-2 border">Activo</td>
+				<td class="p-2 border">Acciones</td>
 			</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($perfiles as $perfil): ?>
-			<?php if (isset($_GET['editar']) && $_GET['editar'] == $perfil['id']): ?>
-				<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['id'] ?>">
-					<tr id="fila<?= $perfil['id'] ?>" class="text-center border-t bg-gray-100">
+			<?php if (isset($_GET['editar']) && $_GET['editar'] == $perfil['perfil_id']): ?>
+				<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>">
+					<tr id="fila<?= $perfil['perfil_id'] ?>" class="text-center border-t bg-gray-100">
 						<td class="p-2 border">
-							<?= $perfil['id'] ?>
+							<?= $perfil['perfil_id'] ?>
 						</td>
 						<td class="p-2 border">
 							<input type="text" name="nombre" value="<?= htmlspecialchars($perfil['nombre']) ?>" required class="m-1">
@@ -80,7 +84,13 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<?= $perfil['creado_en'] ?>
 						</td>
 						<td class="p-2 border">
-							<?= $perfil['actualizado_en'] ?>
+							<?= $perfil['creado_por'] ?>
+						</td>
+						<td class="p-2 border">
+							<?= $perfil['editado_en'] ?>
+						</td>
+						<td class="p-2 border">
+							<?= $perfil['editado_por'] ?>
 						</td>
 						<td class="p-2 border">
 							<select name="activo" required>
@@ -89,11 +99,11 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							</select>
 						</td>
 						<td class="p-2 border">
-							<input type="hidden" name="id" value="<?= $perfil['id'] ?>">
+							<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
 							<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 								<i class="bi bi-check-circle m-1"></i>
 							</button>
-							<a href="index.php?route=/configuracion/ABMs/perfiles#fila<?= $perfil['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
+							<a href="index.php?route=/configuracion/ABMs/perfiles#fila<?= $perfil['perfil_id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
 								<i class="bi bi-x-circle m-1"></i>
 							</a>
 						</td>
@@ -102,18 +112,20 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<?php else: ?>
 					<!-- Modo visual  -->
 					<tr class="text-center border-t">
-						<td class="p-2 border"><?= htmlspecialchars($perfil['id']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
-						<td class="p-2 border"><?= htmlspecialchars($perfil['actualizado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
 						<td class="p-2 border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
-								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['id'] ?>">
-									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['id'] ?>" class="btn btn-sm btn-warning me-1">
+								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['perfil_id'] ?>">
+									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-warning me-1">
 										<i class="bi bi-pencil me-2"></i>Editar
 									</a>
-									<input type="hidden" name="id" value="<?= $perfil['id'] ?>">
+									<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
 									<button type="submit" name="eliminar" class="btn btn-sm btn-danger">
 										<i class="bi bi-trash me-2"></i>Eliminar
 									</button>

@@ -5,15 +5,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 
 ?>
 
-<div class="bg-white bg-body-tertiary rounded  shadow-lg mt-2 p-4">
-	<div class="d-flex justify-content-between align-items-center pe-4">
-		<h2 class="m-4">Operadores</h2>
-		<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
+<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
+	<div class="d-flex justify-content-between align-items-center pe-2">
+		<h2 class="m-2">Operadores</h2>
+		<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
 	</div>
 	<?php if (isset($_GET['crear'])): ?>
 	<?php if (isset($message)): ?>
-		<div class="alert alert-danger rounded m-4" role="alert">
-			<strong class="font-bold">Error: </strong>
+		<div class="alert alert-danger rounded m-2" role="alert">
+			<strong>Error: </strong>
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
@@ -75,29 +75,27 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<tr class="text-center text-light">
 				<td class="p-2 border">ID</td>
 				<td class="p-2 border">Usuario</td>
-				<td class="p-2 border">Contraseña</td>
 				<td class="p-2 border">Nombre</td>
 				<td class="p-2 border">Email</td>
 				<td class="p-2 border">Rol</td>
 				<td class="p-2 border">Fecha de creación</td>
-				<td class="p-2 border">Fecha de actualización</td>
+				<td class="p-2 border">Creado por</td>
+				<td class="p-2 border">Fecha de edición</td>
+				<td class="p-2 border">Editado por</td>
 				<td class="p-2 border">Activo</td>
 				<td class="p-2 border">Acciones</td>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($operadores as $operador): ?>
-				<?php if (isset($_GET['editar']) && $_GET['editar'] == $operador['id']): ?>
-					<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>">
-						<tr id="fila<?= $operador['id'] ?>" class="text-center border-t bg-gray-100">
+				<?php if (isset($_GET['editar']) && $_GET['editar'] == $operador['operador_id']): ?>
+					<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>">
+						<tr id="fila<?= $operador['operador_id'] ?>" class="text-center border-t bg-gray-100">
 							<td class="p-2 border">
-								<?= $operador['id'] ?>
+								<?= $operador['operador_id'] ?>
 							</td>
 							<td class="p-2 border">
-								<?= $operador['username'] ?>
-							</td>
-							<td class="p-2 border">
-								***
+							<?= $operador['username'] ?>
 							</td>
 							<td class="p-2 border">
 								<input type="text" name="nombre_completo" value="<?= htmlspecialchars($operador['nombre_completo']) ?>" required>
@@ -118,7 +116,13 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								<?= $operador['creado_en'] ?>
 							</td>
 							<td class="p-2 border">
-								<?= $operador['actualizado_en'] ?>
+								<?= $operador['creado_por'] ?>
+							</td>
+							<td class="p-2 border">
+								<?= $operador['editado_en'] ?>
+							</td>
+							<td class="p-2 border">
+								<?= $operador['editado_por'] ?>
 							</td>
 							<td class="p-2 border">
 								<select name="activo" required>
@@ -127,11 +131,11 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								</select>
 							</td>
 							<td class="p-2 border">
-								<input type="hidden" name="id" value="<?= $operador['id'] ?>">
+								<input type="hidden" name="operador_id" value="<?= $operador['operador_id'] ?>">
 								<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 									<i class="bi bi-check-circle m-1"></i>
 								</button>
-								<a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
+								<a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['operador_id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
 									<i class="bi bi-x-circle m-1"></i>
 								</a>
 							</td>
@@ -140,21 +144,22 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<?php else: ?>
 					<!-- Modo visual  -->
 					<tr class="text-center border-t">
-						<td class="p-2 border"><?= htmlspecialchars($operador['id']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($operador['operador_id']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['username']) ?></td>
-						<td class="p-2 border">***</td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
-						<td class="p-2 border"><?= htmlspecialchars($operador['actualizado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($operador['creado_por']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($operador['editado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($operador['editado_por']) ?></td>
 						<td class="p-2 border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 						<td class="p-2 border">
-							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['id'] ?>">
-								<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['id'] ?>" class="btn btn-sm btn-warning me-1">
+							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['operador_id'] ?>">
+								<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>" class="btn btn-sm btn-warning me-1">
 									<i class="bi bi-pencil me-2"></i>Editar
 								</a>
-								<input type="hidden" name="id" value="<?= $operador['id'] ?>">
+								<input type="hidden" name="operador_id" value="<?= $operador['operador_id'] ?>">
 								<button type="submit" name="eliminar" class="btn btn-sm btn-danger">
 									<i class="bi bi-trash me-2"></i>Eliminar
 								</button>

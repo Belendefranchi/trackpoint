@@ -5,26 +5,28 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 
 ?>
 
-<div class="bg-white rounded-2xl shadow-lg mt-2 p-4">
-	<h2 class="text-xl font-bold text-[#22265D] m-4">Permisos</h2>
-	<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo permiso</a>
+<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
+	<div class="d-flex justify-content-between align-items-center pe-4">
+		<h2 class="m-4">Permisos</h2>
+		<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&crear" class="btn btn-primary btn-sm ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo permiso</a>
+	</div>
 	<?php if (isset($_GET['crear'])): ?>
 	<?php if (isset($message)): ?>
 		<div class="alert alert-danger rounded m-4" role="alert">
-			<strong class="font-bold">Error: </strong>
+			<strong>Error: </strong>
 			<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
 		</div>
 	<?php endif; ?>
 
 	<!-- Modo creación -->
-	<table class="m-4">
+	<table class="m-2">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Permiso</th>
-				<th class="p-2 border">Descripción</th>
-				<th class="p-2 border">Pantalla</th>
-				<th class="p-2 border">Acciones</th>
+				<td class="p-2 border">ID</td>
+				<td class="p-2 border">Permiso</td>
+				<td class="p-2 border">Descripción</td>
+				<td class="p-2 border">Pantalla</td>
+				<td class="p-2 border">Acciones</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -54,25 +56,27 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	</table>
 	<?php endif; ?>
 	<!-- Modo edición -->
-	<table class="m-4">
+	<table class="m-2">
 		<thead class="table-primary">
 			<tr class="text-center text-light">
-				<th class="p-2 border">ID</th>
-				<th class="p-2 border">Permiso</th>
-				<th class="p-2 border">Descripción</th>
-				<th class="p-2 border">Pantalla</th>
-				<th class="p-2 border">Fecha de creación</th>
-				<th class="p-2 border">Fecha de actualización</th>
-				<th class="p-2 border">Acciones</th>
+				<td class="p-2 border">ID</td>
+				<td class="p-2 border">Permiso</td>
+				<td class="p-2 border">Descripción</td>
+				<td class="p-2 border">Pantalla</td>
+				<td class="p-2 border">Fecha de creación</td>
+				<td class="p-2 border">Creado por</td>
+				<td class="p-2 border">Fecha de edición</td>
+				<td class="p-2 border">Editado por</td>
+				<td class="p-2 border">Acciones</td>
 			</tr>
-	</thead>
+		</thead>
 	<tbody>
 		<?php foreach ($permisos as $permiso): ?>
-			<?php if (isset($_GET['editar']) && $_GET['editar'] == $permiso['id']): ?>
-				<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar=<?= $permiso['id'] ?>">
-					<tr id="fila<?= $permiso['id'] ?>" class="text-center border-t bg-gray-100">
+			<?php if (isset($_GET['editar']) && $_GET['editar'] == $permiso['permiso_id']): ?>
+				<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar=<?= $permiso['permiso_id'] ?>">
+					<tr id="fila<?= $permiso['permiso_id'] ?>" class="text-center border-t bg-gray-100">
 						<td class="p-2 border">
-							<?= $permiso['id'] ?>
+							<?= $permiso['permiso_id'] ?>
 						</td>
 						<td class="p-2 border">
 							<input type="text" name="nombre" value="<?= htmlspecialchars($permiso['nombre']) ?>" required class="m-1">
@@ -87,14 +91,20 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<?= $permiso['creado_en'] ?>
 						</td>
 						<td class="p-2 border">
-							<?= $permiso['actualizado_en'] ?>
+							<?= $permiso['creado_por'] ?>
 						</td>
 						<td class="p-2 border">
-							<input type="hidden" name="id" value="<?= $permiso['id'] ?>">
+							<?= $permiso['editado_en'] ?>
+						</td>
+						<td class="p-2 border">
+							<?= $permiso['editado_por'] ?>
+						</td>
+						<td class="p-2 border">
+							<input type="hidden" name="permiso_id" value="<?= $permiso['permiso_id'] ?>">
 							<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 								<i class="bi bi-check-circle m-1"></i>
 							</button>
-							<a href="index.php?route=/configuracion/ABMs/permisos#fila<?= $permiso['id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
+							<a href="index.php?route=/configuracion/ABMs/permisos#fila<?= $permiso['permiso_id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
 								<i class="bi bi-x-circle m-1"></i>
 							</a>
 						</td>
@@ -103,18 +113,20 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<?php else: ?>
 					<!-- Modo visual  -->
 					<tr class="text-center border-t">
-						<td class="p-2 border"><?= htmlspecialchars($permiso['id']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['nombre']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
 						<td class="p-2 border"><?= htmlspecialchars($permiso['creado_en']) ?></td>
-						<td class="p-2 border"><?= htmlspecialchars($permiso['actualizado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($permiso['creado_por']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($permiso['editado_en']) ?></td>
+						<td class="p-2 border"><?= htmlspecialchars($permiso['editado_por']) ?></td>
 						<td class="p-2 border">
-								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&eliminar=<?= $permiso['id'] ?>">
-									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar=<?= $permiso['id'] ?>" class="btn btn-sm btn-warning me-1">
+								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&eliminar=<?= $permiso['permiso_id'] ?>">
+									<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar=<?= $permiso['permiso_id'] ?>" class="btn btn-sm btn-warning me-1">
 										<i class="bi bi-pencil me-2"></i>Editar
 									</a>
-									<input type="hidden" name="id" value="<?= $permiso['id'] ?>">
+									<input type="hidden" name="permiso_id" value="<?= $permiso['permiso_id'] ?>">
 									<button type="submit" name="eliminar" class="btn btn-sm btn-danger">
 										<i class="bi bi-trash me-2"></i>Eliminar
 									</button>

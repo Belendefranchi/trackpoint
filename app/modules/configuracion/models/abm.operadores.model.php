@@ -17,7 +17,7 @@ function obtenerOperadores() {
 function userExists($username, $email) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT id FROM configuracion_abm_operadores WHERE email = :email OR username = :username");
+		$stmt = $conn->prepare("SELECT operador_id FROM configuracion_abm_operadores WHERE email = :email OR username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->bindParam(':email', $email);
 		$stmt->execute();
@@ -32,12 +32,13 @@ function userExists($username, $email) {
 function crearOperador($username, $hashedPassword, $nombre_completo, $email, $rol) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_operadores (nombre_completo, email, username, password, rol) VALUES (:nombre_completo, :email, :username, :password, :rol)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_operadores (nombre_completo, email, username, password, rol, creado_por) VALUES (:nombre_completo, :email, :username, :password, :rol, :creado_por)");
 		$stmt->bindParam(':nombre_completo', $nombre_completo);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':username', $username);
 		$stmt->bindParam(':password', $hashedPassword);
 		$stmt->bindParam(':rol', $rol);
+		$stmt->bindParam(':creado_por', $_SESSION['operador_id']);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -46,11 +47,11 @@ function crearOperador($username, $hashedPassword, $nombre_completo, $email, $ro
 	}
 }
 
-function eliminarOperador($id) {
+function eliminarOperador($operador_id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_operadores WHERE id = :id");
-		$stmt->bindParam(':id', $id);
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_operadores WHERE operador_id = :operador_id");
+		$stmt->bindParam(':operador_id', $operador_id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -59,15 +60,16 @@ function eliminarOperador($id) {
 	}
 }
 
-function editarOperador($id, $nombre_completo, $email, $rol, $activo) {
+function editarOperador($operador_id, $nombre_completo, $email, $rol, $activo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET nombre_completo = :nombre_completo, email = :email, rol = :rol, activo = :activo WHERE id = :id");
-		$stmt->bindParam(':id', $id);
+		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET nombre_completo = :nombre_completo, email = :email, rol = :rol, activo = :activo WHERE operador_id = :operador_id");
+		$stmt->bindParam(':operador_id', $operador_id);
 		$stmt->bindParam(':nombre_completo', $nombre_completo);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':rol', $rol);
 		$stmt->bindParam(':activo', $activo);
+		$stmt->bindParam(':editado_por', $_SESSION['operador_id']);
 		$stmt->execute();
 		return $stmt->execute();
 	} catch (PDOException $e) {
@@ -77,11 +79,11 @@ function editarOperador($id, $nombre_completo, $email, $rol, $activo) {
 	}
 }
 
-function restablecerPassword($id, $newHashedPassword) {
+function restablecerPassword($operador_id, $newHashedPassword) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET password = :password WHERE id = :id");
-		$stmt->bindParam(':id', $id);
+		$stmt = $conn->prepare("UPDATE configuracion_abm_operadores SET password = :password WHERE operador_id = :operador_id");
+		$stmt->bindParam(':operador_id', $operador_id);
 		$stmt->bindParam(':password', $newHashedPassword);
 		return $stmt->execute();
 	} catch (PDOException $e) {

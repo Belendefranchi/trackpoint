@@ -10,6 +10,7 @@ CREATE TABLE configuracion_abm_operadores (
 	actualizado_en DATETIME NULL,
 	activo BIT DEFAULT 1
 );
+	
 
 -- Trigger que modificar el campo actualizado_en de forma autromática al actualizar un registro
 CREATE TRIGGER trg_Update_operadores

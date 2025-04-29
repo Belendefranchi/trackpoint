@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### EDITAR #######
 	if (isset($_POST['editar'])) {
-		$id = $_POST['id'];
+		$operador_id = $_POST['operador_id'];
+		$username = $_POST['username'] ?? '';
 		$nombre_completo = $_POST['nombre_completo'];
 		$email = $_POST['email'];
 		$rol = $_POST['rol'];
@@ -29,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['message'] = "Rol no válido";
 			} else {
 				// Verificar si el usuario ya existe
-				$user = userExists($email);
-				if ($user && $user['id'] != $id) {
+				$user = userExists($username, $email);
+				if ($user && $user != $operador_id) {
 					$_SESSION['message'] = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
 				} else {
 					// Llamar a la función que actualiza los datos
-					editarOperador($id, $nombre_completo, $email, $rol, $activo);
+					editarOperador($operador_id, $nombre_completo, $email, $rol, $activo);
 
 					// Redirigimos para evitar reenvío del formulario
 					header('Location: index.php?route=/configuracion/ABMs/operadores');
@@ -46,10 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### ELIMINAR #######
 
 	} elseif (isset($_POST['eliminar'])) {
-		$id = $_POST['id'];
+		$operador_id = $_POST['operador_id'];
 
 		// Llamar a la función que elimina el operador
-		eliminarOperador($id);
+		eliminarOperador($operador_id);
 
 		// Redirigimos para evitar reenvío del formulario
 		header('Location: index.php?route=/configuracion/ABMs/operadores');

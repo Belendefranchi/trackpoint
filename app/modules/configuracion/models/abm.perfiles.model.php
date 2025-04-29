@@ -31,9 +31,10 @@ function perfilExists($nombre) {
 function crearPerfil($nombre, $descripcion) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO configuracion_abm_perfiles (nombre, descripcion) VALUES (:nombre, :descripcion)");
+		$stmt = $conn->prepare("INSERT INTO configuracion_abm_perfiles (nombre, descripcion, creado_por) VALUES (:nombre, :descripcion, :creado_por)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
+		$stmt->bindValue(':creado_por', $_SESSION['username']);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -42,11 +43,11 @@ function crearPerfil($nombre, $descripcion) {
 	}
 }
 
-function eliminarPerfil($id) {
+function eliminarPerfil($perfil_id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_perfiles WHERE id = :id");
-		$stmt->bindParam(':id', $id);
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_perfiles WHERE perfil_id = :perfil_id");
+		$stmt->bindParam(':perfil_id', $perfil_id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -55,20 +56,23 @@ function eliminarPerfil($id) {
 	}
 }
 
-function editarPerfil($id, $nombre, $descripcion, $activo) {
+function editarPerfil($perfil_id, $nombre, $descripcion, $activo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion, activo = :activo WHERE id = :id");
-		$stmt->bindParam(':id', $id);
+		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion, editado_por = :editado_por, activo = :activo WHERE perfil_id = :perfil_id");
+		$stmt->bindParam(':perfil_id', $perfil_id);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
+		$stmt->bindValue(':editado_por', $_SESSION['username']);
 		$stmt->bindParam(':activo', $activo);
-		$stmt->execute();
-		registrarEvento("Perfiles Model: perfil editado corectamente, " . htmlspecialchars($_SESSION['nombre_completo']), "INFO");
-		return $stmt->execute();
+		$result = $stmt->execute(); // Ejecutar solo una vez
+
+		if ($result) {
+			registrarEvento("Perfiles Model: perfil editado correctamente, " . htmlspecialchars($_SESSION['nombre_completo']), "INFO");
+		}
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Perfiles Model: Error al editar el perfil, " . $e->getMessage() . htmlspecialchars($_SESSION['nombre_completo']), "ERROR");
+		registrarEvento("Perfiles Model: Error al editar el perfil, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

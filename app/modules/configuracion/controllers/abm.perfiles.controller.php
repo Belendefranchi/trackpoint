@@ -9,12 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### EDITAR #######
 	if (isset($_POST['editar'])) {
-		$id = $_POST['id'];
+		$perfil_id = $_POST['perfil_id'];
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
 		$activo = ($_POST['activo']);
 
-		if (empty($nombre) && empty($descripcion) && empty($activo)) {
+		if (empty($nombre) && empty($descripcion)) {
 			$_SESSION['message'] = "Por favor ingrese todos los datos";
 		} elseif (empty($nombre)) {
 			$_SESSION['message'] = "Por favor ingrese el nombre";
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['message'] = "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
 			} else {
 				// Llamar a la función que actualiza los datos
-				editarPerfil($id, $nombre, $descripcion, $activo);
+				editarPerfil($perfil_id, $nombre, $descripcion, $activo);
 
 				// Redirigimos para evitar reenvío del formulario
 				header('Location: index.php?route=/configuracion/ABMs/perfiles');
@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### ELIMINAR #######
 
 	} elseif (isset($_POST['eliminar'])) {
-		$id = $_POST['id'];
+		$perfil_id = $_POST['perfil_id'];
 
 		// Llamar a la función que elimina el perfil
-		eliminarPerfil($id);
+		eliminarPerfil($perfil_id);
 
 		// Redirigimos para evitar reenvío del formulario
 		header('Location: index.php?route=/configuracion/ABMs/perfiles');
