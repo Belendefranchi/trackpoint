@@ -6,8 +6,10 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded  shadow-lg mt-2 p-4">
-	<h2 class="m-4">Operadores</h2>
-	<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
+	<div class="d-flex justify-content-between align-items-center pe-4">
+		<h2 class="m-4">Operadores</h2>
+		<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm fw-bold hover:underline ms-4"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
+	</div>
 	<?php if (isset($_GET['crear'])): ?>
 	<?php if (isset($message)): ?>
 		<div class="alert alert-danger rounded m-4" role="alert">

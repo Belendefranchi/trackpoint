@@ -60,21 +60,21 @@ $activeItems = [
       </div>
 
       <div class="col-6 d-flex justify-content-start align-items-center">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link text-white" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/trackpoint/public/depositos">DEPÓSITOS</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/depositos">DEPÓSITOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/trackpoint/public/reportes">REPORTES</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/reportes">REPORTES</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white active" style="background-color: #3A4280;" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
