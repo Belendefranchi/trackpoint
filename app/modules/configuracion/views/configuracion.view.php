@@ -104,24 +104,24 @@ $activeItems = [
             ABMs
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
-            <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
-            <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
-            <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
-            <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
-            <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
-            <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
-            <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
-            <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
-            <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
-            <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
-            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
+            <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
+            <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
+            <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
+            <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
+            <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
+            <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
+            <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
+            <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
+            <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
+            <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
+            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
           </div>
           <a class="nav-link text-white fw-semibold <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
             Configuración PC
           </a>
           <div class="collapse ps-3 <?= $configPCOpen ?>" id="submenuConfigPC">
-            <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
-            <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'text-white' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
+            <a class="nav-link <?= $activeItems['impresoras'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">Impresoras</a>
+            <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
           </div>
         </div>
       </aside>

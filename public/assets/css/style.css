@@ -40,11 +40,6 @@
 	color: white !important;
 }
 
-/* Color de fondo general */
-/* body {
-  background-color: var(--bs-body-bg);
-} */
-
 .active-lateral {
   border-left: 4px solid #00B0E6;
   padding-left: 0.75rem; /* opcional: para que no se monte el texto encima del borde */
@@ -63,14 +58,6 @@
 .shadow-custom {
 	transition: top 0.5s, trasnform 0.5s;;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.nav-tabs {
-	border-bottom: none !important;
-}
-
-.nav-tabs :hover {
-	border-color: #3A4280 !important;
 }
 
 .nav-tabs .nav-link.active {
