@@ -9,11 +9,11 @@ SELECT * INTO backup_permisos FROM configuracion_abm_permisos;
 
 
 -- 1. Eliminar tablas principales
-DROP TABLE configuracion_abm_permisos;
-DROP TABLE configuracion_abm_perfiles;
-DROP TABLE configuracion_abm_operadores;
-DROP TABLE configuracion_abm_permisosPorPerfil;
 DROP TABLE configuracion_abm_perfilesPorOperador;
+DROP TABLE configuracion_abm_permisosPorPerfil;
+DROP TABLE configuracion_abm_operadores;
+DROP TABLE configuracion_abm_perfiles;
+DROP TABLE configuracion_abm_permisos;
 
 -- 2. Crear tablas corregidas
 CREATE TABLE configuracion_abm_operadores (
