@@ -144,7 +144,48 @@ $activeItems = [
         },
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var modal = document.getElementById('modalCrear');
+      modal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var perfilId = button.getAttribute('data-id');
+        var nombre = button.getAttribute('data-nombre');
+        var descripcion = button.getAttribute('data-descripcion');
+
+        modal.querySelector('#crearPerfilId').value = perfilId;
+        modal.querySelector('#crearNombre').value = nombre;
+        modal.querySelector('#crearDescripcion').value = descripcion;
+      });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      var modal = document.getElementById('modalEditar');
+      modal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var perfilId = button.getAttribute('data-id');
+        var nombre = button.getAttribute('data-nombre');
+        var descripcion = button.getAttribute('data-descripcion');
+        var activo = button.getAttribute('data-activo');
+
+        modal.querySelector('#editarPerfilId').value = perfilId;
+        modal.querySelector('#editarNombre').value = nombre;
+        modal.querySelector('#editarDescripcion').value = descripcion;
+        modal.querySelector('#editarActivo').value = activo;
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var modal = document.getElementById('modalEliminar');
+      modal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var perfilId = button.getAttribute('data-id');
+
+        modal.querySelector('#eliminarPerfilId').value = perfilId;
+      });
+    });
   </script>
+
 </body>
 </html>
 

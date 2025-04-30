@@ -11,57 +11,18 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<td>
 					<div class="d-flex justify-content-between align-items-center pe-2">
 						<h2 class="ms-2">Perfiles</h2>
-						<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalCrear" 
+							data-nombre=""
+							data-descripcion="">
+							<i class="bi bi-pencil me-2"></i>Nuevo Perfil
+						</a>
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<td class="px-2">
-					<?php if (isset($_GET['crear'])): ?>
-					<?php if (isset($message)): ?>
-						<div class="alert alert-danger rounded m-2" role="alert">
-							<strong>Error: </strong>
-							<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
-						</div>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<tr>
 				<td class="p-2">
-					<!-- Modo creación -->
-					<table>
-						<thead class="table-primary">
-							<tr class="text-light">
-								<td class="p-2 border">ID</td>
-								<td class="p-2 border">Perfil</td>
-								<td class="p-2 border">Descripción</td>
-								<td class="p-2 border">Acciones</td>
-							</tr>
-						</thead>
-						<tbody>
-							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
-								<tr class="bg-gray-100">
-									<td class="p-1 border">#</td>
-									<td class="p-1 border">
-										<input type="text" name="nombre" value="" required class="m-1">
-									</td>
-									<td class="p-1 border">
-										<input type="text" name="descripcion" value="" required class="m-1">
-									</td>
-									<td class="p-1 border">
-										<button type="submit" name="crear" class="btn btn-sm btn-success me-1">
-											<i class="bi bi-check-circle m-1"></i>
-										</button>
-										<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles" class="btn btn-sm btn-danger me-1">
-											<i class="bi bi-x-circle m-1"></i>
-										</a>
-									</td>
-								</tr>
-							</form>
-						</tbody>
-					</table>
-					<?php endif; ?>
-					<!-- Modo edición -->
 					<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
@@ -78,75 +39,150 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						</thead>
 						<tbody>
 							<?php foreach ($perfiles as $perfil): ?>
-								<?php if (isset($_GET['editar']) && $_GET['editar'] == $perfil['perfil_id']): ?>
-									<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>">
-										<tr id="fila<?= $perfil['perfil_id'] ?>" class="bg-gray-100">
-											<td class="p-2 border">
-												<?= $perfil['perfil_id'] ?>
-											</td>
-											<td class="p-2 border">
-												<input type="text" name="nombre" value="<?= htmlspecialchars($perfil['nombre']) ?>" required class="m-1">
-											</td>
-											<td class="p-2 border">
-												<input type="text" name="descripcion" value="<?= htmlspecialchars($perfil['descripcion']) ?>" required class="m-1">
-											</td>
-											<td class="p-2 border">
-												<?= $perfil['creado_en'] ?>
-											</td>
-											<td class="p-2 border">
-												<?= $perfil['creado_por'] ?>
-											</td>
-											<td class="p-2 border">
-												<?= $perfil['editado_en'] ?>
-											</td>
-											<td class="p-2 border">
-												<?= $perfil['editado_por'] ?>
-											</td>
-											<td class="p-2 border">
-												<select name="activo" required>
-													<option value="1" <?= $perfil['activo'] === '1' ? 'selected' : '' ?>>Sí</option>
-													<option value="0" <?= $perfil['activo'] === '0' ? 'selected' : '' ?>>No</option>
-												</select>
-											</td>
-											<td class="p-2 border text-center">
-												<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
- 												<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
-													<i class="bi bi-check-circle m-1"></i>
-												</button>
-												<a href="index.php?route=/configuracion/ABMs/perfiles#fila<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-danger me-1">
-													<i class="bi bi-x-circle m-1"></i>
-												</a>
-											</td>
-										</tr>
-									</form>
-								<?php else: ?>
-									<!-- Modo visual  -->
-									<tr class="text-start">
-										<td class="p-2 border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
-										<td class="p-2 border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
-										<td class="p-2 border">
-											<form class="d-flex no-wrap" method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['perfil_id'] ?>">
-												<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-warning me-1 d-flex no-wrap">
-													<i class="bi bi-pencil me-2"></i>Editar
-												</a>
-												<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
-												<button type="submit" name="eliminar" class="btn btn-sm btn-danger d-flex no-wrap">
-													<i class="bi bi-trash me-2"></i>Eliminar
-												</button>
-											</form>
-										</td>
-									</tr>
-								<?php endif; ?>
+								<tr class="text-start">
+									<td class="p-2 border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
+									<td class="p-2 border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
+									<td class="p-2 border">
+										<div class="d-flex no-wrap">
+											<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
+												data-bs-toggle="modal" 
+												data-bs-target="#modalEditar" 
+												data-id="<?= $perfil['perfil_id'] ?>"
+												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
+												data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
+												data-activo="<?= $perfil['activo'] ?>">
+												<i class="bi bi-pencil me-2"></i>Editar
+											</a>
+											<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEliminar"
+												data-id="<?= $perfil['perfil_id'] ?>">
+												<i class="bi bi-trash me-2"></i>Eliminar
+											</a>
+										</div>
+									</td>
+								</tr>
 							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</td>
 			</tr>
 	</table>
+	<?php
+		if (isset($_SESSION['message'])) {
+			$message = $_SESSION['message'];
+			unset($_SESSION['message']); // Limpiamos para que no persista
+		}
+	?>
+
+	<!-- Modal de creación -->
+	<div class="modal fade m-5" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
+				<div class="modal-content m-5">
+					<div class="modal-header table-primary text-white">
+						<h5 class="modal-title" id="modalCrearLabel">Nuevo perfil</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="perfil_id" id="crearPerfilId">
+						
+						<div class="mb-3">
+							<?php if (isset($message)): ?>
+								<div class="alert alert-danger rounded m-2" role="alert">
+									<strong>Error: </strong>
+									<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
+								</div>
+							<?php endif; ?>
+						</div>
+					
+						<div class="mb-3">
+							<label for="crearNombre" class="form-label">Nombre</label>
+							<input type="text" class="form-control" name="nombre" id="crearNombre">
+						</div>
+
+						<div class="mb-3">
+							<label for="crearDescripcion" class="form-label">Descripción</label>
+							<input type="text" class="form-control" name="descripcion" id="crearDescripcion">
+						</div>
+
+					</div>
+					<div class="modal-footer d-flex justify-content-center p-2">
+						<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+						<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal de edición -->
+	<div class="modal fade m-5" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar">
+				<div class="modal-content m-5">
+					<div class="modal-header table-primary text-white">
+						<h5 class="modal-title" id="modalEditarLabel">Editar perfil</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="perfil_id" id="editarPerfilId">
+
+						<div class="mb-3">
+							<label for="editarNombre" class="form-label">Nombre</label>
+							<input type="text" class="form-control" name="nombre" id="editarNombre" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="editarDescripcion" class="form-label">Descripción</label>
+							<input type="text" class="form-control" name="descripcion" id="editarDescripcion" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="editarActivo" class="form-label">Activo</label>
+							<select class="form-select" name="activo" id="editarActivo" required>
+								<option value="1">Sí</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center p-2">
+						<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+						<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal de eliminación -->
+	<div class="modal fade m-5" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar">
+				<div class="modal-content m-5">
+					<div class="modal-header table-primary text-white">
+						<h5 class="modal-title" id="modalEliminarLabel">Eliminar perfil</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="perfil_id" id="eliminarPerfilId">
+						<div class="mb-3">
+							<p>¿Está seguro que desea eliminar el perfil?</p>
+							<p>Esta acción no se puede deshacer.</p>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center p-2">
+						<button type="submit" class="btn btn-sm btn-danger m-2" name="eliminar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+						<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>

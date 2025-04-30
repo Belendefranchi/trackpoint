@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### ELIMINAR #######
 
-	} elseif (isset($_POST['eliminar'])) {
+	} elseif (isset($_GET['eliminar'])) {
 		$perfil_id = $_POST['perfil_id'];
 
 		// Llamar a la función que elimina el perfil
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### CREAR #######
 
-	} elseif (isset($_POST['crear'])) {
+	} elseif (isset($_GET['crear'])) {
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
 
