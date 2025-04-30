@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							data-bs-target="#modalCrear" 
 							data-nombre=""
 							data-descripcion="">
-							<i class="bi bi-pencil me-2"></i>Nuevo Perfil
+							<i class="bi-plus-circle me-2"></i>Nuevo Perfil
 						</a>
 					</div>
 				</td>
