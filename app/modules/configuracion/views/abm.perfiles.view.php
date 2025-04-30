@@ -6,12 +6,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-	<table class="text-center">
+	<table>
 			<tr>
 				<td>
 					<div class="d-flex justify-content-between align-items-center pe-2">
-						<h2 class="ms-3">Perfiles</h2>
-						<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm me-2"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
+						<h2 class="ms-2">Perfiles</h2>
+						<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-2"></i>Nuevo perfil</a>
 					</div>
 				</td>
 			</tr>
@@ -29,7 +29,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<tr>
 				<td class="p-2">
 					<!-- Modo creación -->
-					<table class="m-2">
+					<table>
 						<thead class="table-primary">
 							<tr class="text-light">
 								<td class="p-2 border">ID</td>
@@ -62,18 +62,18 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					</table>
 					<?php endif; ?>
 					<!-- Modo edición -->
-					<table class="m-2">
+					<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<td class="p-2 border">ID</td>
-								<td class="p-2 border">Perfil</td>
-								<td class="p-2 border">Descripción</td>
-								<td class="p-2 border">Fecha de creación</td>
-								<td class="p-2 border">Creado por</td>
-								<td class="p-2 border">Fecha de edición</td>
-								<td class="p-2 border">Editado por</td>
-								<td class="p-2 border">Activo</td>
-								<td class="p-2 border">Acciones</td>
+								<td class="p-2 border text-center">ID</td>
+								<td class="p-2 border text-center">Perfil</td>
+								<td class="p-2 border text-center">Descripción</td>
+								<td class="p-2 border text-center">Fecha de creación</td>
+								<td class="p-2 border text-center">Creado por</td>
+								<td class="p-2 border text-center">Fecha de edición</td>
+								<td class="p-2 border text-center">Editado por</td>
+								<td class="p-2 border text-center">Activo</td>
+								<td class="p-2 border text-center">Acciones</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -108,12 +108,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<option value="0" <?= $perfil['activo'] === '0' ? 'selected' : '' ?>>No</option>
 												</select>
 											</td>
-											<td class="p-2 border">
+											<td class="p-2 border text-center">
 												<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
-												<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
+ 												<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 													<i class="bi bi-check-circle m-1"></i>
 												</button>
-												<a href="index.php?route=/configuracion/ABMs/perfiles#fila<?= $perfil['perfil_id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
+												<a href="index.php?route=/configuracion/ABMs/perfiles#fila<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-danger me-1">
 													<i class="bi bi-x-circle m-1"></i>
 												</a>
 											</td>
@@ -123,7 +123,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<!-- Modo visual  -->
 									<tr class="text-start">
 										<td class="p-2 border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-										<td class="p-2 border text-center"><?= htmlspecialchars($perfil['nombre']) ?></td>
+										<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
@@ -131,12 +131,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
 										<td class="p-2 border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 										<td class="p-2 border">
-											<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['perfil_id'] ?>">
-												<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-warning me-1">
+											<form class="d-flex no-wrap" method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['perfil_id'] ?>">
+												<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-warning me-1 d-flex no-wrap">
 													<i class="bi bi-pencil me-2"></i>Editar
 												</a>
 												<input type="hidden" name="perfil_id" value="<?= $perfil['perfil_id'] ?>">
-												<button type="submit" name="eliminar" class="btn btn-sm btn-danger">
+												<button type="submit" name="eliminar" class="btn btn-sm btn-danger d-flex no-wrap">
 													<i class="bi bi-trash me-2"></i>Eliminar
 												</button>
 											</form>

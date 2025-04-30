@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../../config/helpers.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### EDITAR #######
-	if (isset($_POST['editar'])) {
+	if (isset($_GET['editar'])) {
 		$perfil_id = $_POST['perfil_id'];
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];

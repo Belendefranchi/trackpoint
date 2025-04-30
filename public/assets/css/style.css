@@ -67,3 +67,24 @@
 	border-radius: 0.25rem;
 	border-color: #3A4280 !important;
 }
+
+  /* Ajustar el tamaño del grip de redimensionado */
+  table.dataTable td.dtr-resizable {
+    cursor: ew-resize;
+  }
+
+  table.dataTable th.dtr-resizable {
+    cursor: ew-resize;
+  }
+
+  /* Hacer la barra de desplazamiento más grande */
+  table.dataTable td.dtr-resizable:after, 
+  table.dataTable th.dtr-resizable:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 20px;  /* Cambia el tamaño del grip */
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+  }

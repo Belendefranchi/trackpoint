@@ -6,12 +6,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-	<table class="text-center">
+	<table>
 		<tr>
 			<td>
 				<div class="d-flex justify-content-between align-items-center pe-2">
-					<h2 class="ms-3">Operadores</h2>
-					<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm me-2"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
+					<h2 class="ms-2">Operadores</h2>
+					<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
 				</div>
 			</td>
 		</tr>
@@ -29,7 +29,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 		<tr>
 			<td class="p-2">
 				<!-- Modo creación -->
-				<table class="m-2">
+				<table class="">
 					<thead class="table-primary">
 						<tr class="text-light">
 							<td class="p-2 border">ID</td>
@@ -80,20 +80,20 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				</table>
 				<?php endif; ?>
 				<!-- Modo edición -->
-				<table class="m-2">
+				<table>
 					<thead class="table-primary">
 						<tr class="text-light">
-							<td class="p-2 border">ID</td>
-							<td class="p-2 border">Usuario</td>
-							<td class="p-2 border">Nombre</td>
-							<td class="p-2 border">Email</td>
-							<td class="p-2 border">Rol</td>
-							<td class="p-2 border">Fecha de creación</td>
-							<td class="p-2 border">Creado por</td>
-							<td class="p-2 border">Fecha de edición</td>
-							<td class="p-2 border">Editado por</td>
-							<td class="p-2 border">Activo</td>
-							<td class="p-2 border">Acciones</td>
+							<td class="p-2 border text-center">ID</td>
+							<td class="p-2 border text-center">Usuario</td>
+							<td class="p-2 border text-center">Nombre</td>
+							<td class="p-2 border text-center">Email</td>
+							<td class="p-2 border text-center">Rol</td>
+							<td class="p-2 border text-center">Fecha de creación</td>
+							<td class="p-2 border text-center">Creado por</td>
+							<td class="p-2 border text-center">Fecha de edición</td>
+							<td class="p-2 border text-center">Editado por</td>
+							<td class="p-2 border text-center">Activo</td>
+							<td class="p-2 border text-center">Acciones</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -105,7 +105,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<?= $operador['operador_id'] ?>
 										</td>
 										<td class="p-2 border">
-										<?= $operador['username'] ?>
+											<?= $operador['username'] ?>
 										</td>
 										<td class="p-2 border">
 											<input type="text" name="nombre_completo" value="<?= htmlspecialchars($operador['nombre_completo']) ?>" required>
@@ -140,12 +140,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												<option value="0" <?= $operador['activo'] === '0' ? 'selected' : '' ?>>No</option>
 											</select>
 										</td>
-										<td class="p-2 border">
+										<td class="p-2 border text-center">
 											<input type="hidden" name="operador_id" value="<?= $operador['operador_id'] ?>">
 											<button type="submit" name="editar" class="btn btn-sm btn-success me-1">
 												<i class="bi bi-check-circle m-1"></i>
 											</button>
-											<a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['operador_id'] //si hay muchas filas, al cancelar vuelve a la fila donde estaba?>" class="btn btn-sm btn-danger me-1">
+											<a href="index.php?route=/configuracion/ABMs/operadores#fila<?= $operador['operador_id'] ?>" class="btn btn-sm btn-danger me-1">
 												<i class="bi bi-x-circle m-1"></i>
 											</a>
 										</td>
@@ -153,9 +153,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								</form>
 							<?php else: ?>
 								<!-- Modo visual  -->
-								<tr>
+								<tr class="text-start">
 									<td class="p-2 border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-									<td class="p-2 border text-center"><?= htmlspecialchars($operador['username']) ?></td>
+									<td class="p-2 border"><?= htmlspecialchars($operador['username']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
@@ -165,12 +165,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<td class="p-2 border"><?= htmlspecialchars($operador['editado_por']) ?></td>
 									<td class="p-2 border text-center"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="p-2 border">
-										<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['operador_id'] ?>">
-											<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>" class="btn btn-sm btn-warning me-1">
+										<form class="d-flex no-wrap" method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['operador_id'] ?>">
+											<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>" class="btn btn-sm btn-warning me-1 d-flex no-wrap">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
 											<input type="hidden" name="operador_id" value="<?= $operador['operador_id'] ?>">
-											<button type="submit" name="eliminar" class="btn btn-sm btn-danger">
+											<button type="submit" name="eliminar" class="btn btn-sm btn-danger d-flex no-wrap">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</button>
 										</form>

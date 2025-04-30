@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../../../layouts/layout.view.php';
 
 $currentUri = $_SERVER['REQUEST_URI'];
 
@@ -29,35 +30,6 @@ $activeItems = [
 ];
 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= $title ?? 'Configuración' ?></title>
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/bootstrap.min.css" />
-  <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
-  <link rel="stylesheet" href="/trackpoint/public/assets/icons/font/bootstrap-icons.css">
-
-  <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
-  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
-</head>
-
-<body style="background-color: #f4f7fc;">
-  <!-- Navbar -->
-  <nav class="navbar navbar-dark shadow-custom" style="background-color: #22265D;">
-    <div class="container-fluid">
-      
-      <div class="col-2 d-flex align-items-center justify-content-start px-3">
-        <a class="navbar-brand d-flex align-items-center gap-2 text-white" href="/trackpoint/">
-          <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
-          TrackPoint
-        </a>
-      </div>
 
       <div class="col-6 d-flex justify-content-start align-items-center">
         <ul class="nav nav-pills">
@@ -106,7 +78,6 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
             <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
             <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
-            <a class="nav-link <?= $activeItems['permisosPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorOperador">Permisos por Operador</a>
             <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
             <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
             <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
@@ -139,7 +110,41 @@ $activeItems = [
       </main>
     </div>
   </div>
-
+  <script src="/trackpoint/public/assets/js/jquery.js"></script>
+  <script src="/trackpoint/public/assets/js/jquery.dataTables.min.js"></script>
+  <script src="/trackpoint/public/assets/js/jquery.dataTables.colResize.js"></script>
+  <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
+  <script>
+    $(document).ready(function () {
+      $('#miTabla').DataTable({
+        colResize: {
+          realtime: true
+        },
+        dom: 'lfrtip',
+        language: {
+          "sProcessing":     "Procesando...",
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+          "sZeroRecords":    "No se encontraron resultados",
+          "sInfo":           "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+          "sInfoEmpty":      "Mostrando 0 a 0 de 0 registros",
+          "sInfoFiltered":   "(filtrado de _MAX_ registros en total)",
+          "sSearch":         "Buscar:",
+          "sEmptyTable":     "No hay datos disponibles en la tabla",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+            "sFirst":    "Primero",
+            "sPrevious": "Anterior",
+            "sNext":     "Siguiente",
+            "sLast":     "Último"
+          },
+          "oAria": {
+            "sSortAscending":  ": activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": activar para ordenar la columna de manera descendente"
+          }
+        },
+      });
+    });
+  </script>
 </body>
 </html>
 
