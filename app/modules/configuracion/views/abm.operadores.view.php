@@ -10,13 +10,13 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 		<tr>
 			<td>
 				<div class="d-flex justify-content-between align-items-center pe-2">
-					<h2 class="m-2">Operadores</h2>
+					<h2 class="ms-3">Operadores</h2>
 					<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear" class="btn btn-primary btn-sm me-2"><i class="bi bi-plus-circle me-2"></i>Nuevo operador</a>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td class="p-2">
+			<td class="px-2">
 				<?php if (isset($_GET['crear'])): ?>
 				<?php if (isset($message)): ?>
 					<div class="alert alert-danger rounded m-2" role="alert">
