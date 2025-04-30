@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-	<table>
+	<table class="text-center">
 		<tr>
 			<td>
 				<div class="d-flex justify-content-between align-items-center pe-2">
@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<!-- Modo creación -->
 				<table class="m-2">
 					<thead class="table-primary">
-						<tr class="text-center text-light">
+						<tr class="text-light">
 							<td class="p-2 border">ID</td>
 							<td class="p-2 border">Usuario</td>
 							<td class="p-2 border">Contraseña</td>
@@ -43,7 +43,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					</thead>
 					<tbody>
 						<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear">
-							<tr class="text-center border-t bg-gray-100">
+							<tr class="bg-gray-100">
 								<td class="p-1 border">#</td>
 								<td class="p-1 border">
 									<input type="text" name="username" value="" required class="m-1">
@@ -82,7 +82,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				<!-- Modo edición -->
 				<table class="m-2">
 					<thead class="table-primary">
-						<tr class="text-center text-light">
+						<tr class="text-light">
 							<td class="p-2 border">ID</td>
 							<td class="p-2 border">Usuario</td>
 							<td class="p-2 border">Nombre</td>
@@ -100,7 +100,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<?php foreach ($operadores as $operador): ?>
 							<?php if (isset($_GET['editar']) && $_GET['editar'] == $operador['operador_id']): ?>
 								<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>">
-									<tr id="fila<?= $operador['operador_id'] ?>" class="text-center border-t bg-gray-100">
+									<tr id="fila<?= $operador['operador_id'] ?>" class="bg-gray-100">
 										<td class="p-2 border">
 											<?= $operador['operador_id'] ?>
 										</td>
@@ -153,9 +153,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								</form>
 							<?php else: ?>
 								<!-- Modo visual  -->
-								<tr class="text-center border-t">
-									<td class="p-2 border"><?= htmlspecialchars($operador['operador_id']) ?></td>
-									<td class="p-2 border"><?= htmlspecialchars($operador['username']) ?></td>
+								<tr>
+									<td class="p-2 border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
+									<td class="p-2 border text-center"><?= htmlspecialchars($operador['username']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
@@ -163,7 +163,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<td class="p-2 border"><?= htmlspecialchars($operador['creado_por']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['editado_en']) ?></td>
 									<td class="p-2 border"><?= htmlspecialchars($operador['editado_por']) ?></td>
-									<td class="p-2 border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
+									<td class="p-2 border text-center"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="p-2 border">
 										<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar=<?= $operador['operador_id'] ?>">
 											<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar=<?= $operador['operador_id'] ?>" class="btn btn-sm btn-warning me-1">

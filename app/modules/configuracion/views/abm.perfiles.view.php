@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-	<table>
+	<table class="text-center">
 			<tr>
 				<td>
 					<div class="d-flex justify-content-between align-items-center pe-2">
@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<!-- Modo creación -->
 					<table class="m-2">
 						<thead class="table-primary">
-							<tr class="text-center text-light">
+							<tr class="text-light">
 								<td class="p-2 border">ID</td>
 								<td class="p-2 border">Perfil</td>
 								<td class="p-2 border">Descripción</td>
@@ -40,7 +40,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						</thead>
 						<tbody>
 							<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
-								<tr class="text-center border-t bg-gray-100">
+								<tr class="bg-gray-100">
 									<td class="p-1 border">#</td>
 									<td class="p-1 border">
 										<input type="text" name="nombre" value="" required class="m-1">
@@ -64,7 +64,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<!-- Modo edición -->
 					<table class="m-2">
 						<thead class="table-primary">
-							<tr class="text-center text-light">
+							<tr class="text-light">
 								<td class="p-2 border">ID</td>
 								<td class="p-2 border">Perfil</td>
 								<td class="p-2 border">Descripción</td>
@@ -80,7 +80,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<?php foreach ($perfiles as $perfil): ?>
 								<?php if (isset($_GET['editar']) && $_GET['editar'] == $perfil['perfil_id']): ?>
 									<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>">
-										<tr id="fila<?= $perfil['perfil_id'] ?>" class="text-center border-t bg-gray-100">
+										<tr id="fila<?= $perfil['perfil_id'] ?>" class="bg-gray-100">
 											<td class="p-2 border">
 												<?= $perfil['perfil_id'] ?>
 											</td>
@@ -121,15 +121,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									</form>
 								<?php else: ?>
 									<!-- Modo visual  -->
-									<tr class="text-center border-t">
-										<td class="p-2 border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-										<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
+									<tr class="text-start">
+										<td class="p-2 border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+										<td class="p-2 border text-center"><?= htmlspecialchars($perfil['nombre']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
 										<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
-										<td class="p-2 border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
+										<td class="p-2 border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 										<td class="p-2 border">
 											<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar=<?= $perfil['perfil_id'] ?>">
 												<a href="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar=<?= $perfil['perfil_id'] ?>" class="btn btn-sm btn-warning me-1">
