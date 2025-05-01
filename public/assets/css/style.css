@@ -112,7 +112,6 @@
 
 /* Estilo general para todos los botones de paginación */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  color: #adadad !important;
   border: 1px solid #ccc;
   padding: 6px 12px;
   margin: 2px;
@@ -120,28 +119,40 @@
   cursor: pointer;
 }
 
+/* Boton de pagina actual y Botones de número de páginas pero no actuales al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-  background-color: #3A4280 !important;
+  background: transparent !important;
+  background-color: #adadad !important;
   color: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
 
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  background-color: #3A4280 !important;
-  color: white !important;
+/* Boton Anterior y Siguiente deshabilitados */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
+  color: #adadad !important;
 }
 
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {
-  background-color: #3A4280 !important;
-  color: white !important;
+/* Boton Anterior ySiguiente deshabilitados al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
+  background: transparent !important;
+  color: #adadad !important;
+  border: none !important;
 }
 
-
+/* Boton Anterior y Siguiente habilitados al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
-  background-color: #3A4280 !important;
+  background: transparent !important;
+  background-color: #adadad !important;
   color: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
+
+
+
 
 
 
