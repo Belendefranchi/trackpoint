@@ -29,12 +29,14 @@ function perfilExists($nombre) {
 }
 
 function crearPerfil($nombre, $descripcion) {
+	session_start();
+	$creado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("INSERT INTO configuracion_abm_perfiles (nombre, descripcion, creado_por) VALUES (:nombre, :descripcion, :creado_por)");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
-		$stmt->bindValue(':creado_por', $_SESSION['username']);
+		$stmt->bindParam(':creado_por', $creado_por);
 		return $stmt->execute();
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -57,18 +59,20 @@ function eliminarPerfil($perfil_id) {
 }
 
 function editarPerfil($perfil_id, $nombre, $descripcion, $activo) {
+	session_start();
+	$editado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE configuracion_abm_perfiles SET nombre = :nombre, descripcion = :descripcion, editado_por = :editado_por, activo = :activo WHERE perfil_id = :perfil_id");
 		$stmt->bindParam(':perfil_id', $perfil_id);
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
-		$stmt->bindValue(':editado_por', $_SESSION['username']);
+		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $activo);
 		$result = $stmt->execute(); // Ejecutar solo una vez
 
 		if ($result) {
-			registrarEvento("Perfiles Model: perfil editado correctamente, " . htmlspecialchars($_SESSION['nombre_completo']), "INFO");
+			registrarEvento("Perfiles Model: perfil editado correctamente por, " . $editado_por, "INFO");
 		}
 	} catch (PDOException $e) {
 		// Manejo de errores

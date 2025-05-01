@@ -161,9 +161,9 @@
   border: 1px solid #DEE2E6 !important;
 }
 
-
-
-
+table.dataTable.no-footer {
+  border-bottom: 1px solid #DEE2E6 !important;
+}
 
 
 

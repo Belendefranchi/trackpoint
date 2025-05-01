@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			} else {
 				// Llamar a la función que actualiza los datos
 				editarPerfil($perfil_id, $nombre, $descripcion, $activo);
+				registrarEvento("Perfiles Controller: Perfil editado correctamente => " . $nombre, "INFO");
 
 				// Redirigimos para evitar reenvío del formulario
 				header('Location: index.php?route=/configuracion/ABMs/perfiles');
