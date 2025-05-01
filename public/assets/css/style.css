@@ -125,7 +125,7 @@
   background: transparent !important;
   background-color: #adadad !important;
   color: white !important;
-  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #DEE2E6 !important;
 }
 
 /* Boton Anterior y Siguiente deshabilitados */
@@ -148,7 +148,17 @@
   background: transparent !important;
   background-color: #adadad !important;
   color: white !important;
-  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #DEE2E6 !important;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+  color: #adadad !important;
+}
+
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+  color: #adadad !important;
+  border: 1px solid #DEE2E6 !important;
 }
 
 
