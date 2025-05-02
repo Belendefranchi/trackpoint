@@ -133,9 +133,21 @@ $activeItems = [
 <script src="/trackpoint/public/assets/js/buttons.html5.min.js"></script>
 <script src="/trackpoint/public/assets/js/buttons.print.min.js"></script>
 
+<!-- pdfmake para exportar a PDF -->
+<script src="/trackpoint/public/assets/js/pdfmake.min.js"></script>
+<script src="/trackpoint/public/assets/js/vfs_fonts.js"></script>
+
+<!-- JSZip para exportar a Excel -->
+<script src="/trackpoint/public/assets/js/jszip.min.js"></script>
+
+<!-- Logos base64 -->
+<script src="/trackpoint/public/assets/js/logo_base64_100x109.js"></script>
+
+
 
 <!-- Script DataTables y modales -->
 <script>
+  const fechaHoy = new Date().toISOString().slice(0, 10);
   $(document).ready(function () {
     $('#miTabla').DataTable({
       colResize: {
@@ -148,10 +160,121 @@ $activeItems = [
           extend: 'colvis',
           text: 'Mostrar u ocultar columnas <span class="dropdown-caret"></span>',
           className: 'btn btn-outline-secondary'
+        },
+        {
+          extend: 'pdfHtml5',
+          title: '',
+          text: 'PDF',
+          filename: `${fechaHoy}_TrackPoint_Listado de Perfiles`,
+          orientation: 'portrait',
+          pageSize: 'A4',
+          exportOptions: {
+            columns: ':visible:not(.no-export)'
+          },
+          customize: function (doc) {
+            // Insertar logo al principio (debe estar en base64 o en una URL pública)
+            doc.content.unshift({ 
+                table: {
+                  widths: ['auto', '*', 'auto'], // Logo, título, fecha
+                  body: [
+                    [
+                      {
+                        image: logoBase64_100x109,
+                        width: 50,
+                        alignment: 'left',
+                        margin: [5, 5, 5, 5]
+                      },
+                      {
+                        stack: [
+                          { text: 'PUNTO CONECTADO', fontSize: 18, bold: true, color: '#22265D' },
+                          {
+                            text: [
+                              { text: 'Track ', fontSize: 14, bold: true, color: '#22265D' },
+                              { text: 'Point', fontSize: 14, bold: true, color: '#00B0E6' }
+                            ],
+                            alignment: 'center'
+                          },
+                          { text: 'Listado de Perfiles', fontSize: 14, color: '#adadad' }
+                        ],
+                        alignment: 'center',
+                        fontSize: 16,
+                        bold: true,
+                        margin: [0, 15, 0, 0],
+                      },
+                      {
+                        text: fechaHoy,
+                        alignment: 'right',
+                        fontSize: 10,
+                        color: '#22265D',
+                        margin: [5, 15, 5, 15],
+                      }
+                    ]
+                  ]
+                },
+                layout: {
+                  hLineWidth: function () { return 0.5; },
+                  vLineWidth: function () { return 0.5; },
+                  hLineColor: function () { return '#adadad'; },
+                  vLineColor: function () { return '#adadad'; },
+                  paddingLeft: function () { return 5; },
+                  paddingRight: function () { return 5; },
+                  paddingTop: function () { return 5; },
+                  paddingBottom: function () { return 5; }
+                },
+                margin: [0, 20, 0, 20]
+            });
+            doc.footer = function(currentPage, pageCount) {
+              return {
+                columns: [
+                  '',
+                  { 
+                    text: 'Página ' + currentPage.toString() + ' de ' + pageCount,
+                    alignment: 'center',
+                    fontSize: 9,
+                    margin: [0, 10, 0, 0]
+                  },
+                  ''
+                ]
+              };
+            };
+
+            // Estilo general
+            doc.defaultStyle.fontSize = 10;
+            doc.styles.tableHeader = {
+              fillColor: '#22265D',
+              color: 'white',
+              bold: true,
+              fontSize: 11,
+              alignment: 'center'
+            };
+
+            // Estilo de bordes
+            let objLayout = {};
+            objLayout['hLineWidth'] = function () { return 0.5; };
+            objLayout['vLineWidth'] = function () { return 0.5; };
+            objLayout['hLineColor'] = function () { return '#adadad'; };
+            objLayout['vLineColor'] = function () { return '#adadad'; };
+            doc.content[doc.content.length - 1].layout = objLayout;
+
+            // Márgenes del documento
+            doc.pageMargins = [30, 20, 30, 20];
+          }
+        },
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':visible:not(.no-export)'
+          }
+        },
+        {
+          extend: 'print',
+          text: 'Imprimir',
+          exportOptions: {
+            columns: ':visible:not(.no-export)'
+          }
         }
       ],
       language: {
-
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
         "sZeroRecords":    "No se encontraron resultados",

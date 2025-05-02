@@ -26,15 +26,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<td class="p-2 border text-center">ID</td>
-								<td class="p-2 border text-center">Perfil</td>
-								<td class="p-2 border text-center">Descripción</td>
-								<td class="p-2 border text-center">Fecha de creación</td>
-								<td class="p-2 border text-center">Creado por</td>
-								<td class="p-2 border text-center">Fecha de edición</td>
-								<td class="p-2 border text-center">Editado por</td>
-								<td class="p-2 border text-center">Activo</td>
-								<td class="p-2 border text-center">Acciones</td>
+								<th class="p-2 border text-center">ID</th>
+								<th class="p-2 border text-center">Perfil</th>
+								<th class="p-2 border text-center">Descripción</th>
+								<th class="p-2 border text-center">Fecha de creación</th>
+								<th class="p-2 border text-center">Creado por</th>
+								<th class="p-2 border text-center">Fecha de edición</th>
+								<th class="p-2 border text-center">Editado por</th>
+								<th class="p-2 border text-center">Activo</th>
+								<th class="p-2 border text-center no-export">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>

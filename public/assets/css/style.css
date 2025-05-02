@@ -68,43 +68,52 @@
 	border-color: #3A4280 !important;
 }
 
-  /* Ajustar el tamaño del grip de redimensionado */
-  table.dataTable td.dtr-resizable {
-    cursor: ew-resize !important;
-  }
+table.dataTable thead th {
+  font-weight: normal;      /* sin negrita */
+}
 
-  table.dataTable th.dtr-resizable {
-    cursor: ew-resize !important;
-  }
+/* Ajustar el tamaño del grip de redimensionado */
+table.dataTable td.dtr-resizable {
+  cursor: ew-resize !important;
+}
 
-  /* Hacer la barra de desplazamiento más grande */
-  table.dataTable td.dtr-resizable:after, 
-  table.dataTable th.dtr-resizable:after {
-    content: "";
-    position: absolute;
-    right: 0;
-    width: 20px;  /* Cambia el tamaño del grip */
-    top: 0;
-    bottom: 0;
-    cursor: ew-resize !important;
-  }
+table.dataTable th.dtr-resizable {
+  cursor: ew-resize !important;
+}
 
-  /* Cambiar estilo del selector de cantidad de filas */
+/* Hacer la barra de desplazamiento más grande */
+table.dataTable td.dtr-resizable:after, 
+table.dataTable th.dtr-resizable:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 20px;  /* Cambia el tamaño del grip */
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize !important;
+}
+
+/* Texto de cantidad de registros */
 .dataTables_length label {
   color: #adadad !important;
 }
 
-/* Cambiar estilo del buscador */
+/* Filtro cantidad de registros */
+.dataTables_wrapper .dataTables_filter label {
+  color: #adadad !important;
+}
+
+/* Buscador */
 .dataTables_filter label {
   color: #adadad !important;
 }
 
-/* Estilo del texto de información */
+/* Texto de información */
 .dataTables_info {
   color: #adadad !important;
 }
 
-/* Estilo del paginador */
+/* Paginador */
 .dataTables_paginate {
   color: #adadad !important;
 }
@@ -151,10 +160,7 @@
   border: 1px solid #DEE2E6 !important;
 }
 
-.dataTables_wrapper .dataTables_filter label {
-  color: #adadad !important;
-}
-
+/* Buscador y filtro de registros */
 .dataTables_wrapper .dataTables_filter input,
 .dataTables_wrapper .dataTables_length select {
   color: #adadad !important;
@@ -170,10 +176,12 @@
   border-color: inherit;
 }
 
+/* Linea de separación */
 table.dataTable.no-footer {
   border-bottom: 1px solid #DEE2E6 !important;
 }
 
+/* Visibilidad de columnas */
 .btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis {
   background: transparent !important;
   color: #adadad !important;
@@ -183,10 +191,21 @@ table.dataTable.no-footer {
   border-radius: 4px !important;
 }
 
+.btn.btn-secondary.buttons-copy.buttons-html5,
+.btn.btn-secondary.buttons-pdf.buttons-html5,
+.btn.btn-secondary.buttons-excel.buttons-html5,
+.btn.btn-secondary.buttons-print{
+  background: transparent !important;
+  color: #adadad !important;
+  border: 1px solid #DEE2E6 !important;
+  margin-left: 10px !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+}
+
 button.buttons-colvis::after {
   display: none !important;
 }
-
 
 .dropdown-caret {
   display: inline-block;
