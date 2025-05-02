@@ -110,81 +110,111 @@ $activeItems = [
       </main>
     </div>
   </div>
-  <script src="/trackpoint/public/assets/js/jquery.js"></script>
-  <script src="/trackpoint/public/assets/js/jquery.dataTables.min.js"></script>
-  <script src="/trackpoint/public/assets/js/jquery.dataTables.colResize.js"></script>
-  <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
-  <script>
-    $(document).ready(function () {
-      $('#miTabla').DataTable({
-        colResize: {
-          realtime: true
+<!-- jQuery (obligatorio para DataTables) -->
+<script src="/trackpoint/public/assets/js/jquery.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="/trackpoint/public/assets/js/bootstrap.min.js"></script>
+
+<!-- Núcleo de DataTables -->
+<script src="/trackpoint/public/assets/js/jquery.dataTables.min.js"></script>
+
+<!-- Extensión ColResize -->
+<script src="/trackpoint/public/assets/js/jquery.dataTables.colResize.js"></script>
+
+<!-- Extensión ColReorder -->
+<script src="/trackpoint/public/assets/js/dataTables.colReorder.min.js"></script>
+<script src="/trackpoint/public/assets/js/colReorder.bootstrap5.min.js"></script>
+
+<!-- Botones de DataTables -->
+<script src="/trackpoint/public/assets/js/dataTables.buttons.min.js"></script>
+<script src="/trackpoint/public/assets/js/buttons.bootstrap5.min.js"></script>
+<script src="/trackpoint/public/assets/js/buttons.colVis.min.js"></script>
+<script src="/trackpoint/public/assets/js/buttons.html5.min.js"></script>
+<script src="/trackpoint/public/assets/js/buttons.print.min.js"></script>
+
+
+<!-- Script DataTables y modales -->
+<script>
+  $(document).ready(function () {
+    $('#miTabla').DataTable({
+      colResize: {
+        realtime: true
+      },
+      colReorder: true,
+      dom: 'Blfrtip',
+      buttons: [
+        {
+          extend: 'colvis',
+          text: 'Mostrar u ocultar columnas <span class="dropdown-caret"></span>',
+          className: 'btn btn-outline-secondary'
+        }
+      ],
+      language: {
+
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sInfo":           "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+        "sInfoEmpty":      "Mostrando 0 a 0 de 0 registros",
+        "sInfoFiltered":   "(filtrado de _MAX_ registros en total)",
+        "sSearch":         "Buscar:",
+        "sEmptyTable":     "No hay datos disponibles en la tabla",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst":    "Primero",
+          "sPrevious": "Anterior",
+          "sNext":     "Siguiente",
+          "sLast":     "Último"
         },
-        dom: 'lfrtip',
-        language: {
-          "sProcessing":     "Procesando...",
-          "sLengthMenu":     "Mostrar _MENU_ registros",
-          "sZeroRecords":    "No se encontraron resultados",
-          "sInfo":           "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-          "sInfoEmpty":      "Mostrando 0 a 0 de 0 registros",
-          "sInfoFiltered":   "(filtrado de _MAX_ registros en total)",
-          "sSearch":         "Buscar:",
-          "sEmptyTable":     "No hay datos disponibles en la tabla",
-          "sLoadingRecords": "Cargando...",
-          "oPaginate": {
-            "sFirst":    "Primero",
-            "sPrevious": "Anterior",
-            "sNext":     "Siguiente",
-            "sLast":     "Último"
-          },
-          "oAria": {
-            "sSortAscending":  ": activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": activar para ordenar la columna de manera descendente"
-          }
-        },
-      });
+        "oAria": {
+          "sSortAscending":  ": activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": activar para ordenar la columna de manera descendente"
+        }
+      },
     });
+  });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var modal = document.getElementById('modalCrear');
-      modal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var perfilId = button.getAttribute('data-id');
-        var nombre = button.getAttribute('data-nombre');
-        var descripcion = button.getAttribute('data-descripcion');
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('modalCrear');
+    modal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var perfilId = button.getAttribute('data-id');
+      var nombre = button.getAttribute('data-nombre');
+      var descripcion = button.getAttribute('data-descripcion');
 
-        modal.querySelector('#crearPerfilId').value = perfilId;
-        modal.querySelector('#crearNombre').value = nombre;
-        modal.querySelector('#crearDescripcion').value = descripcion;
-      });
+      modal.querySelector('#crearPerfilId').value = perfilId;
+      modal.querySelector('#crearNombre').value = nombre;
+      modal.querySelector('#crearDescripcion').value = descripcion;
     });
-    
-    document.addEventListener('DOMContentLoaded', function () {
-      var modal = document.getElementById('modalEditar');
-      modal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var perfilId = button.getAttribute('data-id');
-        var nombre = button.getAttribute('data-nombre');
-        var descripcion = button.getAttribute('data-descripcion');
-        var activo = button.getAttribute('data-activo');
+  });
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('modalEditar');
+    modal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var perfilId = button.getAttribute('data-id');
+      var nombre = button.getAttribute('data-nombre');
+      var descripcion = button.getAttribute('data-descripcion');
+      var activo = button.getAttribute('data-activo');
 
-        modal.querySelector('#editarPerfilId').value = perfilId;
-        modal.querySelector('#editarNombre').value = nombre;
-        modal.querySelector('#editarDescripcion').value = descripcion;
-        modal.querySelector('#editarActivo').value = activo;
-      });
+      modal.querySelector('#editarPerfilId').value = perfilId;
+      modal.querySelector('#editarNombre').value = nombre;
+      modal.querySelector('#editarDescripcion').value = descripcion;
+      modal.querySelector('#editarActivo').value = activo;
     });
+  });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var modal = document.getElementById('modalEliminar');
-      modal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var perfilId = button.getAttribute('data-id');
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('modalEliminar');
+    modal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var perfilId = button.getAttribute('data-id');
 
-        modal.querySelector('#eliminarPerfilId').value = perfilId;
-      });
+      modal.querySelector('#eliminarPerfilId').value = perfilId;
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
