@@ -147,6 +147,7 @@ $activeItems = [
 
 <!-- Script DataTables y modales -->
 <script>
+  /* PLUGINS DATATABLES */
   const fechaHoy = new Date().toISOString().slice(0, 10);
   $(document).ready(function () {
     $('#miTabla').DataTable({
@@ -165,7 +166,7 @@ $activeItems = [
           extend: 'pdfHtml5',
           title: '',
           text: 'PDF',
-          filename: `${fechaHoy}_TrackPoint_Listado de Perfiles`,
+          filename: `${fechaHoy}_TrackPoint_${subtitulo}`,
           orientation: 'portrait',
           pageSize: 'A4',
           exportOptions: {
@@ -194,7 +195,7 @@ $activeItems = [
                             ],
                             alignment: 'center'
                           },
-                          { text: 'Listado de Perfiles', fontSize: 14, color: '#adadad' }
+                          { text: 'Perfiles', fontSize: 14, color: '#adadad' }
                         ],
                         alignment: 'center',
                         fontSize: 16,
@@ -262,17 +263,62 @@ $activeItems = [
         },
         {
           extend: 'excelHtml5',
+          text: 'Excel',
+          title: `TrackPoint - ${subtitulo}`,
+          filename: `${fechaHoy}_TrackPoint_${subtitulo}`,
           exportOptions: {
             columns: ':visible:not(.no-export)'
+          },
+          customize: function (xlsx) {
+            const sheet = xlsx.xl.worksheets['sheet1.xml'];
+            const styles = xlsx.xl['styles.xml'];
+
+            // Cambiar texto del A1
+            $('row c[r=A1] t', sheet).text('TrackPoint - ' + subtitulo + ' - ' + fechaHoy);
+
+            // Crear nuevo font
+            const font = styles.createElement('font');
+
+            const sz = styles.createElement('sz');
+            sz.setAttribute('val', '16');
+            font.appendChild(sz);
+
+            const color = styles.createElement('color');
+            color.setAttribute('rgb', 'FF22265D');
+            font.appendChild(color);
+
+            const name = styles.createElement('name');
+            name.setAttribute('val', 'Calibri');
+            font.appendChild(name);
+
+            const bold = styles.createElement('b');
+            font.appendChild(bold);
+
+            // Insertar font en <fonts>
+            const fonts = $('fonts', styles)[0];
+            fonts.appendChild(font);
+
+            // Crear nuevo xf
+            const xf = styles.createElement('xf');
+            xf.setAttribute('xfId', '0');
+            xf.setAttribute('applyFont', '1');
+            xf.setAttribute('applyAlignment', '1');
+            xf.setAttribute('fontId', fonts.childNodes.length - 1); // index del font recién agregado
+
+            const alignment = styles.createElement('alignment');
+            alignment.setAttribute('horizontal', 'center');
+            alignment.setAttribute('vertical', 'center');
+            xf.appendChild(alignment);
+
+            // Insertar xf en <cellXfs>
+            const cellXfs = $('cellXfs', styles)[0];
+            cellXfs.appendChild(xf);
+
+            // Aplicar estilo a celda A1
+            $('row c[r=A1]', sheet).attr('s', cellXfs.childNodes.length - 1);
           }
+
         },
-        {
-          extend: 'print',
-          text: 'Imprimir',
-          exportOptions: {
-            columns: ':visible:not(.no-export)'
-          }
-        }
       ],
       language: {
         "sProcessing":     "Procesando...",
@@ -298,6 +344,7 @@ $activeItems = [
     });
   });
 
+  /* MODALES DE CREACION, EDICION Y ELIMINACION */
   document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById('modalCrear');
     modal.addEventListener('show.bs.modal', function (event) {
@@ -333,8 +380,10 @@ $activeItems = [
     modal.addEventListener('show.bs.modal', function (event) {
       var button = event.relatedTarget;
       var perfilId = button.getAttribute('data-id');
+      var nombre = button.getAttribute('data-nombre');
 
       modal.querySelector('#eliminarPerfilId').value = perfilId;
+      modal.querySelector('#eliminarNombre').value = nombre;
     });
   });
 </script>

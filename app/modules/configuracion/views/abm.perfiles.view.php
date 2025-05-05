@@ -2,8 +2,11 @@
 require_once __DIR__ . '/../controllers/abm.perfiles.controller.php';
 require_once __DIR__ . '/../../../../config/constants.php';
 require_once __DIR__ . '/../../../../core/permisos.php';
-
 ?>
+
+<script>
+  const subtitulo = 'Perfiles';
+</script>
 
 <div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
 	<table>
@@ -26,15 +29,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<th class="p-2 border text-center">ID</th>
-								<th class="p-2 border text-center">Perfil</th>
-								<th class="p-2 border text-center">Descripción</th>
-								<th class="p-2 border text-center">Fecha de creación</th>
-								<th class="p-2 border text-center">Creado por</th>
-								<th class="p-2 border text-center">Fecha de edición</th>
-								<th class="p-2 border text-center">Editado por</th>
-								<th class="p-2 border text-center">Activo</th>
-								<th class="p-2 border text-center no-export">Acciones</th>
+								<td class="p-2 border text-center">ID</td>
+								<td class="p-2 border text-center">Perfil</td>
+								<td class="p-2 border text-center">Descripción</td>
+								<td class="p-2 border text-center">Fecha de creación</td>
+								<td class="p-2 border text-center">Creado por</td>
+								<td class="p-2 border text-center">Fecha de edición</td>
+								<td class="p-2 border text-center">Editado por</td>
+								<td class="p-2 border text-center">Activo</td>
+								<td class="p-2 border text-center no-export">Acciones</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -62,7 +65,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminar"
-												data-id="<?= $perfil['perfil_id'] ?>">
+												data-id="<?= $perfil['perfil_id'] ?>"
+												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
 										</div>
@@ -172,6 +176,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="perfil_id" id="eliminarPerfilId">
+						<input type="hidden" name="nombre" id="eliminarNombre">
 						<div class="mb-3">
 							<p>¿Está seguro que desea eliminar el perfil?</p>
 							<p>Esta acción no se puede deshacer.</p>

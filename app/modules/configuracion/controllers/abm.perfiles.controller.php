@@ -41,9 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	} elseif (isset($_GET['eliminar'])) {
 		$perfil_id = $_POST['perfil_id'];
+		$nombre = $_POST['nombre'];
 
 		// Llamar a la función que elimina el perfil
 		eliminarPerfil($perfil_id);
+
+		registrarEvento("Perfiles Controller: Perfil eliminado correctamente => " . $nombre, "INFO");
 
 		// Redirigimos para evitar reenvío del formulario
 		header('Location: index.php?route=/configuracion/ABMs/perfiles');

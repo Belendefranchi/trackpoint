@@ -8,9 +8,9 @@ require_once __DIR__ . '/../../../../config/helpers.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### EDITAR #######
-	if (isset($_POST['editar'])) {
+	if (isset($_GET['editar'])) {
 		$operador_id = $_POST['operador_id'];
-		$username = $_POST['username'] ?? '';
+		$username = $_POST['username'];
 		$nombre_completo = $_POST['nombre_completo'];
 		$email = $_POST['email'];
 		$rol = $_POST['rol'];
@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			} else {
 				// Verificar si el usuario ya existe
 				$user = userExists($username, $email);
-				if ($user && $user != $operador_id) {
-					$_SESSION['message'] = "Ya hay un usuario registrado con ese email, por favor intente con otro.";
+				if ($user && $user['email'] != $email && $user['username'] != $username) {
+					$_SESSION['message'] = "Ya hay un usuario registrado con ese nombre de usuario o email, por favor intente con otros.";
 				} else {
 					// Llamar a la función que actualiza los datos
 					editarOperador($operador_id, $nombre_completo, $email, $rol, $activo);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### ELIMINAR #######
 
-	} elseif (isset($_POST['eliminar'])) {
+	} elseif (isset($_GET['eliminar'])) {
 		$operador_id = $_POST['operador_id'];
 
 		// Llamar a la función que elimina el operador
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### CREAR #######
 
-	} elseif (isset($_POST['crear'])) {
+	} elseif (isset($_GET['crear'])) {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$nombre_completo = $_POST['nombre_completo'];

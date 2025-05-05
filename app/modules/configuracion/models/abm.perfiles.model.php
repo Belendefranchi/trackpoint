@@ -69,7 +69,7 @@ function editarPerfil($perfil_id, $nombre, $descripcion, $activo) {
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $activo);
-		$result = $stmt->execute(); // Ejecutar solo una vez
+		$result = $stmt->execute();
 
 		if ($result) {
 			registrarEvento("Perfiles Model: perfil editado correctamente por, " . $editado_por, "INFO");
