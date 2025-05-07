@@ -69,7 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Verificar si el perfil ya existe
 			$perfil = perfilExists($nombre);
 			if ($perfil) {
+				session_start();
 				$_SESSION['message'] =  "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
+				$_SESSION['abrir_modal'] = 'modalCrearPerfil';
+				header('Location: index.php?route=/configuracion/ABMs/perfiles');
+				exit;
 			} else {
 				// Llamar a la función que crea el perfil
 				crearPerfil($nombre, $descripcion);

@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<h2 class="ms-2">Perfiles</h2>
 						<a href="#" class="btn btn-sm btn-primary"
 							data-bs-toggle="modal" 
-							data-bs-target="#modalCrear" 
+							data-bs-target="#modalCrearPerfil" 
 							data-nombre=""
 							data-descripcion="">
 							<i class="bi-plus-circle me-2"></i>Nuevo Perfil
@@ -55,7 +55,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<div class="d-flex no-wrap">
 											<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
 												data-bs-toggle="modal" 
-												data-bs-target="#modalEditar" 
+												data-bs-target="#modalEditarPerfil"
 												data-id="<?= $perfil['perfil_id'] ?>"
 												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
 												data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
@@ -64,7 +64,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											</a>
 											<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
 												data-bs-toggle="modal"
-												data-bs-target="#modalEliminar"
+												data-bs-target="#modalEliminarPerfil"
 												data-id="<?= $perfil['perfil_id'] ?>"
 												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
@@ -86,17 +86,16 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	?>
 
 	<!-- Modal de creación -->
-	<div class="modal fade m-5" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalCrearPerfil" tabindex="-1" aria-labelledby="modalCrearPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalCrearLabel">Nuevo perfil</h5>
+						<h5 class="modal-title" id="modalCrearPerfilLabel">Nuevo perfil</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" name="perfil_id" id="crearPerfilId">
-						
+
 						<div class="mb-3">
 							<?php if (isset($message)): ?>
 								<div class="alert alert-danger rounded m-2" role="alert">
@@ -105,15 +104,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								</div>
 							<?php endif; ?>
 						</div>
-					
+
 						<div class="mb-3">
-							<label for="crearNombre" class="form-label">Nombre</label>
-							<input type="text" class="form-control" name="nombre" id="crearNombre">
+							<label for="crearNombrePerfil" class="form-label">Nombre</label>
+							<input type="text" class="form-control" name="nombre" id="crearNombrePerfil">
 						</div>
 
 						<div class="mb-3">
-							<label for="crearDescripcion" class="form-label">Descripción</label>
-							<input type="text" class="form-control" name="descripcion" id="crearDescripcion">
+							<label for="crearDescripcionPerfil" class="form-label">Descripción</label>
+							<input type="text" class="form-control" name="descripcion" id="crearDescripcionPerfil">
 						</div>
 
 					</div>
@@ -127,30 +126,30 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	</div>
 
 	<!-- Modal de edición -->
-	<div class="modal fade m-5" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modalEditarPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalEditarLabel">Editar perfil</h5>
+						<h5 class="modal-title" id="modalEditarPerfilLabel">Editar perfil</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="perfil_id" id="editarPerfilId">
 
 						<div class="mb-3">
-							<label for="editarNombre" class="form-label">Nombre</label>
-							<input type="text" class="form-control" name="nombre" id="editarNombre" required>
+							<label for="editarNombrePerfil" class="form-label">Nombre</label>
+							<input type="text" class="form-control" name="nombre" id="editarNombrePerfil" required>
 						</div>
 
 						<div class="mb-3">
-							<label for="editarDescripcion" class="form-label">Descripción</label>
-							<input type="text" class="form-control" name="descripcion" id="editarDescripcion" required>
+							<label for="editarDescripcionPerfil" class="form-label">Descripción</label>
+							<input type="text" class="form-control" name="descripcion" id="editarDescripcionPerfil" required>
 						</div>
 
 						<div class="mb-3">
-							<label for="editarActivo" class="form-label">Activo</label>
-							<select class="form-select" name="activo" id="editarActivo" required>
+							<label for="editarActivoPerfil" class="form-label">Activo</label>
+							<select class="form-select" name="activo" id="editarActivoPerfil" required>
 								<option value="1">Sí</option>
 								<option value="0">No</option>
 							</select>
@@ -166,17 +165,17 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	</div>
 
 	<!-- Modal de eliminación -->
-	<div class="modal fade m-5" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalEliminarPerfil" tabindex="-1" aria-labelledby="modalEliminarPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalEliminarLabel">Eliminar perfil</h5>
+						<h5 class="modal-title" id="modalEliminarPerfilLabel">Eliminar perfil</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="perfil_id" id="eliminarPerfilId">
-						<input type="hidden" name="nombre" id="eliminarNombre">
+						<input type="hidden" name="nombre" id="eliminarNombrePerfil">
 						<div class="mb-3">
 							<p>¿Está seguro que desea eliminar el perfil?</p>
 							<p>Esta acción no se puede deshacer.</p>
@@ -190,4 +189,5 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			</form>
 		</div>
 	</div>
+
 </div>
