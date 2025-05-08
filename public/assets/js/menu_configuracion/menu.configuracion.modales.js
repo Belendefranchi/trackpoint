@@ -28,30 +28,40 @@
 
     // Interceptar el envío del formulario con AJAX
     document.querySelector('#formCrearPerfil').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevenir el envío normal del formulario
+      
+      console.log('Formulario enviado:', this);
       console.log('Form crear perfil:', formCrearPerfil);
 
-      if (formCrearPerfil) {
-        e.preventDefault(); // Prevenir el envío normal del formulario
+      var formData = new FormData(this); // Recoger los datos del formulario
 
-        var formData = new FormData(this); // Recoger los datos del formulario
-
-        // Hacer la solicitud AJAX
-        $.ajax({
-          url: 'index.php?route=/configuracion/ABMs/perfiles&crear',
-          type: 'POST',
-          data: formData,
-          processData: false, // No procesar los datos
-          contentType: false, // No establecer el tipo de contenido
-          success: function (response) {
-            // Lógica de éxito: manejar la respuesta del servidor
-            alert('Perfil creado con éxito');
-            $('#modalCrearPerfil').modal('hide'); // Cerrar el modal
-          },
-          error: function () {
-            alert('Error al guardar los datos');
+      // Hacer la solicitud AJAX
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear',
+        type: 'POST',
+        data: formData,
+        processData: false, // No procesar los datos
+        contentType: false, // No establecer el tipo de contenido
+        success: function (response) {
+          console.log('Respuesta del servidor:', response); // Log de la respuesta completa
+          try {
+            var jsonResponse = JSON.parse(response); // Intentar analizar la respuesta
+            if (jsonResponse.success) {
+              alert('Perfil creado con éxito');
+              $('#modalCrearPerfil').modal('hide'); // Cerrar el modal
+            } else {
+              alert('Error al crear el perfil: ' + jsonResponse.message);
+            }
+          } catch (e) {
+            console.error('Error al procesar la respuesta del servidor:', e);
+            alert('Hubo un problema con la respuesta del servidor.');
           }
-        });
-      }
+        },
+        
+        error: function () {
+          alert('Error al guardar los datos');
+        }
+      });
     });
 
 /*       document.querySelector('#formCrearOperador').addEventListener('submit', function (e) {

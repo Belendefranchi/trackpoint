@@ -37,7 +37,11 @@ function crearPerfil($nombre, $descripcion) {
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':creado_por', $creado_por);
-		return $stmt->execute();
+		$result = $stmt->execute();
+		if ($result) {
+			registrarEvento("Perfiles Model: perfil creado correctamente por, " . $creado_por, "INFO");
+		}
+		return $result;
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Perfiles Model: Error al crear el perfil, " . $e->getMessage(), "ERROR");

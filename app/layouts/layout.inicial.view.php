@@ -6,19 +6,19 @@
   <title>TrackPoint</title>
 
   <!-- Bootstrap 5 base -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/bootstrap.min.css" />
   <link rel="stylesheet" href="/trackpoint/public/assets/icons/font/bootstrap-icons.css" />
 
   <!-- DataTables con integración Bootstrap 5 -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/dataTables.bootstrap5.min.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/dataTables.bootstrap5.min.css" />
 
   <!-- Extensiones de DataTables integradas con Bootstrap 5 -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/buttons.bootstrap5.min.css" />
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/colReorder.bootstrap5.min.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/buttons.bootstrap5.min.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/colReorder.bootstrap5.min.css" />
   
   <!-- DataTables -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/jquery.dataTables.min.css" />
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/jquery.dataTables.colResize.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/jquery.dataTables.colResize.css" />
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">

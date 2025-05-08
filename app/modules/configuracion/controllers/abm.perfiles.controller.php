@@ -4,9 +4,12 @@ require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-// Lógica de actualizar, eliminar y crear perfiles
+// Lógica ajax de actualizar, eliminar y crear perfiles
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	var_dump($_POST);
+	/* var_dump($_POST); */
 	exit;
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
@@ -54,6 +57,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### CREAR #######
 	} elseif (isset($_GET['crear'])) {
+
+    header('Content-Type: application/json');
+
+    $nombre = $_POST['nombre'];
+    $descripcion = $_POST['descripcion'];
+
+    // Validación básica
+    if (empty($nombre) || empty($descripcion)) {
+			echo json_encode(['success' => false, 'message' => 'Todos los campos son requeridos']);
+			exit;
+		}
+
+		// Verificar si el perfil ya existe
+		$perfil = perfilExists($nombre);
+		if ($perfil) {
+				echo json_encode(['success' => false, 'message' => 'Ya existe un perfil con ese nombre']);
+				exit;
+		}
+
+		// Crear el perfil en la base de datos
+		$result = crearPerfil($nombre, $descripcion);
+
+		if ($result) {
+				// Respuesta de éxito
+				echo json_encode(['success' => true, 'message' => 'Perfil creado con éxito']);
+		} else {
+				// Respuesta de error
+				echo json_encode(['success' => false, 'message' => 'Error al crear el perfil']);
+		}
+
+		exit;
+	}
+
+}
+
+
+
+/* 	} elseif (isset($_GET['crear'])) {
 		
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
@@ -80,8 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			}
 		}
-	}
-}
+	} */
+
 
 // Obtener datos para pasar a la vista
 $perfiles = obtenerPerfiles();
