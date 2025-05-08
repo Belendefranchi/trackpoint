@@ -88,22 +88,13 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<!-- Modal de creación -->
 	<div class="modal fade m-5" id="modalCrearPerfil" tabindex="-1" aria-labelledby="modalCrearPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
+			<form method="POST" id="formCrearPerfil" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&crear">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
 						<h5 class="modal-title" id="modalCrearPerfilLabel">Nuevo perfil</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
-
-						<div class="mb-3">
-							<?php if (isset($message)): ?>
-								<div class="alert alert-danger rounded m-2" role="alert">
-									<strong>Error: </strong>
-									<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
-								</div>
-							<?php endif; ?>
-						</div>
 
 						<div class="mb-3">
 							<label for="crearNombrePerfil" class="form-label">Nombre</label>
@@ -128,7 +119,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<!-- Modal de edición -->
 	<div class="modal fade m-5" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modalEditarPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar">
+			<form method="POST" id="formEditarPerfil" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&editar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
 						<h5 class="modal-title" id="modalEditarPerfilLabel">Editar perfil</h5>
@@ -167,7 +158,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<!-- Modal de eliminación -->
 	<div class="modal fade m-5" id="modalEliminarPerfil" tabindex="-1" aria-labelledby="modalEliminarPerfilLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar">
+			<form method="POST" id="formEliminarPerfil" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
 						<h5 class="modal-title" id="modalEliminarPerfilLabel">Eliminar perfil</h5>

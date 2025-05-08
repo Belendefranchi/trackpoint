@@ -22,7 +22,7 @@
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
-  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
+  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
 </head>
 
 <body style="background-color: #f4f7fc;">

@@ -6,7 +6,8 @@ require_once __DIR__ . '/../../../../config/helpers.php';
 
 // Lógica de actualizar, eliminar y crear perfiles
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+	var_dump($_POST);
+	exit;
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 		$perfil_id = $_POST['perfil_id'];
@@ -38,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 	// ####### ELIMINAR #######
-
 	} elseif (isset($_GET['eliminar'])) {
 		$perfil_id = $_POST['perfil_id'];
 		$nombre = $_POST['nombre'];
@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 
 	// ####### CREAR #######
-
 	} elseif (isset($_GET['crear'])) {
+		
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
 
@@ -69,11 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Verificar si el perfil ya existe
 			$perfil = perfilExists($nombre);
 			if ($perfil) {
-				session_start();
 				$_SESSION['message'] =  "Ya hay un perfil registrado con ese nombre, por favor intente con otro.";
-				$_SESSION['abrir_modal'] = 'modalCrearPerfil';
-				header('Location: index.php?route=/configuracion/ABMs/perfiles');
-				exit;
 			} else {
 				// Llamar a la función que crea el perfil
 				crearPerfil($nombre, $descripcion);
