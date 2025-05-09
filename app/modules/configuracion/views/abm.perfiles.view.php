@@ -97,6 +97,14 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<div class="modal-body">
 
 						<div class="mb-3">
+							<div id="mensaje-error" class="alert alert-danger rounded m-2 d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto">ERROR:</span>
+									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+								</div>
+						</div>
+
+						<div class="mb-3">
 							<label for="crearNombrePerfil" class="form-label">Nombre</label>
 							<input type="text" class="form-control" name="nombre" id="crearNombrePerfil">
 						</div>

@@ -96,9 +96,10 @@ $activeItems = [
       </aside>
       <?php require_once __DIR__ . '/../../../layouts/layout.final.view.php'; ?>
 
-<!-- Script DataTables y modales -->
-<script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.DataTables.js"></script>
-<script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.modales.js"></script>
+  <!-- Script DataTables y modales -->
+  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.DataTables.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.operadores.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.perfiles.modales.js"></script>
 
 </body>
 </html>
