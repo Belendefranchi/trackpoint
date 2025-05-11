@@ -67,12 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}
 
-		if (!isset($_POST['perfil_id'])) {
-			echo json_encode(['success' => false, 'message' => 'Error: perfil_id no está definido.']);
-			exit;
-		}
-	
-
 		// Verificar si el perfil ya existe
 		$perfil = perfilExists($nombre); 
 		if ($perfil && $perfil['perfil_id'] != $perfil_id) {

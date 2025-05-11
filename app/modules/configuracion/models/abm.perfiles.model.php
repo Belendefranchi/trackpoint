@@ -17,7 +17,7 @@ function obtenerPerfiles() {
 function perfilExists($nombre) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT nombre FROM configuracion_abm_perfiles WHERE nombre = :nombre");
+		$stmt = $conn->prepare("SELECT nombre, perfil_id FROM configuracion_abm_perfiles WHERE nombre = :nombre");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->execute();
 		$perfil = $stmt->fetch(PDO::FETCH_ASSOC);

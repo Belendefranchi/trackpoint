@@ -66,7 +66,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarPerfil"
 												data-id="<?= $perfil['perfil_id'] ?>"
-												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
+												data-nombre="<?= $perfil['nombre'] ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
 										</div>
