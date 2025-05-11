@@ -78,12 +78,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				</td>
 			</tr>
 	</table>
-	<?php
-		if (isset($_SESSION['message'])) {
-			$message = $_SESSION['message'];
-			unset($_SESSION['message']); // Limpiamos para que no persista
-		}
-	?>
 
 	<!-- Modal de creación -->
 	<div class="modal fade m-5" id="modalCrearPerfil" tabindex="-1" aria-labelledby="modalCrearPerfilLabel" aria-hidden="true">
@@ -97,9 +91,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<div class="modal-body">
 
 						<div class="mb-3">
-							<div id="mensaje-error" class="alert alert-danger rounded m-2 d-none" role="alert">
+							<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" role="alert">
 								<i class="bi bi-exclamation-triangle-fill me-2"></i>
-								<span class="mensaje-texto">ERROR:</span>
+								<span class="mensaje-texto"></span>
 									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
 								</div>
 						</div>
@@ -137,18 +131,26 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						<input type="hidden" name="perfil_id" id="editarPerfilId">
 
 						<div class="mb-3">
+							<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto"></span>
+									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+								</div>
+						</div>
+
+						<div class="mb-3">
 							<label for="editarNombrePerfil" class="form-label">Nombre</label>
-							<input type="text" class="form-control" name="nombre" id="editarNombrePerfil" required>
+							<input type="text" class="form-control" name="nombre" id="editarNombrePerfil">
 						</div>
 
 						<div class="mb-3">
 							<label for="editarDescripcionPerfil" class="form-label">Descripción</label>
-							<input type="text" class="form-control" name="descripcion" id="editarDescripcionPerfil" required>
+							<input type="text" class="form-control" name="descripcion" id="editarDescripcionPerfil">
 						</div>
 
 						<div class="mb-3">
 							<label for="editarActivoPerfil" class="form-label">Activo</label>
-							<select class="form-select" name="activo" id="editarActivoPerfil" required>
+							<select class="form-select" name="activo" id="editarActivoPerfil">
 								<option value="1">Sí</option>
 								<option value="0">No</option>
 							</select>
@@ -175,6 +177,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<div class="modal-body">
 						<input type="hidden" name="perfil_id" id="eliminarPerfilId">
 						<input type="hidden" name="nombre" id="eliminarNombrePerfil">
+
+						<div class="mb-3">
+							<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto"></span>
+									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+								</div>
+						</div>
+
 						<div class="mb-3">
 							<p>¿Está seguro que desea eliminar el perfil?</p>
 							<p>Esta acción no se puede deshacer.</p>

@@ -39,7 +39,7 @@ function crearPerfil($nombre, $descripcion) {
 		$stmt->bindParam(':creado_por', $creado_por);
 		$result = $stmt->execute();
 		if ($result) {
-			registrarEvento("Perfiles Model: perfil creado correctamente por, " . $creado_por, "INFO");
+			registrarEvento("Perfiles Model: perfil creado correctamente.", "INFO");
 		}
 		return $result;
 	} catch (PDOException $e) {
@@ -76,8 +76,9 @@ function editarPerfil($perfil_id, $nombre, $descripcion, $activo) {
 		$result = $stmt->execute();
 
 		if ($result) {
-			registrarEvento("Perfiles Model: perfil editado correctamente por, " . $editado_por, "INFO");
+			registrarEvento("Perfiles Model: perfil editado correctamente.", "INFO");
 		}
+		return $result;
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Perfiles Model: Error al editar el perfil, " . $e->getMessage(), "ERROR");
