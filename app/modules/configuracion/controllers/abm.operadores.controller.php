@@ -1,14 +1,80 @@
 <?php
 define('VISTA_INTERNA', true);
+
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-// Lógica de actualizar, eliminar y crear operadores
+// Lógica ajax de actualizar, eliminar y crear Operadores
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	// ####### CREAR #######
+	if (isset($_GET['crear'])) {
+		
+		header('Content-Type: application/json');
+		
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$nombre_completo = $_POST['nombre_completo'];
+		$email = $_POST['email'];
+		$rol = $_POST['rol'];
+
+    // Validación básica
+    if (empty($username) || empty($password) || empty($nombre_completo) || empty($email) || empty($rol)) {
+			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
+			exit;
+		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			echo json_encode(['success' => false, 'message' => "Error: El email no es válido"]);
+			exit;
+		} elseif (strlen($password) < 6) {
+			echo json_encode(['success' => false, 'message' => "Error: La contraseña debe tener al menos 6 caracteres"]);
+			exit;
+		} elseif (!in_array($rol, ['administrador', 'operador'])) {
+			echo json_encode(['success' => false, 'message' => "Error: Rol no válido"]);
+			exit;
+		}
+
+		// Verificar si el usuario ya existe
+		$user = userExists($username, $email);
+		if ($user && $user['email'] != $email && $user['username'] != $username) {
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese username, intente con otro.']);
+			exit;
+		}
+		try {
+			// Hashear la contraseña
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+			
+			// Crear el operador en la base de datos
+			$result = crearOperador($username, $hashedPassword, $username_completo, $email, $rol);
+
+			if ($result) {
+				registrarEvento("Operador Controller: Operador creado correctamente => " . $username, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Operador Controller: Error al crear el operador => " . $username, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el operador']);
+				exit;
+			}
+			echo json_encode(['success' => true]);
+		} catch (Exception $e) {
+			registrarEvento("Operador Controller: Error al crear el operador => " . $username, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
+
 
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
+
+    header('Content-Type: application/json');
+
 		$operador_id = $_POST['operador_id'];
 		$username = $_POST['username'];
 		$nombre_completo = $_POST['nombre_completo'];
@@ -16,96 +82,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$rol = $_POST['rol'];
 		$activo = ($_POST['activo']);
 
-		if (empty($nombre_completo) && empty($email) && empty($activo)) {
-			$_SESSION['message'] = "Por favor ingrese todos los datos";
-		} elseif (empty($nombre_completo)) {
-			$_SESSION['message'] = "Por favor ingrese el nombre completo";
-		} elseif (empty($email)) {
-			$_SESSION['message'] = "Por favor ingrese el email";
+		// Validación básica
+		if (empty($username) || empty($nombre_completo) || empty($email) || empty($rol) || empty($activo)) {
+			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
+			exit;
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$_SESSION['message'] = "El email no es válido";
-		} elseif ($nombre_completo && $email && $rol) {
-			// Verificar si el rol es válido
-			if (!in_array($rol, ['administrador', 'operador'])) {
-				$_SESSION['message'] = "Rol no válido";
-			} else {
-				// Verificar si el usuario ya existe
-				$user = userExists($username, $email);
-				if ($user && $user['email'] != $email && $user['username'] != $username) {
-					$_SESSION['message'] = "Ya hay un usuario registrado con ese nombre de usuario o email, por favor intente con otros.";
-				} else {
-					// Llamar a la función que actualiza los datos
-					editarOperador($operador_id, $nombre_completo, $email, $rol, $activo);
-
-					// Redirigimos para evitar reenvío del formulario
-					header('Location: index.php?route=/configuracion/ABMs/operadores');
-					exit;
-				}
-			}
+			echo json_encode(['success' => false, 'message' => "Error: El email no es válido"]);
+			exit;
+		} elseif (!in_array($rol, ['administrador', 'operador'])) {
+			echo json_encode(['success' => false, 'message' => "Error: Rol no válido"]);
+			exit;
 		}
+
+		// Verificar si el usuario ya existe
+		$user = userExists($username, $email);
+		if ($user && $user['email'] != $email && $user['username'] != $username) {
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese username, intente con otro.']);
+			exit;
+		}
+		try {
+			// Llamar a la función que actualiza los datos
+			$result = editarOperador($operador_id, $nombre_completo, $email, $rol, $activo);
+
+			if ($result) {
+				// Respuesta de éxito
+				registrarEvento("Operadores Controller: Operador modificado correctamente => " . $username, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Operadores Controller: Error al modificar el operador => " . $username, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el operador']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Operadores Controller: Error al modificar el operador => " . $username, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
 
 	// ####### ELIMINAR #######
 
-	} elseif (isset($_GET['eliminar'])) {
+	if (isset($_GET['eliminar'])) {
+
+		header('Content-Type: application/json');
+
 		$operador_id = $_POST['operador_id'];
-
-		// Llamar a la función que elimina el operador
-		eliminarOperador($operador_id);
-
-		// Redirigimos para evitar reenvío del formulario
-		header('Location: index.php?route=/configuracion/ABMs/operadores');
-		exit;
-
-	// ####### CREAR #######
-
-	} elseif (isset($_GET['crear'])) {
 		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$nombre_completo = $_POST['nombre_completo'];
-		$email = $_POST['email'];
-		$rol = $_POST['rol'];
 
-		if (empty($nombre_completo) && empty($email) && empty($username) && empty($password)) {
-				$_SESSION['message'] = "Por favor ingrese todos los datos";
-		} elseif (empty($nombre_completo)) {
-				$_SESSION['message'] = "Por favor ingrese el nombre completo";
-		} elseif (empty($email)) {
-				$_SESSION['message'] = "Por favor ingrese el email";
-		} elseif (empty($username)) {
-				$_SESSION['message'] = "Por favor ingrese el nombre de usuario";
-		} elseif (empty($password)) {
-				$_SESSION['message'] = "Por favor ingrese la contraseña";
-		} elseif (empty($rol)) {
-				$_SESSION['message'] = "Por favor seleccione un rol";
-		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$_SESSION['message'] = "El email no es válido";
-		} elseif (strlen($password) < 6) {
-				$_SESSION['message'] = "La contraseña debe tener al menos 6 caracteres";
-		} elseif ($nombre_completo && $email && $username && $password && $rol) {
-				// Verificar si el rol es válido
-			if (!in_array($rol, ['administrador', 'operador'])) {
-				$_SESSION['message'] = "Rol no válido";
+		try {
+			// Llamar a la función que actualiza los datos
+			$result = eliminarOperador($operador_id, $username);
+
+			if ($result) {
+				// Respuesta de éxito
+				registrarEvento("Operadores Controller: Operador eliminado correctamente => " . $username, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+
 			} else {
-				// Verificar si el usuario ya existe
-				$user = userExists($username, $email);
-				if ($user) {
-					$_SESSION['message'] =  "Ya hay un operador registrado con ese nombre de usuario o email, por favor intente nuevamente.";
-				} else {
-					// Hashear la contraseña
-					$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-					
-					// Llamar a la función que crea el operador
-					crearOperador($username, $hashedPassword, $nombre_completo, $email, $rol);
-					registrarEvento("Operador creado correctamente", "INFO");
-
-					// Redirigimos para evitar reenvío del formulario
-					header('Location: index.php?route=/configuracion/ABMs/operadores');
+					// Respuesta de error
+					registrarEvento("Operadores Controller: Error al eliminar el operador => " . $username, "ERROR");
+					echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el operador']);
 					exit;
-				}
 			}
+		} catch (Exception $e) {
+			registrarEvento("Operadores Controller: Error al eliminar el operador => " . $username, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
 		}
-	} 
+		exit;
+	}
 }
+
 
 // Obtener datos para pasar a la vista
 $operadores = obtenerOperadores();
@@ -114,11 +165,6 @@ $operadores = obtenerOperadores();
 $datosVista = [
   'operadores' => $operadores
 ];
-
-if (isset($_SESSION['message'])) {
-  $datosVista['message'] = $_SESSION['message'];
-	unset($_SESSION['message']);
-}
 
 cargarVistaConfiguracion('abm.operadores.view.php', $datosVista);
 

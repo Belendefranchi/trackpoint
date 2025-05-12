@@ -38,14 +38,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if ($result) {
 				registrarEvento("Perfiles Controller: Perfil creado correctamente => " . $nombre, "INFO");
 				echo json_encode(['success' => true]);
+				exit;
 			} else {
 				// Respuesta de error
 				registrarEvento("Perfiles Controller: Error al crear el perfil => " . $nombre, "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el perfil']);
+				exit;
 			}
 		} catch (Exception $e) {
 			registrarEvento("Perfiles Controller: Error al crear el perfil => " . $nombre, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
 		}
 		exit;
 	}
@@ -81,47 +84,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				// Respuesta de éxito
 				registrarEvento("Perfiles Controller: Perfil modificado correctamente => " . $nombre, "INFO");
 				echo json_encode(['success' => true]);
+				exit;
 			} else {
-					// Respuesta de error
-					registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre, "ERROR");
-					echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el perfil']);
+				// Respuesta de error
+				registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el perfil']);
+				exit;
 			}
 		} catch (Exception $e) {
 			registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
 		}
 		exit;
 	}
 
 
-		// ####### ELIMINAR #######
-		if (isset($_GET['eliminar'])) {
+	// ####### ELIMINAR #######
+	if (isset($_GET['eliminar'])) {
 
-			header('Content-Type: application/json');
-	
-			$perfil_id = $_POST['perfil_id'];
-			$nombre = $_POST['nombre'];
+		header('Content-Type: application/json');
 
-			try {
-				// Llamar a la función que actualiza los datos
-				$result = eliminarPerfil($perfil_id, $nombre);
-	
-				if ($result) {
-					// Respuesta de éxito
-					registrarEvento("Perfiles Controller: Perfil eliminado correctamente => " . $nombre, "INFO");
-					echo json_encode(['success' => true]);
-	
-				} else {
-						// Respuesta de error
-						registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
-						echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el perfil']);
-				}
-			} catch (Exception $e) {
-				registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+		$perfil_id = $_POST['perfil_id'];
+		$nombre = $_POST['nombre'];
+
+		try {
+			// Llamar a la función que actualiza los datos
+			$result = eliminarPerfil($perfil_id, $nombre);
+
+			if ($result) {
+				// Respuesta de éxito
+				registrarEvento("Perfiles Controller: Perfil eliminado correctamente => " . $nombre, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+
+			} else {
+					// Respuesta de error
+					registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
+					echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el perfil']);
+					exit;
 			}
+		} catch (Exception $e) {
+			registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
+		exit;
+	}
 }
 
 // Obtener datos para pasar a la vista

@@ -7,45 +7,72 @@ document.addEventListener('DOMContentLoaded', function () {
 		modalCrearOperador.addEventListener('show.bs.modal', function (event) {
 			var button = event.relatedTarget;
 
-			modalCrearOperador.querySelector('#crearNombre').value = button.getAttribute('data-nombre_completo');
-			modalCrearOperador.querySelector('#crearEmail').value = button.getAttribute('data-email');
-			modalCrearOperador.querySelector('#crearUsuario').value = button.getAttribute('data-username');
-			modalCrearOperador.querySelector('#crearPassword').value = button.getAttribute('data-password');
-			modalCrearOperador.querySelector('#crearRol').value = button.getAttribute('data-rol');
+			modalCrearOperador.querySelector('#crearNombreOperador').value = button.getAttribute('data-nombre');
+			modalCrearOperador.querySelector('#crearEmailOperador').value = button.getAttribute('data-email');
+			modalCrearOperador.querySelector('#crearUsuarioOperador').value = button.getAttribute('data-username');
+			modalCrearOperador.querySelector('#crearPasswordOperador').value = button.getAttribute('data-password');
+			modalCrearOperador.querySelector('#crearRolOperador').value = button.getAttribute('data-rol');
 		});
 	}
 
-	// Interceptar el envío del formulario con AJAX
-	document.querySelector('#formCrearOperador').addEventListener('submit', function (e) {
-		e.preventDefault(); // Prevenir el envío normal del formulario
+  // Interceptar el envío del formulario con AJAX
+  const formCrear = document.querySelector('#formCrearOperador');
+  if (formCrear) {
+    formCrear.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-		var formData = new FormData(this); // Recoger los datos del formulario
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
 
-		// Hacer la solicitud AJAX
-		$.ajax({
-			url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear', // Cambia esta URL si es necesario
-			type: 'POST',
-			data: formData,
-			processData: false, // No procesar los datos
-			contentType: false, // No establecer el tipo de contenido
+      const formData = new FormData(this);
 
-				success: function (response) {
-					console.log('Respuesta del servidor:', response); // <-- Agregado
-					alert('Perfil creado con éxito');
-					$('#modalCrearPerfil').modal('hide');
-				},
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
 
-				error: function (xhr, status, error) {
-					console.error('Error AJAX:', xhr.responseText);
+          if (response.success) {
+            console.log('Operador creado con éxito:', response.message);
+
+            const tabla = $('#miTabla').DataTable();
+            localStorage.setItem('paginaOperadores', tabla.page());
+
+            location.reload();
+          } else {
+            console.log('Error al crear el operador:', response.message);
+            $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText); 
+          $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+
+	  // Limpiar el mensaje de error al cerrar el modal
+		var modalCrearOperador = document.getElementById('modalCrearOperador');
+		if (modalCrearOperador) {
+			modalCrearOperador.addEventListener('hidden.bs.modal', function () {
+				var mensajeError = document.getElementById('mensaje-error-crear');
+				if (mensajeError) {
+					mensajeError.classList.add('d-none'); // Ocultar el div
+					mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
 				}
-		});
-	});
+			});
+		}
 
-});
 
 /* ##################### MODAL DE EDICIÓN ##################### */
-
-document.addEventListener('DOMContentLoaded', function () {
 
 	// Interceptar el evento de apertura del modal de edición
 	var modalEditarOperador = document.getElementById('modalEditarOperador');
@@ -54,20 +81,73 @@ document.addEventListener('DOMContentLoaded', function () {
 			var button = event.relatedTarget;
 
 			modalEditarOperador.querySelector('#editarOperadorId').value = button.getAttribute('data-id');
-			modalEditarOperador.querySelector('#editarNombre').value = button.getAttribute('data-nombre_completo');
-			modalEditarOperador.querySelector('#editarEmail').value = button.getAttribute('data-email');
-			modalEditarOperador.querySelector('#editarUsuario').value = button.getAttribute('data-username');
-			modalEditarOperador.querySelector('#editarPassword').value = button.getAttribute('data-password');
-			modalEditarOperador.querySelector('#editarRol').value = button.getAttribute('data-rol');
-			modalEditarOperador.querySelector('#editarActivo').value = button.getAttribute('data-activo');
+			modalEditarOperador.querySelector('#editarNombreOperador').value = button.getAttribute('data-nombre_completo');
+			modalEditarOperador.querySelector('#editarEmailOperador').value = button.getAttribute('data-email');
+			modalEditarOperador.querySelector('#editarUsuarioOperador').value = button.getAttribute('data-username');
+			modalEditarOperador.querySelector('#editarPasswordOperador').value = button.getAttribute('data-password');
+			modalEditarOperador.querySelector('#editarRolOperador').value = button.getAttribute('data-rol');
+			modalEditarOperador.querySelector('#editarActivoOperador').value = button.getAttribute('data-activo');
 		});
 	}
 
-});
+	// Interceptar el envío del formulario con AJAX
+	const formEditar = document.querySelector('#formEditarOperador');
+	if (formEditar) {
+		formEditar.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			// Limpiar cualquier mensaje de error antes de hacer la solicitud
+			$('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
+
+			const formData = new FormData(this);
+
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					console.log('Respuesta del servidor:', response);
+
+					if (response.success) {
+						console.log('Operador modificado con éxito:', response.message);
+
+						const tabla = $('#miTabla').DataTable();
+						localStorage.setItem('paginaOperadores', tabla.page());
+
+						location.reload();
+					} else {
+						console.log('Error al modificar el operador:', response.message); 
+						$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', xhr.status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText); 
+					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+				}
+			});
+		});
+	}
+
+	// Limpiar el mensaje de error al cerrar el modal
+	var modalEditarOperador = document.getElementById('modalEditarOperador');
+	if (modalEditarOperador) {
+		modalEditarOperador.addEventListener('hidden.bs.modal', function () {
+			var mensajeError = document.getElementById('mensaje-error-editar');
+			if (mensajeError) {
+				mensajeError.classList.add('d-none'); // Ocultar el div
+				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			}
+		});
+	}
+
 
 /* ##################### MODAL DE ELIMINACIÓN ##################### */
-
-document.addEventListener('DOMContentLoaded', function () {
 
 	// Interceptar el evento de apertura del modal de eliminación
   var modalEliminarOperador = document.getElementById('modalEliminarOperador');
@@ -76,13 +156,64 @@ document.addEventListener('DOMContentLoaded', function () {
       var button = event.relatedTarget;
 
       modalEliminarOperador.querySelector('#eliminarOperadorId').value = button.getAttribute('data-id');
-      modalEliminarOperador.querySelector('#eliminarUsuario').value = button.getAttribute('data-username');
+      modalEliminarOperador.querySelector('#eliminarUsernameOperador').value = button.getAttribute('data-username');
     });
   }
 
+	// Interceptar el envío del formulario con AJAX
+	const formEliminar = document.querySelector('#formEliminarOperador');
+	if (formEliminar) {
+		formEliminar.addEventListener('submit', function (e) {
+			e.preventDefault();
 
+			// Limpiar cualquier mensaje de error antes de hacer la solicitud
+			$('#mensaje-error-eliminar').addClass('d-none').find('.mensaje-texto').text('');
 
+			const formData = new FormData(this);
 
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					console.log('Respuesta del servidor:', response);
 
+					if (response.success) {
+						console.log('Operador eliminado con éxito:', response.message);
+
+						const tabla = $('#miTabla').DataTable();
+						localStorage.setItem('paginaOperadores', tabla.page());
+
+						location.reload();
+					} else {
+						console.log('Error al crear el perfil:', response.message);
+						$('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', xhr.status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText); 
+					$('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+				}
+			});
+		});
+	}
+
+	// Limpiar el mensaje de error al cerrar el modal
+	var modalEliminarOperador = document.getElementById('modalEliminarOperador');
+	if (modalEliminarOperador) {
+		modalEliminarOperador.addEventListener('hidden.bs.modal', function () {
+			var mensajeError = document.getElementById('mensaje-error-eliminar');
+			if (mensajeError) {
+				mensajeError.classList.add('d-none'); // Ocultar el div
+				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			}
+		});
+	}
 	
 });

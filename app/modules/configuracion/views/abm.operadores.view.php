@@ -13,12 +13,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			<tr>
 				<td>
 					<div class="d-flex justify-content-between align-items-center pe-2">
-						<h2 class="ms-2">Perfiles</h2>
+						<h2 class="ms-2">Operadores</h2>
 						<a href="#" class="btn btn-sm btn-primary"
 							data-bs-toggle="modal" 
-							data-bs-target="#modalCrear" 
+							data-bs-target="#modalCrearOperador" 
 							data-nombre=""
-							data-descripcion="">
+							data-username=""
+							data-password=""
+							data-email=""
+							data-rol="">
 							<i class="bi-plus-circle me-2"></i>Nuevo Operador
 						</a>
 					</div>
@@ -59,7 +62,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<div class="d-flex no-wrap">
 											<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
 												data-bs-toggle="modal" 
-												data-bs-target="#modalEditar" 
+												data-bs-target="#modalEditarOperador" 
 												data-id="<?= $operador['operador_id'] ?>"
 												data-nombre="<?= htmlspecialchars($operador['nombre_completo']) ?>"
 												data-username="<?= htmlspecialchars($operador['username']) ?>"
@@ -70,8 +73,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											</a>
 											<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
 												data-bs-toggle="modal"
-												data-bs-target="#modalEliminar"
-												data-id="<?= $operador['operador_id'] ?>">
+												data-bs-target="#modalEliminarOperador"
+												data-id="<?= $operador['operador_id'] ?>"
+												data-username="<?= $operador['username'] ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
 										</div>
@@ -83,95 +87,89 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 				</td>
 			</tr>
 	</table>
-	<?php
-		if (isset($_SESSION['message'])) {
-			$message = $_SESSION['message'];
-			unset($_SESSION['message']); // Limpiamos para que no persista
-		}
-	?>
 
 	<!-- Modal de creación -->
-	<div class="modal fade m-5" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalCrearOperador" tabindex="-1" aria-labelledby="modalCrearOperadorLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalCrearLabel">Nuevo operador</h5>
+						<h5 class="modal-title" id="modalCrearOperadorLabel">Nuevo operador</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" name="operador_id" id="crearOperadorId">
 						
 						<div class="mb-3">
-							<?php if (isset($message)): ?>
-								<div class="alert alert-danger rounded m-2" role="alert">
-									<strong>Error: </strong>
-									<span class="block sm:inline"><?= htmlspecialchars($message) ?></span>
-								</div>
-							<?php endif; ?>
+							<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto"></span>
+								<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+							</div>
 						</div>
 					
 						<div class="mb-3">
-							<label for="crearNombre" class="form-label">Nombre Completo</label>
-							<input type="text" class="form-control" name="nombre" id="crearNombre">
+							<label for="crearNombreOperador" class="form-label">Nombre Completo</label>
+							<input type="text" class="form-control" name="nombre" id="crearNombreOperador">
 						</div>
 
 						<div class="mb-3">
-							<label for="crearUsuario" class="form-label">Usuario</label>
-							<input type="text" class="form-control" name="usuario" id="crearUsuario">
+							<label for="crearUsuarioOperador" class="form-label">Usuario</label>
+							<input type="text" class="form-control" name="usuario" id="crearUsuarioOperador">
 						</div>
 
 						<div class="mb-3">
-							<label for="crearEmail" class="form-label">Email</label>
-							<input type="text" class="form-control" name="email" id="crearEmail">
+							<label for="crearPasswordOperador" class="form-label">Contraseña</label>
+							<input type="password" class="form-control" name="usuario" id="crearPasswordOperador">
+						</div>
+
+						<div class="mb-3">
+							<label for="crearEmailOperador" class="form-label">Email</label>
+							<input type="text" class="form-control" name="email" id="crearEmailOperador">
 					</div>
 					
 						<div class="mb-3">
-							<label for="crearRol" class="form-label">Rol</label>
-							<select class="form-select" name="rol" id="crearRol" required>
+							<label for="crearRolOperador" class="form-label">Rol</label>
+							<select class="form-select" name="rol" id="crearRolOperador" required>
 								<option value="">Seleccione un rol</option>
-								<?php foreach ($roles as $rol): ?>
-									<option value="<?= htmlspecialchars($rol['rol_id']) ?>"><?= htmlspecialchars($rol['nombre']) ?></option>
-								<?php endforeach; ?>
+								<option value="administrador">Administrador</option>
+								<option value="operador">Operador</option>
 							</select>
 						</div>
 
-						<div class="mb-3">
-							<label for="crearActivo" class="form-label 
-					<div class="modal-footer d-flex justify-content-center p-2">
-						<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
-						<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-					</div>
+						<div class="modal-footer d-flex justify-content-center p-2">
+							<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+							<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+						</div>
 				</div>
 			</form>
 		</div>
 	</div>
 
 	<!-- Modal de edición -->
-	<div class="modal fade m-5" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalEditarOperador" tabindex="-1" aria-labelledby="modalEditarOperadorLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalEditarLabel">Editar operador</h5>
+						<h5 class="modal-title" id="modalEditarOperadorLabel">Editar operador</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="operador_id" id="editarOperadorId">
 
 						<div class="mb-3">
-							<label for="editarNombre" class="form-label">Nombre completo</label>
-							<input type="text" class="form-control" name="nombre" id="editarNombre" required>
+							<label for="editarNombreOperador" class="form-label">Nombre completo</label>
+							<input type="text" class="form-control" name="nombre" id="editarNombreOperador" required>
 						</div>
 
 						<div class="mb-3">
-							<label for="editarDescripcion" class="form-label">Email</label>
-							<input type="text" class="form-control" name="descripcion" id="editarDescripcion" required>
+							<label for="editarDescripcionOperador" class="form-label">Email</label>
+							<input type="text" class="form-control" name="descripcion" id="editarDescripcionOperador" required>
 						</div>
 
 						<div class="mb-3">
-							<label for="editarActivo" class="form-label">Activo</label>
-							<select class="form-select" name="activo" id="editarActivo" required>
+							<label for="editarActivoOperador" class="form-label">Activo</label>
+							<select class="form-select" name="activo" id="editarActivoOperador" required>
 								<option value="1">Sí</option>
 								<option value="0">No</option>
 							</select>
@@ -187,16 +185,26 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	</div>
 
 	<!-- Modal de eliminación -->
-	<div class="modal fade m-5" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+	<div class="modal fade m-5" id="modalEliminarOperador" tabindex="-1" aria-labelledby="modalEliminarOperadorLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<form method="POST" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar">
 				<div class="modal-content m-5">
 					<div class="modal-header table-primary text-white">
-						<h5 class="modal-title" id="modalEliminarLabel">Eliminar operador</h5>
+						<h5 class="modal-title" id="modalEliminarOperadorLabel">Eliminar operador</h5>
 						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="operador_id" id="eliminarOperadorId">
+						<input type="hidden" name="username" id="eliminarUsernameOperador">
+
+						<div class="mb-3">
+							<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto"></span>
+									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+								</div>
+						</div>
+
 						<div class="mb-3">
 							<p>¿Está seguro que desea eliminar el operador?</p>
 							<p>Esta acción no se puede deshacer.</p>
@@ -210,4 +218,5 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 			</form>
 		</div>
 	</div>
+
 </div>

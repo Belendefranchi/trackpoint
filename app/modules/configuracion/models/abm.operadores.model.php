@@ -41,7 +41,11 @@ function crearOperador($username, $hashedPassword, $nombre_completo, $email, $ro
 		$stmt->bindParam(':password', $hashedPassword);
 		$stmt->bindParam(':rol', $rol);
 		$stmt->bindParam(':creado_por', $creado_por);
-		return $stmt->execute();
+		$result = $stmt->execute();
+		if ($result) {
+			registrarEvento("Operadores Model: operador creado correctamente.", "INFO");
+		}
+		return $result;
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Operadores Model: Error al crear el operador, " . $e->getMessage(), "ERROR");
@@ -74,12 +78,16 @@ function editarOperador($operador_id, $nombre_completo, $email, $rol, $activo) {
 		$stmt->bindParam(':rol', $rol);
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $activo);
-		$stmt->bindParam(':editado_por', $_SESSION['operador_id']);
 		$stmt->execute();
-		return $stmt->execute();
+		$result = $stmt->execute();
+
+		if ($result) {
+			registrarEvento("Operadores Model: operador editado correctamente.", "INFO");
+		}
+		return $result;
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Operadores Model: Error al actualizar el operador, " . $e->getMessage(), "ERROR");
+		registrarEvento("Operadores Model: Error al editar el operador, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

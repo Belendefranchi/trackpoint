@@ -94,8 +94,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" role="alert">
 								<i class="bi bi-exclamation-triangle-fill me-2"></i>
 								<span class="mensaje-texto"></span>
-									<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
-								</div>
+								<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+							</div>
 						</div>
 
 						<div class="mb-3">
