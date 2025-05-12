@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Verificar si el usuario ya existe
 		$user = userExists($username, $email);
-		if ($user && $user['email'] != $email && $user['username'] != $username) {
-			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese username, intente con otro.']);
+		if ($user) {
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese usuario y/o email, intente con otro.']);
 			exit;
 		}
 		try {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 			
 			// Crear el operador en la base de datos
-			$result = crearOperador($username, $hashedPassword, $username_completo, $email, $rol);
+			$result = crearOperador($username, $hashedPassword, $nombre_completo, $email, $rol);
 
 			if ($result) {
 				registrarEvento("Operador Controller: Operador creado correctamente => " . $username, "INFO");
@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
@@ -80,24 +79,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$nombre_completo = $_POST['nombre_completo'];
 		$email = $_POST['email'];
 		$rol = $_POST['rol'];
-		$activo = ($_POST['activo']);
+		$activo = $_POST['activo'];
 
 		// Validación básica
-		if (empty($username) || empty($nombre_completo) || empty($email) || empty($rol) || empty($activo)) {
+		if (empty($username) || empty($nombre_completo) || empty($email)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			echo json_encode(['success' => false, 'message' => "Error: El email no es válido"]);
 			exit;
-		} elseif (!in_array($rol, ['administrador', 'operador'])) {
-			echo json_encode(['success' => false, 'message' => "Error: Rol no válido"]);
-			exit;
-		}
+	}
 
 		// Verificar si el usuario ya existe
 		$user = userExists($username, $email);
-		if ($user && $user['email'] != $email && $user['username'] != $username) {
-			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese username, intente con otro.']);
+		if ($user) {
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese usuario y/o email, intente con otro.']);
 			exit;
 		}
 		try {

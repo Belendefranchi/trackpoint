@@ -1,5 +1,6 @@
-/* ##################### MODAL DE CREACION ##################### */
 document.addEventListener('DOMContentLoaded', function () {
+  
+  /* ##################### MODAL DE CREACION ##################### */
 
   // Interceptar el evento de apertura del modal de creación
   var modalCrearPerfil = document.getElementById('modalCrearPerfil');

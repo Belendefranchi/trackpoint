@@ -218,4 +218,8 @@ button.buttons-colvis::after {
   border-left: 0.4em solid transparent;
 }
 
+table.dataTable thead td {
+  padding-right: 25px !important;
+}
+
 

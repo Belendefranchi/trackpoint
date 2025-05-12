@@ -17,7 +17,7 @@ function obtenerOperadores() {
 function userExists($username, $email) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT operador_id FROM configuracion_abm_operadores WHERE email = :email OR username = :username");
+		$stmt = $conn->prepare("SELECT operador_id, username, email FROM configuracion_abm_operadores WHERE email = :email OR username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->bindParam(':email', $email);
 		$stmt->execute();

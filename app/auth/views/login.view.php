@@ -9,8 +9,8 @@ require_once __DIR__ . '/../controllers/login.controller.php';
   <title>Iniciar Sesión</title>
 
   <!-- Bootstrap -->
-  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
+  <link href="/trackpoint/public/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/js/plugins/bootstrap.min.js" defer></script>
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">

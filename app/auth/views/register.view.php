@@ -6,8 +6,8 @@
   <title>Registro de usuario</title>
 
   <!-- Bootstrap -->
-  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="/trackpoint/public/assets/bootstrap.min.js" defer></script>
+  <link href="/trackpoint/public/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/js/plugins/bootstrap.min.js" defer></script>
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">

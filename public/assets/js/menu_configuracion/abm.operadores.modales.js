@@ -1,5 +1,6 @@
-/* ##################### MODAL DE CREACION ##################### */
 document.addEventListener('DOMContentLoaded', function () {
+
+	/* ##################### MODAL DE CREACION ##################### */
 
 	// Interceptar el evento de apertura del modal de creación
 	var modalCrearOperador = document.getElementById('modalCrearOperador');
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			modalCrearOperador.querySelector('#crearNombreOperador').value = button.getAttribute('data-nombre');
 			modalCrearOperador.querySelector('#crearEmailOperador').value = button.getAttribute('data-email');
-			modalCrearOperador.querySelector('#crearUsuarioOperador').value = button.getAttribute('data-username');
+			modalCrearOperador.querySelector('#crearUsernameOperador').value = button.getAttribute('data-username');
 			modalCrearOperador.querySelector('#crearPasswordOperador').value = button.getAttribute('data-password');
 			modalCrearOperador.querySelector('#crearRolOperador').value = button.getAttribute('data-rol');
 		});
@@ -80,20 +81,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		modalEditarOperador.addEventListener('show.bs.modal', function (event) {
 			var button = event.relatedTarget;
 
+			if (!button) {
+				console.warn('No se pudo obtener el botón que abrió el modal.');
+				return;
+			}
+			console.log('Botón disparador:', button);
+			console.log('data-id:', button.getAttribute('data-id'));
+			console.log('data-nombre:', button.getAttribute('data-nombre'));
+
+
 			modalEditarOperador.querySelector('#editarOperadorId').value = button.getAttribute('data-id');
-			modalEditarOperador.querySelector('#editarNombreOperador').value = button.getAttribute('data-nombre_completo');
+			modalEditarOperador.querySelector('#editarNombreOperador').value = button.getAttribute('data-nombre');
 			modalEditarOperador.querySelector('#editarEmailOperador').value = button.getAttribute('data-email');
-			modalEditarOperador.querySelector('#editarUsuarioOperador').value = button.getAttribute('data-username');
-			modalEditarOperador.querySelector('#editarPasswordOperador').value = button.getAttribute('data-password');
+			modalEditarOperador.querySelector('#editarUsernameOperador').value = button.getAttribute('data-username');
 			modalEditarOperador.querySelector('#editarRolOperador').value = button.getAttribute('data-rol');
 			modalEditarOperador.querySelector('#editarActivoOperador').value = button.getAttribute('data-activo');
 		});
 	}
 
 	// Interceptar el envío del formulario con AJAX
-	const formEditar = document.querySelector('#formEditarOperador');
-	if (formEditar) {
-		formEditar.addEventListener('submit', function (e) {
+	const formEditarOperador = document.querySelector('#formEditarOperador');
+	if (formEditarOperador) {
+		formEditarOperador.addEventListener('submit', function (e) {
 			e.preventDefault();
 
 			// Limpiar cualquier mensaje de error antes de hacer la solicitud

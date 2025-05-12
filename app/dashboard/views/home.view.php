@@ -9,12 +9,12 @@ require_once __DIR__ . '/../../../middleware/auth.middleware.php';
   <title>Home</title>
 
   <!-- Bootstrap -->
-  <link href="/trackpoint/public/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="/trackpoint/public/assets/js/bootstrap.min.js" defer></script>
+  <link href="/trackpoint/public/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+  <script src="/trackpoint/public/assets/js/plugins/bootstrap.min.js" defer></script>
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
-  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_transparente.png" type="image/x-icon" />
+  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
   <style>
     .nav-link.active-lateral {
       color: #22265D !important;

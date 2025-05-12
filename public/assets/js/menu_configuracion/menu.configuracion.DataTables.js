@@ -39,7 +39,7 @@ $(document).ready(function () {
 							widths: ['auto', '*', 'auto'],
 							body: [[
 								{
-									image: logoBase64,
+									image: logoBase64_100x109,
 									width: 50,
 									alignment: 'left',
 									margin: [5, 5, 5, 5]
