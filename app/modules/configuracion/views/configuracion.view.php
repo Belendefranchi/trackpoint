@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../../middleware/auth.middleware.php';
-require_once __DIR__ . '/../../../layouts/layout.inicial.view.php';
+require_once __DIR__ . '/../../../layouts/layout.view.php';
 
 $currentUri = $_SERVER['REQUEST_URI'];
 
@@ -16,7 +16,6 @@ $activeItems = [
   'perfiles' => str_contains($currentUri, 'perfiles') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
   'perfilesPorOperador' => str_contains($currentUri, 'perfilesPorOperador') ? 'fw-semibold text-primary' : '',
   'permisos' => str_contains($currentUri, 'permisos') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
-  'permisosPorOperador' => str_contains($currentUri, 'permisosPorOperador') ? 'fw-semibold text-primary' : '',
   'permisosPorPerfil' => str_contains($currentUri, 'permisosPorPerfil') ? 'fw-semibold text-primary' : '',
   'personas' => str_contains($currentUri, 'personas') ? 'fw-semibold text-primary' : '',
   'numeradores' => str_contains($currentUri, 'numeradores') ? 'fw-semibold text-primary' : '',
@@ -94,15 +93,24 @@ $activeItems = [
           </div>
         </div>
       </aside>
-      <?php require_once __DIR__ . '/../../../layouts/layout.final.view.php'; ?>
+      <!-- Contenido principal -->
+      <main class="col-md-9 col-lg-10 p-4">
+        <?php if (isset($content) && file_exists($content)) {
+          require_once $content;
+        } else { ?>
+          <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+                <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" 
+                alt="Fondo" 
+                style="opacity: 0.4;" />
+          </div>
+        </main>
+      </div>
+    </div>
+    <?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
-  <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.DataTables.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.operadores.modales.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.perfiles.modales.js"></script>
-
-</body>
+  </body>
 </html>
+<?php } ?>
 
 
 
