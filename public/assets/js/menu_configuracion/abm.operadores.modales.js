@@ -1,3 +1,5 @@
+console.log('Bootstrap modal:', bootstrap?.Modal);
+
 document.addEventListener('DOMContentLoaded', function () {
 
 	/* ##################### MODAL DE CREACION ##################### */
@@ -79,30 +81,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	var modalEditarOperador = document.getElementById('modalEditarOperador');
 	if (modalEditarOperador) {
 		modalEditarOperador.addEventListener('show.bs.modal', function (event) {
-			var button = event.relatedTarget;
+			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
+			const button = event.relatedTarget;
 
 			if (!button) {
-				console.warn('No se pudo obtener el botón que abrió el modal.');
+				console.warn('No se detectó el botón que activó el modal.');
 				return;
 			}
-			console.log('Botón disparador:', button);
-			console.log('data-id:', button.getAttribute('data-id'));
-			console.log('data-nombre:', button.getAttribute('data-nombre'));
-
 
 			modalEditarOperador.querySelector('#editarOperadorId').value = button.getAttribute('data-id');
+			modalEditarOperador.querySelector('#editarUsernameOperador').value = button.getAttribute('data-username');
 			modalEditarOperador.querySelector('#editarNombreOperador').value = button.getAttribute('data-nombre');
 			modalEditarOperador.querySelector('#editarEmailOperador').value = button.getAttribute('data-email');
-			modalEditarOperador.querySelector('#editarUsernameOperador').value = button.getAttribute('data-username');
 			modalEditarOperador.querySelector('#editarRolOperador').value = button.getAttribute('data-rol');
 			modalEditarOperador.querySelector('#editarActivoOperador').value = button.getAttribute('data-activo');
 		});
 	}
 
 	// Interceptar el envío del formulario con AJAX
-	const formEditarOperador = document.querySelector('#formEditarOperador');
-	if (formEditarOperador) {
-		formEditarOperador.addEventListener('submit', function (e) {
+	const formEditar = document.querySelector('#formEditarOperador');
+	if (formEditar) {
+		formEditar.addEventListener('submit', function (e) {
 			e.preventDefault();
 
 			// Limpiar cualquier mensaje de error antes de hacer la solicitud

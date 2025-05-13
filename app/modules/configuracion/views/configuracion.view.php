@@ -98,11 +98,11 @@ $activeItems = [
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>
-          <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+<!--           <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
                 <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" 
                 alt="Fondo" 
                 style="opacity: 0.4;" />
-          </div>
+          </div> -->
         </main>
       </div>
     </div>

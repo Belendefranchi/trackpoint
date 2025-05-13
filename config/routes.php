@@ -20,7 +20,6 @@ $routes = [
 
 	'/configuracion/ABMs/operadores' => 'app/modules/configuracion/controllers/abm.operadores.controller.php',
 	'/configuracion/ABMs/perfiles' => 'app/modules/configuracion/controllers/abm.perfiles.controller.php',
-	'/configuracion/ABMs/perfiles&crear' => 'app/modules/configuracion/controllers/abm.perfiles.controller.php',
 
 	'/configuracion/ABMs/permisos' => 'app/modules/configuracion/controllers/abm.permisos.controller.php',
 	'/configuracion/ABMs/perfilesPorOperador' => 'app/modules/configuracion/controllers/abm.perfilesPorOperador.controller.php',

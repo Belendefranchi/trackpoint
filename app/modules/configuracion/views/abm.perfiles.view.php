@@ -56,17 +56,17 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 															<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalEditarPerfil"
-																data-id="<?= $perfil['perfil_id'] ?>"
+																data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
 																data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
 																data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
-																data-activo="<?= $perfil['activo'] ?>">
+																data-activo="<?= htmlspecialchars($perfil['activo']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
 															<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEliminarPerfil"
-																data-id="<?= $perfil['perfil_id'] ?>"
-																data-nombre="<?= $perfil['nombre'] ?>">
+																data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
+																data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
 																<i class="bi bi-trash me-2"></i>Eliminar
 															</a>
 														</div>
@@ -135,7 +135,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
-												</div>
+											</div>
 										</div>
 
 										<div class="mb-3">

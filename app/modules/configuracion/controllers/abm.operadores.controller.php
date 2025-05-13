@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			echo json_encode(['success' => false, 'message' => "Error: El email no es válido"]);
 			exit;
-	}
+		}
 
 		// Verificar si el usuario ya existe
 		$user = userExists($username, $email);
