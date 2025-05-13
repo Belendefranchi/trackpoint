@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al crear el perfil => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}

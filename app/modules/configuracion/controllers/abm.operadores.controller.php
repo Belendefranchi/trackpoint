@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
 		$username = $_POST['username'];
-		$password = $_POST['password'];
 		$nombre_completo = $_POST['nombre_completo'];
 		$email = $_POST['email'];
+		$password = $_POST['password'];
 		$rol = $_POST['rol'];
 
     // Validación básica
-    if (empty($username) || empty($password) || empty($nombre_completo) || empty($email) || empty($rol)) {
+    if (empty($username) || empty($nombre_completo) || empty($password) || empty($email) || empty($rol)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 			echo json_encode(['success' => true]);
 		} catch (Exception $e) {
-			registrarEvento("Operador Controller: Error al crear el operador => " . $username, "ERROR");
+			registrarEvento("Operador Controller: Error al procesar los datos => " . $username, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Verificar si el usuario ya existe
 		$user = userExists($username, $email);
-		if ($user) {
+		if ($user && $user['operador_id'] != $operador_id) {
 			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un operador con ese usuario y/o email, intente con otro.']);
 			exit;
 		}
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Operadores Controller: Error al modificar el operador => " . $username, "ERROR");
+			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Operadores Controller: Error al eliminar el operador => " . $username, "ERROR");
+			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}

@@ -1,5 +1,3 @@
-console.log('Bootstrap modal:', bootstrap?.Modal);
-
 document.addEventListener('DOMContentLoaded', function () {
 
 	/* ##################### MODAL DE CREACION ##################### */
@@ -10,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		modalCrearOperador.addEventListener('show.bs.modal', function (event) {
 			var button = event.relatedTarget;
 
+			modalCrearOperador.querySelector('#crearUsernameOperador').value = button.getAttribute('data-username');
 			modalCrearOperador.querySelector('#crearNombreOperador').value = button.getAttribute('data-nombre');
 			modalCrearOperador.querySelector('#crearEmailOperador').value = button.getAttribute('data-email');
-			modalCrearOperador.querySelector('#crearUsernameOperador').value = button.getAttribute('data-username');
 			modalCrearOperador.querySelector('#crearPasswordOperador').value = button.getAttribute('data-password');
 			modalCrearOperador.querySelector('#crearRolOperador').value = button.getAttribute('data-rol');
 		});
@@ -62,17 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-	  // Limpiar el mensaje de error al cerrar el modal
-		var modalCrearOperador = document.getElementById('modalCrearOperador');
-		if (modalCrearOperador) {
-			modalCrearOperador.addEventListener('hidden.bs.modal', function () {
-				var mensajeError = document.getElementById('mensaje-error-crear');
-				if (mensajeError) {
-					mensajeError.classList.add('d-none'); // Ocultar el div
-					mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
-				}
-			});
-		}
+	// Limpiar el mensaje de error al cerrar el modal
+	var modalCrearOperador = document.getElementById('modalCrearOperador');
+	if (modalCrearOperador) {
+		modalCrearOperador.addEventListener('hidden.bs.modal', function () {
+			var mensajeError = document.getElementById('mensaje-error-crear');
+			if (mensajeError) {
+				mensajeError.classList.add('d-none'); // Ocultar el div
+				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			}
+		});
+	}
 
 
 /* ##################### MODAL DE EDICIÓN ##################### */
@@ -190,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					console.log('Respuesta del servidor:', response);
 
 					if (response.success) {
-						console.log('Operador eliminado con éxito:', response.message);
 
 						const tabla = $('#miTabla').DataTable();
 						localStorage.setItem('paginaOperadores', tabla.page());
