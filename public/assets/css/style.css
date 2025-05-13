@@ -30,8 +30,15 @@
   background-color: var(--bs-primary) !important;
 }
 
+.border{
+  border: 1px solid #2668c526 !important;
+  border-collapse: collapse !important;
+}
+
 .table-primary {
   background-color: var(--bs-primary) !important;
+  border-color: #2668c526 !important;
+
 }
 
 .table-hover:hover {
@@ -191,6 +198,7 @@ table.dataTable.no-footer {
   border-radius: 4px !important;
 }
 
+/* Botones de exportación */
 .btn.btn-secondary.buttons-copy.buttons-html5,
 .btn.btn-secondary.buttons-pdf.buttons-html5,
 .btn.btn-secondary.buttons-excel.buttons-html5,
@@ -218,6 +226,7 @@ button.buttons-colvis::after {
   border-left: 0.4em solid transparent;
 }
 
+/* Separacion del selector de columnas */
 table.dataTable thead td {
   padding-right: 25px !important;
 }
