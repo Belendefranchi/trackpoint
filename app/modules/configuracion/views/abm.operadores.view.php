@@ -29,7 +29,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<tr class="text-light">
 												<td class="p-2 border text-center">ID</td>
 												<td class="p-2 border text-center">Operador</td>
-												<td class="p-2 border text-center">Nombre completo</td>
+												<td class="p-2 border text-center">Nombre y Apellido</td>
 												<td class="p-2 border text-center">Email</td>
 												<td class="p-2 border text-center">Rol</td>
 												<td class="p-2 border text-center">Fecha de creación</td>
@@ -108,7 +108,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="crearNombreOperador" class="form-label">Nombre</label>
+											<label for="crearNombreOperador" class="form-label">Nombre y Apellido</label>
 											<input type="text" class="form-control" name="nombre_completo" id="crearNombreOperador">
 										</div>
 
@@ -166,7 +166,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarNombreOperador" class="form-label">Nombre</label>
+											<label for="editarNombreOperador" class="form-label">Nombre y Apellido</label>
 											<input type="text" class="form-control" name="nombre_completo" id="editarNombreOperador">
 										</div>
 
