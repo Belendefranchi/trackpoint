@@ -156,60 +156,60 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-    // Interceptar el envío del formulario con AJAX
-    const formEliminar = document.querySelector('#formEliminarPerfil');
-    if (formEliminar) {
-      formEliminar.addEventListener('submit', function (e) {
-        e.preventDefault();
-  
-        // Limpiar cualquier mensaje de error antes de hacer la solicitud
-        $('#mensaje-error-eliminar').addClass('d-none').find('.mensaje-texto').text('');
-  
-        const formData = new FormData(this);
-  
-        $.ajax({
-          url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: 'json',
-          success: function (response) {
-            console.log('Respuesta del servidor:', response);
-  
-            if (response.success) {
-              console.log('Perfil eliminado con éxito:', response.message);
-  
-              const tabla = $('#miTabla').DataTable();
-              localStorage.setItem('paginaPerfiles', tabla.page());
-  
-              location.reload();
-            } else {
-              console.log('Error al crear el perfil:', response.message);
-              $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
-            }
-          },
-          error: function (xhr, status, error) {
-            console.log('Error al guardar los datos');
-            console.log('Código de estado:', xhr.status);
-            console.log('Mensaje de error:', error);
-            console.log('Respuesta del servidor:', xhr.responseText); 
-            $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+  // Interceptar el envío del formulario con AJAX
+  const formEliminar = document.querySelector('#formEliminarPerfil');
+  if (formEliminar) {
+    formEliminar.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-eliminar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles&eliminar',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Perfil eliminado con éxito:', response.message);
+
+            const tabla = $('#miTabla').DataTable();
+            localStorage.setItem('paginaPerfiles', tabla.page());
+
+            location.reload();
+          } else {
+            console.log('Error al crear el perfil:', response.message);
+            $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
-        });
-      });
-    }
-  
-    // Limpiar el mensaje de error al cerrar el modal
-    var modalEliminarPerfil = document.getElementById('modalEliminarPerfil');
-    if (modalEliminarPerfil) {
-      modalEliminarPerfil.addEventListener('hidden.bs.modal', function () {
-        var mensajeError = document.getElementById('mensaje-error-eliminar');
-        if (mensajeError) {
-          mensajeError.classList.add('d-none'); // Ocultar el div
-          mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText); 
+          $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
-    }
+    });
+  }
+
+  // Limpiar el mensaje de error al cerrar el modal
+  var modalEliminarPerfil = document.getElementById('modalEliminarPerfil');
+  if (modalEliminarPerfil) {
+    modalEliminarPerfil.addEventListener('hidden.bs.modal', function () {
+      var mensajeError = document.getElementById('mensaje-error-eliminar');
+      if (mensajeError) {
+        mensajeError.classList.add('d-none'); // Ocultar el div
+        mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+      }
+    });
+  }
 
 });

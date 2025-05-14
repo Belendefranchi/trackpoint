@@ -203,7 +203,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 					<!-- Modal de eliminación -->
 					<div class="modal fade m-5" id="modalEliminarOperador" tabindex="-1" aria-labelledby="modalEliminarOperadorLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEliminarPerfil" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar">
+							<form method="POST" id="formEliminarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarOperadorLabel">Eliminar perfil</h5>

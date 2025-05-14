@@ -188,13 +188,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					console.log('Respuesta del servidor:', response);
 
 					if (response.success) {
+						console.log('Operador eliminado con éxito:', response.message);
 
 						const tabla = $('#miTabla').DataTable();
 						localStorage.setItem('paginaOperadores', tabla.page());
 
 						location.reload();
 					} else {
-						console.log('Error al crear el perfil:', response.message);
+						console.log('Error al crear el operador:', response.message);
 						$('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
