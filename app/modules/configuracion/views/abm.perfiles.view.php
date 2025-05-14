@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
   const subtitulo = 'Perfiles';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
+				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
 					<table>
 							<tr>
 								<td>
