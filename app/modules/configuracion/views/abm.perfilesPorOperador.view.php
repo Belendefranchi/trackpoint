@@ -21,7 +21,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											data-bs-target="#modalSeleccionarOperador" 
 											data-nombre=""
 											data-descripcion="">
-											<i class="bi-check-circle me-2"></i>Seleccione un Operador
+											<i class="bi-check-circle me-2"></i>Seleccionar operador
 										</a>
 									</div>
 								</td>
@@ -87,7 +87,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<form method="POST" id="formSeleccionarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalSeleccionarOperadorLabel">Seleccionar Operador</h5>
+										<h5 class="modal-title" id="modalSeleccionarOperadorLabel">Seleccionar operador</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
@@ -101,7 +101,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										</div>
 
 										<div class="mb-3">
-											<table id="operadoresTable" class="display pt-2 pb-4" style="width:100%">
+											<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
 														<td class="p-2 border text-center"><i class="bi-check-circle me-2"></i></td>
@@ -131,8 +131,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 
 									</div>
 									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Acecto</button>
-										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>No acecto</button>
+										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 									</div>
 								</div>
 							</form>
