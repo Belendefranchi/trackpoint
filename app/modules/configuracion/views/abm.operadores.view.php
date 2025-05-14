@@ -146,7 +146,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<form method="POST" id="formEditarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalEditarOperadorLabel">Editar perfil</h5>
+										<h5 class="modal-title" id="modalEditarOperadorLabel">Editar operador</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
@@ -206,7 +206,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<form method="POST" id="formEliminarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&eliminar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalEliminarOperadorLabel">Eliminar perfil</h5>
+										<h5 class="modal-title" id="modalEliminarOperadorLabel">Eliminar operador</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
