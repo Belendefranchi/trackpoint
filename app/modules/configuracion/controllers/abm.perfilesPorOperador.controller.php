@@ -16,6 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['seleccionar'])) {
 
 		$operador_id = $_POST['operador_id'];
+		$username = $_POST['username'];
+		$nombre_completo = $_POST['nombre_completo'];
+		$email = $_POST['email'];
+		$rol = $_POST['rol'];
+
 
     if ($operador_id) {
 			session_start();

@@ -27,28 +27,28 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border text-center">Perfil</td>
-												<td class="border text-center">Descripción</td>
-												<td class="border text-center">Fecha de creación</td>
-												<td class="border text-center">Creado por</td>
-												<td class="border text-center">Fecha de edición</td>
-												<td class="border text-center">Editado por</td>
-												<td class="border text-center">Activo</td>
+												<td class="border">ID</td>
+												<td class="border">Perfil</td>
+												<td class="border">Descripción</td>
+												<td class="border">Fecha de creación</td>
+												<td class="border">Creado por</td>
+												<td class="border">Fecha de edición</td>
+												<td class="border">Editado por</td>
+												<td class="border">Activo</td>
 												<td class="border text-center no-export">Acciones</td>
 											</tr>
 										</thead>
 										<tbody>
 											<?php foreach ($perfiles as $perfil): ?>
 												<tr class="text-start">
-													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
-													<td class="border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
+													<td class="border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 													<td class="border">
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"

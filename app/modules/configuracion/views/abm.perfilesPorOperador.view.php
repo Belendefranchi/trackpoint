@@ -100,10 +100,10 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border text-center">Perfil</td>
-												<td class="border text-center">Descripción</td>
-												<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
+												<td class="border">ID</td>
+												<td class="border">Perfil</td>
+												<td class="border">Descripción</td>
+												<td class="border"><i class="bi-check-circle me-2"></i></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -112,7 +112,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-													<td class="border text-center">
+													<td class="border">
 														<input type="checkbox" class="form-check-input" id="perfil_<?= htmlspecialchars($perfil['perfil_id']) ?>" name="perfil_id[]" value="<?= htmlspecialchars($perfil['perfil_id']) ?>">
 													</td>
 												</tr>
@@ -168,11 +168,21 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
 														<tr class="text-start" style="cursor: pointer;">
-															<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
+															<td class="border">
+																<input type="hidden" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>"><?= htmlspecialchars($operador['operador_id']) ?>
+															</td>
+															<td class="border">
+																<input type="hidden" name="username" value="<?= htmlspecialchars($operador['username']) ?>"><?= htmlspecialchars($operador['username']) ?>
+															</td>
+															<td class="border">
+																<input type="hidden" name="nombre_completo" value="<?= htmlspecialchars($operador['nombre_completo']) ?>"><?= htmlspecialchars($operador['nombre_completo']) ?>
+															</td>
+															<td class="border">
+																<input type="hidden" name="email" value="<?= htmlspecialchars($operador['email']) ?>"><?= htmlspecialchars($operador['email']) ?>
+															</td>
+															<td class="border">
+																<input type="hidden" name="rol" value="<?= htmlspecialchars($operador['rol']) ?>"><?= htmlspecialchars($operador['rol']) ?>
+															</td>
 															<td class="border text-center">
 																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
 															</td>
