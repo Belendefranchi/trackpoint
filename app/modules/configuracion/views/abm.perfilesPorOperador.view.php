@@ -15,7 +15,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td>
 									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2">Perfiles por Operador</h2>
+										<h2 class="ms-2 text-primary">Perfiles por Operador</h2>
 										<a href="#" class="btn btn-sm btn-primary"
 											data-bs-toggle="modal" 
 											data-bs-target="#modalSeleccionarOperador" 

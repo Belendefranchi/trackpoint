@@ -8,7 +8,7 @@
 
 /* Sobrescribir botones */
 .btn-primary {
-  background-color: /* var(--bs-primary) */ #3A4280 !important;
+  background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
 }
 
@@ -27,7 +27,8 @@
 }
 
 .table {
-  background-color: /* var(--bs-primary) */ #3A4280 !important;
+    background-color: var(--bs-primary) !important;
+
 }
 
 .border{
@@ -36,7 +37,7 @@
 }
 
 .table-primary {
-  background-color: /* var(--bs-primary) */ #3A4280 !important;
+  background-color: var(--bs-primary) !important;
   border-color: #2668c526 !important;
 
 }
