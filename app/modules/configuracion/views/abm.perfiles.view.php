@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
   const subtitulo = 'Perfiles';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
+				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
 					<table>
 							<tr>
 								<td>
@@ -16,9 +16,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<h2 class="ms-2 text-primary">Perfiles</h2>
 										<a href="#" class="btn btn-sm btn-primary"
 											data-bs-toggle="modal" 
-											data-bs-target="#modalCrearPerfil" 
-											data-nombre=""
-											data-descripcion="">
+											data-bs-target="#modalCrearPerfil">
 											<i class="bi-plus-circle me-2"></i>Nuevo Perfil
 										</a>
 									</div>
@@ -29,31 +27,31 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="p-2 border text-center">ID</td>
-												<td class="p-2 border text-center">Perfil</td>
-												<td class="p-2 border text-center">Descripción</td>
-												<td class="p-2 border text-center">Fecha de creación</td>
-												<td class="p-2 border text-center">Creado por</td>
-												<td class="p-2 border text-center">Fecha de edición</td>
-												<td class="p-2 border text-center">Editado por</td>
-												<td class="p-2 border text-center">Activo</td>
-												<td class="p-2 border text-center no-export">Acciones</td>
+												<td class="border text-center">ID</td>
+												<td class="border text-center">Perfil</td>
+												<td class="border text-center">Descripción</td>
+												<td class="border text-center">Fecha de creación</td>
+												<td class="border text-center">Creado por</td>
+												<td class="border text-center">Fecha de edición</td>
+												<td class="border text-center">Editado por</td>
+												<td class="border text-center">Activo</td>
+												<td class="border text-center no-export">Acciones</td>
 											</tr>
 										</thead>
 										<tbody>
 											<?php foreach ($perfiles as $perfil): ?>
 												<tr class="text-start">
-													<td class="p-2 border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
-													<td class="p-2 border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="p-2 border">
+													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
+													<td class="border text-center"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
+													<td class="border">
 														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
+															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalEditarPerfil"
 																data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
@@ -62,7 +60,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 																data-activo="<?= htmlspecialchars($perfil['activo']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
-															<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
+															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEliminarPerfil"
 																data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"

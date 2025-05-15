@@ -27,35 +27,35 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="p-2 border text-center">ID</td>
-												<td class="p-2 border text-center">Operador</td>
-												<td class="p-2 border text-center">Nombre y Apellido</td>
-												<td class="p-2 border text-center">Email</td>
-												<td class="p-2 border text-center">Rol</td>
-												<td class="p-2 border text-center">Fecha de creación</td>
-												<td class="p-2 border text-center">Creado por</td>
-												<td class="p-2 border text-center">Fecha de edición</td>
-												<td class="p-2 border text-center">Editado por</td>
-												<td class="p-2 border text-center">Activo</td>
-												<td class="p-2 border text-center no-export">Acciones</td>
+												<td class="border text-center">ID</td>
+												<td class="border text-center">Operador</td>
+												<td class="border text-center">Nombre y Apellido</td>
+												<td class="border text-center">Email</td>
+												<td class="border text-center">Rol</td>
+												<td class="border text-center">Fecha de creación</td>
+												<td class="border text-center">Creado por</td>
+												<td class="border text-center">Fecha de edición</td>
+												<td class="border text-center">Editado por</td>
+												<td class="border text-center">Activo</td>
+												<td class="border text-center no-export">Acciones</td>
 											</tr>
 										</thead>
 										<tbody>
 											<?php foreach ($operadores as $operador): ?>
 												<tr class="text-start">
-													<td class="p-2 border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['username']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['creado_en']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['creado_por']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['editado_en']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($operador['editado_por']) ?></td>
-													<td class="p-2 border text-center"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="p-2 border">
+													<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['creado_en']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['creado_por']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['editado_en']) ?></td>
+													<td class="border"><?= htmlspecialchars($operador['editado_por']) ?></td>
+													<td class="border text-center"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
+													<td class="border">
 														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning me-1 d-flex no-wrap"
+															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalEditarOperador"
 																data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
@@ -66,7 +66,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 																data-activo="<?= htmlspecialchars($operador['activo']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
-															<a href="#" class="btn btn-sm btn-danger me-1 d-flex no-wrap"
+															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEliminarOperador"
 																data-id="<?= htmlspecialchars($operador['operador_id']) ?>"

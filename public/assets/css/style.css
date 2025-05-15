@@ -27,8 +27,7 @@
 }
 
 .table {
-    background-color: var(--bs-primary) !important;
-
+  background-color: var(--bs-primary) !important;
 }
 
 .border{
@@ -64,7 +63,7 @@
 }
 
 .shadow-custom {
-	transition: top 0.5s, transform 0.5s;;
+	transition: top 0.5s, transform 0.5s;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
@@ -76,8 +75,10 @@
 	border-color: #3A4280 !important;
 }
 
-table.dataTable thead th {
-  font-weight: normal;      /* sin negrita */
+table.dataTable thead th, table.dataTable thead td,
+table.dataTable tbody th, table.dataTable tbody td  {
+  font-weight: normal;
+  padding: 2px !important;
 }
 
 /* Ajustar el tamaño del grip de redimensionado */

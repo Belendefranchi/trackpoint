@@ -169,4 +169,21 @@ $(document).ready(function () {
 	tabla.on('page.dt', function () {
 		localStorage.setItem('pagina_' + subtitulo, tabla.page());
 	});
+
+	const tablaEnModal = $('#miTablaEnModal').DataTable({
+		dom: 'ftp',
+		pageLength: 10,
+		language: {
+			"sZeroRecords": "No se encontraron resultados",
+			"sSearch": "Buscar:",
+			"sEmptyTable": "No hay datos disponibles en la tabla",
+			"oPaginate": {
+				"sFirst": "Primero",
+				"sPrevious": "Anterior",
+				"sNext": "Siguiente",
+				"sLast": "Último"
+			},
+		}
+	});
+
 });

@@ -18,14 +18,43 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<h2 class="ms-2 text-primary">Perfiles por Operador</h2>
 										<a href="#" class="btn btn-sm btn-primary"
 											data-bs-toggle="modal" 
-											data-bs-target="#modalSeleccionarOperador" 
-											data-nombre=""
-											data-descripcion="">
+											data-bs-target="#modalSeleccionarOperador">
 											<i class="bi-check-circle me-2"></i>Seleccionar operador
 										</a>
 									</div>
+									<div>
+										<h6 id="operadorSeleccionado" class="text-secondary mt-3"></h6>
+									</div>
 								</td>
 							</tr>
+							<tr>
+								<td class="p-2 fs-5">Operador seleccionado: belen
+									<div id="tablaOperadorSeleccionado" class="mt-4">
+										<!-- Tabla de operador que se cargará de forma dinámica al seleccionar un operador -->
+									</div>
+
+									<!-- Tabla de Operadores -->
+<!-- 									<table id="" class="display pt-2 pb-4" style="width:100%">
+										<thead class="table-primary">
+											<tr class="text-light">
+												<td class="borde text-center"><i class="bi-check-circle me-2"></i></td>
+												<td class="borde text-center">ID</td>
+												<td class="borde text-center">Operador</td>
+												<td class="borde text-center">Nombre y Apellido</td>
+											</tr>
+										</thead>
+										<tbody>
+												<tr class="">
+													<td class="border text-center"><input type="radio" class="form-check-input" checked></td>
+													<td class="border text-center">1</td>
+													<td class="border text-center">belen</td>
+													<td class="border text-center">Belén De Franchi</td>
+												</tr>
+										</tbody>
+									</table> -->
+								</td>
+							</tr>
+								</td>
 <!-- 							<tr>
 								<td class="p-2">
 									<div class="d-flex align-items-center">
@@ -47,21 +76,21 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<th class="p-2 border"></th>
-												<th class="p-2 border">ID</th>
-												<th class="p-2 border">Perfil</th>
-												<th class="p-2 border">Descripción</th>
+												<th class="border text-center"><i class="bi-check-circle me-2"></i></th>
+												<th class="border text-center">ID</th>
+												<th class="border text-center">Perfil</th>
+												<th class="border text-center">Descripción</th>
 											</tr>
 										</thead>
 										<tbody>
 											<?php foreach ($perfiles as $perfil): ?>
-												<tr class="text-center" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													<td class="p-2 border text-center">
+												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
+													<td class="border text-center">
 														<input type="checkbox" class="form-check-input" id="perfil_<?= htmlspecialchars($perfil['perfil_id']) ?>" name="perfil_id[]" value="<?= htmlspecialchars($perfil['perfil_id']) ?>">
 													</td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-													<td class="p-2 border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
+													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 												</tr>
 											<?php endforeach; ?>
 										</tbody>
@@ -81,10 +110,10 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 						</tr>
 					</table>
 
-					<!-- Modal de selección -->
+					<!-- Modal de selección de operador -->
 					<div class="modal fade m-5" id="modalSeleccionarOperador" tabindex="-1" aria-labelledby="modalSeleccionarOperadorLabel" aria-hidden="true">
 						<div class="modal-dialog d-flex">
-							<form method="POST" id="formSeleccionarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfiles">
+							<form method="POST" id="formSeleccionarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&seleccionar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalSeleccionarOperadorLabel">Seleccionar operador</h5>
@@ -96,33 +125,33 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
-												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+												<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
 											</div>
 										</div>
 
 										<div class="mb-3">
-											<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
+											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="p-2 border text-center"><i class="bi-check-circle me-2"></i></td>
-														<td class="p-2 border">ID</td>
-														<td class="p-2 border">Usuario</td>
-														<td class="p-2 border">Nombre</td>
-														<td class="p-2 border">Email</td>
-														<td class="p-2 border">Rol</td>
+														<td class="border text-center"><i class="bi-check-circle mx-2"></i></td>
+														<td class="border text-center">ID</td>
+														<td class="border text-center">Usuario</td>
+														<td class="border text-center">Nombre</td>
+														<td class="border text-center">Email</td>
+														<td class="border text-center">Rol</td>
 													</tr>
 												</thead>
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
-														<tr class="text-start" data-operador-id="<?= htmlspecialchars($operador['operador_id']) ?>" style="cursor: pointer;">
-															<td class="p-2 border text-center">
-																<input type="radio" class="form-check-input" id="operador_<?= htmlspecialchars($operador['operador_id']) ?>" name="operador_id[]" value="<?= htmlspecialchars($operador['operador_id']) ?>">
+														<tr class="text-start" style="cursor: pointer;">
+															<td class="border text-center">
+																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
 															</td>
-															<td class="p-2 border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-															<td class="p-2 border"><?= htmlspecialchars($operador['username']) ?></td>
-															<td class="p-2 border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-															<td class="p-2 border"><?= htmlspecialchars($operador['email']) ?></td>
-															<td class="p-2 border"><?= htmlspecialchars($operador['rol']) ?></td>
+															<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
 														</tr>
 													<?php endforeach; ?>
 												</tbody>
@@ -131,7 +160,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 
 									</div>
 									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+										<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
 										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 									</div>
 								</div>

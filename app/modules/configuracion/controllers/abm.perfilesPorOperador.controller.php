@@ -16,8 +16,12 @@ $perfilesAsignados = $operadorId ? obtenerPerfilesPorOperador($operadorId) : [];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$operadorIdPost = (int)$_POST['operador_id'];
-	$perfilesSeleccionados = isset($_POST['perfiles']) ? $_POST['perfiles'] : [];
+
+  $operadorId = $_POST['operador_id'];
+
+  // Consultar perfiles asignados a ese operador
+  $perfiles = obtenerPerfilesPorOperador($operadorId);
+	
 
 	// Guardar los perfiles seleccionados
 	guardarPerfilesPorOperador($operadorIdPost, $perfilesSeleccionados);
@@ -33,11 +37,6 @@ $datosVista = [
   'operadores' => $operadores,
 	'perfiles' => $perfiles
 ];
-
-if (isset($_SESSION['message'])) {
-  $datosVista['message'] = $_SESSION['message'];
-	unset($_SESSION['message']);
-}
 
 cargarVistaConfiguracion('abm.perfilesPorOperador.view.php', $datosVista);
 
