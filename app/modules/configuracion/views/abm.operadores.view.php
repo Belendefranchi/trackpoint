@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="border">ID</td>
+												<td class="border text-center">ID</td>
 												<td class="border">Operador</td>
 												<td class="border">Nombre y Apellido</td>
 												<td class="border">Email</td>
@@ -43,7 +43,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<tbody>
 											<?php foreach ($operadores as $operador): ?>
 												<tr class="text-start">
-													<td class="border"><?= htmlspecialchars($operador['operador_id']) ?></td>
+													<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
 													<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 													<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
@@ -53,7 +53,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($operador['editado_en']) ?></td>
 													<td class="border"><?= htmlspecialchars($operador['editado_por']) ?></td>
 													<td class="border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="border">
+													<td class="border text-center">
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 

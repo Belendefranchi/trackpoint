@@ -100,7 +100,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<td class="border">ID</td>
+												<td class="border text-center">ID</td>
 												<td class="border">Perfil</td>
 												<td class="border">Descripción</td>
 												<td class="border"><i class="bi-check-circle me-2"></i></td>
@@ -109,7 +109,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 										<tbody>
 											<?php foreach ($perfiles as $perfil): ?>
 												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 													<td class="border">
@@ -158,11 +158,11 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												<thead class="table-primary">
 													<tr class="text-light">
 														<td class="border text-center">ID</td>
-														<td class="border text-center">Usuario</td>
-														<td class="border text-center">Nombre</td>
-														<td class="border text-center">Email</td>
-														<td class="border text-center">Rol</td>
-														<td class="border text-center"><i class="bi-check-circle mx-2"></i></td>
+														<td class="border">Usuario</td>
+														<td class="border">Nombre</td>
+														<td class="border">Email</td>
+														<td class="border">Rol</td>
+														<td class="border"><i class="bi-check-circle me-2"></i></td>
 													</tr>
 												</thead>
 												<tbody>
@@ -183,7 +183,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 															<td class="border">
 																<input type="hidden" name="rol" value="<?= htmlspecialchars($operador['rol']) ?>"><?= htmlspecialchars($operador['rol']) ?>
 															</td>
-															<td class="border text-center">
+															<td class="border">
 																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
 															</td>
 														</tr>
