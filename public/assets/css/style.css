@@ -233,4 +233,13 @@ table.dataTable thead td {
   padding-right: 25px !important;
 }
 
+.form-check-input {
+  background-color: #dc3545 !important;
+}
+
+.form-check-input:checked {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
 

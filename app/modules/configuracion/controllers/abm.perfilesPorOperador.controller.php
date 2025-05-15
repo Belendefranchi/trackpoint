@@ -10,32 +10,45 @@ require_once __DIR__ . '/../../../../config/helpers.php';
 $operadores = obtenerOperadores();
 $perfiles = obtenerPerfiles();
 
-// Si seleccionaron un operador
-$operadorId = isset($_GET['operador_id']) ? (int)$_GET['operador_id'] : null;
-$perfilesAsignados = $operadorId ? obtenerPerfilesPorOperador($operadorId) : [];
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-  $operadorId = $_POST['operador_id'];
+	// ####### SELECCIONAR OPERADOR #######
+	if (isset($_GET['seleccionar'])) {
 
-  // Consultar perfiles asignados a ese operador
-  $perfiles = obtenerPerfilesPorOperador($operadorId);
-	
+		$operador_id = $_POST['operador_id'];
 
-	// Guardar los perfiles seleccionados
-	guardarPerfilesPorOperador($operadorIdPost, $perfilesSeleccionados);
+    if ($operador_id) {
+        // Guardar operador en sesión para mantenerlo después del redirect
+        $_SESSION['operador_id_seleccionado'] = $operador_id;
 
-	// Redirigir para evitar reenviar formulario al refrescar
-	header("Location: ?operador_id=$operadorIdPost");
-	exit;
+        // Redirigir para evitar reenvíos del formulario
+        header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
+        exit;
+    } else {
+        
+    }
+
+	}
 }
 
+$operadorSeleccionado = null;
+
+if (isset($_SESSION['operador_id_seleccionado'])) {
+    $operador_id = $_SESSION['operador_id_seleccionado'];
+
+    foreach ($operadores as $op) {
+        if ($op['operador_id'] == $operador_id) {
+            $operadorSeleccionado = $op;
+            break;
+        }
+    }
+}
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
   'operadores' => $operadores,
-	'perfiles' => $perfiles
+	'perfiles' => $perfiles,
+	'operadorSeleccionado' => $operadorSeleccionado
 ];
 
 cargarVistaConfiguracion('abm.perfilesPorOperador.view.php', $datosVista);

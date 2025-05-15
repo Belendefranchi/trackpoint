@@ -28,10 +28,36 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 								</td>
 							</tr>
 							<tr>
-								<td class="p-2 fs-5">Operador seleccionado: belen
-									<div id="tablaOperadorSeleccionado" class="mt-4">
-										<!-- Tabla de operador que se cargará de forma dinámica al seleccionar un operador -->
-									</div>
+								<td class="p-2">
+									<!-- Tabla de Operador seleccionado -->
+									<?php var_dump($operadorSeleccionado); ?>
+
+									<?php if (isset($operadorSeleccionado)): ?>
+										<div class="mt-4">
+											<h5 class="text-primary">Operador seleccionado:</h5>
+											<table class="table table-bordered">
+												<thead class="table-secondary">
+													<tr>
+														<td><i class="bi-check-circle me-2"></i></td>
+														<td>ID</td>
+														<td>Operador</td>
+														<td>Nombre y Apellido</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>"></td>
+														<td><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
+														<td><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
+														<td><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									<?php endif; ?>
+								</td>
+							</tr>
+
 
 									<!-- Tabla de Operadores -->
 <!-- 									<table id="" class="display pt-2 pb-4" style="width:100%">
@@ -76,21 +102,21 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<th class="border text-center"><i class="bi-check-circle me-2"></i></th>
 												<th class="border text-center">ID</th>
 												<th class="border text-center">Perfil</th>
 												<th class="border text-center">Descripción</th>
+												<th class="border text-center"><i class="bi-check-circle me-2"></i></th>
 											</tr>
 										</thead>
 										<tbody>
 											<?php foreach ($perfiles as $perfil): ?>
 												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													<td class="border text-center">
-														<input type="checkbox" class="form-check-input" id="perfil_<?= htmlspecialchars($perfil['perfil_id']) ?>" name="perfil_id[]" value="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													</td>
 													<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+													<td class="border text-center">
+														<input type="checkbox" class="form-check-input" id="perfil_<?= htmlspecialchars($perfil['perfil_id']) ?>" name="perfil_id[]" value="<?= htmlspecialchars($perfil['perfil_id']) ?>">
+													</td>
 												</tr>
 											<?php endforeach; ?>
 										</tbody>
@@ -133,25 +159,25 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="border text-center"><i class="bi-check-circle mx-2"></i></td>
 														<td class="border text-center">ID</td>
 														<td class="border text-center">Usuario</td>
 														<td class="border text-center">Nombre</td>
 														<td class="border text-center">Email</td>
 														<td class="border text-center">Rol</td>
+														<td class="border text-center"><i class="bi-check-circle mx-2"></i></td>
 													</tr>
 												</thead>
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
 														<tr class="text-start" style="cursor: pointer;">
-															<td class="border text-center">
-																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
-															</td>
 															<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
 															<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
 															<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 															<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
 															<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
+															<td class="border text-center">
+																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
+															</td>
 														</tr>
 													<?php endforeach; ?>
 												</tbody>
