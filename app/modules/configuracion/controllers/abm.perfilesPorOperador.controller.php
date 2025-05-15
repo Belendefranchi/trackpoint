@@ -18,12 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$operador_id = $_POST['operador_id'];
 
     if ($operador_id) {
-        // Guardar operador en sesión para mantenerlo después del redirect
-        $_SESSION['operador_id_seleccionado'] = $operador_id;
+			session_start();
+			// Guardar operador en sesión para mantenerlo después del redirect
+			$_SESSION['operador_id_seleccionado'] = $operador_id;
 
-        // Redirigir para evitar reenvíos del formulario
-        header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
-        exit;
+			// Redirigir para evitar reenvíos del formulario
+			header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
+			exit;
     } else {
         
     }

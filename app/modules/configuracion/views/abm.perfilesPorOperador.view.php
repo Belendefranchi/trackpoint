@@ -30,8 +30,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td class="p-2">
 									<!-- Tabla de Operador seleccionado -->
-									<?php var_dump($operadorSeleccionado); ?>
-
 									<?php if (isset($operadorSeleccionado)): ?>
 										<div class="mt-4">
 											<h5 class="text-primary">Operador seleccionado:</h5>
@@ -102,10 +100,10 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
-												<th class="border text-center">ID</th>
-												<th class="border text-center">Perfil</th>
-												<th class="border text-center">Descripción</th>
-												<th class="border text-center"><i class="bi-check-circle me-2"></i></th>
+												<td class="border text-center">ID</td>
+												<td class="border text-center">Perfil</td>
+												<td class="border text-center">Descripción</td>
+												<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
 											</tr>
 										</thead>
 										<tbody>

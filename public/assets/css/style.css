@@ -103,30 +103,17 @@ table.dataTable th.dtr-resizable:after {
 }
 
 /* Texto de cantidad de registros */
-.dataTables_length label {
-  color: #adadad !important;
-}
-
+.dataTables_length label, 
 /* Filtro cantidad de registros */
-.dataTables_wrapper .dataTables_filter label {
-  color: #adadad !important;
-}
-
+.dataTables_wrapper .dataTables_filter label,
 /* Buscador */
-.dataTables_filter label {
-  color: #adadad !important;
-}
-
+.dataTables_filter label,
 /* Texto de información */
-.dataTables_info {
-  color: #adadad !important;
-}
-
+.dataTables_info,
 /* Paginador */
 .dataTables_paginate {
   color: #adadad !important;
 }
-
 
 /* Estilo general para todos los botones de paginación */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
