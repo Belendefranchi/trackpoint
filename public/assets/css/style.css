@@ -6,6 +6,10 @@
 /*  --bs-body-bg: #D3EBF9; */ 
 }
 
+h2{
+  font-size: 1.8rem !important;
+}
+
 /* Sobrescribir botones */
 .btn-primary {
   background-color: var(--bs-primary) !important;
