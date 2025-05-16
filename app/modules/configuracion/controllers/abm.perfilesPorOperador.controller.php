@@ -15,46 +15,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### SELECCIONAR OPERADOR #######
 	if (isset($_GET['seleccionar'])) {
 
-		$operador_id = $_POST['operador_id'];
-		$username = $_POST['username'];
-		$nombre_completo = $_POST['nombre_completo'];
-		$email = $_POST['email'];
-		$rol = $_POST['rol'];
+		$operador_id = $_POST['operador_id'] ?? null;
+		$username = $_POST['username'] ?? '';
+		$nombre_completo = $_POST['nombre_completo'] ?? '';
+		$email = $_POST['email'] ?? '';
+		$rol = $_POST['rol'] ?? '';
 
+		if (empty($id) || empty($username) || empty($nombre) || empty($email) || empty($rol)) {
+			$_SESSION['error'] = 'Faltan datos del operador seleccionado.';
+			header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
+			exit;
+		}
 
     if ($operador_id) {
 			session_start();
 			// Guardar operador en sesión para mantenerlo después del redirect
-			$_SESSION['operador_id_seleccionado'] = $operador_id;
+			$_SESSION['operador_seleccionado'] = [
+        'operador_id' => $id,
+        'username' => $username,
+        'nombre_completo' => $nombre,
+        'email' => $email,
+        'rol' => $rol
+    ];
 
 			// Redirigir para evitar reenvíos del formulario
 			header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
 			exit;
-    } else {
-        
     }
-
 	}
-}
-
-$operadorSeleccionado = null;
-
-if (isset($_SESSION['operador_id_seleccionado'])) {
-    $operador_id = $_SESSION['operador_id_seleccionado'];
-
-    foreach ($operadores as $op) {
-        if ($op['operador_id'] == $operador_id) {
-            $operadorSeleccionado = $op;
-            break;
-        }
-    }
 }
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
   'operadores' => $operadores,
-	'perfiles' => $perfiles,
-	'operadorSeleccionado' => $operadorSeleccionado
+	'perfiles' => $perfiles
 ];
 
 cargarVistaConfiguracion('abm.perfilesPorOperador.view.php', $datosVista);

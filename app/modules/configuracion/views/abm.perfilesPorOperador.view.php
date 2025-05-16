@@ -30,9 +30,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td class="p-2">
 									<!-- Tabla de Operador seleccionado -->
-									<?php if (isset($operadorSeleccionado)): ?>
+									<?php if (isset($_SESSION['operador_seleccionado'])): ?>
+										<?php $operadorSeleccionado = $_SESSION['operador_seleccionado']; ?>
 										<div class="mt-4">
-											<h5 class="text-primary">Operador seleccionado:</h5>
 											<table class="table table-bordered">
 												<thead class="table-secondary">
 													<tr>
@@ -55,8 +55,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<?php endif; ?>
 								</td>
 							</tr>
-
-
 									<!-- Tabla de Operadores -->
 <!-- 									<table id="" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
@@ -167,24 +165,20 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 												</thead>
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
-														<tr class="text-start" style="cursor: pointer;">
+														<tr class="text-start">
+															<td class="border"><?= htmlspecialchars($operador['operador_id']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
+															<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
 															<td class="border">
-																<input type="hidden" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>"><?= htmlspecialchars($operador['operador_id']) ?>
-															</td>
-															<td class="border">
-																<input type="hidden" name="username" value="<?= htmlspecialchars($operador['username']) ?>"><?= htmlspecialchars($operador['username']) ?>
-															</td>
-															<td class="border">
-																<input type="hidden" name="nombre_completo" value="<?= htmlspecialchars($operador['nombre_completo']) ?>"><?= htmlspecialchars($operador['nombre_completo']) ?>
-															</td>
-															<td class="border">
-																<input type="hidden" name="email" value="<?= htmlspecialchars($operador['email']) ?>"><?= htmlspecialchars($operador['email']) ?>
-															</td>
-															<td class="border">
-																<input type="hidden" name="rol" value="<?= htmlspecialchars($operador['rol']) ?>"><?= htmlspecialchars($operador['rol']) ?>
-															</td>
-															<td class="border">
-																<input type="radio" class="form-check-input" name="operador_id" value="<?= htmlspecialchars($operador['operador_id']) ?>">
+																<input type="radio" name="seleccion_operador"
+																	class="form-check-input seleccionar-operador"
+																	data-operador-id="<?= htmlspecialchars($operador['operador_id']) ?>"
+																	data-username="<?= htmlspecialchars($operador['username']) ?>"
+																	data-nombre="<?= htmlspecialchars($operador['nombre_completo']) ?>"
+																	data-email="<?= htmlspecialchars($operador['email']) ?>"
+																	data-rol="<?= htmlspecialchars($operador['rol']) ?>">
 															</td>
 														</tr>
 													<?php endforeach; ?>
@@ -192,6 +186,12 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											</table>
 										</div>
 
+										<!-- Campos ocultos para enviar en el form -->
+										<input type="hidden" name="operador_id" id="input-operador-id">
+										<input type="hidden" name="username" id="input-username">
+										<input type="hidden" name="nombre_completo" id="input-nombre">
+										<input type="hidden" name="email" id="input-email">
+										<input type="hidden" name="rol" id="input-rol">
 									</div>
 									<div class="modal-footer d-flex justify-content-center p-2">
 										<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>

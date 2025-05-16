@@ -27,4 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		}
+
+		document.querySelectorAll('.seleccionar-operador').forEach(radio => {
+			radio.addEventListener('change', function () {
+				document.getElementById('input-operador-id').value = this.dataset.operador-id;
+				document.getElementById('input-username').value = this.dataset.username;
+				document.getElementById('input-nombre').value = this.dataset.nombre;
+				document.getElementById('input-email').value = this.dataset.email;
+				document.getElementById('input-rol').value = this.dataset.rol;
+			});
+		});
 });
