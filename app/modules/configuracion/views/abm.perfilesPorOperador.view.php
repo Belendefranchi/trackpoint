@@ -174,7 +174,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 															<td class="border">
 																<input type="radio" name="seleccion_operador"
 																	class="form-check-input seleccionar-operador"
-																	data-operador-id="<?= htmlspecialchars($operador['operador_id']) ?>"
+																	data-operadorId="<?= htmlspecialchars($operador['operador_id']) ?>"
 																	data-username="<?= htmlspecialchars($operador['username']) ?>"
 																	data-nombre="<?= htmlspecialchars($operador['nombre_completo']) ?>"
 																	data-email="<?= htmlspecialchars($operador['email']) ?>"
