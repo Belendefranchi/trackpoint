@@ -35,18 +35,37 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											<table class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="border text-center"><i class="bi-check-circle"></i></td>
-														<td class="border">ID</td>
+														<td class="border text-center">ID</td>
 														<td class="border">Operador</td>
 														<td class="border">Nombre y Apellido</td>
+														<td class="border text-center">Acciones</td>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
-														<td class="border text-center"><i class="bi-person-check text-success"></i></td>
-														<td class="border"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
+														<td class="border text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
+														<td class="border text-center w-25">
+															<div class="d-flex no-wrap justify-content-center align-items-center p-1">
+																<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+																	data-bs-toggle="modal" 
+																	data-bs-target="#modalEditarPerfil"
+																	data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
+																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
+																	data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
+																	data-activo="<?= htmlspecialchars($perfil['activo']) ?>">
+																	<i class="bi bi-pencil me-2"></i>Aceptar
+																</a>
+																<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+																	data-bs-toggle="modal"
+																	data-bs-target="#modalEliminarPerfil"
+																	data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
+																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
+																	<i class="bi bi-trash me-2"></i>Cancelar
+																</a>
+															</div>
+														</td>
 													</tr>
 												</tbody>
 											</table>
