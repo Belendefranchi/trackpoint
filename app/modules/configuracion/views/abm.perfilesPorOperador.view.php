@@ -48,7 +48,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
 														<td class="border text-center w-25">
 															<div class="d-flex no-wrap justify-content-center align-items-center p-1">
-																<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+																<a href="#" class="btn btn-sm btn-success mx-1 d-flex no-wrap"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalEditarPerfil"
 																	data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
@@ -101,17 +101,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									</table>
 								</td>
 							</tr>
-							<tr>
-								<td class="p-2">
-									<!-- Botón de Asignar -->
-									<div class="text-end mt-4">
-										<button id="asignarBtn" class="btn btn-primary">
-											Asignar Perfiles
-										</button>
-									</div>
-								</div>
-							</td>
-						</tr>
 					</table>
 
 					<!-- Modal de selección de operador -->
