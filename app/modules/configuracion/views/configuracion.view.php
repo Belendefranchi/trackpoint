@@ -67,7 +67,7 @@ $activeItems = [
   <div class="container-fluid">
     <div class="row">
       <!-- Aside -->
-      <aside class="col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
+<!--       <aside class="col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
         <div class="nav flex-column">
           <a class="nav-link text-white table-hover rounded <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
             ABM
@@ -92,9 +92,87 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['balanzas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">Balanzas</a>
           </div>
         </div>
+      </aside> -->
+      
+      <aside id="sidebar" class="sidebar col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
+        <!-- Botón para colapsar/expandir -->
+         <div class="nav flex-column">
+          <button id="toggleSidebar" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+
+        <div class="nav flex-column">
+
+          <!-- Menú ABM -->
+          <a class="nav-link text-white table-hover rounded d-flex align-items-center <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
+            <i class="bi bi-people-fill"></i>
+            <span class="ms-2 sidebar-text">ABM</span>
+          </a>
+          <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
+            <a class="nav-link d-flex align-items-center <?= $activeItems['operadores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">
+              <i class="bi bi-person-badge-fill"></i>
+              <span class="ms-2 sidebar-text">Operadores</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['perfiles'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">
+              <i class="bi bi-person-lines-fill"></i>
+              <span class="ms-2 sidebar-text">Perfiles</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">
+              <i class="bi bi-person-vcard-fill"></i>
+              <span class="ms-2 sidebar-text">Perfiles por Operador</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['permisos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">
+              <i class="bi bi-shield-lock-fill"></i>
+              <span class="ms-2 sidebar-text">Permisos</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">
+              <i class="bi bi-shield-check"></i>
+              <span class="ms-2 sidebar-text">Permisos por Perfil</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['personas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">
+              <i class="bi bi-person-fill"></i>
+              <span class="ms-2 sidebar-text">Personas</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['numeradores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">
+              <i class="bi bi-123"></i>
+              <span class="ms-2 sidebar-text">Numeradores</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['destinos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="ms-2 sidebar-text">Destinos</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['transportes'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">
+              <i class="bi bi-truck-front-fill"></i>
+              <span class="ms-2 sidebar-text">Transportes</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">
+              <i class="bi bi-car-front-fill"></i>
+              <span class="ms-2 sidebar-text">Vehículos</span>
+            </a>
+          </div>
+
+          <!-- Menú Configuración PC -->
+          <a class="nav-link text-white table-hover rounded d-flex align-items-center <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
+            <i class="bi bi-pc-display-horizontal"></i>
+            <span class="ms-2 sidebar-text">Configuración PC</span>
+          </a>
+          <div class="collapse ps-3 <?= $configPCOpen ?>" id="submenuConfigPC">
+            <a class="nav-link d-flex align-items-center <?= $activeItems['impresoras'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/impresoras">
+              <i class="bi bi-printer-fill"></i>
+              <span class="ms-2 sidebar-text">Impresoras</span>
+            </a>
+            <a class="nav-link d-flex align-items-center <?= $activeItems['balanzas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/configPC/balanzas">
+              <i class="bi bi-speedometer"></i>
+              <span class="ms-2 sidebar-text">Balanzas</span>
+            </a>
+          </div>
+
+        </div>
       </aside>
+
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 p-4">
+      <main class="col-md-9 col-lg-10 p-4 d-flex justify-content-center align-items-start">
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>

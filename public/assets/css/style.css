@@ -6,6 +6,31 @@
 /*  --bs-body-bg: #D3EBF9; */ 
 }
 
+.sidebar {
+  transition: width 0.3s;
+  overflow-x: hidden;
+  position: relative;
+  width: 250px;
+}
+
+.sidebar.collapsed {
+  width: 80px !important;
+}
+
+.sidebar .sidebar-text {
+  display: inline;
+  transition: opacity 0.2s;
+}
+
+.sidebar.collapsed .sidebar-text {
+  display: none;
+}
+
+/* Ocultar submenús en modo colapsado */
+/* .sidebar.collapsed .collapse {
+  display: none !important;
+} */
+
 h2{
   font-size: 1.8rem !important;
 }

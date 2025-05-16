@@ -1,5 +1,6 @@
 const fechaHoy = new Date().toISOString().slice(0, 10);
 
+/*-----##################### DATATABLES #####################-----*/
 $(document).ready(function () {
 	
 	const tabla = $('#miTabla').DataTable({
@@ -186,4 +187,29 @@ $(document).ready(function () {
 		}
 	});
 
+});
+
+/*-----##################### TOGGLE SIDEBAR #####################-----*/
+
+document.addEventListener('DOMContentLoaded', function () {
+	const sidebar = document.getElementById('sidebar');
+
+	// Restaurar estado desde localStorage al cargar la página
+	if (localStorage.getItem('sidebar-collapsed') === 'true') {
+		sidebar.classList.add('collapsed');
+	}
+
+	// Manejador del botón
+	document.getElementById('toggleSidebar').addEventListener('click', function () {
+		const isCollapsed = sidebar.classList.toggle('collapsed');
+
+		// Guardar estado en localStorage
+		localStorage.setItem('sidebar-collapsed', isCollapsed);
+
+		// Cerrar submenús solo si se colapsa
+		if (isCollapsed) {
+			const submenus = sidebar.querySelectorAll('.collapse.show');
+			submenus.forEach(sm => sm.classList.remove('show'));
+		}
+	});
 });

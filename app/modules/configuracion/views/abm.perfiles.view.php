@@ -206,7 +206,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.DataTables.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/abm.perfiles.modales.js"></script>
 
 </body>

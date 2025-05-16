@@ -26,6 +26,12 @@
 </head>
 
 <body style="background-color: #f4f7fc;">
+<script>
+  if (localStorage.getItem('sidebar-collapsed') === 'true') {
+    document.documentElement.classList.add('sidebar-collapsed');
+  }
+</script>
+
   <!-- Navbar -->
   <nav class="navbar navbar-dark shadow-custom" style="background-color: #22265D;">
     <div class="container-fluid">
