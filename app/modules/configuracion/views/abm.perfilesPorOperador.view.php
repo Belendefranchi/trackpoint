@@ -122,7 +122,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td class="p-2">
 									<!-- Botón de Asignar -->
-									<div class="text-center mt-4">
+									<div class="text-end mt-4">
 										<button id="asignarBtn" class="btn btn-primary">
 											Asignar Perfiles
 										</button>
