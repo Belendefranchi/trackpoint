@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$email = $_POST['email'] ?? '';
 		$rol = $_POST['rol'] ?? '';
 
-		if (empty($id) || empty($username) || empty($nombre) || empty($email) || empty($rol)) {
+		if (empty($operador_id) || empty($username) || empty($nombre_completo) || empty($email) || empty($rol)) {
 			$_SESSION['error'] = 'Faltan datos del operador seleccionado.';
 			header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
 			exit;
@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			session_start();
 			// Guardar operador en sesión para mantenerlo después del redirect
 			$_SESSION['operador_seleccionado'] = [
-        'operador_id' => $id,
+        'operador_id' => $operador_id,
         'username' => $username,
-        'nombre_completo' => $nombre,
+        'nombre_completo' => $nombre_completo,
         'email' => $email,
         'rol' => $rol
     ];

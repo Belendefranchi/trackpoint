@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 	document.getElementById('formSeleccionarOperador').addEventListener('submit', function(e) {
-		const seleccionado = document.querySelector('input[name="operador_id"]:checked');
+		const seleccionado = document.querySelector('input[name="seleccion_operador"]:checked');
 	
 		if (!seleccionado) {
 			e.preventDefault(); // evitar envío del form
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		document.querySelectorAll('.seleccionar-operador').forEach(radio => {
 			radio.addEventListener('change', function () {
-				document.getElementById('input-operador-id').value = this.dataset.operadorId;
+				document.getElementById('input-operador-id').value = this.dataset.operadorid;
 				document.getElementById('input-username').value = this.dataset.username;
 				document.getElementById('input-nombre').value = this.dataset.nombre;
 				document.getElementById('input-email').value = this.dataset.email;
