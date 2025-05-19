@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 ?>
 
 <script>
-  const subtitulo = 'Perfiles';
+  const subtitulo = 'Perfiles por Operador';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
@@ -38,7 +38,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 														<td class="border text-center">ID</td>
 														<td class="border">Operador</td>
 														<td class="border">Nombre y Apellido</td>
-														<td class="border text-center">Acciones</td>
 													</tr>
 												</thead>
 												<tbody>
@@ -46,26 +45,6 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 														<td class="border text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
-														<td class="border text-center w-25">
-															<div class="d-flex no-wrap justify-content-center align-items-center p-1">
-																<a href="#" class="btn btn-sm btn-success mx-1 d-flex no-wrap"
-																	data-bs-toggle="modal" 
-																	data-bs-target="#modalEditarPerfil"
-																	data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
-																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
-																	data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
-																	data-activo="<?= htmlspecialchars($perfil['activo']) ?>">
-																	<i class="bi bi-pencil me-2"></i>Aceptar
-																</a>
-																<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																	data-bs-toggle="modal"
-																	data-bs-target="#modalEliminarPerfil"
-																	data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
-																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
-																	<i class="bi bi-trash me-2"></i>Cancelar
-																</a>
-															</div>
-														</td>
 													</tr>
 												</tbody>
 											</table>
@@ -87,13 +66,15 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 											</tr>
 										</thead>
 										<tbody>
+											<?php $perfilesAsignados = $perfilesAsignados ?? []; ?>
 											<?php foreach ($perfiles as $perfil): ?>
+												<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
 												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
 													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 													<td class="border">
-														<input type="checkbox" class="form-check-input" id="perfil_<?= htmlspecialchars($perfil['perfil_id']) ?>" name="perfil_id[]" value="<?= htmlspecialchars($perfil['perfil_id']) ?>">
+														<input type="checkbox" class="form-check-input checkbox-perfil" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
 													</td>
 												</tr>
 											<?php endforeach; ?>
