@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../../config/db.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
 
-function obtenerPerfilesPorOperador($operadorId) {
+/* function obtenerPerfilesPorOperador($operadorId) {
 	try {
 		$conn = getConnection();
 
@@ -20,7 +20,29 @@ function obtenerPerfilesPorOperador($operadorId) {
 		registrarEvento("Perfiles por Operador Model: Error al obtener los datos, " . $e->getMessage(), "ERROR");
 		return false;
 	}
+} */
+
+
+function obtenerPerfilesPorOperador($operadorId) {
+	try {
+		$conn = getConnection();
+
+		/* var_dump($operadorId); */ // TEMPORAL: Asegurate de que llega el valor correcto
+
+		$stmt = $conn->prepare("SELECT perfil_id FROM configuracion_abm_perfilesPorOperador WHERE operador_id = :operador_id");
+		$stmt->bindParam(':operador_id', $operadorId, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll(PDO::FETCH_COLUMN);
+		/* var_dump($result); */ // TEMPORAL: Ver qué devuelve
+
+		return $result;
+	} catch (PDOException $e) {
+		registrarEvento("Error al obtener perfiles por operador: " . $e->getMessage(), "ERROR");
+		return [];
+	}
 }
+
 
 function guardarPerfilesPorOperador($operadorId, $perfiles) {
 	try {

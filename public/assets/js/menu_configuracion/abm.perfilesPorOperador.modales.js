@@ -68,14 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
 							if (checkbox) checkbox.checked = true;
 						});
 					} else {
-						alert('Error al obtener perfiles: ' + (response.message || ''));
+						/* alert('Error al obtener perfiles: ' + (response.message || '')); */
+						console.log('Error al obtener el perfil:', response.message);
+            $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
-				error: function (xhr, status, error) {
-					console.error('Error al obtener perfiles:', error);
-					console.log(xhr.responseText);
-					alert('Hubo un problema al obtener los perfiles del operador.');
+				error: function(xhr, status, error) {
+					/* console.error("Error al obtener perfiles:", error); */
+					console.log("Respuesta completa:", xhr.responseText);
 				}
+				
 			});
 		});
 	});
