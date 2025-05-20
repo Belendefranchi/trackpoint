@@ -97,4 +97,36 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	});
+
+	$('.perfil-checkbox').on('change', function () {
+    const perfilId = $(this).data('id-perfil');
+    const asignado = $(this).is(':checked') ? 1 : 0;
+
+    $.ajax({
+        url: 'modules/configuracion/ajax/asignar_perfil_operador.php',
+        method: 'POST',
+        data: {
+            operador_id: operadorSeleccionadoId,
+            perfil_id: perfilId,
+            asignado: asignado
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response.success) {
+                console.log(response.message);
+                // Aquí podrías mostrar un toast o algún aviso visual
+            } else {
+                alert('Error: ' + response.message);
+                // Revertimos el estado del checkbox
+                $(`[data-id-perfil="${perfilId}"]`).prop('checked', !asignado);
+            }
+        },
+        error: function () {
+            alert('Error de conexión.');
+            // Revertimos el estado del checkbox
+            $(`[data-id-perfil="${perfilId}"]`).prop('checked', !asignado);
+        }
+    });
+});
+
 });
