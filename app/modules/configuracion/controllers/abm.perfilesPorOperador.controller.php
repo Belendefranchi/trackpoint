@@ -41,6 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
     if ($operador_id) {
+			if (session_status() === PHP_SESSION_NONE) {
+				session_start();
+			}
+		
 			// Guardar operador en sesión para mantenerlo después del redirect
 			$_SESSION['operador_seleccionado'] = [
         'operador_id' => $operador_id,
@@ -61,32 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			foreach ($perfiles as &$perfil) {
 				$perfil['asignado'] = in_array($perfil['perfil_id'], $perfilesAsignados);
 			}
-
-			// Redirigir para evitar reenvíos del formulario
-/* 			header('Location: /trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador');
-			exit; */
 		}
 	}
-
-
-		// ####### OBTENER PERFILES POR OPERADOR #######
-		if (isset($_GET['perfilesAsignados'])) {
-
-			header('Content-Type: application/json');
-
-			$operador_id = $_POST['operador_id'] ?? null;
-	
-			if ($operador_id) {
-				$perfiles = obtenerPerfilesPorOperador($operador_id) ?: [];
-				echo json_encode(['success' => true, 'perfiles' => $perfiles]);
-			} else {
-				echo json_encode(['success' => false, 'message' => 'ID de operador no recibido']);
-			}
-			exit; // Salir para evitar que siga cargando la vista
-	}
 }
-
-
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [

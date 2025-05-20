@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const operadorId = this.dataset.operadorid;
 
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&perfilesAsignados',
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&seleccionar',
 				type: 'POST',
 				data: { operador_id: operadorId },
 				dataType: 'json',
@@ -74,8 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				},
 				error: function(xhr, status, error) {
-					/* console.error("Error al obtener perfiles:", error); */
-					console.log("Respuesta completa:", xhr.responseText);
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', xhr.status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText); 
+					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar leer los datos.');
 				}
 				
 			});
