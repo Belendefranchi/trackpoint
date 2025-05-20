@@ -38,6 +38,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 														<td class="border text-center">ID</td>
 														<td class="border">Operador</td>
 														<td class="border">Nombre y Apellido</td>
+														<td class="border">Email</td>
+														<td class="border">Rol</td>
 													</tr>
 												</thead>
 												<tbody>
@@ -45,6 +47,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 														<td class="border text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
 														<td class="border"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
+														<td class="border"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
+														<td class="border"><?= htmlspecialchars($operadorSeleccionado['rol']) ?></td>
 													</tr>
 												</tbody>
 											</table>

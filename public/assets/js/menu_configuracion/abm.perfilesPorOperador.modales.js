@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ##################### MODAL DE SELECCIÓN ##################### */
 
 	// Interceptar el evento de apertura del modal de selección
-	var fomrSeleccionarOperador = document.getElementById('formSeleccionarOperador');
-	if(fomrSeleccionarOperador){
-		fomrSeleccionarOperador.addEventListener('submit', function(e) {
-
+	var formSeleccionarOperador = document.getElementById('formSeleccionarOperador');
+	if(formSeleccionarOperador){
+		formSeleccionarOperador.addEventListener('submit', function(e) {
+			
 			const seleccionado = document.querySelector('input[name="seleccion_operador"]:checked');
-		
+			
 			if (!seleccionado) {
 				e.preventDefault(); // evitar envío del form
 
@@ -20,6 +20,21 @@ document.addEventListener('DOMContentLoaded', function () {
 				mensaje.textContent = 'Error: Por favor seleccione un operador.';
 				contenedor.classList.remove('d-none');
 				contenedor.classList.add('show');
+
+				// Tomar valores desde los campos ocultos
+				const operadorId = document.getElementById('input-operador-id').value;
+				const username = document.getElementById('input-username').value;
+				const nombre = document.getElementById('input-nombre').value;
+				const email = document.getElementById('input-email').value;
+				const rol = document.getElementById('input-rol').value;
+
+				// Mostrar la tabla con los datos del operador
+				document.getElementById('tabla-operador-seleccionado-container').style.display = 'block';
+				document.getElementById('col-operador-id').textContent = operadorId;
+				document.getElementById('col-username').textContent = username;
+				document.getElementById('col-nombre').textContent = nombre;
+				document.getElementById('col-email').textContent = email;
+				document.getElementById('col-rol').textContent = rol;
 		
 				return false;
 			}
@@ -28,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalSeleccionarOperador = document.getElementById('modalSeleccionarOperador');
+	
 	if (modalSeleccionarOperador) {
 		modalSeleccionarOperador.addEventListener('hidden.bs.modal', function () {
 			var mensajeError = document.getElementById('mensaje-error-seleccionar');
@@ -42,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelectorAll('.seleccionar-operador').forEach(radio => {
 		radio.addEventListener('change', function () {
 
-			// Cargar datos al formulario
+			// Cargar datos al formulario cuando se confirma el modal
 			document.getElementById('input-operador-id').value = this.dataset.operadorid;
 			document.getElementById('input-username').value = this.dataset.username;
 			document.getElementById('input-nombre').value = this.dataset.nombre;
@@ -68,17 +84,14 @@ document.addEventListener('DOMContentLoaded', function () {
 							if (checkbox) checkbox.checked = true;
 						});
 					} else {
-						/* alert('Error al obtener perfiles: ' + (response.message || '')); */
 						console.log('Error al obtener el perfil:', response.message);
             $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
 				error: function(xhr, status, error) {
-					console.log('Error al guardar los datos');
 					console.log('Código de estado:', xhr.status);
 					console.log('Mensaje de error:', error);
-					console.log('Respuesta del servidor:', xhr.responseText); 
-					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar leer los datos.');
+					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
 				}
 				
 			});
