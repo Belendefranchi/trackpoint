@@ -1,85 +1,136 @@
 <?php
 define('VISTA_INTERNA', true);
+
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.permisos.model.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-// Lógica de actualizar, eliminar y crear perfiles
+// Lógica ajax de actualizar, eliminar y crear permisos
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	// ####### EDITAR #######
-	if (isset($_POST['editar'])) {
-		$id = $_POST['id'];
+	// ####### CREAR #######
+	if (isset($_GET['crear'])) {
+
+		header('Content-Type: application/json');
+
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
 		$pantalla = $_POST['pantalla'];
 
-		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
-			$_SESSION['message'] = "Por favor ingrese todos los datos";
-		} elseif (empty($nombre)) {
-			$_SESSION['message'] = "Por favor ingrese el nombre";
-		} elseif (empty($descripcion)) {
-			$_SESSION['message'] = "Por favor ingrese la descripción";
-		} elseif (empty($pantalla)) {
-			$_SESSION['message'] = "Por favor ingrese la pantalla";
-		} elseif ($nombre && $descripcion && $pantalla) {
+		// Validación básica
+		if (empty($nombre) || empty($descripcion) || empty($pantalla)) {
+			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
+			exit;
+		}
 
-			// Verificar si el permiso ya existe
-			$permiso = permisoExists($nombre);
-			if ($permiso && $permiso['nombre'] != $nombre) {
-				$_SESSION['message'] = "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
+		// Verificar si el permiso ya existe
+		$permiso = permisoExists($nombre);
+		if ($permiso) {
+				echo json_encode(['success' => false, 'message' => 'Error: Ya existe un permiso con ese nombre, intente con otro.']);
+				exit;
+		}
+		try {
+			// Crear el permiso en la base de datos
+			$result = crearPermiso($nombre, $descripcion, $pantalla);
+
+			if ($result) {
+				registrarEvento("Permisos Controller: Permiso creado correctamente => " . $nombre, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
 			} else {
-				// Llamar a la función que actualiza los datos
-				editarPermiso($id, $nombre, $descripcion, $pantalla);
-
-				// Redirigimos para evitar reenvío del formulario
-				header('Location: index.php?route=/configuracion/ABMs/permisos');
+				// Respuesta de error
+				registrarEvento("Permisos Controller: Error al crear el permiso => " . $nombre, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el permiso']);
 				exit;
 			}
+		} catch (Exception $e) {
+			registrarEvento("Permisos Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
 		}
+		exit;
+	}
+
+
+	// ####### EDITAR #######
+	if (isset($_GET['editar'])) {
+
+		header('Content-Type: application/json');
+
+		$permiso_id = $_POST['permiso_id'];
+		$nombre = $_POST['nombre'];
+		$descripcion = $_POST['descripcion'];
+		$pantalla = $_POST['pantalla'];
+
+		// Validación básica
+		if (empty($nombre) || empty($descripcion) || empty($pantalla)) {
+			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
+			exit;
+		}
+
+		// Verificar si el permiso ya existe
+		$permiso = permisoExists($nombre); 
+		if ($permiso && $permiso['permiso_id'] != $permiso_id) {
+				echo json_encode(['success' => false, 'message' => 'Error: Ya existe un permiso con ese nombre, intente con otro.']);
+				exit;
+		}
+		try {
+			// Llamar a la función que actualiza los datos
+			$result = editarPermiso($permiso_id, $nombre, $descripcion, $pantalla);
+
+			if ($result) {
+				// Respuesta de éxito
+				registrarEvento("Permisos Controller: Permiso modificado correctamente => " . $nombre, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Permisos Controller: Error al modificar el permiso => " . $nombre, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el permiso']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Permisos Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
+
 
 	// ####### ELIMINAR #######
+	if (isset($_GET['eliminar'])) {
 
-	} elseif (isset($_POST['eliminar'])) {
-		$id = $_POST['id'];
+		header('Content-Type: application/json');
 
-		// Llamar a la función que elimina el perfil
-		eliminarPermiso($id);
-
-		// Redirigimos para evitar reenvío del formulario
-		header('Location: index.php?route=/configuracion/ABMs/permisos');
-		exit;
-
-	// ####### CREAR #######
-
-	} elseif (isset($_POST['crear'])) {
+		$permiso_id = $_POST['permiso_id'];
 		$nombre = $_POST['nombre'];
-		$descripcion = $_POST['descripcion'];
-		$pantalla = $_POST['pantalla'];
 
-		if (empty($nombre) && empty($descripcion) && empty($pantalla)) {
-			$_SESSION['message'] = "Por favor ingrese todos los datos";
-		} elseif (empty($nombre)) {
-			$_SESSION['message'] = "Por favor ingrese el nombre";
-		} elseif (empty($descripcion)) {
-			$_SESSION['message'] = "Por favor ingrese la descripción";
-		} elseif (empty($pantalla)) {
-			$_SESSION['message'] = "Por favor ingrese la pantalla";
-		} elseif ($nombre && $descripcion) {
+		try {
+			// Llamar a la función que actualiza los datos
+			$result = eliminarPermiso($permiso_id, $nombre);
 
-			// Verificar si el permiso ya existe
-			$permiso = permisoExists($nombre);
-			if ($permiso) {
-				$_SESSION['message'] =  "Ya hay un permiso registrado con ese nombre, por favor intente con otro.";
+			if ($result) {
+				// Respuesta de éxito
+				registrarEvento("Permisos Controller: Permiso eliminado correctamente => " . $nombre, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+
 			} else {
-				// Llamar a la función que crea el perfil
-				crearPermiso($nombre, $descripcion, $pantalla);
-
-				// Redirigimos para evitar reenvío del formulario
-				header('Location: index.php?route=/configuracion/ABMs/permisos');
+				// Respuesta de error
+				registrarEvento("Permisos Controller: Error al eliminar el permiso => " . $nombre, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el permiso']);
 				exit;
 			}
+		} catch (Exception $e) {
+			registrarEvento("Permisos Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
 		}
+		exit;
 	}
 }
 
@@ -88,14 +139,7 @@ $permisos = obtenerPermisos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
-  'permisos' => $permisos
+	'permisos' => $permisos
 ];
 
-if (isset($_SESSION['message'])) {
-  $datosVista['message'] = $_SESSION['message'];
-	unset($_SESSION['message']);
-}
-
 cargarVistaConfiguracion('abm.permisos.view.php', $datosVista);
-
-

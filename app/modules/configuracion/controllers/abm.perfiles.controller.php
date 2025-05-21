@@ -142,5 +142,3 @@ $datosVista = [
 ];
 
 cargarVistaConfiguracion('abm.perfiles.view.php', $datosVista);
-
-

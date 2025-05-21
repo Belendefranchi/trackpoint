@@ -55,7 +55,9 @@ CREATE TABLE configuracion_abm_permisos (
 	descripcion VARCHAR(100) NOT NULL, 
 	pantalla VARCHAR(50) NOT NULL,
 	creado_en DATETIME DEFAULT GETDATE(),
-	editado_en DATETIME NULL
+	creado_por VARCHAR(20) NULL,
+	editado_en DATETIME NULL,
+	editado_por VARCHAR(20) NULL
 );
 
 CREATE TABLE configuracion_abm_permisosPorPerfil (
