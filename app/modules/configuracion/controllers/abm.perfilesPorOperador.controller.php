@@ -37,6 +37,7 @@ if ($operadorSeleccionado) {
 
 // Si se envía el formulario por POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
   // ####### SELECCIONAR OPERADOR #######
   if (isset($_GET['seleccionar'])) {
 
@@ -60,6 +61,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ];
     }
   }
+	
+  // ####### ASIGNAR PERFILES #######
+  if (isset($_GET['asignar'])) {
+
+		header('Content-Type: application/json');
+		
+		$operador_id = $_POST['operador_id'] ?? null;
+    $perfil_id = $_POST['perfil_id'] ?? null;
+    $asignar = $_POST['asignar'] ?? null;
+
+    if (!isset($operador_id, $perfil_id, $asignar) || $operador_id === '' || $perfil_id === '' || $asignar === '') {
+			registrarEvento("Perfiles por Operador Controller: Faltan datos obligatorios", "ERROR");
+      echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
+      exit;
+    }
+
+    if ($asignar == 1) {
+        $result = asignarPerfilAOperador($operador_id, $perfil_id);
+        if ($result) {
+					registrarEvento("Perfiles por Operador Controller: Perfil asignado", "INFO");
+          echo json_encode(['success' => true, 'message' => 'Perfil asignado']);
+					exit;
+        } else {
+					registrarEvento("Perfiles por Operador Controller: Error al asignar perfil", "ERROR");
+          echo json_encode(['success' => false, 'message' => 'Error al asignar perfil']);
+					exit;
+        }
+    } else {
+        $result = desasignarPerfilAOperador($operador_id, $perfil_id);
+        if ($result) {
+					registrarEvento("Perfiles por Operador Controller: Perfil desasignado", "INFO");
+          echo json_encode(['success' => true, 'message' => 'Perfil desasignado']);
+					exit;
+        } else {
+					registrarEvento("Perfiles por Operador Controller: Error al desasignar perfil", "ERROR");
+          echo json_encode(['success' => false, 'message' => 'Error al desasignar perfil']);
+					exit;
+        }
+    }
+
+    exit;
+
+	}
+
 }
 
 // Datos para la vista

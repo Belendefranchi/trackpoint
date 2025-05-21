@@ -98,35 +98,40 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	$('.perfil-checkbox').on('change', function () {
-    const perfilId = $(this).data('id-perfil');
-    const asignado = $(this).is(':checked') ? 1 : 0;
+	$(document).ready(function () {
+		$('.checkbox-perfil').on('change', function () {
+			const perfilId = $(this).data('perfil_id');
+			const estaTildado = $(this).is(':checked');
+			const operadorId = $('#operador_id').val(); // Asegurate que este input exista
 
-    $.ajax({
-        url: 'modules/configuracion/ajax/asignar_perfil_operador.php',
-        method: 'POST',
-        data: {
-            operador_id: operadorSeleccionadoId,
-            perfil_id: perfilId,
-            asignado: asignado
-        },
-        dataType: 'json',
-        success: function (response) {
-            if (response.success) {
-                console.log(response.message);
-                // Aquí podrías mostrar un toast o algún aviso visual
-            } else {
-                alert('Error: ' + response.message);
-                // Revertimos el estado del checkbox
-                $(`[data-id-perfil="${perfilId}"]`).prop('checked', !asignado);
-            }
-        },
-        error: function () {
-            alert('Error de conexión.');
-            // Revertimos el estado del checkbox
-            $(`[data-id-perfil="${perfilId}"]`).prop('checked', !asignado);
-        }
-    });
-});
+			console.log({
+				operador_id: operadorId,
+				perfil_id: perfilId,
+				asignar: estaTildado ? 1 : 0
+			});
+	
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&asignar',
+				method: 'POST',
+				dataType: 'json',
+				data: {
+					operador_id: operadorId,
+					perfil_id: perfilId,
+					asignar: estaTildado ? 1 : 0
+				},
+				dataType: 'json',
+				success: function (response) {
+					if (response.success) {
+						console.log('Perfil actualizado correctamente');
+					} else {
+						console.error('Error del servidor:', response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.error('Error en AJAX:', error);
+				}
+			});
+		});
+	});	
 
 });

@@ -78,7 +78,8 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 													<td class="border">
-														<input type="checkbox" class="form-check-input checkbox-perfil" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
+														<input type="checkbox" class="form-check-input checkbox-perfil" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
+														<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
 													</td>
 												</tr>
 											<?php endforeach; ?>
