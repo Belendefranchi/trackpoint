@@ -44,24 +44,35 @@ function guardarPerfilesPorOperador($operadorId, $perfiles) {
 }
 
 function asignarPerfilAOperador($operador_id, $perfil_id) {
-	$conn = getConnection(); // Asegurate de tener esta función disponible
 	try {
-		$sql = "INSERT INTO configuracion_abm_perfilesPorOperador (operador_id, perfil_id) VALUES (?, ?)";
-		$stmt = $conn->prepare($sql);
-		$stmt->execute([$operador_id, $perfil_id]);
+		$conn = getConnection();
+
+			// Verificar si ya existe la relación
+			$sql = "SELECT COUNT(*) FROM configuracion_abm_perfilesPorOperador WHERE operador_id = ? AND perfil_id = ?";
+			$stmt = $conn->prepare($sql);
+			$stmt->execute([$operador_id, $perfil_id]);
+			$existe = $stmt->fetchColumn();
+			if ($existe == 0) {
+				$sql = "INSERT INTO configuracion_abm_perfilesPorOperador (operador_id, perfil_id) VALUES (?, ?)";
+				$stmt = $conn->prepare($sql);
+				registrarEvento("Perfiles por Operador Model: Perfil insertado", "INFO");
+				return $stmt->execute([$operador_id, $perfil_id]); // Devuelve true o false
+			} else {
+				registrarEvento("Perfiles por Operador Model: Perfil ya existe", "INFO");
+				return true; // Ya existe, no es un error
+			}
+
 	} catch (PDOException $e) {
-		if (str_contains($e->getMessage(), 'duplicate')) {
-				// Ya existe, no hacer nada o loguear
-		} else {
-				throw $e; // Otra excepción
-		}
+			registrarEvento("Error SQL al asignar perfil: " . $e->getMessage(), "ERROR");
+			return false;
 	}
-	
 }
 
+
 function desasignarPerfilAOperador($operador_id, $perfil_id) {
-    $conn = getConnection(); // Asegurate de tener esta función disponible
+    $conn = getConnection();
     $sql = "DELETE FROM configuracion_abm_perfilesPorOperador WHERE operador_id = ? AND perfil_id = ?";
     $stmt = $conn->prepare($sql);
+		registrarEvento("Perfiles por Operador Model: Perfil desasignado", "INFO");
     return $stmt->execute([$operador_id, $perfil_id]);
 }
