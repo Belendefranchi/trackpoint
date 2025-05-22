@@ -17,7 +17,7 @@ function obtenerPermisos() {
 function permisoExists($nombre) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT nombre FROM configuracion_abm_permisos WHERE nombre = :nombre");
+		$stmt = $conn->prepare("SELECT nombre, permiso_id FROM configuracion_abm_permisos WHERE nombre = :nombre");
 		$stmt->bindParam(':nombre', $nombre);
 		$stmt->execute();
 		$perfil = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -53,7 +53,7 @@ function crearPermiso($nombre, $descripcion, $pantalla) {
 function eliminarPermiso($permiso_id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_permisos WHERE id = :permiso_id");
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_permisos WHERE permiso_id = :permiso_id");
 		$stmt->bindParam(':permiso_id', $permiso_id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
