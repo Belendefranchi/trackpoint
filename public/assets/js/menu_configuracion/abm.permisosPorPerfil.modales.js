@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ##################### MODAL DE SELECCIÓN ##################### */
 
 	// Interceptar el evento de apertura del modal de selección
-	var formSeleccionarOperador = document.getElementById('formSeleccionarOperador');
-	if(formSeleccionarOperador){
-		formSeleccionarOperador.addEventListener('submit', function(e) {
+	var formSeleccionarPerfil = document.getElementById('formSeleccionarPerfil');
+	if(formSeleccionarPerfil){
+		formSeleccionarPerfil.addEventListener('submit', function(e) {
 			
-			const seleccionado = document.querySelector('input[name="seleccion_operador"]:checked');
+			const seleccionado = document.querySelector('input[name="seleccion_perfil"]:checked');
 			
 			if (!seleccionado) {
 				e.preventDefault(); // evitar envío del form
@@ -17,24 +17,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 				const contenedor = document.getElementById('mensaje-error-seleccionar');
 				const mensaje = contenedor.querySelector('.mensaje-texto');
-				mensaje.textContent = 'Error: Por favor seleccione un operador';
+				mensaje.textContent = 'Error: Por favor seleccione un perfil';
 				contenedor.classList.remove('d-none');
 				contenedor.classList.add('show');
 
 				// Tomar valores desde los campos ocultos
-				const operadorId = document.getElementById('input-operador-id').value;
-				const username = document.getElementById('input-username').value;
+				const perfilId = document.getElementById('input-perfil-id').value;
 				const nombre = document.getElementById('input-nombre').value;
-				const email = document.getElementById('input-email').value;
-				const rol = document.getElementById('input-rol').value;
+				const descripcion = document.getElementById('input-descripcion').value;
 
-				// Mostrar la tabla con los datos del operador
-				document.getElementById('tabla-operador-seleccionado-container').style.display = 'block';
-				document.getElementById('col-operador-id').textContent = operadorId;
-				document.getElementById('col-username').textContent = username;
+				// Mostrar la tabla con los datos del perfil
+				document.getElementById('tabla-perfil-seleccionado-container').style.display = 'block';
+				document.getElementById('col-perfil-id').textContent = perfilId;
 				document.getElementById('col-nombre').textContent = nombre;
-				document.getElementById('col-email').textContent = email;
-				document.getElementById('col-rol').textContent = rol;
+				document.getElementById('col-descripcion').textContent = descripcion;
 		
 				return false;
 			}
@@ -42,10 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Limpiar el mensaje de error al cerrar el modal
-	var modalSeleccionarOperador = document.getElementById('modalSeleccionarOperador');
+	var modalSeleccionarPerfil = document.getElementById('modalSeleccionarPerfil');
 	
-	if (modalSeleccionarOperador) {
-		modalSeleccionarOperador.addEventListener('hidden.bs.modal', function () {
+	if (modalSeleccionarPerfil) {
+		modalSeleccionarPerfil.addEventListener('hidden.bs.modal', function () {
 			var mensajeError = document.getElementById('mensaje-error-seleccionar');
 			if (mensajeError) {
 				mensajeError.classList.add('d-none'); // Ocultar el div
@@ -54,37 +50,35 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Manejar el cambio de selección del operador
-	document.querySelectorAll('.seleccionar-operador').forEach(radio => {
+	// Manejar el cambio de selección del perfil
+	document.querySelectorAll('.seleccionar-perfil').forEach(radio => {
 		radio.addEventListener('change', function () {
 
 			// Cargar datos al formulario cuando se confirma el modal
-			document.getElementById('input-operador-id').value = this.dataset.operadorid;
-			document.getElementById('input-username').value = this.dataset.username;
+			document.getElementById('input-perfil-id').value = this.dataset.perfilid;
 			document.getElementById('input-nombre').value = this.dataset.nombre;
-			document.getElementById('input-email').value = this.dataset.email;
-			document.getElementById('input-rol').value = this.dataset.rol;
+			document.getElementById('input-descripcion').value = this.dataset.descripcion;
 
-			// Obtener perfiles asignados al operador con $.ajax
-			const operadorId = this.dataset.operadorid;
+			// Obtener permisos asignados al perfil con $.ajax
+			const perfilId = this.dataset.perfilid;
 
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&seleccionar',
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisosPorPerfil&seleccionar',
 				type: 'POST',
-				data: { operador_id: operadorId },
+				data: { perfil_id: perfilId },
 				dataType: 'json',
 				success: function (response) {
 					if (response.success) {
 						// Desmarcar todos los checkboxes
-						document.querySelectorAll('.checkbox-perfil').forEach(cb => cb.checked = false);
+						document.querySelectorAll('.checkbox-permiso').forEach(cb => cb.checked = false);
 
 						// Marcar solo los que corresponden
-						response.perfiles.forEach(perfilId => {
-							const checkbox = document.querySelector(`.checkbox-perfil[data-perfil-id="${perfilId}"]`);
+						response.permisos.forEach(permisoId => {
+							const checkbox = document.querySelector(`.checkbox-permiso[data-permiso-id="${permisoId}"]`);
 							if (checkbox) checkbox.checked = true;
 						});
 					} else {
-						console.log('Error al obtener el perfil:', response.message);
+						console.log('Error al obtener el permiso:', response.message);
             $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
@@ -99,24 +93,24 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	$(document).ready(function () {
-		$('#miTabla').on('change', '.checkbox-perfil', function () {
-			const perfilId = $(this).data('perfil_id');
+		$('#miTabla').on('change', '.checkbox-permiso', function () {
+			const permisoId = $(this).data('permiso_id');
 			const estaTildado = $(this).is(':checked');
-			const operadorId = $('#operador_id').val(); // Asegurate que este input exista
+			const perfilId = $('#perfil_id').val(); // Asegurate que este input exista
 
 			console.log({
-				operador_id: operadorId,
 				perfil_id: perfilId,
+				permiso_id: permisoId,
 				asignar: estaTildado ? 1 : 0
 			});
 	
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&asignar',
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisosPorPerfil&asignar',
 				method: 'POST',
 				dataType: 'json',
 				data: {
-					operador_id: operadorId,
 					perfil_id: perfilId,
+					permiso_id: permisoId,
 					asignar: estaTildado ? 1 : 0
 				},
 				dataType: 'json',

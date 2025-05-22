@@ -4,11 +4,9 @@ define('VISTA_INTERNA', true);
 // Iniciar sesión siempre al comienzo
 session_start();
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['operador_seleccionado']);
 }
-
 
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
