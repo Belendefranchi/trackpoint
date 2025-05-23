@@ -2,12 +2,12 @@
 require_once __DIR__ . '/../../../../config/db.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-function obtenerPermisosPorPerfil($perfilId) {
+function obtenerPermisosPorPerfil($perfil_id) {
 	try {
 		$conn = getConnection();
 
 		$stmt = $conn->prepare("SELECT permiso_id FROM configuracion_abm_PermisosPorPerfil WHERE perfil_id = :perfil_id");
-		$stmt->bindParam(':perfil_id', $perfilId, PDO::PARAM_INT);
+		$stmt->bindParam(':perfil_id', $perfil_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -31,10 +31,10 @@ function asignarPermisoAPerfil($perfil_id, $permiso_id) {
 			if ($existe == 0) {
 				$sql = "INSERT INTO configuracion_abm_PermisosPorPerfil (perfil_id, permiso_id) VALUES (?, ?)";
 				$stmt = $conn->prepare($sql);
-				registrarEvento("Permisos por perfil Model: Perfil insertado", "INFO");
+				registrarEvento("Permisos por perfil Model: Permiso insertado", "INFO");
 				return $stmt->execute([$perfil_id, $permiso_id]); // Devuelve true o false
 			} else {
-				registrarEvento("Permisos por perfil Model: Perfil ya existe", "INFO");
+				registrarEvento("Permisos por perfil Model: Permiso ya existe", "INFO");
 				return true; // Ya existe, no es un error
 			}
 
@@ -47,8 +47,8 @@ function asignarPermisoAPerfil($perfil_id, $permiso_id) {
 
 function desasignarPermisoAPerfil($perfil_id, $permiso_id) {
     $conn = getConnection();
-    $sql = "DELETE FROM configuracion_abm_PermisosPorPerfil WHERE perfil_id = ? AND permiso_id = ?";
+    $sql = "DELETE FROM configuracion_abm_permisosPorPerfil WHERE perfil_id = ? AND permiso_id = ?";
     $stmt = $conn->prepare($sql);
-		registrarEvento("Permisos por perfil Model: Perfil desasignado", "INFO");
+		registrarEvento("Permisos por perfil Model: Permiso desasignado", "INFO");
     return $stmt->execute([$perfil_id, $permiso_id]);
 }

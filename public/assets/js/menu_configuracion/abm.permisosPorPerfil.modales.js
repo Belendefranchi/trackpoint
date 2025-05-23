@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		$('#miTabla').on('change', '.checkbox-permiso', function () {
 			const permisoId = $(this).data('permiso_id');
 			const estaTildado = $(this).is(':checked');
-			const perfilId = $('#perfil_id').val(); // Asegurate que este input exista
+			const perfilId = $('#perfil_id').val();
 
 			console.log({
 				perfil_id: perfilId,

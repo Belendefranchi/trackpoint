@@ -27,9 +27,9 @@ if ($perfilSeleccionado) {
 
   $permisosAsignados = obtenerPermisosPorPerfil($perfil_id) ?: [];
 
-  // Marcar los perfiles asignados
-  foreach ($perfiles as &$perfil) {
-    $perfil['asignado'] = in_array($perfil['perfil_id'], $permisosAsignados);
+  // Marcar los permisos asignados
+  foreach ($permisos as &$permiso) {
+    $permiso['asignado'] = in_array($permiso['permiso_id'], $permisosAsignados);
   }
 }
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
 		$perfil_id = $_POST['perfil_id'] ?? null;
-    $permiso_id = $_POST['perfil_id'] ?? null;
+    $permiso_id = $_POST['permiso_id'] ?? null;
     $asignar = $_POST['asignar'] ?? null;
 
     if (!isset($perfil_id, $permiso_id, $asignar) || $perfil_id === '' || $permiso_id === '' || $asignar === '') {
@@ -74,8 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($asignar == 1) {
         $result = asignarPermisoAPerfil($perfil_id, $permiso_id);
         if ($result) {
-					registrarEvento("Permisos por Perfil Controller: Perfil asignado", "INFO");
-          echo json_encode(['success' => true, 'message' => 'Perfil asignado']);
+					registrarEvento("Permisos por Perfil Controller: Permiso asignado", "INFO");
+          echo json_encode(['success' => true, 'message' => 'Permiso asignado']);
 					exit;
         } else {
 					registrarEvento("Permisos por Perfil Controller: Error al asignar perfil", "ERROR");
@@ -85,12 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $result = desasignarPermisoAPerfil($perfil_id, $permiso_id);
         if ($result) {
-					registrarEvento("Permisos por Perfil Controller: Perfil desasignado", "INFO");
-          echo json_encode(['success' => true, 'message' => 'Perfil desasignado']);
+					registrarEvento("Permisos por Perfil Controller: Permiso desasignado", "INFO");
+          echo json_encode(['success' => true, 'message' => 'Permiso desasignado']);
 					exit;
         } else {
-					registrarEvento("Permisos por Perfil Controller: Error al desasignar perfil", "ERROR");
-          echo json_encode(['success' => false, 'message' => 'Error al desasignar perfil']);
+					registrarEvento("Permisos por Perfil Controller: Error al desasignar permiso", "ERROR");
+          echo json_encode(['success' => false, 'message' => 'Error al desasignar permiso']);
 					exit;
         }
     }

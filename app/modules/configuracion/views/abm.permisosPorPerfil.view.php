@@ -76,7 +76,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 													<td class="border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
 													<td class="border">
-														<input type="checkbox" class="form-check-input checkbox-perfil" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
+														<input type="checkbox" class="form-check-input checkbox-permiso" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
 														<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
 													</td>
 												</tr>
@@ -125,7 +125,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 															<td class="border">
 																<input type="radio" name="seleccion_perfil"
 																	class="form-check-input seleccionar-perfil"
-																	data-operadorid="<?= htmlspecialchars($perfil['perfil_id']) ?>"
+																	data-perfilid="<?= htmlspecialchars($perfil['perfil_id']) ?>"
 																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
 																	data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>">
 															</td>

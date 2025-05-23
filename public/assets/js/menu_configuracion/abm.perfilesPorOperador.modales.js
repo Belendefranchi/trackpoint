@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		$('#miTabla').on('change', '.checkbox-perfil', function () {
 			const perfilId = $(this).data('perfil_id');
 			const estaTildado = $(this).is(':checked');
-			const operadorId = $('#operador_id').val(); // Asegurate que este input exista
+			const operadorId = $('#operador_id').val();
 
 			console.log({
 				operador_id: operadorId,

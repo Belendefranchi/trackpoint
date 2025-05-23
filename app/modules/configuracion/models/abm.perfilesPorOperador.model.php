@@ -2,12 +2,12 @@
 require_once __DIR__ . '/../../../../config/db.php';
 require_once __DIR__ . '/../../../../config/helpers.php';
 
-function obtenerPerfilesPorOperador($operadorId) {
+function obtenerPerfilesPorOperador($operador_id) {
 	try {
 		$conn = getConnection();
 
 		$stmt = $conn->prepare("SELECT perfil_id FROM configuracion_abm_perfilesPorOperador WHERE operador_id = :operador_id");
-		$stmt->bindParam(':operador_id', $operadorId, PDO::PARAM_INT);
+		$stmt->bindParam(':operador_id', $operador_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetchAll(PDO::FETCH_COLUMN);
