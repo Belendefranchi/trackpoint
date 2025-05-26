@@ -60,7 +60,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td class="p-2">
 									<!-- Tabla de Perfiles -->
-									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
+									<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
 												<td class="border text-center">ID</td>
@@ -78,7 +78,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
 													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 													<td class="border">
-														<input type="checkbox" class="form-check-input checkbox-perfil" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
+														<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
 														<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
 													</td>
 												</tr>

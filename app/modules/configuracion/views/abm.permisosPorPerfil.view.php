@@ -56,7 +56,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 							<tr>
 								<td class="p-2">
 									<!-- Tabla de Permisos -->
-									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
+									<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
 												<td class="border text-center">ID</td>
@@ -76,7 +76,7 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 													<td class="border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 													<td class="border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
 													<td class="border">
-														<input type="checkbox" class="form-check-input checkbox-permiso" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
+														<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
 														<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
 													</td>
 												</tr>
