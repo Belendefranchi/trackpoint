@@ -31,6 +31,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<!-- Tabla de Operador seleccionado -->
 									<?php if (isset($_SESSION['operador_seleccionado'])): ?>
 										<?php $operadorSeleccionado = $_SESSION['operador_seleccionado']; ?>
+										<script>
+											const objetoSeleccionado = "<?= $operadorSeleccionado['username'] ?>";
+										</script>
 										<div class="mt-4">
 											<table class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">

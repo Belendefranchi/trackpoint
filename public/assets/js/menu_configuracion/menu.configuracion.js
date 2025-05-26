@@ -253,10 +253,16 @@ $(document).ready(function () {
 												],
 												alignment: 'center'
 											},
-											{ text: subtitulo, fontSize: 14, color: '#adadad' }
+											{ 
+												text: [
+													{ text: subtitulo + ' - ', fontSize: 14, color: '#adadad' },
+													{ text: objetoSeleccionado, fontSize: 14, color: '#adadad' }
+												],
+												alignment: 'center'
+											}
 										],
 										alignment: 'center',
-										margin: [0, 15, 0, 0]
+										margin: [0, 5, 0, 5]
 									},
 									{
 										text: fechaHoy,
@@ -334,7 +340,7 @@ $(document).ready(function () {
 					const sheet = xlsx.xl.worksheets['sheet1.xml'];
 					const styles = xlsx.xl['styles.xml'];
 
-					$('row c[r=A1] t', sheet).text('TrackPoint - ' + subtitulo + ' - ' + fechaHoy);
+					$('row c[r=A1] t', sheet).text('TrackPoint - ' + subtitulo + ' - ' + objetoSeleccionado + ' - ' + fechaHoy);
 
 					const font = styles.createElement('font');
 					font.appendChild(styles.createElement('sz')).setAttribute('val', '16');

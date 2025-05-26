@@ -31,6 +31,9 @@ require_once __DIR__ . '/../../../../core/permisos.php';
 									<!-- Tabla de Perfil seleccionado -->
 									<?php if (isset($_SESSION['perfil_seleccionado'])): ?>
 										<?php $perfilSeleccionado = $_SESSION['perfil_seleccionado']; ?>
+										<script>
+											const objetoSeleccionado = "<?= $perfilSeleccionado['nombre'] ?>";
+										</script>
 										<div class="mt-4">
 											<table class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
