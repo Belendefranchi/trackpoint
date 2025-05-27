@@ -53,6 +53,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border"><?= htmlspecialchars($operador['editado_por']) ?></td>
 													<td class="border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 													<td class="border text-center">
+														<?php if ($operador['username'] === superadmin): ?>
+														<div class="d-flex no-wrap">
+															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+																<i class="bi bi-pencil me-2"></i>Editar
+															</a>
+															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+																<i class="bi bi-trash me-2"></i>Eliminar
+															</a>
+														</div>
+														<?php else: ?>
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
@@ -73,6 +83,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<i class="bi bi-trash me-2"></i>Eliminar
 															</a>
 														</div>
+														<?php endif ?>
 													</td>
 												</tr>
 											<?php endforeach; ?>
