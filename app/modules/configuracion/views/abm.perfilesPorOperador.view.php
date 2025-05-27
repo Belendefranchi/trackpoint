@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../controllers/abm.perfilesPorOperador.controller.php';
-require_once __DIR__ . '/../../../../config/constants.php';
+require_once __DIR__ . '/../../../../core/config/constants.php';
 require_once __DIR__ . '/../../../../core/permisos.php';
 
 ?>

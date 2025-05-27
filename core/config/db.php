@@ -1,13 +1,13 @@
 <?php
 function getConnection() {
-  $serverName = 'localhost'; // Podés probar con 'localhost\SQLEXPRESS' si usás una instancia
+  $serverName = 'localhost';
   $database = 'trackpoint';
   $username = 'sa';
   $password = 'Acofar*664';
 
   $connections = [
-    "sqlsrv:Server=$serverName;Database=$database",                     // Named Pipes / por instancia
-    "sqlsrv:Server=$serverName,1433;Database=$database",               // TCP/IP con puerto explícito
+    "sqlsrv:Server=$serverName;Database=$database",       // Named Pipes / por instancia
+    "sqlsrv:Server=$serverName,1433;Database=$database",  // TCP/IP con puerto explícito
   ];
 
   foreach ($connections as $dsn) {

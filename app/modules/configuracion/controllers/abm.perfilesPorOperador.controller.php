@@ -12,7 +12,7 @@ require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
 require_once __DIR__ . '/../models/abm.perfilesPorOperador.model.php';
-require_once __DIR__ . '/../../../../config/helpers.php';
+require_once __DIR__ . '/../../../../core/config/helpers.php';
 
 // Obtener operadores y perfiles
 $operadores = obtenerOperadores();

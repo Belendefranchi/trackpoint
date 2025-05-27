@@ -3,7 +3,7 @@ define('VISTA_INTERNA', true);
 
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
-require_once __DIR__ . '/../../../../config/helpers.php';
+require_once __DIR__ . '/../../../../core/config/helpers.php';
 
 // Lógica ajax de actualizar, eliminar y crear perfiles
 $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';

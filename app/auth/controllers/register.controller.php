@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../views/register.view.php';
 require_once __DIR__ . '/../models/register.model.php';
-require_once __DIR__ . '/../../../config/helpers.php';
+require_once __DIR__ . '/../../../core/config/helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$nombre_completo = ($_POST['nombre_completo']);

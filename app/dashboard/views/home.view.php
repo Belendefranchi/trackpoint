@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../../../core/middleware/auth.middleware.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

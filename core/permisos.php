@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../core/config/db.php';
 
 function obtenerPermisosDelOperador($conn, $operador_id) {
 	$sql = "SELECT p.nombre 
