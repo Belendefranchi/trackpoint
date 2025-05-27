@@ -49,36 +49,13 @@ postcss.config.js
 package.json
 </code></p>
 
-<hr />
-
-<h2>🎨 Tailwind CSS</h2>
-
-<h3>Instalación inicial (una sola vez por desarrollador)</h3>
-
-<p><code>bash
-npm install
-</code></p>
-
-<h3>Desarrollo (modo watch)</h3>
-
-<p><code>bash
-npm run dev
-</code></p>
-
-<h3>Producción (minificado)</h3>
-
-<p><code>bash
-npm run build
-</code></p>
-
-<hr />
 
 <h2>🔒 Middleware de autenticación</h2>
 
 <p>Para proteger vistas privadas, incluir en la parte superior del archivo <code>.php</code>:</p>
 
 <p><code>php
-require_once __DIR__ . '/../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../../core/middleware/auth.middleware.php';
 </code></p>
 
 <p>Este middleware redirige al login si no hay sesión iniciada.</p>
@@ -94,8 +71,6 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
 <h2>📌 Notas para los desarrolladores</h2>
 
 <ul>
-<li>Siempre correr <code>npm run dev</code> mientras trabajás en el frontend.</li>
-<li>Recordá ejecutar <code>npm install</code> la primera vez que clones el proyecto.</li>
 <li>Usá <code>public/index.php</code> como punto de entrada del sistema.</li>
 <li>Todo nuevo módulo debe seguir la estructura de carpetas MVC.</li>
 <li>Usar siempre <code>session_start();</code> al inicio de controladores o middleware.</li>
@@ -109,7 +84,7 @@ require_once __DIR__ . '/../../middleware/auth.middleware.php';
 <li>[x] Login</li>
 <li>[x] Middleware de sesión</li>
 <li>[x] Dashboard estático</li>
-<li>[ ] Conexión dinámica con base de datos</li>
+<li>[x] Conexión dinámica con base de datos</li>
 <li>[ ] Módulo de producción</li>
 <li>[ ] Módulo de expedición</li>
 <li>[ ] Panel de configuración</li>

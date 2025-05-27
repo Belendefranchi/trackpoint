@@ -7,8 +7,6 @@ Aplicación web para el control de producción en una industria faenadora de por
 ## 🚀 Requisitos
 
 - PHP >= 7.4
-- Composer (opcional, si se agregan librerías más adelante)
-- Node.js + npm
 - Servidor Apache o Nginx
 - Extensiones SQL Server (`pdo_sqlsrv`, `sqlsrv`) habilitadas en PHP
 
@@ -49,34 +47,12 @@ package.json
 
 ---
 
-## 🎨 Tailwind CSS
-
-### Instalación inicial (una sola vez por desarrollador)
-
-```bash
-npm install
-```
-
-### Desarrollo (modo watch)
-
-```bash
-npm run dev
-```
-
-### Producción (minificado)
-
-```bash
-npm run build
-```
-
----
-
 ## 🔒 Middleware de autenticación
 
 Para proteger vistas privadas, incluir en la parte superior del archivo `.php`:
 
 ```php
-require_once __DIR__ . '/../../middleware/auth.middleware.php';
+require_once __DIR__ . '/../../core/middleware/auth.middleware.php';
 ```
 
 Este middleware redirige al login si no hay sesión iniciada.
@@ -91,8 +67,6 @@ Credenciales configuradas en la base de datos (hasheadas con `password_hash()`).
 
 ## 📌 Notas para los desarrolladores
 
-- Siempre correr `npm run dev` mientras trabajás en el frontend.
-- Recordá ejecutar `npm install` la primera vez que clones el proyecto.
 - Usá `public/index.php` como punto de entrada del sistema.
 - Todo nuevo módulo debe seguir la estructura de carpetas MVC.
 - Usar siempre `session_start();` al inicio de controladores o middleware.
@@ -104,7 +78,7 @@ Credenciales configuradas en la base de datos (hasheadas con `password_hash()`).
 - [x] Login
 - [x] Middleware de sesión
 - [x] Dashboard estático
-- [ ] Conexión dinámica con base de datos
+- [x] Conexión dinámica con base de datos
 - [ ] Módulo de producción
 - [ ] Módulo de expedición
 - [ ] Panel de configuración
