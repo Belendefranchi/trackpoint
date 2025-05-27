@@ -6,6 +6,8 @@ $routes = [
 	'/logout' => 'app/auth/controllers/logout.php',
 	'/home' => 'app/dashboard/controllers/home.controller.php',
 	'/register' => 'app/auth/controllers/register.controller.php',
+	'/forbidden' => 'app/layouts/error403.view.php',
+	'/notFound' => 'app/layouts/error404.view.php',
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
 /* 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php', */

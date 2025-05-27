@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../../../../core/middleware/auth.middleware.php';
+require_once __DIR__ . '/../../../../core/middleware/permisos.middleware.php';
 require_once __DIR__ . '/../../../layouts/layout.view.php';
+
+verificarPermiso();
 
 $currentUri = $_SERVER['REQUEST_URI'];
 

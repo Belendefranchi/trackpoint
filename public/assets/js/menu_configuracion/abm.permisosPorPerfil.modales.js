@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	$(document).ready(function () {
-		$('#miTabla').on('change', '.checkbox-permiso', function () {
+		$('#miTablaConCheckbox').on('change', '.checkbox-permiso', function () {
 			const permisoId = $(this).data('permiso_id');
 			const estaTildado = $(this).is(':checked');
 			const perfilId = $('#perfil_id').val();

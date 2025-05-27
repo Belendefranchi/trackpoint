@@ -1,53 +1,45 @@
 <?php
-require_once 'core/database.php';
+require_once __DIR__ . '/../../core/config/db.php';
 
-/**
- * Middleware que verifica si el operador actual tiene permiso
- * para acceder a la pantalla actual (ruta).
- * Si no tiene permiso, redirige al error 403.
- */
-function middlewarePermisos() {
-    $ruta = obtenerRutaActual();
-    $operadorId = $_SESSION['operador']['id'] ?? null;
+/* Devuelve la ruta lógica del controlador actual,
+ * por ejemplo: "configuracion/operadores" */
 
-    if (!$operadorId || !$ruta) {
-        header('Location: /error403.php');
-        exit;
-    }
+function obtenerRutaActual() {
+	$ruta = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	$basePath = '/trackpoint/public';
 
-    $db = conectarDB();
+	if (str_starts_with($ruta, $basePath)) {
+			$ruta = substr($ruta, strlen($basePath));
+	}
 
-    $sql = "
-        SELECT 1
-        FROM operador_perfil op
-        INNER JOIN perfil_permiso pp ON pp.perfil_id = op.perfil_id
-        INNER JOIN permisos p ON p.id = pp.permiso_id
-        WHERE op.operador_id = ? AND p.ruta = ?
-        LIMIT 1
-    ";
-
-    $stmt = $db->prepare($sql);
-    $stmt->execute([$operadorId, $ruta]);
-
-    if (!$stmt->fetchColumn()) {
-        header('Location: /error403.php');
-        exit;
-    }
+	return $ruta ?: '/';
 }
 
-/**
- * Devuelve la ruta lógica del controlador actual, por ejemplo: "configuracion/operadores"
- */
-function obtenerRutaActual() {
-    $script = $_SERVER['SCRIPT_NAME'];
-    $partes = explode('/modules/', $script);
+/* Middleware que verifica si el operador actual tiene permiso
+ * para acceder a la pantalla actual (ruta).
+ * Si no tiene permiso, redirige al error 403. */
 
-    if (count($partes) === 2) {
-        $ruta = $partes[1];
-        $ruta = str_replace('controllers/', '', $ruta);
-        $ruta = str_replace('.controller.php', '', $ruta);
-        return $ruta;
-    }
+function verificarPermiso() {
+	$ruta = obtenerRutaActual();
+	$operadorId = $_SESSION['operador_id'] ?? null;
 
-    return null;
+	if ($operadorId === "1") {
+		// Si el operador es el administrador, no se verifica permiso
+		return;
+	}
+
+	$conn = getConnection();
+	$stmt = $conn->prepare("SELECT TOP 1 1
+		FROM configuracion_abm_perfilesPorOperador po
+		INNER JOIN configuracion_abm_permisosPorPerfil pp ON pp.perfil_id = po.perfil_id
+		INNER JOIN configuracion_abm_permisos p ON p.permiso_id = pp.permiso_id
+		WHERE po.operador_id = ? AND p.pantalla = ?");
+
+	$stmt->execute([$operadorId, $ruta]);
+	$result = $stmt->fetchColumn();
+
+	if (!$result) {
+		header('Location: /trackpoint/public/forbidden');
+		exit;
+	}
 }
