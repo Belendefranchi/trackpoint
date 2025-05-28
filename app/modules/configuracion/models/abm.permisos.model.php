@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../core/config/helpers.php';
 function obtenerPermisos() {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->query("SELECT * FROM configuracion_abm_permisos WHERE pantalla <> '/superadmin'");
+		$stmt = $conn->query("SELECT * FROM configuracion_abm_permisos --WHERE pantalla NOT IN ('/superadmin', '/configuracion/ABMs/permisos')");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores

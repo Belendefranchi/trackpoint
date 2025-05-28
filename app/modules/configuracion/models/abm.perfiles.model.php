@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../core/config/helpers.php';
 function obtenerPerfiles() {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->query("SELECT * FROM configuracion_abm_perfiles");
+		$stmt = $conn->query("SELECT * FROM configuracion_abm_perfiles --WHERE nombre <> 'superadmin'");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores

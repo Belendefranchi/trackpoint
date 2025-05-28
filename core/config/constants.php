@@ -5,4 +5,4 @@ const roles = [
   'operador' => 'Operador',
 ];
 
-const superadmin = "admin";
+const superadmin = "superadmin";

@@ -18,7 +18,7 @@ DROP TABLE configuracion_abm_permisos;
 -- 2. Crear tablas corregidas
 CREATE TABLE configuracion_abm_operadores (
 	operador_id INT PRIMARY KEY IDENTITY(1,1),
-	username VARCHAR(20) NOT NULL UNIQUE,
+	username VARCHAR(20) NOT NULL,
 	password VARCHAR(100) NOT NULL,
 	nombre_completo VARCHAR(50),
 	email VARCHAR(100) NOT NULL UNIQUE,
