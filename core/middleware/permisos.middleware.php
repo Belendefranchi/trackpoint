@@ -21,25 +21,36 @@ function obtenerRutaActual() {
 
 function verificarPermiso() {
 	$ruta = obtenerRutaActual();
-	$operadorId = $_SESSION['operador_id'] ?? null;
 
-	if ($operadorId === "1") {
-		// Si el operador es el administrador, no se verifica permiso
+ // Rutas exentas de control de permisos (por motivos técnicos o de infraestructura)
+	$rutasExentas = [
+		'/index.php', // ruta exenta para el uso de acciones AJAX
+	];
+
+	if (in_array($ruta, $rutasExentas)) {
 		return;
 	}
 
-	$conn = getConnection();
-	$stmt = $conn->prepare("SELECT TOP 1 1
-		FROM configuracion_abm_perfilesPorOperador po
-		INNER JOIN configuracion_abm_permisosPorPerfil pp ON pp.perfil_id = po.perfil_id
-		INNER JOIN configuracion_abm_permisos p ON p.permiso_id = pp.permiso_id
-		WHERE po.operador_id = ? AND p.pantalla = ?");
+	$operadorId = $_SESSION['operador_id'] ?? null;
 
-	$stmt->execute([$operadorId, $ruta]);
-	$result = $stmt->fetchColumn();
+/* 	if ($operadorId === "1") {
+		// Si el operador es el administrador, no se verifica permiso
+		return;
+	} else{ */
 
-	if (!$result) {
-		header('Location: /trackpoint/public/forbidden');
-		exit;
-	}
+		$conn = getConnection();
+		$stmt = $conn->prepare("SELECT TOP 1 1
+			FROM configuracion_abm_perfilesPorOperador po
+			INNER JOIN configuracion_abm_permisosPorPerfil pp ON pp.perfil_id = po.perfil_id
+			INNER JOIN configuracion_abm_permisos p ON p.permiso_id = pp.permiso_id
+			WHERE po.operador_id = ? AND p.pantalla = ?");
+
+		$stmt->execute([$operadorId, $ruta]);
+		$result = $stmt->fetchColumn();
+
+		if (!$result) {
+			header('Location: /trackpoint/public/forbidden');
+			exit;
+		}
+/* 	} */
 }
