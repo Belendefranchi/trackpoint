@@ -20,17 +20,17 @@ sqlcmd -S %SERVER% -U %USER% -P %PASSWORD% -Q "IF DB_ID(N'%DATABASE%') IS NULL B
 IF ERRORLEVEL 1 GOTO error
 
 :: Paso 1: Crear tablas
-ECHO [Paso 1/3] Creando tablas...
+ECHO Creando tablas...
 sqlcmd -S %SERVER% -d %DATABASE% -U %USER% -P %PASSWORD% -f 65001 -i 01_crear_tablas.sql
 IF ERRORLEVEL 1 GOTO error
 
 :: Paso 2: Insertar datos iniciales
-ECHO [Paso 2/3] Insertando datos iniciales...
+ECHO Insertando datos iniciales...
 sqlcmd -S %SERVER% -d %DATABASE% -U %USER% -P %PASSWORD% -f 65001 -i 02_insertar_seed_data.sql
 IF ERRORLEVEL 1 GOTO error
 
 :: Paso 3: Crear triggers
-ECHO [Paso 3/3] Creando triggers...
+ECHO Creando triggers...
 sqlcmd -S %SERVER% -d %DATABASE% -U %USER% -P %PASSWORD% -f 65001 -i 03_crear_triggers.sql
 IF ERRORLEVEL 1 GOTO error
 
