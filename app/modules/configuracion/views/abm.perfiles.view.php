@@ -41,14 +41,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<?php foreach ($perfiles as $perfil): ?>
 												<tr class="text-start">
 													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['creado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['creado_por']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['editado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['editado_por']) ?></td>
-													<td class="border"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="border text-center">
+													<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['creado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['creado_por']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['editado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['editado_por']) ?></td>
+													<td class="border text-primary"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
+													<td class="border text-primary text-center">
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
@@ -96,12 +96,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="crearNombrePerfil" class="form-label">Nombre</label>
+											<label for="crearNombrePerfil" class="form-label text-primary">Nombre</label>
 											<input type="text" class="form-control" name="nombre" id="crearNombrePerfil">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearDescripcionPerfil" class="form-label">Descripción</label>
+											<label for="crearDescripcionPerfil" class="form-label text-primary">Descripción</label>
 											<input type="text" class="form-control" name="descripcion" id="crearDescripcionPerfil">
 										</div>
 
@@ -136,17 +136,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarNombrePerfil" class="form-label">Nombre</label>
+											<label for="editarNombrePerfil" class="form-label text-primary">Nombre</label>
 											<input type="text" class="form-control" name="nombre" id="editarNombrePerfil">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarDescripcionPerfil" class="form-label">Descripción</label>
+											<label for="editarDescripcionPerfil" class="form-label text-primary">Descripción</label>
 											<input type="text" class="form-control" name="descripcion" id="editarDescripcionPerfil">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarActivoPerfil" class="form-label">Activo</label>
+											<label for="editarActivoPerfil" class="form-label text-primary">Activo</label>
 											<select class="form-select" name="activo" id="editarActivoPerfil">
 												<option value="1">Sí</option>
 												<option value="0">No</option>

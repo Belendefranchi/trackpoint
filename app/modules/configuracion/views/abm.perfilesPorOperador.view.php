@@ -45,11 +45,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</thead>
 												<tbody>
 													<tr>
-														<td class="border text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
-														<td class="border"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
-														<td class="border"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
-														<td class="border"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
-														<td class="border"><?= htmlspecialchars($operadorSeleccionado['rol']) ?></td>
+														<td class="border text-primary text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['rol']) ?></td>
 													</tr>
 												</tbody>
 											</table>
@@ -75,10 +75,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<?php foreach ($perfiles as $perfil): ?>
 												<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
 												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													<td class="border text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-													<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-													<td class="border">
+													<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+													<td class="border text-primary">
 														<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
 														<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
 													</td>
@@ -124,12 +124,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
 														<tr class="text-start">
-															<td class="border"><?= htmlspecialchars($operador['operador_id']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
-															<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
-															<td class="border">
+															<td class="border text-primary"><?= htmlspecialchars($operador['operador_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
+															<td class="border text-primary">
 																<input type="radio" name="seleccion_operador"
 																	class="form-check-input seleccionar-operador"
 																	data-operadorid="<?= htmlspecialchars($operador['operador_id']) ?>"

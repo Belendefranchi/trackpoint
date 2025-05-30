@@ -40,15 +40,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<tbody>
 											<?php foreach ($permisos as $permiso): ?>
 												<tr class="text-start">
-													<td class="border text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['nombre']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['creado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['creado_por']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['editado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['editado_por']) ?></td>
-													<td class="border text-center">
+													<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['creado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['creado_por']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['editado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['editado_por']) ?></td>
+													<td class="border text-primary text-center">
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
@@ -96,17 +96,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="crearNombrePermiso" class="form-label">Nombre</label>
+											<label for="crearNombrePermiso" class="form-label text-primary">Nombre</label>
 											<input type="text" class="form-control" name="nombre" id="crearNombrePermiso">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearDescripcionPermiso" class="form-label">Descripción</label>
+											<label for="crearDescripcionPermiso" class="form-label text-primary">Descripción</label>
 											<input type="text" class="form-control" name="descripcion" id="crearDescripcionPermiso">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearPantallaPermiso" class="form-label">Pantalla</label>
+											<label for="crearPantallaPermiso" class="form-label text-primary">Pantalla</label>
 											<input type="text" class="form-control" name="pantalla" id="crearPantallaPermiso">
 										</div>
 
@@ -141,17 +141,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarNombrePermiso" class="form-label">Nombre</label>
+											<label for="editarNombrePermiso" class="form-label text-primary">Nombre</label>
 											<input type="text" class="form-control" name="nombre" id="editarNombrePermiso">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarDescripcionPermiso" class="form-label">Descripción</label>
+											<label for="editarDescripcionPermiso" class="form-label text-primary">Descripción</label>
 											<input type="text" class="form-control" name="descripcion" id="editarDescripcionPermiso">
 										</div>
 
 										<div class="mb-3">
-										<label for="editarPantallaPermiso" class="form-label">Pantalla</label>
+										<label for="editarPantallaPermiso" class="form-label text-primary">Pantalla</label>
 										<input type="text" class="form-control" name="pantalla" id="editarPantallaPermiso">
 										</div>
 									</div>

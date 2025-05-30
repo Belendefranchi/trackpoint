@@ -43,9 +43,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</thead>
 												<tbody>
 													<tr>
-														<td class="border text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
-														<td class="border"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
-														<td class="border"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
+														<td class="border text-primary text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
 													</tr>
 												</tbody>
 											</table>
@@ -72,11 +72,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<?php foreach ($permisos as $permiso): ?>
 												<?php $checked = in_array($permiso['permiso_id'], $permisosAsignados) ? 'checked' : ''; ?>
 												<tr class="" data-permiso-id="<?= htmlspecialchars($permiso['permiso_id']) ?>">
-													<td class="border text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['nombre']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['descripcion']) ?></td>
-													<td class="border"><?= htmlspecialchars($permiso['pantalla']) ?></td>
-													<td class="border">
+													<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
+													<td class="border text-primary">
 														<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
 														<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
 													</td>
@@ -120,10 +120,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<tbody>
 												<?php foreach ($perfiles as $perfil): ?>
 														<tr class="text-start">
-															<td class="border"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-															<td class="border"><?= htmlspecialchars($perfil['nombre']) ?></td>
-															<td class="border"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-															<td class="border">
+															<td class="border text-primary"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+															<td class="border text-primary">
 																<input type="radio" name="seleccion_perfil"
 																	class="form-check-input seleccionar-perfil"
 																	data-perfilid="<?= htmlspecialchars($perfil['perfil_id']) ?>"

@@ -42,17 +42,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<tbody>
 											<?php foreach ($operadores as $operador): ?>
 												<tr class="text-start">
-													<td class="border text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['username']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['email']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['rol']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['creado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['creado_por']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['editado_en']) ?></td>
-													<td class="border"><?= htmlspecialchars($operador['editado_por']) ?></td>
-													<td class="border"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="border text-center">
+													<td class="border text-primary text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['creado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['creado_por']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['editado_en']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($operador['editado_por']) ?></td>
+													<td class="border text-primary"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
+													<td class="border text-primary text-center">
 														<?php if ($operador['username'] === superadmin): ?>
 														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
@@ -113,27 +113,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="crearUsernameOperador" class="form-label">Operador</label>
+											<label for="crearUsernameOperador" class="form-label text-primary">Operador</label>
 											<input type="text" class="form-control" name="username" id="crearUsernameOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearNombreOperador" class="form-label">Nombre y Apellido</label>
+											<label for="crearNombreOperador" class="form-label text-primary">Nombre y Apellido</label>
 											<input type="text" class="form-control" name="nombre_completo" id="crearNombreOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearEmailOperador" class="form-label">Email</label>
+											<label for="crearEmailOperador" class="form-label text-primary">Email</label>
 											<input type="email" class="form-control" name="email" id="crearEmailOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarPasswordOperador" class="form-label">Contraseña</label>
+											<label for="editarPasswordOperador" class="form-label text-primary">Contraseña</label>
 											<input type="password" class="form-control" name="password" id="crearPasswordOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearRolOperador" class="form-label">Rol</label>
+											<label for="crearRolOperador" class="form-label text-primary">Rol</label>
 											<select class="form-select" name="rol" id="crearRolOperador">
 												<option value="administrador">Administrador</option>
 												<option value="operador">Operador</option>
@@ -171,22 +171,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarUsernameOperador" class="form-label">Operador</label>
+											<label for="editarUsernameOperador" class="form-label text-primary">Operador</label>
 											<input type="text" class="form-control" name="username" id="editarUsernameOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarNombreOperador" class="form-label">Nombre y Apellido</label>
+											<label for="editarNombreOperador" class="form-label text-primary">Nombre y Apellido</label>
 											<input type="text" class="form-control" name="nombre_completo" id="editarNombreOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarEmailOperador" class="form-label">Email</label>
+											<label for="editarEmailOperador" class="form-label text-primary">Email</label>
 											<input type="email" class="form-control" name="email" id="editarEmailOperador">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarRolOperador" class="form-label">Rol</label>
+											<label for="editarRolOperador" class="form-label text-primary">Rol</label>
 											<select class="form-select" name="rol" id="editarRolOperador">
 												<option value="administrador">Administrador</option>
 												<option value="operador">Operador</option>
@@ -194,7 +194,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarActivoOperador" class="form-label">Activo</label>
+											<label for="editarActivoOperador" class="form-label text-primary">Activo</label>
 											<select class="form-select" name="activo" id="editarActivoOperador">
 												<option value="1">Sí</option>
 												<option value="0">No</option>
