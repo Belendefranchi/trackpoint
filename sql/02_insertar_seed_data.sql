@@ -11,8 +11,9 @@ VALUES
 INSERT INTO configuracion_abm_perfiles
 	( nombre, descripcion, creado_en, creado_por, editado_en, editado_por, activo )
 VALUES
-	( 'Permisos', 'Perfil con acceso a pantalla Permisos', GETDATE(), 'admin', NULL, NULL, 1 ),
-	( 'Configuración', 'Perfil con acceso al menú de Configuración', GETDATE(), 'admin', NULL, NULL, 1 ); 
+	( 'Permisos', 'Perfil con acceso a pantalla Permisos', GETDATE(), 'admin', NULL, NULL, 1 ), /* 1 */
+	( 'Configuración', 'Perfil con acceso al menú de Configuración', GETDATE(), 'admin', NULL, NULL, 1 ), /* 2 */
+	( 'Producción', 'Perfil con acceso al menú de Producción', GETDATE(), 'admin', NULL, NULL, 1 ); /* 3 */
 
 -- 3. Asignar perfil "Permisos" al operador admin
 -- Asumiendo que el operador_id del admin es 1 y el perfil_id del perfil "Permisos" es 1
@@ -21,7 +22,10 @@ INSERT INTO configuracion_abm_perfilesPorOperador
 VALUES
 	( 1, 1 ),
 	( 2, 2 ),
-	( 3, 2 );
+	( 2, 3 ),
+	( 3, 2 ),
+	( 3, 3 )
+	;
 
 -- 4. Insertar permiso "Permisos"
 INSERT INTO configuracion_abm_permisos
@@ -32,7 +36,8 @@ VALUES
 	( 'Operadores', 'Permiso para acceder a la pantalla de Operadores', '/configuracion/ABMs/operadores', GETDATE(), 'admin', NULL, NULL ),
 	( 'Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ),
 	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ),
-	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL )
+	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ),
+	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL )
 	;
 
 -- 5. Asignar permiso "Permisos" al perfil "Permisos"
@@ -46,4 +51,6 @@ VALUES
 	( 2, 3 ),
 	( 2, 4 ),
 	( 2, 5 ),
-	( 2, 6 );
+	( 2, 6 ),
+	( 3, 7 )
+	;

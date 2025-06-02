@@ -10,7 +10,7 @@ $routes = [
 	'/notFound' => 'app/layouts/error404.view.php',
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
-/* 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php', */
+	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
 
 
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */
