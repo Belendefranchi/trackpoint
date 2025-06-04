@@ -33,10 +33,10 @@ function verificarPermiso() {
 
 	$operadorId = $_SESSION['operador_id'] ?? null;
 
-/* 	if ($operadorId === "1") {
+	if ($operadorId === "1") {
 		// Si el operador es el administrador, no se verifica permiso
 		return;
-	} else{ */
+	} else{
 
 		$conn = getConnection();
 		$stmt = $conn->prepare("SELECT TOP 1 1
@@ -52,5 +52,5 @@ function verificarPermiso() {
 			header('Location: /trackpoint/public/forbidden');
 			exit;
 		}
-/* 	} */
+	}
 }

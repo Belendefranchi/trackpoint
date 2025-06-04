@@ -36,7 +36,7 @@ $activeItems = [
       <div class="col-6 d-flex justify-content-start align-items-center">
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/recepcion">RECEPCIÓN</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white table-hover" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
@@ -87,6 +87,7 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
             <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
           </div>
+          
           <a class="nav-link text-white table-hover rounded <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">
             CONFIGURACIÓN PC
           </a>
@@ -97,7 +98,7 @@ $activeItems = [
         </div>
       </aside>
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 p-4">
+      <main class="col-md-9 col-lg-10 p-4 d-flex justify-content-center align-items-start">
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>

@@ -31,13 +31,18 @@ VALUES
 INSERT INTO configuracion_abm_permisos
 	( nombre, descripcion, pantalla, creado_en, creado_por, editado_en, editado_por )
 VALUES
-	( 'Configuración', 'Permiso para acceder al menú Configuración', '/configuracion', GETDATE(), 'admin', NULL, NULL ),
-	( 'Permisos', 'Permiso para acceder a la pantalla de Permisos', '/configuracion/ABMs/permisos', GETDATE(), 'admin', NULL, NULL ),
-	( 'Operadores', 'Permiso para acceder a la pantalla de Operadores', '/configuracion/ABMs/operadores', GETDATE(), 'admin', NULL, NULL ),
-	( 'Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ),
-	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ),
-	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ),
-	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL )
+	( 'Configuración', 'Permiso para acceder al menú Configuración', '/configuracion', GETDATE(), 'admin', NULL, NULL ), /* 1 */
+	( 'Permisos', 'Permiso para acceder a la pantalla de Permisos', '/configuracion/ABMs/permisos', GETDATE(), 'admin', NULL, NULL ), /* 2 */
+	( 'Operadores', 'Permiso para acceder a la pantalla de Operadores', '/configuracion/ABMs/operadores', GETDATE(), 'admin', NULL, NULL ), /* 3 */
+	( 'Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ), /* 4 */
+	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ), /* 5 */
+	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ), /* 6 */
+	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL ) /* 7 */
+
+
+
+/* 	( 'Recepción', 'Permiso para acceder al menú Recepción', '/recepcion', GETDATE(), 'admin', NULL, NULL ), */ /*  */
+
 	;
 
 -- 5. Asignar permiso "Permisos" al perfil "Permisos"

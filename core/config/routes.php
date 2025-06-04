@@ -9,8 +9,16 @@ $routes = [
 	'/forbidden' => 'app/layouts/error403.view.php',
 	'/notFound' => 'app/layouts/error404.view.php',
 
+
+	/* ########################################### ----------RECEPCIÓN----------- ########################################### */
+	'/recepcion' => 'app/modules/recepcion/controllers/recepcion.controller.php',
+	'/recepcion/ingreso/ingresoHacienda' => 'app/modules/recepcion/controllers/ingreso.ingresoHacienda.controller.php',
+	'/recepcion/ingreso/ingresoMateriaPrima' => 'app/modules/recepcion/controllers/ingreso.ingresoMateriaPrima.controller.php',
+
+
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
 
 
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */

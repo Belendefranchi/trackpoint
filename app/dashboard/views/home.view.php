@@ -1,66 +1,29 @@
 <?php
 require_once __DIR__ . '/../../../core/middleware/auth.middleware.php';
+require_once __DIR__ . '/../../layouts/layout.view.php';
+
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
 
-  <!-- Bootstrap -->
-  <link href="/trackpoint/public/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
-  <script src="/trackpoint/public/assets/js/plugins/bootstrap.min.js" defer></script>
-
-  <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
-  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
-  <style>
-    .nav-link.active-lateral {
-      color: #22265D !important;
-      font-weight: 600;
-      border-left: 4px solid #22265D;
-      padding-left: 0.75rem; /* igual a ps-3 */
-      background-color: #e9ecef; /* opcional, mejora contraste */
-    }
-  </style>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-</head>
-
-<body style="background-color: #D3EBF9;">
-  <!-- Navbar -->
-  <nav class="navbar navbar-dark" style="background-color: #22265D;">
-    <div class="container-fluid">
-
-      <div class="col-2 d-flex align-items-center justify-content-center">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/trackpoint/public/home">
-          <img src="/trackpoint/public/assets/images/logo_fondo_blanco.png" alt="Logo" width="30" height="30" />
-          TrackPoint
-        </a>
-      </div>
-
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <div class="col-6 d-flex justify-content-start align-items-center">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-pills">
           <li class="nav-item">
-          <a class="nav-link text-light" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/recepcion">RECEPCIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/depositos">DEPÓSITOS</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/depositos">DEPÓSITOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/reportes">REPORTES</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/reportes">REPORTES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
           </li>
         </ul>
       </div>
@@ -70,21 +33,18 @@ require_once __DIR__ . '/../../../core/middleware/auth.middleware.php';
           <i class="bd-search"></i>
           <input type="text" class="form-control search-input" id="search" placeholder="Buscar..." aria-label="Search" />
         </div>
-
-        <a class="nav-link text-light p-2" href="/trackpoint/public/home">Dashboard</a>
-        <a class="nav-link text-info p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
+        <a class="nav-link text-white p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
       </div>
     </div>
   </nav>
+
+
+
+  
   <!-- Layout con Aside + Main -->
   <div class="container-fluid">
     <div class="row">
-      <!-- Aside -->
-      <aside class="col-md-3 col-lg-2 bg-white shadow-sm min-vh-100 py-4 px-3">
-        <nav class="nav flex-column">
 
-        </nav>
-      </aside>
       <!-- Contenido principal -->
       <main class="col-md-9 col-lg-10 py-4">
         <div class="container">
@@ -214,5 +174,7 @@ require_once __DIR__ . '/../../../core/middleware/auth.middleware.php';
       }
     });
   </script>
+    <?php require_once __DIR__ . '/../../layouts/layout.scripts.php'; ?>
+
 </body>
 </html>

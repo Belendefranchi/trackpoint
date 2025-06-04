@@ -19,11 +19,14 @@ $planificacionActive = str_contains($currentUri, '/produccion/planificacion') ? 
 $ingresoOpen = str_contains($currentUri, '/produccion/ingreso') ? 'show' : '';
 $ingresoActive = str_contains($currentUri, '/produccion/ingreso') ? 'active' : '';
 
-$etqPrimariasOpen = str_contains($currentUri, '/produccion/etqPrimarias') ? 'show' : '';
+$salidaOpen = str_contains($currentUri, '/produccion/salida') ? 'show' : '';
+$salidaActive = str_contains($currentUri, '/produccion/salida') ? 'active' : '';
+
+/* $etqPrimariasOpen = str_contains($currentUri, '/produccion/etqPrimarias') ? 'show' : '';
 $etqPrimariasActive = str_contains($currentUri, '/produccion/etqPrimarias') ? 'active' : '';
 
 $etqSecundariasOpen = str_contains($currentUri, '/produccion/etqSecundarias') ? 'show' : '';
-$etqSecundariasActive = str_contains($currentUri, '/produccion/etqSecundarias') ? 'active' : '';
+$etqSecundariasActive = str_contains($currentUri, '/produccion/etqSecundarias') ? 'active' : ''; */
 
 $activeItems = [
   // Ítems del submenú ABMs
@@ -46,13 +49,12 @@ $activeItems = [
   'ingresoConSeleccion' => str_contains($currentUri, 'ingresoConSeleccion') ? 'fw-semibold text-primary' : '',
   'ingresoSinSeleccion' => str_contains($currentUri, 'ingresoSinSeleccion') ? 'fw-semibold text-primary' : '',
 
-  // Ítems del Submenú Etiquetas Primarias
-  'etqPrimariasConSeleccion' => str_contains($currentUri, 'etqPrimariasConSeleccion') ? 'fw-semibold text-primary' : '',
-  'etqPrimariasSinSeleccion' => str_contains($currentUri, 'etqPrimariasSinSeleccion') ? 'fw-semibold text-primary' : '',
+  // Ítems del Submenú Salida
+  'salidaEtqPriConSeleccion' => str_contains($currentUri, 'etqPriConSeleccion') ? 'fw-semibold text-primary' : '',
+  'salidaEtqPriSinSeleccion' => str_contains($currentUri, 'etqPriSinSeleccion') ? 'fw-semibold text-primary' : '',
+  'salidaEtqSecConSeleccion' => str_contains($currentUri, 'etqSecConSeleccion') ? 'fw-semibold text-primary' : '',
+  'salidaEtqSecSinSeleccion' => str_contains($currentUri, 'etqSecSinSeleccion') ? 'fw-semibold text-primary' : '',
 
-  // Ítems del Submenú Etiquetas Secundarias
-  'etqSecundariasConSeleccion' => str_contains($currentUri, 'etqSecundariasConSeleccion') ? 'fw-semibold text-primary' : '',
-  'etqSecundariasSinSeleccion' => str_contains($currentUri, 'etqSecundariasSinSeleccion') ? 'fw-semibold text-primary' : '',
 ];
 
 ?>
@@ -60,7 +62,7 @@ $activeItems = [
       <div class="col-6 d-flex justify-content-start align-items-center">
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/recepcion">RECEPCIÓN</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white active" style="background-color: #3A4280;" href="/trackpoint/public/produccion" aria-current="page">PRODUCCIÓN</a>
@@ -100,7 +102,7 @@ $activeItems = [
           <a class="nav-link text-white table-hover rounded <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABMs" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABMs">
             ABM
           </a>
-          <div class="collapse ps-3" id="submenuABMs">
+          <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
             <a class="nav-link <?= $activeItems['familias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/familias">Familias</a>
             <a class="nav-link <?= $activeItems['grupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/grupos">Grupos</a>
             <a class="nav-link <?= $activeItems['subGrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/subGrupos">Sub Grupos</a>
@@ -112,7 +114,7 @@ $activeItems = [
           <a class="nav-link text-white table-hover rounded <?= $recetasActive ?>" data-bs-toggle="collapse" href="#submenuRecetas" role="button" aria-expanded="<?= $recetasOpen ? 'true' : 'false' ?>" aria-controls="submenuRecetas">
             RECETAS
           </a>
-          <div class="collapse ps-3" id="submenuRecetas">
+          <div class="collapse ps-3 <?= $recetasOpen ?>" id="submenuRecetas">
             <a class="nav-link <?= $activeItems['nuevaReceta'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/recetas/nuevaReceta">Nueva Receta</a>
             <a class="nav-link <?= $activeItems['recetas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/recetas/recetas">Recetas</a>
           </div>
@@ -120,7 +122,7 @@ $activeItems = [
           <a class="nav-link text-white table-hover rounded <?= $planificacionActive ?>" data-bs-toggle="collapse" href="#submenuPlanificacion" role="button" aria-expanded="<?= $planificacionOpen ? 'true' : 'false' ?>" aria-controls="submenuPlanificacion">
             PLANIFICACIÓN DE LA PRODUCCIÓN
           </a>
-          <div class="collapse ps-3" id="submenuPlanificacion">
+          <div class="collapse ps-3 <?= $planificacionOpen ?>" id="submenuPlanificacion">
             <a class="nav-link <?= $activeItems['planConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/planificacion/planConSeleccion">Plan con Selección de Stock</a>
             <a class="nav-link <?= $activeItems['planSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/planificacion/planSinSeleccion">Plan sin Selección de Stock</a>
           </div>
@@ -128,30 +130,25 @@ $activeItems = [
           <a class="nav-link text-white table-hover rounded <?= $ingresoActive ?>" data-bs-toggle="collapse" href="#submenuIngreso" role="button" aria-expanded="<?= $ingresoOpen ? 'true' : 'false' ?>" aria-controls="submenuIngreso">
             INGRESO A PRODUCCIÓN
           </a>
-          <div class="collapse ps-3" id="submenuIngreso">
+          <div class="collapse ps-3 <?= $ingresoOpen ?>" id="submenuIngreso">
             <a class="nav-link <?= $activeItems['ingresoConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ingreso/planConSeleccion">Ingreso a proceso con Selección de Stock</a>
             <a class="nav-link <?= $activeItems['ingresoSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ingreso/planSinSeleccion">Ingreso a proceso sin Selección de Stock</a>
           </div>
 
-          <a class="nav-link text-white table-hover rounded <?= $etqPrimariasActive ?>" data-bs-toggle="collapse" href="#submenuEtqPrimarias" role="button" aria-expanded="<?= $etqPrimariasOpen ? 'true' : 'false' ?>" aria-controls="submenuEtqPrimarias">
-            EMISIÓN DE ETIQUETAS PRIMARIAS
+          <a class="nav-link text-white table-hover rounded <?= $salidaActive ?>" data-bs-toggle="collapse" href="#submenuSalida" role="button" aria-expanded="<?= $salidaOpen ? 'true' : 'false' ?>" aria-controls="submenuSalida">
+            SALIDA DE PRODUCCIÓN
           </a>
-          <div class="collapse ps-3" id="submenuEtqPrimarias">
-            <a class="nav-link <?= $activeItems['etqPrimariasConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/etqPrimarias/planConSeleccion">Etiquetas primarias con Selección de Stock</a>
-            <a class="nav-link <?= $activeItems['etqPrimariasSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/etqPrimarias/planSinSeleccion">Etiquetas primarias sin Selección de Stock</a>
+          <div class="collapse ps-3 <?= $salidaOpen ?>" id="submenuSalida">
+            <a class="nav-link <?= $activeItems['salidaEtqPriConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/salida/etqPriConSeleccion">Etiquetas primarias con Selección de Stock</a>
+            <a class="nav-link <?= $activeItems['salidaEtqPriSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/salida/etqPriSinSeleccion">Etiquetas primarias sin Selección de Stock</a>
+            <a class="nav-link <?= $activeItems['salidaEtqSecConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/salida/etqSecConSeleccion">Etiquetas secundarias con Selección de Stock</a>
+            <a class="nav-link <?= $activeItems['salidaEtqSecSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/salida/etqSecSinSeleccion">Etiquetas secundarias sin Selección de Stock</a>
           </div>
 
-          <a class="nav-link text-white table-hover rounded <?= $etqSecundariasActive ?>" data-bs-toggle="collapse" href="#submenuEtqSecundarias" role="button" aria-expanded="<?= $etqSecundariasOpen ? 'true' : 'false' ?>" aria-controls="submenuEtqSecundarias">
-            EMISIÓN DE ETIQUETAS SECUNDARIAS
-          </a>
-          <div class="collapse ps-3" id="submenuEtqSecundarias">
-            <a class="nav-link <?= $activeItems['etqSecundariasConSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/etqSecundarias/planConSeleccion">Etiquetas secundarias con Selección de Stock</a>
-            <a class="nav-link <?= $activeItems['etqSecundariasSinSeleccion'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/etqSecundarias/planSinSeleccion">Etiquetas secundarias sin Selección de Stock</a>
-          </div>
         </div>
       </aside>
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 p-4">
+      <main class="col-md-9 col-lg-10 p-4 d-flex justify-content-center align-items-start">
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>
