@@ -65,8 +65,9 @@ $activeItems = [
             INGRESOS
           </a>
           <div class="collapse ps-3 <?= $ingresosOpen ?>" id="submenuIngresos">
-            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/hacienda">Ingreso de hacienda</a>
-            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/materiaPrima">Ingreso de materia prima</a>
+            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/hacienda">Hacienda</a>
+            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/hacienda">Perecederos</a>
+            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/materiaPrima">No perecederos</a>
           </div>
 
         </div>
