@@ -72,7 +72,7 @@ $activeItems = [
         </div>
       </aside>
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 p-4 d-flex justify-content-center align-items-start">
+      <main class="col-md-9 col-lg-10 p-4">
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>
