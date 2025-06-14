@@ -28,21 +28,21 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<!-- Columna izquierda: trazabilidad -->
 											<div class="col-md-6">
 												<div class="card mb-3">
-													<div class="card-header bg-light">
+<!-- 													<div class="card-header bg-light">
 														<strong>Trazabilidad</strong>
-													</div>
+													</div> -->
 													<div class="card-body">
 
 														<input type="hidden" name="operador_id" value="<?= $_SESSION['operador_id'] ?? '' ?>">
 
 														<div class="mb-3">
-															<label for="fecha_faena" class="form-label">Fecha de Faena</label>
+															<label for="fecha_faena" class="form-label">Fecha Faena</label>
 															<input type="date" class="form-control" name="fecha_faena" id="fecha_faena" required>
 														</div>
 
 														<div class="mb-3">
-															<label for="fecha_produccion" class="form-label">Fecha y Hora de Producción</label>
-															<input type="datetime-local" class="form-control" name="fecha_produccion" id="fecha_produccion" required>
+															<label for="fecha_produccion" class="form-label">Fecha Producción</label>
+															<input type="date" class="form-control" name="fecha_produccion" id="fecha_produccion" required>
 														</div>
 
 														<div class="mb-3">
@@ -90,9 +90,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 												<!-- Parte superior: Datos físicos -->
 												<div class="card mb-3">
-													<div class="card-header bg-light">
+<!-- 													<div class="card-header bg-light">
 														<strong>Datos Físicos</strong>
-													</div>
+													</div> -->
 													<div class="card-body">
 														<div class="row g-3">
 															<div class="col-md-6">
