@@ -194,22 +194,26 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 				if (modo === 'neto') {
 						inputNeto.removeAttribute('readonly');
-						inputBruto.setAttribute('readonly', 'readonly');
-
+						inputNeto.classList.remove('input-disabled-style');
+						inputNeto.classList.remove('bg-light');
 						inputNeto.classList.add('bg-primary-subtle');
+						
+						inputBruto.setAttribute('readonly', 'readonly');
 						inputBruto.classList.remove('bg-primary-subtle');
+						inputBruto.classList.add('input-disabled-style');
 						inputBruto.classList.add('bg-light');
 
-						inputNeto.classList.remove('bg-light');
 				} else {
 						inputBruto.removeAttribute('readonly');
-						inputNeto.setAttribute('readonly', 'readonly');
-
+						inputBruto.classList.remove('input-disabled-style');
+						inputBruto.classList.remove('bg-light');
 						inputBruto.classList.add('bg-primary-subtle');
+						
+						inputNeto.setAttribute('readonly', 'readonly');
 						inputNeto.classList.remove('bg-primary-subtle');
+						inputNeto.classList.add('input-disabled-style');
 						inputNeto.classList.add('bg-light');
 
-						inputBruto.classList.remove('bg-light');
 				}
 		}
 

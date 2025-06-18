@@ -233,4 +233,12 @@ table.dataTable thead td {
   border-color: #198754 !important;
 }
 
+.input-disabled-style {
+  background-color: #e9ecef;  /* gris claro típico de bootstrap disabled */
+  color: #6c757d;             /* texto gris */
+  opacity: 1;                 /* para que no se vea transparente */
+  cursor: not-allowed;
+}
+
+
 
