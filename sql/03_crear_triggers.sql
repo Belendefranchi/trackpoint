@@ -43,3 +43,18 @@ BEGIN
 	INNER JOIN inserted i ON per.permiso_id = i.permiso_id;
 END;
 GO
+
+
+CREATE TRIGGER trg_Update_produccion_general
+ON produccion_general
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE produccion_general
+    SET fecha_modificacion = GETDATE()
+    FROM produccion_general p
+    INNER JOIN inserted i ON p.codbar_id = i.codbar_id;
+END;
+GO
