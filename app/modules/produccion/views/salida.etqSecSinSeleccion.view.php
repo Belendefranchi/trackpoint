@@ -28,37 +28,53 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<!-- Columna izquierda: trazabilidad -->
 											<div class="col-md-6">
 												<div class="card mb-3">
-<!-- 													<div class="card-header bg-light">
-														<strong>Trazabilidad</strong>
-													</div> -->
+
 													<div class="card-body">
 
 														<input type="hidden" name="operador_id" value="<?= $_SESSION['operador_id'] ?? '' ?>">
-
-														<div class="mb-3 d-flex flex-row">
-															<div class="w-100 pe-2">
-																<label for="fecha_produccion" class="form-label">Fecha Producción</label>
-																<input type="date" class="form-control" name="fecha_produccion" id="fecha_produccion" required>
+														
+														<div class="mb-3 row align-items-center">
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="fecha_produccion" class="col-md-6 col-form-label">Fecha Producción</label>
+																	<div class="col-md-6 ps-0">
+																		<input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" required>
+																	</div>
+																</div>
 															</div>
-															<div class="w-100 ps-2">
-																<label for="lote" class="form-label">Lote</label>
-																<input type="text" class="form-control" name="lote" id="lote" required>
-															</div>
-														</div>
-
-														<div class="mb-3 d-flex flex-row">
-															<div class="w-100 pe-2">
-																<label for="fecha_faena" class="form-label">Fecha Faena</label>
-																<input type="date" class="form-control" name="fecha_faena" id="fecha_faena" required>
-															</div>
-															<div class="w-100 ps-2">
-																<label for="tropa" class="form-label">Tropa</label>
-																<input type="text" class="form-control" name="tropa" id="tropa" required>
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="lote" class="col-md-4 col-form-label ps-5">Lote</label>
+																	<div class="col-md-8 ps-0">
+																		<input type="text" class="form-control" id="lote" name="lote" required>
+																	</div>
+																</div>
 															</div>
 														</div>
 
-														<div class="mb-3">
-															<label for="turno" class="form-label">Turno</label>
+														<div class="mb-3 row align-items-center">
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="fecha_faena" class="col-md-6 col-form-label">Fecha Faena</label>
+																	<div class="col-md-6 ps-0">
+																		<input type="date" class="form-control" id="fecha_faena" name="fecha_faena" required>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="tropa" class="col-md-4 col-form-label ps-5">Tropa</label>
+																	<div class="col-md-8 ps-0">
+																		<input type="text" class="form-control" id="tropa" name="tropa" required>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+
+														<div class="mb-3 d-flex flex-row align-items-center">
+															<label for="turno" class="form-label col-md-2">Turno</label>
 															<select class="form-select" name="turno" id="turno">
 																<option value="">Seleccionar</option>
 																<option value="mañana">Mañana</option>
@@ -67,16 +83,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</select>
 														</div>
 
-														<div class="mb-3">
-															<label class="form-label">Proceso</label>
+														<div class="mb-3 d-flex flex-row align-items-center">
+															<label class="form-label col-md-2">Proceso</label>
 															<div class="input-group">
 																<input type="text" class="form-control" name="codigo_proceso" id="codigo_proceso" readonly required>
 																<button type="button" class="btn btn-primary" onclick="abrirSelectorProceso()"><i class="bi bi-search"></i></button>
 															</div>
 														</div>
 
-														<div class="mb-3">
-															<label class="form-label">Producto</label>
+														<div class="mb-3 d-flex flex-row align-items-center">
+															<label class="form-label col-md-2">Producto</label>
 															<div class="input-group">
 																<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
 																<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()"><i class="bi bi-search"></i></button>
@@ -92,9 +108,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 												<!-- Parte superior: Datos físicos -->
 												<div class="card mb-3">
-<!-- 													<div class="card-header bg-light">
-														<strong>Datos Físicos</strong>
-													</div> -->
+
 													<div class="card-body">
 														<div class="row g-3">
 															<div class="col-md-6">
@@ -130,9 +144,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 														</div>
 
-														<div class="mt-4">
+<!-- 														<div class="mt-4">
 															<button type="submit" class="btn btn-primary btn-lg">Emitir Etiqueta</button>
-														</div>
+														</div> -->
 													</div>
 												</div>
 
