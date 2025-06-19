@@ -18,6 +18,7 @@ $routes = [
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+	'/produccion/ABMs/mercaderias' => 'app/modules/produccion/controllers/abm.mercaderias.controller.php',
 	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
 
 

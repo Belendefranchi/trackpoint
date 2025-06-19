@@ -128,7 +128,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarPasswordOperador" class="form-label text-primary">Contraseña</label>
+											<label for="crearPasswordOperador" class="form-label text-primary">Contraseña</label>
 											<input type="password" class="form-control" name="password" id="crearPasswordOperador">
 										</div>
 
