@@ -26,12 +26,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 										<div class="row">
 											<!-- Columna izquierda: trazabilidad -->
-											<div class="col-md-6">
+											<div class="col-md-6 ps-0 pe-3">
 												<div class="card mb-3">
-
 													<div class="card-body">
-
-														<input type="hidden" name="operador_id" value="<?= $_SESSION['operador_id'] ?? '' ?>">
 														
 														<div class="mb-3 row align-items-center">
 															<div class="col-md-6">
@@ -44,7 +41,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="lote" class="col-md-4 col-form-label ps-5">Lote</label>
+																	<label for="lote" class="col-md-4 col-form-label ps-4">Lote</label>
 																	<div class="col-md-8 ps-0">
 																		<input type="text" class="form-control" id="lote" name="lote" required>
 																	</div>
@@ -63,7 +60,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="tropa" class="col-md-4 col-form-label ps-5">Tropa</label>
+																	<label for="tropa" class="col-md-4 col-form-label ps-4">Tropa</label>
 																	<div class="col-md-8 ps-0">
 																		<input type="text" class="form-control" id="tropa" name="tropa" required>
 																	</div>
@@ -71,16 +68,24 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 														</div>
 
-
-
-														<div class="mb-3 d-flex flex-row align-items-center">
-															<label for="turno" class="form-label col-md-2">Turno</label>
-															<select class="form-select" name="turno" id="turno">
-																<option value="">Seleccionar</option>
-																<option value="mañana">Mañana</option>
-																<option value="tarde">Tarde</option>
-																<option value="noche">Noche</option>
-															</select>
+														<div class="mb-3 row align-items-center">
+															<div class="col-md-6">
+																<div class="d-flex flex-row align-items-center">
+																	<label for="usuario_faena" class="col-md-4 col-form-label me-1">Usuario Faena</label>
+																	<div class="input-group">
+																		<input type="text" class="form-control" name="usuario_faena" id="usuario_faena" readonly required>
+																		<button type="button" class="btn btn-primary" onclick="abrirSelectorUsuario()"><i class="bi bi-search"></i></button>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="operador_id" class="col-md-4 col-form-label ps-4">Operador</label>
+																	<div class="col-md-8 ps-0">
+																		<input type="text" class="form-control text-end" id="operador_id" name="operador_id" value="<?php echo $_SESSION['username']; ?>" readonly>
+																	</div>
+																</div>
+															</div>
 														</div>
 
 														<div class="mb-3 d-flex flex-row align-items-center">
@@ -104,49 +109,56 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 
 											<!-- Columna derecha -->
-											<div class="col-md-6">
+											<div class="col-md-6 ps-3 pe-0">
 
 												<!-- Parte superior: Datos físicos -->
 												<div class="card mb-3">
-
 													<div class="card-body">
-														<div class="row g-3">
-															<div class="col-md-6">
-																<label for="unidades" class="form-label">Unidades</label>
-																<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold" name="unidades" id="unidades" value="1" required>
-															</div>
 
+														<div class="mb-3 row align-items-center">
 															<div class="col-md-6">
-																<label for="cantidad" class="form-label">Cajas</label>
-																<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold" name="cantidad" id="cantidad" value="1" required>
+																<div class="row align-items-center">
+																	<label for="unidades" class="col-md-4 col-form-label">Unidades</label>
+																	<div class="col-md-8 ps-0">
+																		<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold" name="unidades" id="unidades" value="1" required>
+																	</div>
+																</div>
 															</div>
-
 															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label for="cantidad" class="col-md-4 col-form-label">Cantidad</label>
+																	<div class="col-md-8 ps-0">
+																		<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold" name="cantidad" id="cantidad" value="1" required>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="row g-3 align-items-center">
+															<!-- Tara primaria -->
+															<div class="col-md-3">
 																<label for="tara_pri" class="form-label">Tara Primaria</label>
 																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="tara_pri" id="tara_pri" value="0.00" required>
 															</div>
-
-															<div class="col-md-6">
+															<!-- Tara secundaria -->
+															<div class="col-md-3">
 																<label for="tara_sec" class="form-label">Tara Secundaria</label>
 																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="tara_sec" id="tara_sec" value="0.00" required>
 															</div>
-																
-															<div class="col-md-6">
+															<!-- Peso neto con radio -->
+															<div class="col-md-3">
 																<input class="" type="radio" name="modo_peso" id="modo_neto" value="neto" checked>
-																<label for="peso_neto" class="form-label">Peso Neto</label>
+																<label class="form-label" for="modo_neto">Peso Neto</label>
 																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="peso_neto" id="peso_neto" value="0.00" required>
 															</div>
-																
-															<div class="col-md-6">
-																<input class="" type="radio" name="modo_peso" id="modo_bruto" value="bruto">
-																<label for="peso_bruto" class="form-label">Peso Bruto</label>
+															<!-- Peso bruto con radio -->
+															<div class="col-md-3">
+																<input class="" type="radio" name="modo_peso" id="modo_bruto" value="bruto" checked>
+																<label class="form-label" for="modo_bruto">Peso Bruto</label>
 																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="peso_bruto" id="peso_bruto" value="0.00" required>
 															</div>
 														</div>
 
-<!-- 														<div class="mt-4">
-															<button type="submit" class="btn btn-primary btn-lg">Emitir Etiqueta</button>
-														</div> -->
 													</div>
 												</div>
 
@@ -158,7 +170,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="card-body p-2">
 														<div id="listado-etiquetas" style="max-height: 300px; overflow-y: auto;">
 															<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-															<p class="text-muted">Aún no se emitieron etiquetas.</p>
+															<p class="text-muted text-center">Aún no se emitieron etiquetas</p>
 														</div>
 													</div>
 												</div>
@@ -179,97 +191,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	</div>
 
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
-	<script>
 
-
-		window.addEventListener('DOMContentLoaded', function () {
-				const hoy = new Date().toISOString().split('T')[0];
-				document.getElementById('fecha_faena').value = hoy;
-				document.getElementById('fecha_produccion').value = hoy;
-		});
-
-
-		document.getElementById('unidades').addEventListener('input', function () {
-			this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
-		});
-
-		document.getElementById('cantidad').addEventListener('input', function () {
-			this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
-		});
-
-		function getFloat(id) {
-				return parseFloat(document.getElementById(id).value) || 0;
-		}
-
-		function actualizarCamposActivos() {
-				const modo = document.querySelector('input[name="modo_peso"]:checked').value;
-				const inputNeto = document.getElementById('peso_neto');
-				const inputBruto = document.getElementById('peso_bruto');
-
-				if (modo === 'neto') {
-						inputNeto.removeAttribute('readonly');
-						inputNeto.classList.remove('input-disabled-style');
-						inputNeto.classList.remove('bg-light');
-						inputNeto.classList.add('bg-primary-subtle');
-						
-						inputBruto.setAttribute('readonly', 'readonly');
-						inputBruto.classList.remove('bg-primary-subtle');
-						inputBruto.classList.add('input-disabled-style');
-						inputBruto.classList.add('bg-light');
-
-				} else {
-						inputBruto.removeAttribute('readonly');
-						inputBruto.classList.remove('input-disabled-style');
-						inputBruto.classList.remove('bg-light');
-						inputBruto.classList.add('bg-primary-subtle');
-						
-						inputNeto.setAttribute('readonly', 'readonly');
-						inputNeto.classList.remove('bg-primary-subtle');
-						inputNeto.classList.add('input-disabled-style');
-						inputNeto.classList.add('bg-light');
-
-				}
-		}
-
-		function calcularSegunModo() {
-				const modo = document.querySelector('input[name="modo_peso"]:checked').value;
-				const taraPri = getFloat('tara_pri');
-				const taraSec = getFloat('tara_sec');
-
-				if (modo === 'neto') {
-						const neto = getFloat('peso_neto');
-						const bruto = neto + taraPri + taraSec;
-						document.getElementById('peso_bruto').value = bruto.toFixed(2);
-				} else if (modo === 'bruto') {
-						const bruto = getFloat('peso_bruto');
-						const neto = bruto - taraPri - taraSec;
-						document.getElementById('peso_neto').value = neto.toFixed(2);
-				}
-		}
-
-		// Escuchar cambios
-		['peso_neto', 'peso_bruto', 'tara_pri', 'tara_sec'].forEach(id => {
-				document.getElementById(id).addEventListener('input', calcularSegunModo);
-		});
-
-		document.querySelectorAll('input[name="modo_peso"]').forEach(radio => {
-				radio.addEventListener('change', () => {
-						actualizarCamposActivos();
-						calcularSegunModo();
-				});
-		});
-
-		// Inicializar al cargar
-		window.addEventListener('DOMContentLoaded', () => {
-				actualizarCamposActivos();
-				calcularSegunModo();
-		});
-
-
-
-	</script>
-	<!-- Script DataTables y modales -->
-<!-- 	<script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script> -->
+	<script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script>
 
 </body>
 </html>

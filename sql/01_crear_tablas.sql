@@ -89,6 +89,7 @@ CREATE TABLE produccion_general (
     -- Referencias a proceso y producto
     proceso_id INT NOT NULL,
     mercaderia_id INT NOT NULL,
+    usuario_faena VARCHAR(100) NOT NULL,
     turno VARCHAR(10) CHECK (turno IN ('mañana', 'tarde', 'noche')) NULL,
 
     -- Asociación futura
