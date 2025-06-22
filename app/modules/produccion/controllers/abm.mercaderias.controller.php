@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'];
 		$familia = $_POST['familia'];
 		$grupo = $_POST['grupo'];
-		$subGrupo = $_POST['subgrupo'];
+		$subgrupo = $_POST['subgrupo'];
 
     // Validación básica
-    if (empty($codigo) || empty($descripcion) || empty($familia) || empty($grupo) || empty($subGrupo)) {
+    if (empty($codigo) || empty($descripcion) || empty($familia) || empty($grupo) || empty($subgrupo)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -36,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		try {
 			
-			// Crear el operador en la base de datos
-			$result = crearMercaderia($codigo, $descripcion, $familia, $grupo, $subGrupo);
+			$result = crearMercaderia($codigo, $descripcion, $familia, $grupo, $subgrupo);
 
 			if ($result) {
 				registrarEvento("Mercaderías Controller: Mercadería creada correctamente => " . $codigo, "INFO");
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			} else {
 				// Respuesta de error
 				registrarEvento("Mercaderías Controller: Error al crear la mercadería => " . $codigo, "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear la mercadería']);
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear la mercaderia']);
 				exit;
 			}
 			echo json_encode(['success' => true]);
@@ -68,11 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'];
 		$familia = $_POST['familia'];
 		$grupo = $_POST['grupo'];
-		$subGrupo = $_POST['subgrupo'];
+		$subgrupo = $_POST['subgrupo'];
 		$activo = $_POST['activo'];
 
 		// Validación básica
-		if (empty($codigo) || empty($descripcion) || empty($familia) || empty($grupo) || empty($subGrupo)) {
+		if (empty($codigo) || empty($descripcion) || empty($familia) || empty($grupo) || empty($subgrupo)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -85,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		try {
 			// Llamar a la función que actualiza los datos
-			$result = editarMercaderia($mercaderia_id, $descripcion, $familia, $grupo, $subGrupo, $activo);
+			$result = editarMercaderia($mercaderia_id, $descripcion, $familia, $grupo, $subgrupo, $activo);
 
 			if ($result) {
 				// Respuesta de éxito
