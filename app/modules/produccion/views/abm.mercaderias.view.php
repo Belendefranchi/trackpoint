@@ -118,23 +118,23 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="crearDescrionMercaderia" class="form-label text-primary">Descripción</label>
-											<input type="text" class="form-control" name="descripcion" id="crearDescrionMercaderia">
+											<label for="crearDescripcionMercaderia" class="form-label text-primary">Descripción</label>
+											<input type="text" class="form-control" name="descripcion" id="crearDescripcionMercaderia">
 										</div>
 
 										<div class="mb-3">
-											<label for="crearfamiliaMercaderia" class="form-label text-primary">Familia</label>
-											<input type="text" class="form-control" name="familia" id="crearfamiliaMercaderia">
+											<label for="crearFamiliaMercaderia" class="form-label text-primary">Familia</label>
+											<input type="text" class="form-control" name="familia" id="crearFamiliaMercaderia">
 										</div>
 
 										<div class="mb-3">
 											<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
-											<input type="text" class="form-control" name="password" id="crearGrupoMercaderia">
+											<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
 										</div>
 
 										<div class="mb-3">
 											<label for="crearSubGrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-											<input type="text" class="form-control" name="password" id="crearSubGrupoMercaderia">
+											<input type="text" class="form-control" name="subgrupo" id="crearSubGrupoMercaderia">
 										</div>
 
 									</div>

@@ -108,28 +108,28 @@ CREATE TABLE produccion_general (
     CONSTRAINT FK_produccion_editado_por FOREIGN KEY (editado_por_id) REFERENCES configuracion_abm_operadores(operador_id),
     CONSTRAINT FK_produccion_proceso FOREIGN KEY (proceso_id) REFERENCES produccion_abm_procesos(proceso_id),
     CONSTRAINT FK_produccion_producto FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id),
-    CONSTRAINT FK_produccion_pallet FOREIGN KEY (pallet_id) REFERENCES produccion_pallets(pallet_id),
-    CONSTRAINT FK_produccion_pedido FOREIGN KEY (pedido_id) REFERENCES expedicion_pedidos(pedido_id)
+    --CONSTRAINT FK_produccion_pallet FOREIGN KEY (pallet_id) REFERENCES produccion_pallets(pallet_id),
+    --CONSTRAINT FK_produccion_pedido FOREIGN KEY (pedido_id) REFERENCES expedicion_pedidos(pedido_id)
 );
 GO
 
 -- Índices por fechas
-CREATE INDEX idx_produccion_fecha_produccion ON produccion_general(fecha_produccion) WITH (ONLINE = ON);
+/* CREATE INDEX idx_produccion_fecha_produccion ON produccion_general(fecha_produccion) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_fecha_faena ON produccion_general(fecha_faena) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_fecha_sistema ON produccion_general(fecha_sistema) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_fecha_sistema ON produccion_general(fecha_sistema) WITH (ONLINE = ON); */
 
 -- Índices por estado
-CREATE INDEX idx_produccion_estado ON produccion_general(estado) WITH (ONLINE = ON);
+/* CREATE INDEX idx_produccion_estado ON produccion_general(estado) WITH (ONLINE = ON); */
 
 -- Índices por códigos de barras (ajustar a UNIQUE si aplica)
-CREATE INDEX idx_produccion_codbar_e ON produccion_general(codbar_e) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_codbar_s ON produccion_general(codbar_s) WITH (ONLINE = ON);
+/* CREATE INDEX idx_produccion_codbar_e ON produccion_general(codbar_e) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_codbar_s ON produccion_general(codbar_s) WITH (ONLINE = ON); */
 
 -- Índices por relaciones a otras entidades
-CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE = ON);
+/* CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON); */
 
 
 
