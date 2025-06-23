@@ -1,14 +1,6 @@
--- 1. Dropear tablas si existen
-IF OBJECT_ID('configuracion_abm_perfilesPorOperador', 'U') IS NOT NULL DROP TABLE configuracion_abm_perfilesPorOperador;
-IF OBJECT_ID('configuracion_abm_permisosPorPerfil', 'U') IS NOT NULL DROP TABLE configuracion_abm_permisosPorPerfil;
-IF OBJECT_ID('configuracion_abm_operadores', 'U') IS NOT NULL DROP TABLE configuracion_abm_operadores;
-IF OBJECT_ID('configuracion_abm_perfiles', 'U') IS NOT NULL DROP TABLE configuracion_abm_perfiles;
-IF OBJECT_ID('configuracion_abm_permisos', 'U') IS NOT NULL DROP TABLE configuracion_abm_permisos;
-
 /* ------------------------------------ TABLAS CONFIGURACIÓN ------------------------------------ */
 /* ############################################################################################## */
 
--- 2. Crear tabla configuracion_abm_operadores
 CREATE TABLE configuracion_abm_operadores (
 	operador_id INT PRIMARY KEY IDENTITY(1,1),
 	username VARCHAR(20) NOT NULL,
@@ -23,7 +15,6 @@ CREATE TABLE configuracion_abm_operadores (
 	activo BIT DEFAULT 1
 );
 
--- 3. Crear tabla configuracion_abm_perfiles
 CREATE TABLE configuracion_abm_perfiles (
 	perfil_id INT PRIMARY KEY IDENTITY(1,1),
 	nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -35,7 +26,6 @@ CREATE TABLE configuracion_abm_perfiles (
 	activo BIT DEFAULT 1
 );
 
--- 4. Crear tabla configuracion_abm_perfilesPorOperador
 CREATE TABLE configuracion_abm_perfilesPorOperador (
 	operador_id INT,
 	perfil_id INT,
@@ -44,7 +34,6 @@ CREATE TABLE configuracion_abm_perfilesPorOperador (
 	FOREIGN KEY (perfil_id) REFERENCES configuracion_abm_perfiles(perfil_id) ON DELETE CASCADE
 );
 
--- 5. Crear tabla configuracion_abm_permisos
 CREATE TABLE configuracion_abm_permisos (
 	permiso_id INT PRIMARY KEY IDENTITY(1,1),
 	nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -56,7 +45,6 @@ CREATE TABLE configuracion_abm_permisos (
 	editado_por VARCHAR(20) NULL
 );
 
--- 6. Crear tabla configuracion_abm_permisosPorPerfil
 CREATE TABLE configuracion_abm_permisosPorPerfil (
 	perfil_id INT,
 	permiso_id INT,
@@ -65,9 +53,9 @@ CREATE TABLE configuracion_abm_permisosPorPerfil (
 	FOREIGN KEY (permiso_id) REFERENCES configuracion_abm_permisos(permiso_id) ON DELETE CASCADE
 );
 
+
 /* -------------------------------------- TABLAS PRODUCCIÓN -------------------------------------- */
 /* ############################################################################################### */
-
 
 CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
