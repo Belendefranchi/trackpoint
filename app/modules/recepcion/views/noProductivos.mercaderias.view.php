@@ -147,7 +147,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="card-body p-2">
 														<div id="listado-etiquetas">
 															<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-															<p class="text-muted text-center text-primary">Aún no se ingresaron ítems</p>
+															<p class="text-muted text-center">Aún no se ingresaron ítems</p>
 														</div>
 													</div>
 												</div>

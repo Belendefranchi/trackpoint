@@ -10,8 +10,8 @@ $currentUri = $_SERVER['REQUEST_URI'];
 $ingresosPOpen = str_contains($currentUri, '/recepcion/productivos') ? 'show' : '';
 $ingresosPActive = str_contains($currentUri, '/recepcion/productivos') ? 'active' : '';
 
-$ingresosnpOpen = str_contains($currentUri, '/recepcion/noProductivos') ? 'show' : '';
-$ingresosnpActive = str_contains($currentUri, '/recepcion/noProductivos') ? 'active' : '';
+$ingresosNPOpen = str_contains($currentUri, '/recepcion/noProductivos') ? 'show' : '';
+$ingresosNPActive = str_contains($currentUri, '/recepcion/noProductivos') ? 'active' : '';
 
 
 $activeItems = [

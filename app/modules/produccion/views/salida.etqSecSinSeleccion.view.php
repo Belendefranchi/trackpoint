@@ -170,7 +170,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="card-body p-2">
 														<div id="listado-etiquetas" style="max-height: 300px; overflow-y: auto;">
 															<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-															<p class="text-muted text-center text-primary">Aún no se emitieron etiquetas</p>
+															<p class="text-muted text-center">Aún no se emitieron etiquetas</p>
 														</div>
 													</div>
 												</div>
