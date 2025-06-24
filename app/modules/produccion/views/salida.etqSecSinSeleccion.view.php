@@ -35,7 +35,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="fecha_produccion" class="col-md-6 col-form-label text-primary">Fecha Producción</label>
 																	<div class="col-md-6 ps-0">
-																		<input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" required>
+																		<input type="date" class="form-control text-primary" id="fecha_produccion" name="fecha_produccion" required>
 																	</div>
 																</div>
 															</div>
@@ -138,12 +138,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<!-- Tara primaria -->
 															<div class="col-md-3">
 																<label for="tara_pri" class="form-label text-primary">Tara Primaria</label>
-																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="tara_pri" id="tara_pri" value="0.00" required>
+																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold text-primary" name="tara_pri" id="tara_pri" value="0.00" required>
 															</div>
 															<!-- Tara secundaria -->
 															<div class="col-md-3">
 																<label for="tara_sec" class="form-label text-primary">Tara Secundaria</label>
-																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="tara_sec" id="tara_sec" value="0.00" required>
+																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold text-primary" name="tara_sec" id="tara_sec" value="0.00" required>
 															</div>
 															<!-- Peso neto con radio -->
 															<div class="col-md-3">

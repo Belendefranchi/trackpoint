@@ -26,10 +26,12 @@ function actualizarCamposActivos() {
 			inputNeto.removeAttribute('readonly');
 			inputNeto.classList.remove('input-disabled-style');
 			inputNeto.classList.remove('bg-light');
+			inputNeto.classList.add('text-primary');
 			inputNeto.classList.add('bg-primary-subtle');
 			
 			inputBruto.setAttribute('readonly', 'readonly');
 			inputBruto.classList.remove('bg-primary-subtle');
+			inputBruto.classList.remove('text-primary');
 			inputBruto.classList.add('input-disabled-style');
 			inputBruto.classList.add('bg-light');
 
@@ -37,10 +39,12 @@ function actualizarCamposActivos() {
 			inputBruto.removeAttribute('readonly');
 			inputBruto.classList.remove('input-disabled-style');
 			inputBruto.classList.remove('bg-light');
+			inputBruto.classList.add('text-primary');
 			inputBruto.classList.add('bg-primary-subtle');
 			
 			inputNeto.setAttribute('readonly', 'readonly');
 			inputNeto.classList.remove('bg-primary-subtle');
+			inputNeto.classList.remove('text-primary');
 			inputNeto.classList.add('input-disabled-style');
 			inputNeto.classList.add('bg-light');
 
