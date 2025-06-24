@@ -79,7 +79,7 @@ $activeItems = [
             NO PRODUCTIVOS
           </a>
           <div class="collapse ps-3 <?= $ingresosNPOpen ?>" id="submenuNoProductivos">
-            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/mercaderias">Mercaderías</a>
+            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/noProductivos/mercaderias">Mercaderías</a>
 
           </div>
 
