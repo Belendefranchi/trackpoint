@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 														<!-- Proveedor -->
 														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label">Proveedor</label>
+															<label class="col-md-2 col-form-label text-primary">Proveedor</label>
 															<div class="col-md-10 ps-0">
 																<div class="input-group">
 																	<input type="text" class="form-control" name="codigo_proveedor" id="codigo_proveedor" readonly required>
@@ -47,15 +47,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="mb-3 row">
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="fecha_ingreso" class="col-md-4 col-form-label">Fecha Ingreso</label>
+																	<label for="fecha_ingreso" class="col-md-4 col-form-label text-primary">Fecha Ingreso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" required>
+																		<input type="date" class="form-control text-primary" id="fecha_ingreso" name="fecha_ingreso" required>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="operador_id" class="col-md-4 col-form-label">Operador</label>
+																	<label for="operador_id" class="col-md-4 col-form-label text-primary ps-5">Operador</label>
 																	<div class="col-md-8 ps-0">
 																		<input type="text" class="form-control text-end" id="operador_id" name="operador_id" value="<?php echo $_SESSION['username']; ?>" readonly>
 																	</div>
@@ -67,15 +67,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="mb-3 row">
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="fecha_remito" class="col-md-4 col-form-label">Fecha Remito</label>
+																	<label for="fecha_remito" class="col-md-4 col-form-label text-primary">Fecha Remito</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control" id="fecha_remito" name="fecha_remito" required>
+																		<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito" required>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="nro_remito" class="col-md-4 col-form-label">Nro. Remito</label>
+																	<label for="nro_remito" class="col-md-4 col-form-label text-primary ps-5">Nro. Remito</label>
 																	<div class="col-md-8 ps-0">
 																		<input type="text" class="form-control" id="nro_remito" name="nro_remito" required>
 																	</div>
@@ -85,7 +85,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 														<!-- Código -->
 														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label">Código</label>
+															<label class="col-md-2 col-form-label text-primary">Código</label>
 															<div class="col-md-10 ps-0">
 																<div class="input-group">
 																	<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
@@ -98,7 +98,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 														<!-- Descripción -->
 														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label">Descripción</label>
+															<label class="col-md-2 col-form-label text-primary">Descripción</label>
 															<div class="col-md-10 ps-0">
 																<div class="input-group">
 																	<input type="text" class="form-control" name="descripcion_producto" id="descripcion_producto" readonly required>
@@ -113,17 +113,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="mb-3 row">
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="unidades" class="col-md-4 col-form-label">Unidades</label>
+																	<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold" name="unidades" id="unidades" value="0" required>
+																		<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="0" required>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="peso" class="col-md-4 col-form-label">Peso</label>
+																	<label for="peso" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold" name="peso" id="peso" value="0.00" required>
+																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso" id="peso" value="0.00" required>
 																	</div>
 																</div>
 															</div>
@@ -141,13 +141,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 											<div class="">
 												<div class="card mb-3">
-													<div class="card-header bg-light">
+													<div class="card-header bg-light text-primary">
 														<strong>Ítems ingresados</strong>
 													</div>
 													<div class="card-body p-2">
 														<div id="listado-etiquetas">
 															<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-															<p class="text-muted text-center">Aún no se ingresaron ítems</p>
+															<p class="text-muted text-center text-primary">Aún no se ingresaron ítems</p>
 														</div>
 													</div>
 												</div>
