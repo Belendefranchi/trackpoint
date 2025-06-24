@@ -57,6 +57,91 @@ CREATE TABLE configuracion_abm_permisosPorPerfil (
 /* -------------------------------------- TABLAS PRODUCCIÓN -------------------------------------- */
 /* ############################################################################################### */
 
+CREATE TABLE produccion_abm_mercaderias (
+    mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    familia VARCHAR(50) NOT NULL,
+    grupo VARCHAR(50) NULL,
+    subgrupo VARCHAR(50) NULL,
+    unidad_medida VARCHAR(20) NOT NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE produccion_abm_familias (
+    familia_id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE produccion_abm_grupos (
+    grupo_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE produccion_abm_subgrupos (
+    subgrupo_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+
+CREATE TABLE produccion_abm_procesos (
+    proceso_id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE produccion_abm_traducciones (
+    traduccion_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE produccion_pallets (
+    pallet_id INT PRIMARY KEY IDENTITY(1,1),
+    estado VARCHAR(50) NOT NULL CHECK (estado IN ('disponible', 'en_proceso', 'completo', 'en_pedido', 'en_carga', 'despachado')),
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+
 CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
 
@@ -113,23 +198,26 @@ CREATE TABLE produccion_general (
 );
 GO
 
+
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
+
 -- Índices por fechas
-/* CREATE INDEX idx_produccion_fecha_produccion ON produccion_general(fecha_produccion) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_fecha_produccion ON produccion_general(fecha_produccion) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_fecha_faena ON produccion_general(fecha_faena) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_fecha_sistema ON produccion_general(fecha_sistema) WITH (ONLINE = ON); */
+CREATE INDEX idx_produccion_fecha_sistema ON produccion_general(fecha_sistema) WITH (ONLINE = ON);
 
 -- Índices por estado
-/* CREATE INDEX idx_produccion_estado ON produccion_general(estado) WITH (ONLINE = ON); */
+CREATE INDEX idx_produccion_estado ON produccion_general(estado) WITH (ONLINE = ON);
 
 -- Índices por códigos de barras (ajustar a UNIQUE si aplica)
-/* CREATE INDEX idx_produccion_codbar_e ON produccion_general(codbar_e) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_codbar_s ON produccion_general(codbar_s) WITH (ONLINE = ON); */
+CREATE INDEX idx_produccion_codbar_e ON produccion_general(codbar_e) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_codbar_s ON produccion_general(codbar_s) WITH (ONLINE = ON);
 
 -- Índices por relaciones a otras entidades
-/* CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE = ON);
+CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
-CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON); */
+CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
 
 
 
