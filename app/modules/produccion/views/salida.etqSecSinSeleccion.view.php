@@ -84,9 +84,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="producto_id" class="col-md-4 col-form-label ps-4 text-primary">producto</label>
+																	<label for="operador_id" class="col-md-4 col-form-label ps-4 text-primary">Operador</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="text" class="form-control text-end" id="producto_id" name="producto_id" value="<?php echo $_SESSION['codigo']; ?>" readonly>
+																		<input type="text" class="form-control text-end" id="operador_id" name="operador_id" value="<?php echo $_SESSION['username']; ?>" readonly>
 																	</div>
 																</div>
 															</div>
@@ -107,13 +107,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="mb-3 d-flex flex-row align-items-center">
 															<label class="form-label col-md-2 text-primary">Producto</label>
 															<div class="input-group">
- 																<?php if (isset($_SESSION['producto_seleccionado'])): ?>
+																<?php //if (isset($_SESSION['producto_seleccionado'])): ?>
 																	<?php $productoSeleccionado = $_SESSION['producto_seleccionado']; ?>
 																	<script>
 																		const productoSeleccionado = "<?= $productoSeleccionado['codigo'] ?>";
 																	</script>
 																	<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" value=<?php echo htmlspecialchars($productoSeleccionado['codigo']); ?> readonly required>
-																<?php endif; ?><!-- 6788 -->
+																<?php //endif; ?>
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalSeleccionarProducto">
