@@ -30,6 +30,19 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="card mb-3">
 													<div class="card-body">
 
+														<!-- Proveedor -->
+														<div class="mb-3 row align-items-center">
+															<label class="col-md-2 col-form-label text-primary">Proveedor</label>
+															<div class="col-md-10 ps-0">
+																<div class="input-group">
+																	<input type="text" class="form-control" name="codigo_proveedor" id="codigo_proveedor" readonly required>
+																	<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
+																		<i class="bi bi-search"></i>
+																	</button>
+																</div>
+															</div>
+														</div>
+
 														<!-- Fecha Ingreso y Operador -->
 														<div class="mb-3 row">
 															<div class="col-md-6">
@@ -66,19 +79,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<input type="text" class="form-control" id="nro_remito" name="nro_remito" required>
 																	</div>
-																</div>
-															</div>
-														</div>
-
-														<!-- Proveedor -->
-														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label text-primary">Proveedor</label>
-															<div class="col-md-10 ps-0">
-																<div class="input-group">
-																	<input type="text" class="form-control" name="codigo_proveedor" id="codigo_proveedor" readonly required>
-																	<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
-																		<i class="bi bi-search"></i>
-																	</button>
 																</div>
 															</div>
 														</div>

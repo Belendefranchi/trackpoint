@@ -74,15 +74,19 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<label for="usuario_faena" class="col-md-4 col-form-label me-1 text-primary">Usuario Faena</label>
 																	<div class="input-group">
 																		<input type="text" class="form-control" name="usuario_faena" id="usuario_faena" readonly required>
-																		<button type="button" class="btn btn-primary" onclick="abrirSelectorUsuario()"><i class="bi bi-search"></i></button>
+																		<a href="#" class="btn btn-primary"
+																			data-bs-toggle="modal" 
+																			data-bs-target="#modalSeleccionarUsuario">
+																			<i class="bi bi-search"></i>
+																		</a>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="operador_id" class="col-md-4 col-form-label ps-4 text-primary">Operador</label>
+																	<label for="producto_id" class="col-md-4 col-form-label ps-4 text-primary">producto</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="text" class="form-control text-end" id="operador_id" name="operador_id" value="<?php echo $_SESSION['username']; ?>" readonly>
+																		<input type="text" class="form-control text-end" id="producto_id" name="producto_id" value="<?php echo $_SESSION['codigo']; ?>" readonly>
 																	</div>
 																</div>
 															</div>
@@ -92,15 +96,29 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<label class="form-label col-md-2 text-primary">Proceso</label>
 															<div class="input-group">
 																<input type="text" class="form-control" name="codigo_proceso" id="codigo_proceso" readonly required>
-																<button type="button" class="btn btn-primary" onclick="abrirSelectorProceso()"><i class="bi bi-search"></i></button>
+																<a href="#" class="btn btn-primary"
+																	data-bs-toggle="modal" 
+																	data-bs-target="#modalSeleccionarProceso">
+																	<i class="bi bi-search"></i>
+																</a>
 															</div>
 														</div>
 
 														<div class="mb-3 d-flex flex-row align-items-center">
 															<label class="form-label col-md-2 text-primary">Producto</label>
 															<div class="input-group">
-																<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
-																<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()"><i class="bi bi-search"></i></button>
+ 																<?php if (isset($_SESSION['producto_seleccionado'])): ?>
+																	<?php $productoSeleccionado = $_SESSION['producto_seleccionado']; ?>
+																	<script>
+																		const productoSeleccionado = "<?= $productoSeleccionado['codigo'] ?>";
+																	</script>
+																	<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" value=<?php echo htmlspecialchars($productoSeleccionado['codigo']); ?> readonly required>
+																<?php endif; ?><!-- 6788 -->
+																<a href="#" class="btn btn-primary"
+																	data-bs-toggle="modal" 
+																	data-bs-target="#modalSeleccionarProducto">
+																	<i class="bi bi-search"></i>
+																</a>
 															</div>
 														</div>
 
@@ -184,6 +202,72 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</td>
 						</tr>
 					</table>
+				</div>
+
+				<!-- Modal de selección de producto -->
+				<div class="modal fade m-5" id="modalSeleccionarProducto" tabindex="-1" aria-labelledby="modalSeleccionarProductoLabel" aria-hidden="true">
+					<div class="modal-dialog d-flex">
+						<form method="POST" id="formSeleccionarProducto" action="/trackpoint/public/index.php?route=/produccion/salida/etqSecSinSeleccion&seleccionar">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalSeleccionarProductoLabel">Seleccionar producto</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+
+									<div class="mb-3">
+										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
+											<thead class="table-primary">
+												<tr class="text-light">
+													<td class="border text-center">ID</td>
+													<td class="border">Usuario</td>
+													<td class="border">Nombre</td>
+													<td class="border">Email</td>
+													<td class="border">Rol</td>
+													<td class="border"><i class="bi-check-circle me-2"></i></td>
+												</tr>
+											</thead>
+											<tbody>
+											<?php foreach ($productos as $producto): ?>
+													<tr class="text-start">
+														<td class="border text-primary"><?= htmlspecialchars($producto['producto_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($producto['codigo']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($producto['descripcion']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($producto['email']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($producto['rol']) ?></td>
+														<td class="border text-primary">
+															<input type="radio" name="seleccion_producto"
+																class="form-check-input seleccionar-producto"
+																data-productoid="<?= htmlspecialchars($producto['producto_id']) ?>"
+																data-codigo="<?= htmlspecialchars($producto['codigo']) ?>"
+																data-nombre="<?= htmlspecialchars($producto['descripcion']) ?>">
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Campos ocultos para enviar en el form -->
+									<input type="hidden" name="producto_id" id="input-producto-id">
+									<input type="hidden" name="codigo" id="input-codigo">
+									<input type="hidden" name="descripcion" id="input-descripcion">
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 
 			</main>
