@@ -55,6 +55,8 @@ $activeItems = [
           <i class="bd-search"></i>
           <input type="text" class="form-control search-input" id="search" placeholder="Buscar..." aria-label="Search" />
         </div>
+        <a class="nav-link text-white p-2"><?php echo $_SESSION['username']?></a>
+        <p class="nav-link text-white p-2 m-0"> | </p>
         <a class="nav-link text-white p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
       </div>
     </div>
