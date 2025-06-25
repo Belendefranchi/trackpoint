@@ -97,7 +97,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</div>
 
 														<div class="mb-3 d-flex flex-row align-items-center">
-															<label class="form-label col-md-2" text-primary>Producto</label>
+															<label class="form-label col-md-2 text-primary">Producto</label>
 															<div class="input-group">
 																<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
 																<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()"><i class="bi bi-search"></i></button>

@@ -77,15 +77,16 @@ function eliminarMercaderia($mercaderia_id) {
 	}
 }
 
-function editarMercaderia($mercaderia_id, $codigo, $descripcion, $grupo, $subgrupo, $activo) {
+function editarMercaderia($mercaderia_id, $codigo, $descripcion, $familia, $grupo, $subgrupo, $activo) {
 	session_start();
 	$editado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, grupo = :grupo, subgrupo = :subgrupo, editado_por = :editado_por, activo = :activo WHERE mercaderia_id = :mercaderia_id");
+		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, familia = :familia, grupo = :grupo, subgrupo = :subgrupo, editado_por = :editado_por, activo = :activo WHERE mercaderia_id = :mercaderia_id");
 		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
+		$stmt->bindParam(':familia', $familia);
 		$stmt->bindParam(':grupo', $grupo);
 		$stmt->bindParam(':subgrupo', $subgrupo);
 		$stmt->bindParam(':editado_por', $editado_por);
