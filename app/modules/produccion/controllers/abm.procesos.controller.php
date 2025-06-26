@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Verificar si el usuario ya existe
 		$proceso = procesoExists($codigo);
-		if ($proceso && $proceso['proceso_id'] != $proceso_id) {
+		if ($proceso) {
 			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un proceso con ese código, intente con otro.']);
 			exit;
 		}

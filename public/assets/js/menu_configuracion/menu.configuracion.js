@@ -46,7 +46,7 @@ $(document).ready(function () {
 								},
 								{
 									stack: [
-										{ text: 'PUNTO CONECTADO', fontSize: 18, bold: true, color: '#22265D' },
+										{ text: titulo, fontSize: 18, bold: true, color: '#22265D' },
 										{
 											text: [
 												{ text: 'Track ', fontSize: 14, bold: true, color: '#22265D' },
@@ -245,7 +245,7 @@ $(document).ready(function () {
 									},
 									{
 										stack: [
-											{ text: 'PUNTO CONECTADO', fontSize: 18, bold: true, color: '#22265D' },
+											{ text: titulo, fontSize: 18, bold: true, color: '#22265D' },
 											{
 												text: [
 													{ text: 'Track ', fontSize: 14, bold: true, color: '#22265D' },

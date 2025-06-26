@@ -50,20 +50,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border text-primary"><?= $proceso['activo'] == 1 ? 'Si' : 'No' ?></td>
 													<td class="border text-primary text-center">
 														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalEditarProceso"
 																data-id="<?= htmlspecialchars($proceso['proceso_id']) ?>"
 																data-codigo="<?= htmlspecialchars($proceso['codigo']) ?>"
-																data-nombre="<?= htmlspecialchars($proceso['descripcion']) ?>"
+																data-descripcion="<?= htmlspecialchars($proceso['descripcion']) ?>"
 																data-activo="<?= htmlspecialchars($proceso['activo']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
@@ -96,7 +88,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="modal-body">
 
 										<div class="mb-3">
-											<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
@@ -126,7 +118,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarProceso" tabindex="-1" aria-labelledby="modalEditarProcesoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEditarproceso" action="/trackpoint/public/index.php?route=/produccion/ABMs/procesos&editar">
+							<form method="POST" id="formEditarProceso" action="/trackpoint/public/index.php?route=/produccion/ABMs/procesos&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarProcesoLabel">Editar Proceso</h5>
@@ -136,7 +128,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<input type="hidden" name="proceso_id" id="editarProcesoId">
 
 										<div class="mb-3">
-											<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
@@ -184,7 +176,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<input type="hidden" name="codigo" id="eliminarCodigoProceso">
 
 										<div class="mb-3">
-											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->

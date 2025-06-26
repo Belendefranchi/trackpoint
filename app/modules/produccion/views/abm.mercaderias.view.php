@@ -32,6 +32,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<td class="border">Familia</td>
 												<td class="border">Grupo</td>
 												<td class="border">Sub Grupo</td>
+												<td class="border">Unidad de Medida</td>
 												<td class="border">Fecha de creación</td>
 												<td class="border">Creado por</td>
 												<td class="border">Fecha de edición</td>
@@ -49,6 +50,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['familia']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
@@ -56,23 +58,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 													<td class="border text-primary text-center">
 														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-														<div class="d-flex no-wrap">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalEditarMercaderia"
 																data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
 																data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
-																data-nombre="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
+																data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
 																data-familia="<?= htmlspecialchars($mercaderia['familia']) ?>"
 																data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
 																data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
+																data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
 																data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
@@ -105,7 +100,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="modal-body">
 
 										<div class="mb-3">
-											<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-crear" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
@@ -137,6 +132,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<input type="text" class="form-control" name="subgrupo" id="crearSubGrupoMercaderia">
 										</div>
 
+										<div class="mb-3">
+											<label for="crearUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
+											<input type="text" class="form-control" name="unidad_medida" id="crearUnidadMedidaMercaderia">
+										</div>
+
 									</div>
 									<div class="modal-footer d-flex justify-content-center p-2">
 										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
@@ -160,7 +160,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<input type="hidden" name="mercaderia_id" id="editarMercaderiaId">
 
 										<div class="mb-3">
-											<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
@@ -188,8 +188,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarSubGrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-											<input type="text" class="form-control" name="subgrupo" id="editarSubGrupoMercaderia">
+											<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
+											<input type="text" class="form-control" name="subgrupo" id="editarSubgrupoMercaderia">
+										</div>
+
+										<div class="mb-3">
+											<label for="editarUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
+											<input type="text" class="form-control" name="unidad_medida" id="editarUnidadMedidaMercaderia">
 										</div>
 
 										<div class="mb-3">
@@ -223,7 +228,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<input type="hidden" name="codigo" id="eliminarcodigoMercadería">
 
 										<div class="mb-3">
-											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" grupoe="alert">
+											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
@@ -252,8 +257,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.produccion.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.mercadrias.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_produccion/abm.mercaderias.modales.js"></script>
 
 </body>
 </html>

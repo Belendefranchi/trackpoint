@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../core/config/helpers.php';
 function obtenerMercaderias() {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->query("SELECT * FROM produccion_abm_mercaderias ORDER BY mercaderia_id DESC");
+		$stmt = $conn->query("SELECT * FROM produccion_abm_mercaderias");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -40,21 +40,22 @@ function mercaderiaExists($codigo) {
 	}
 }
 
-function crearMercaderia($codigo, $descripcion, $familia, $grupo, $subgrupo) {
+function crearMercaderia($codigo, $descripcion, $familia, $grupo, $subgrupo, $unidad_medida) {
 	session_start();
 	$creado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO produccion_abm_mercaderias (codigo, descripcion, familia, grupo, subgrupo, creado_por) VALUES (:codigo, :descripcion, :familia, :grupo, :subgrupo, :creado_por)");
+		$stmt = $conn->prepare("INSERT INTO produccion_abm_mercaderias (codigo, descripcion, familia, grupo, subgrupo, unidad_medida, creado_por) VALUES (:codigo, :descripcion, :familia, :grupo, :subgrupo, :unidad_medida, :creado_por)");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':familia', $familia);
 		$stmt->bindParam(':grupo', $grupo);
 		$stmt->bindParam(':subgrupo', $subgrupo);
+		$stmt->bindParam(':unidad_medida', $unidad_medida);
 		$stmt->bindParam(':creado_por', $creado_por);
 		$result = $stmt->execute();
 		if ($result) {
-			registrarEvento("Mercaderías Model: mercaderia creada correctamente.", "INFO");
+			registrarEvento("Mercaderías Model: mercadería creada correctamente.", "INFO");
 		}
 		return $result;
 	} catch (PDOException $e) {
@@ -77,18 +78,19 @@ function eliminarMercaderia($mercaderia_id) {
 	}
 }
 
-function editarMercaderia($mercaderia_id, $codigo, $descripcion, $familia, $grupo, $subgrupo, $activo) {
+function editarMercaderia($mercaderia_id, $codigo, $descripcion, $familia, $grupo, $subgrupo, $unidad_medida, $activo) {
 	session_start();
 	$editado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, familia = :familia, grupo = :grupo, subgrupo = :subgrupo, editado_por = :editado_por, activo = :activo WHERE mercaderia_id = :mercaderia_id");
+		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, familia = :familia, grupo = :grupo, subgrupo = :subgrupo, unidad_medida = :unidad_medida, editado_por = :editado_por, activo = :activo WHERE mercaderia_id = :mercaderia_id");
 		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':familia', $familia);
 		$stmt->bindParam(':grupo', $grupo);
 		$stmt->bindParam(':subgrupo', $subgrupo);
+		$stmt->bindParam(':unidad_medida', $unidad_medida);
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $activo);
 		$stmt->execute();

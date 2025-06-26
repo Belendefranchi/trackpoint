@@ -6,3 +6,5 @@ const roles = [
 ];
 
 const superadmin = "superadmin";
+
+const titulo = "PUNTO CONECTADO";

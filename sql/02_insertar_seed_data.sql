@@ -37,11 +37,13 @@ VALUES
 	( 'Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ), /* 4 */
 	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ), /* 5 */
 	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ), /* 6 */
-	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL ) /* 7 */
+	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL ), /* 7 */
+ 	( 'Mercaderías', 'Permiso para acceder al menú Mercaderías', '/produccion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 8 */
+	( 'Procesos', 'Permiso para acceder al menú Procesos', '/produccion/ABMs/procesos', GETDATE(), 'admin', NULL, NULL ), /* 9 */
+	( 'Etiquetas Secundarias Sin Seleccion de Stock', 'Permiso para acceder a la pantalla de Etiquetas Secundarias Sin Seleccion de Stock', '/produccion/salida/etqSecSinSeleccion', GETDATE(), 'admin', NULL, NULL ), /* 10 */
+	( 'Recepción', 'Permiso para acceder al menú Recepción', '/recepcion', GETDATE(), 'admin', NULL, NULL ), /* 11 */
+	( 'Mercaderías no Productivas', 'Permiso para acceder a la pantalla de Mercaderías no Productivas', '/recepcion/noProductivos/mercaderias', GETDATE(), 'admin', NULL, NULL ) /* 12 */
 
-
-
-/* 	( 'Recepción', 'Permiso para acceder al menú Recepción', '/recepcion', GETDATE(), 'admin', NULL, NULL ), */ /*  */
 
 	;
 
