@@ -13,6 +13,7 @@ function obtenerProcesos() {
 		return false;
 	}
 }
+
 function obtenerProcesoPorId($proceso_id) {
 	try {
 		$conn = getConnection();
@@ -26,6 +27,7 @@ function obtenerProcesoPorId($proceso_id) {
 		return false;
 	}
 }
+
 function procesoExists($codigo) {
 	try {
 		$conn = getConnection();

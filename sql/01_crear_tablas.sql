@@ -110,7 +110,7 @@ CREATE TABLE produccion_abm_subgrupos (
 
 CREATE TABLE produccion_abm_procesos (
     proceso_id INT PRIMARY KEY IDENTITY(1,1),
-    nombre VARCHAR(100) NOT NULL UNIQUE,
+    codigo VARCHAR(100) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,

@@ -1,3 +1,28 @@
+const fechaHoy = new Date().toISOString().slice(0, 10);
+
+$(document).ready(function () {
+
+	const configuracionDataTable = {
+		dom: 'ftp',
+		pageLength: 10,
+		language: {
+			sZeroRecords: "No se encontraron resultados",
+			sSearch: "Buscar:",
+			sEmptyTable: "No hay datos disponibles en la tabla",
+			oPaginate: {
+				sFirst: "Primero",
+				sPrevious: "Anterior",
+				sNext: "Siguiente",
+				sLast: "Último"
+			}
+		}
+	};
+
+	const tablaEnModalProceso = $('#miTablaEnModalProceso').DataTable(configuracionDataTable);
+	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTable);
+
+});
+
 window.addEventListener('DOMContentLoaded', function () {
 	const hoy = new Date().toISOString().split('T')[0];
 	document.getElementById('fecha_faena').value = hoy;

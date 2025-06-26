@@ -95,7 +95,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="mb-3 d-flex flex-row align-items-center">
 															<label class="form-label col-md-2 text-primary">Proceso</label>
 															<div class="input-group">
-																<input type="text" class="form-control" name="codigo_proceso" id="codigo_proceso" readonly required>
+																<?php $procesoSeleccionado = $_SESSION['proceso_seleccionado'] ?? null; ?>
+																<input type="text" class="form-control" name="codigo_proceso" id="codigo_proceso" value="<?php echo $procesoSeleccionado ? htmlspecialchars($procesoSeleccionado['codigo']) : ''; ?>" readonly required>
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalSeleccionarProceso">
@@ -105,18 +106,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</div>
 
 														<div class="mb-3 d-flex flex-row align-items-center">
-															<label class="form-label col-md-2 text-primary">Producto</label>
+															<label class="form-label col-md-2 text-primary">Mercadería</label>
 															<div class="input-group">
-																<?php //if (isset($_SESSION['producto_seleccionado'])): ?>
-																	<?php $productoSeleccionado = $_SESSION['producto_seleccionado']; ?>
-																	<script>
-																		const productoSeleccionado = "<?= $productoSeleccionado['codigo'] ?>";
-																	</script>
-																	<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" value=<?php echo htmlspecialchars($productoSeleccionado['codigo']); ?> readonly required>
-																<?php //endif; ?>
+																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+																<input type="text" class="form-control" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada ? htmlspecialchars($mercaderiaSeleccionada['codigo']) : ''; ?>" readonly required>
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
-																	data-bs-target="#modalSeleccionarProducto">
+																	data-bs-target="#modalSeleccionarMercaderia">
 																	<i class="bi bi-search"></i>
 																</a>
 															</div>
@@ -171,7 +167,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<!-- Peso bruto con radio -->
 															<div class="col-md-3">
-																<input type="radio" name="modo_peso" id="modo_bruto" value="bruto" checked>
+																<input type="radio" name="modo_peso" id="modo_bruto" value="bruto">
 																<label for="modo_bruto" class="form-label text-primary">Peso Bruto</label>
 																<input type="number" step="0.01" min="0.00" class="form-control form-control-lg text-end fw-bold" name="peso_bruto" id="peso_bruto" value="0.00" required>
 															</div>
@@ -204,13 +200,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</table>
 				</div>
 
-				<!-- Modal de selección de producto -->
-				<div class="modal fade m-5" id="modalSeleccionarProducto" tabindex="-1" aria-labelledby="modalSeleccionarProductoLabel" aria-hidden="true">
+				<!-- Modal de selección de proceso -->
+				<div class="modal fade m-5" id="modalSeleccionarProceso" tabindex="-1" aria-labelledby="modalSeleccionarProcesoLabel" aria-hidden="true">
 					<div class="modal-dialog d-flex">
-						<form method="POST" id="formSeleccionarProducto" action="/trackpoint/public/index.php?route=/produccion/salida/etqSecSinSeleccion&seleccionar">
+						<form method="POST" id="formSeleccionarProceso" action="/trackpoint/public/index.php?route=/produccion/salida/etqSecSinSeleccion&seleccionarProceso">
 							<div class="modal-content m-5">
 								<div class="modal-header table-primary text-white">
-									<h5 class="modal-title" id="modalSeleccionarProductoLabel">Seleccionar producto</h5>
+									<h5 class="modal-title" id="modalSeleccionarProcesoLabel">Seleccionar proceso</h5>
 									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 								</div>
 								<div class="modal-body">
@@ -224,31 +220,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<div class="mb-3">
-										<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
+										<table id="miTablaEnModalProceso" class="display pt-2 pb-4" style="width:100%">
 											<thead class="table-primary">
 												<tr class="text-light">
 													<td class="border text-center">ID</td>
-													<td class="border">Usuario</td>
-													<td class="border">Nombre</td>
-													<td class="border">Email</td>
-													<td class="border">Rol</td>
+													<td class="border">Código</td>
+													<td class="border">Descripción</td>
 													<td class="border"><i class="bi-check-circle me-2"></i></td>
 												</tr>
 											</thead>
 											<tbody>
-											<?php foreach ($productos as $producto): ?>
+											<?php foreach ($procesos as $proceso): ?>
 													<tr class="text-start">
-														<td class="border text-primary"><?= htmlspecialchars($producto['producto_id']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($producto['codigo']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($producto['descripcion']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($producto['email']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($producto['rol']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($proceso['proceso_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($proceso['codigo']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($proceso['descripcion']) ?></td>
 														<td class="border text-primary">
-															<input type="radio" name="seleccion_producto"
-																class="form-check-input seleccionar-producto"
-																data-productoid="<?= htmlspecialchars($producto['producto_id']) ?>"
-																data-codigo="<?= htmlspecialchars($producto['codigo']) ?>"
-																data-nombre="<?= htmlspecialchars($producto['descripcion']) ?>">
+															<input type="radio" name="seleccion_proceso"
+																class="form-check-input seleccionar-proceso"
+																data-procesoid="<?= htmlspecialchars($proceso['proceso_id']) ?>"
+																data-codigo="<?= htmlspecialchars($proceso['codigo']) ?>"
+																data-descripcion="<?= htmlspecialchars($proceso['descripcion']) ?>">
 														</td>
 													</tr>
 												<?php endforeach; ?>
@@ -257,7 +249,69 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<!-- Campos ocultos para enviar en el form -->
-									<input type="hidden" name="producto_id" id="input-producto-id">
+									<input type="hidden" name="proceso_id" id="input-proceso-id">
+									<input type="hidden" name="codigo" id="input-codigo">
+									<input type="hidden" name="descripcion" id="input-descripcion">
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de selección de mercadería -->
+				<div class="modal fade m-5" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog d-flex">
+						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/produccion/salida/etqSecSinSeleccion&seleccionarMercaderia">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+
+									<div class="mb-3">
+										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
+											<thead class="table-primary">
+												<tr class="text-light">
+													<td class="border text-center">ID</td>
+													<td class="border">Código</td>
+													<td class="border">Descripción</td>
+													<td class="border"><i class="bi-check-circle me-2"></i></td>
+												</tr>
+											</thead>
+											<tbody>
+											<?php foreach ($mercaderias as $mercaderia): ?>
+													<tr class="text-start">
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+														<td class="border text-primary">
+															<input type="radio" name="seleccion_mercaderia"
+																class="form-check-input seleccionar-mercaderia"
+																data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+																data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
+																data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Campos ocultos para enviar en el form -->
+									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 									<input type="hidden" name="codigo" id="input-codigo">
 									<input type="hidden" name="descripcion" id="input-descripcion">
 								</div>
@@ -277,6 +331,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
 	<script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script>
+	<script src="/trackpoint/public/assets/js/produccion/salida.etqSecSinSeleccion.modales.js"></script>
 
 </body>
 </html>
