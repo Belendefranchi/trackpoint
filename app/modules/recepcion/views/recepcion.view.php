@@ -7,6 +7,9 @@ verificarPermiso();
 
 $currentUri = $_SERVER['REQUEST_URI'];
 
+$abmsOpen = str_contains($currentUri, '/recepcion/ABMs') ? 'show' : '';
+$abmsActive = str_contains($currentUri, '/recepcion/ABMs') ? 'active' : '';
+
 $ingresosPOpen = str_contains($currentUri, '/recepcion/productivos') ? 'show' : '';
 $ingresosPActive = str_contains($currentUri, '/recepcion/productivos') ? 'active' : '';
 
@@ -20,7 +23,6 @@ $activeItems = [
   'materiaPrima' => str_contains($currentUri, 'materiaPrima') ? 'fw-semibold text-primary' : '',
   'insumos' => str_contains($currentUri, 'insumos') ? 'fw-semibold text-primary' : '',
   'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
-
 
 ];
 
@@ -68,13 +70,23 @@ $activeItems = [
       <!-- Aside -->
       <aside class="col-md-3 col-lg-2 min-vh-100 py-4 px-3" style="background-color: #22265D; color: white;">
         <div class="nav flex-column">
+          <a class="nav-link text-white table-hover rounded <?= $abmsActive ?>" data-bs-toggle="collapse" href="#submenuABM" role="button" aria-expanded="<?= $abmsOpen ? 'true' : 'false' ?>" aria-controls="submenuABM">
+            ABM
+          </a>
+          <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABM">
+            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/hacienda">Hacienda</a>
+            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/materiaPrima">Materia prima</a>
+            <a class="nav-link <?= $activeItems['insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/insumos">Insumos</a>
+            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/mercaderias">Mercaderías</a>
+          </div>
+          
           <a class="nav-link text-white table-hover rounded <?= $ingresosPActive ?>" data-bs-toggle="collapse" href="#submenuProductivos" role="button" aria-expanded="<?= $ingresosPOpen ? 'true' : 'false' ?>" aria-controls="submenuProductivos">
             PRODUCTIVOS
           </a>
           <div class="collapse ps-3 <?= $ingresosPOpen ?>" id="submenuProductivos">
-            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/hacienda">Hacienda</a>
-            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/materiaPrima">Materia prima</a>
-            <a class="nav-link <?= $activeItems['insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/insumos">Insumos</a>
+            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/hacienda">Hacienda</a>
+            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/materiaPrima">Materia prima</a>
+            <a class="nav-link <?= $activeItems['insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/insumos">Insumos</a>
           </div>
 
           <a class="nav-link text-white table-hover rounded <?= $ingresosNPActive ?>" data-bs-toggle="collapse" href="#submenuNoProductivos" role="button" aria-expanded="<?= $ingresosNPOpen ? 'true' : 'false' ?>" aria-controls="submenuNoProductivos">
@@ -82,7 +94,6 @@ $activeItems = [
           </a>
           <div class="collapse ps-3 <?= $ingresosNPOpen ?>" id="submenuNoProductivos">
             <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/noProductivos/mercaderias">Mercaderías</a>
-
           </div>
 
         </div>

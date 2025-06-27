@@ -1,3 +1,4 @@
+/* ############################################################################################## */
 /* ------------------------------------ TABLAS CONFIGURACIÓN ------------------------------------ */
 /* ############################################################################################## */
 
@@ -53,18 +54,73 @@ CREATE TABLE configuracion_abm_permisosPorPerfil (
 	FOREIGN KEY (permiso_id) REFERENCES configuracion_abm_permisos(permiso_id) ON DELETE CASCADE
 );
 
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
 
-/* -------------------------------------- TABLAS PRODUCCIÓN -------------------------------------- */
-/* ############################################################################################### */
+CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(username);
 
+
+
+/* ############################################################################################## */
+/* -------------------------------------- TABLAS RECEPCIÓN -------------------------------------- */
+/* ############################################################################################## */
+
+/* -------------------------------------------- ABMS -------------------------------------------- */
+CREATE TABLE recepcion_abm_mercaderias (
+    mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NOT NULL,
+    codigo_externo VARCHAR(50) NULL,
+    familia VARCHAR(50) NULL,
+    grupo VARCHAR(50) NULL,
+    subgrupo VARCHAR(50) NULL,
+    etiqueta_secundaria VARCHAR(100) NULL,
+    unidad_medida VARCHAR(20) NULL,
+    cantidad_propuesta INT NULL,
+    peso_min DECIMAL(10,2) NULL,
+    peso_max DECIMAL(10,2) NULL,
+    marca VARCHAR(50) NULL,
+    envase_primario VARCHAR(50) NULL,
+    envase_secundario VARCHAR(50) NULL,
+    tara_pri DECIMAL(10,2) NULL,
+    tara_sec DECIMAL(10,2) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
+
+CREATE INDEX idx_recepcion_mercaderias_codigo ON recepcion_abm_mercaderias(codigo);
+CREATE INDEX idx_recepcion_mercaderias_descripcion ON recepcion_abm_mercaderias(descripcion);
+
+
+/* ############################################################################################## */
+/* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
+/* ############################################################################################## */
+
+/* -------------------------------------------- ABMS -------------------------------------------- */
 CREATE TABLE produccion_abm_mercaderias (
     mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
-    familia VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    codigo_externo VARCHAR(50) NULL,
+    familia VARCHAR(50) NULL,
     grupo VARCHAR(50) NULL,
     subgrupo VARCHAR(50) NULL,
-    unidad_medida VARCHAR(20) NOT NULL,
+    etiqueta_secundaria VARCHAR(100) NULL,
+    unidad_medida VARCHAR(20) NULL,
+    cantidad_propuesta INT NULL,
+    peso_min DECIMAL(10,2) NULL,
+    peso_max DECIMAL(10,2) NULL,
+    marca VARCHAR(50) NULL,
+    envase_primario VARCHAR(50) NULL,
+    envase_secundario VARCHAR(50) NULL,
+    tara_pri DECIMAL(10,2) NULL,
+    tara_sec DECIMAL(10,2) NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -76,7 +132,7 @@ GO
 CREATE TABLE produccion_abm_familias (
     familia_id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(100) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
+    descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -88,7 +144,7 @@ GO
 CREATE TABLE produccion_abm_grupos (
     grupo_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
+    descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -100,7 +156,7 @@ GO
 CREATE TABLE produccion_abm_subgrupos (
     subgrupo_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
+    descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -111,7 +167,7 @@ CREATE TABLE produccion_abm_subgrupos (
 CREATE TABLE produccion_abm_procesos (
     proceso_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(100) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
+    descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -123,7 +179,7 @@ GO
 CREATE TABLE produccion_abm_traducciones (
     traduccion_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NULL,
+    descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -131,6 +187,8 @@ CREATE TABLE produccion_abm_traducciones (
     activo BIT DEFAULT 1
 );
 GO
+
+/* ---------------------------------- SALIDAS DE PRODUCCION ------------------------------------- */
 
 CREATE TABLE produccion_pallets (
     pallet_id INT PRIMARY KEY IDENTITY(1,1),
@@ -218,7 +276,3 @@ CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
-
-
-
-
