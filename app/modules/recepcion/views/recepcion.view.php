@@ -18,11 +18,16 @@ $ingresosNPActive = str_contains($currentUri, '/recepcion/noProductivos') ? 'act
 
 
 $activeItems = [
-  // Ítems del submenú INGRESOS
+  // Ítems del submenú ABM
   'hacienda' => str_contains($currentUri, 'hacienda') ? 'fw-semibold text-primary' : '',
   'materiaPrima' => str_contains($currentUri, 'materiaPrima') ? 'fw-semibold text-primary' : '',
   'insumos' => str_contains($currentUri, 'insumos') ? 'fw-semibold text-primary' : '',
   'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
+  // Ítems del submenú INGRESOS
+  'ingreso_hacienda' => str_contains($currentUri, 'ingreso_hacienda') ? 'fw-semibold text-primary' : '',
+  'ingreso_materiaPrima' => str_contains($currentUri, 'ingreso_materiaPrima') ? 'fw-semibold text-primary' : '',
+  'ingreso_insumos' => str_contains($currentUri, 'ingreso_insumos') ? 'fw-semibold text-primary' : '',
+  'ingreso_mercaderia' => str_contains($currentUri, 'ingreso_mercaderia') ? 'fw-semibold text-primary' : '',
 
 ];
 
@@ -84,16 +89,16 @@ $activeItems = [
             PRODUCTIVOS
           </a>
           <div class="collapse ps-3 <?= $ingresosPOpen ?>" id="submenuProductivos">
-            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/hacienda">Hacienda</a>
-            <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/materiaPrima">Materia prima</a>
-            <a class="nav-link <?= $activeItems['insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/insumos">Insumos</a>
+            <a class="nav-link <?= $activeItems['ingreso_hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/hacienda">Ingreso de Hacienda</a>
+            <a class="nav-link <?= $activeItems['ingreso_materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/materiaPrima">Ingreso de Materia Prima</a>
+            <a class="nav-link <?= $activeItems['ingreso_insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/insumos">Ingreso de Insumos</a>
           </div>
 
           <a class="nav-link text-white table-hover rounded <?= $ingresosNPActive ?>" data-bs-toggle="collapse" href="#submenuNoProductivos" role="button" aria-expanded="<?= $ingresosNPOpen ? 'true' : 'false' ?>" aria-controls="submenuNoProductivos">
             NO PRODUCTIVOS
           </a>
           <div class="collapse ps-3 <?= $ingresosNPOpen ?>" id="submenuNoProductivos">
-            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/noProductivos/mercaderias">Mercaderías</a>
+            <a class="nav-link <?= $activeItems['ingreso_mercaderia'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia">Ingreso de Mercaderías</a>
           </div>
 
         </div>
