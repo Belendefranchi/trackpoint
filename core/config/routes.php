@@ -13,6 +13,8 @@ $routes = [
 	/* ########################################### ----------RECEPCIÓN----------- ########################################### */
 	'/recepcion' => 'app/modules/recepcion/controllers/recepcion.controller.php',
 
+	'/recepcion/ABMs/mercaderias' => 'app/modules/recepcion/controllers/abm.mercaderias.controller.php',
+
 	'/recepcion/productivos/hacienda' => 'app/modules/recepcion/controllers/productivos.hacienda.controller.php',
 	'/recepcion/productivos/materiaPrima' => 'app/modules/recepcion/controllers/productivos.materiaPrima.controller.php',
 	'/recepcion/productivos/insumos' => 'app/modules/recepcion/controllers/productivos.insumos.controller.php',
