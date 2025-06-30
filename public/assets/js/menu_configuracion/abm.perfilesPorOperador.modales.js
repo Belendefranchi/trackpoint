@@ -2,45 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ##################### MODAL DE SELECCIÓN ##################### */
 
-	// Interceptar el evento de apertura del modal de selección
-	var formSeleccionarOperador = document.getElementById('formSeleccionarOperador');
-	if(formSeleccionarOperador){
-		formSeleccionarOperador.addEventListener('submit', function(e) {
-			
-			const seleccionado = document.querySelector('input[name="seleccion_operador"]:checked');
-			
-			if (!seleccionado) {
-				e.preventDefault(); // evitar envío del form
-
-				// Limpiar cualquier mensaje de error antes de hacer la solicitud
-				$('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
-		
-				const contenedor = document.getElementById('mensaje-error-seleccionar');
-				const mensaje = contenedor.querySelector('.mensaje-texto');
-				mensaje.textContent = 'Error: Por favor seleccione un operador';
-				contenedor.classList.remove('d-none');
-				contenedor.classList.add('show');
-
-				// Tomar valores desde los campos ocultos
-				const operadorId = document.getElementById('input-operador-id').value;
-				const username = document.getElementById('input-username').value;
-				const nombre = document.getElementById('input-nombre').value;
-				const email = document.getElementById('input-email').value;
-				const rol = document.getElementById('input-rol').value;
-
-				// Mostrar la tabla con los datos del operador
-				document.getElementById('tabla-operador-seleccionado-container').style.display = 'block';
-				document.getElementById('col-operador-id').textContent = operadorId;
-				document.getElementById('col-username').textContent = username;
-				document.getElementById('col-nombre').textContent = nombre;
-				document.getElementById('col-email').textContent = email;
-				document.getElementById('col-rol').textContent = rol;
-		
-				return false;
-			}
-		});
-	}
-
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalSeleccionarOperador = document.getElementById('modalSeleccionarOperador');
 	

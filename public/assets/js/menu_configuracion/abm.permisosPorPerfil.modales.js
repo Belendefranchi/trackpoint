@@ -2,41 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ##################### MODAL DE SELECCIÓN ##################### */
 
-	// Interceptar el evento de apertura del modal de selección
-	var formSeleccionarPerfil = document.getElementById('formSeleccionarPerfil');
-	if(formSeleccionarPerfil){
-		formSeleccionarPerfil.addEventListener('submit', function(e) {
-			
-			const seleccionado = document.querySelector('input[name="seleccion_perfil"]:checked');
-			
-			if (!seleccionado) {
-				e.preventDefault(); // evitar envío del form
-
-				// Limpiar cualquier mensaje de error antes de hacer la solicitud
-				$('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
-		
-				const contenedor = document.getElementById('mensaje-error-seleccionar');
-				const mensaje = contenedor.querySelector('.mensaje-texto');
-				mensaje.textContent = 'Error: Por favor seleccione un perfil';
-				contenedor.classList.remove('d-none');
-				contenedor.classList.add('show');
-
-				// Tomar valores desde los campos ocultos
-				const perfilId = document.getElementById('input-perfil-id').value;
-				const nombre = document.getElementById('input-nombre').value;
-				const descripcion = document.getElementById('input-descripcion').value;
-
-				// Mostrar la tabla con los datos del perfil
-				document.getElementById('tabla-perfil-seleccionado-container').style.display = 'block';
-				document.getElementById('col-perfil-id').textContent = perfilId;
-				document.getElementById('col-nombre').textContent = nombre;
-				document.getElementById('col-descripcion').textContent = descripcion;
-		
-				return false;
-			}
-		});
-	}
-
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalSeleccionarPerfil = document.getElementById('modalSeleccionarPerfil');
 	

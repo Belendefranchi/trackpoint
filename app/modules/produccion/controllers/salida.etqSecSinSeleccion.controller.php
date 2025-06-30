@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'] ?? '';
 
 		if (empty($proceso_id)) {
-      echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID del proceso']);
+      echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del proceso']);
       exit;
     } else {
       // Guardar el proceso en sesión
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'] ?? '';
 		
 		if (empty($mercaderia_id)) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID de la mercadería']);
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
 		} else {
 			// Guardar la mercadería en sesión

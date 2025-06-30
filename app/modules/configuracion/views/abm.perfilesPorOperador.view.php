@@ -145,7 +145,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<!-- Campos ocultos para enviar en el form -->
-										<input type="hidden" name="operador_id" id="input-operador-id">
+										<input type="text" name="operador_id" id="input-operador-id">
 										<input type="hidden" name="username" id="input-username">
 										<input type="hidden" name="nombre_completo" id="input-nombre">
 										<input type="hidden" name="email" id="input-email">

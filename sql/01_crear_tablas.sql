@@ -204,8 +204,10 @@ CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
 
     -- Trazabilidad
-    fecha_faena DATE NOT NULL,
-    fecha_produccion DATE NOT NULL,
+    fecha_faena DATE NULL,
+    fecha_produccion DATE NULL,
+    fecha_recepcion DATE NULL,
+    fecha_remito DATE NULL,
 
     -- Datos del sistema
     fecha_sistema DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
@@ -218,18 +220,17 @@ CREATE TABLE produccion_general (
     editado_por_username VARCHAR(100) NULL,
 
     -- Referencias a proceso y producto
-    proceso_id INT NOT NULL,
+    proceso_id INT NULL,
     mercaderia_id INT NOT NULL,
-    usuario_faena VARCHAR(100) NOT NULL,
-    --turno VARCHAR(10) CHECK (turno IN ('mañana', 'tarde', 'noche')) NULL,
+    proveedor_id INT NULL,
 
     -- Asociación futura
     pallet_id INT NULL,
     pedido_id INT NULL,
 
     -- Datos físicos
-    unidades INT NOT NULL,
-    cantidad INT NOT NULL,
+    unidades INT NULL,
+    cantidad INT NULL,
     peso_neto DECIMAL(10,2) NULL,
     peso_bruto DECIMAL(10,2) NULL,
     tara_pri DECIMAL(10,2) NULL,
