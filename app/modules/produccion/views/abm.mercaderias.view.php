@@ -31,8 +31,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<td class="border">Descripción</td>
 												<td class="border">Familia</td>
 												<td class="border">Grupo</td>
-												<td class="border">Sub Grupo</td>
+												<td class="border">Subgrupo</td>
 												<td class="border">Unidad de Medida</td>
+												<td class="border">Cantidad Propuesta</td>
+												<td class="border">Peso Mínimo</td>
+												<td class="border">Peso Máximo</td>
+												<td class="border">Marca</td>
+												<td class="border">Envase Primario</td>
+												<td class="border">Envase Secundario</td>
+												<td class="border">Tara Primaria</td>
+												<td class="border">Tara Secundaria</td>
 												<td class="border">Fecha de creación</td>
 												<td class="border">Creado por</td>
 												<td class="border">Fecha de edición</td>
@@ -51,6 +59,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_pri']) ?></td>
+													<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_sec']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
 													<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
