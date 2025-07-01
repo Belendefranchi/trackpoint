@@ -65,37 +65,12 @@ CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(user
 /* ############################################################################################## */
 
 /* -------------------------------------------- ABMS -------------------------------------------- */
-CREATE TABLE recepcion_abm_mercaderias (
-    mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
-    codigo VARCHAR(50) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NOT NULL,
-    codigo_externo VARCHAR(50) NULL,
-    familia VARCHAR(50) NULL,
-    grupo VARCHAR(50) NULL,
-    subgrupo VARCHAR(50) NULL,
-    etiqueta_secundaria VARCHAR(100) NULL,
-    unidad_medida VARCHAR(20) NULL,
-    cantidad_propuesta INT NULL,
-    peso_min DECIMAL(10,2) NULL,
-    peso_max DECIMAL(10,2) NULL,
-    marca VARCHAR(50) NULL,
-    envase_primario VARCHAR(50) NULL,
-    envase_secundario VARCHAR(50) NULL,
-    tara_pri DECIMAL(10,2) NULL,
-    tara_sec DECIMAL(10,2) NULL,
-    creado_en DATETIME DEFAULT GETDATE(),
-    creado_por VARCHAR(20) NULL,
-    editado_en DATETIME NULL,
-    editado_por VARCHAR(20) NULL,
-    activo BIT DEFAULT 1
-);
-GO
+
 
 
 /* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
 
-CREATE INDEX idx_recepcion_mercaderias_codigo ON recepcion_abm_mercaderias(codigo);
-CREATE INDEX idx_recepcion_mercaderias_descripcion ON recepcion_abm_mercaderias(descripcion);
+
 
 
 /* ############################################################################################## */
