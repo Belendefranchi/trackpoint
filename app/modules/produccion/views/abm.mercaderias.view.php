@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
   const subtitulo = 'Mercaderías';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
+				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4 table-responsive">
 					<table>
 							<tr>
 								<td>

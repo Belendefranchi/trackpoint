@@ -63,3 +63,32 @@ VALUES
 	( 2, 6 ),
 	( 3, 7 )
 	;
+
+
+-- 6. Insertar mercaderías de ejemplo
+INSERT INTO produccion_abm_mercaderias
+	( codigo,
+	descripcion,
+	codigo_externo,
+	familia,
+	grupo,
+	subgrupo,
+	etiqueta_sec,
+	unidad_medida,
+	cantidad_propuesta,
+	peso_min,
+	peso_max,
+	marca,
+	envase_pri,
+	envase_sec,
+	tara_pri,
+	tara_sec,
+	creado_en,
+	creado_por,
+	editado_en,
+	editado_por,
+	activo )
+VALUES
+	( 'M001', 'Descripción de la mercadería 1', 'C001', 'Familia', 'Grupo', 'Subgrupo', 'Etiqueta Secundaria', 'Unidad de Medida', 100, 1.00, 2.00, 'Marca', 'Envase Primario', 'Envase Secundario', 0.50, 0.30, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'M002', 'Descripción de la mercadería 2', 'C002', 'Familia', 'Grupo', 'Subgrupo', 'Etiqueta Secundaria', 'Unidad de Medida', 200, 1.50, 2.50, 'Marca', 'Envase Primario', 'Envase Secundario', 0.60, 0.40, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'M003', 'Descripción de la mercadería 3', 'C003', 'Familia', 'Grupo', 'Subgrupo', 'Etiqueta Secundaria', 'Unidad de Medida', 300, 2.00, 3.00, 'Marca', 'Envase Primario', 'Envase Secundario', 0.70, 0.50, GETDATE(), 'admin', NULL, NULL, 1 );
