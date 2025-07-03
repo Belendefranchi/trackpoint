@@ -7,101 +7,91 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
   const subtitulo = 'Mercaderías';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4 table-responsive">
-					<table>
-							<tr>
-								<td>
-									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2 text-primary">Mercaderías</h2>
-										<a href="#" class="btn btn-sm btn-primary"
-											data-bs-toggle="modal" 
-											data-bs-target="#modalCrearMercaderia">
-											<i class="bi-plus-circle me-2"></i>Nueva Mercadería
-										</a>
-									</div>
-								</td>
+				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
+					<div class="d-flex justify-content-between align-items-center">
+						<h2 class="text-primary">Mercaderías</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalCrearMercaderia">
+							<i class="bi-plus-circle me-2"></i>Nueva Mercadería
+						</a>
+					</div>
+					<table id="miTabla" class="display" style="width:100%">
+						<thead class="table-primary">
+							<tr class="text-light">
+								<td class="border text-center">ID</td>
+								<td class="border">Código</td>
+								<td class="border">Descripción</td>
+								<td class="border">Familia</td>
+								<td class="border">Grupo</td>
+								<td class="border">Subgrupo</td>
+								<td class="border">Unidad de Medida</td>
+								<td class="border">Cantidad Propuesta</td>
+								<td class="border">Peso Mínimo</td>
+								<td class="border">Peso Máximo</td>
+								<td class="border">Marca</td>
+								<td class="border">Envase Primario</td>
+								<td class="border">Envase Secundario</td>
+								<td class="border">Tara Primaria</td>
+								<td class="border">Tara Secundaria</td>
+								<td class="border">Fecha de creación</td>
+								<td class="border">Creado por</td>
+								<td class="border">Fecha de edición</td>
+								<td class="border">Editado por</td>
+								<td class="border">Activo</td>
+								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
-							<tr>
-								<td class="p-2">
-									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
-										<thead class="table-primary">
-											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border">Código</td>
-												<td class="border">Descripción</td>
-												<td class="border">Familia</td>
-												<td class="border">Grupo</td>
-												<td class="border">Subgrupo</td>
-												<td class="border">Unidad de Medida</td>
-												<td class="border">Cantidad Propuesta</td>
-												<td class="border">Peso Mínimo</td>
-												<td class="border">Peso Máximo</td>
-												<td class="border">Marca</td>
-												<td class="border">Envase Primario</td>
-												<td class="border">Envase Secundario</td>
-												<td class="border">Tara Primaria</td>
-												<td class="border">Tara Secundaria</td>
-												<td class="border">Fecha de creación</td>
-												<td class="border">Creado por</td>
-												<td class="border">Fecha de edición</td>
-												<td class="border">Editado por</td>
-												<td class="border">Activo</td>
-												<td class="border text-center no-export">Acciones</td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($mercaderias as $mercaderia): ?>
-												<tr class="text-start">
-													<td class="border text-primary text-center"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['familia']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_pri']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_sec']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_por']) ?></td>
-													<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="border text-primary text-center">
-														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-																data-bs-toggle="modal" 
-																data-bs-target="#modalEditarMercaderia"
-																data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
-																data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
-																data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
-																data-familia="<?= htmlspecialchars($mercaderia['familia']) ?>"
-																data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
-																data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
-																data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
-																data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																data-bs-toggle="modal"
-																data-bs-target="#modalEliminarMercaderia"
-																data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
-																data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-													</td>
-												</tr>
-											<?php endforeach; ?>
-										</tbody>
-									</table>
-								</td>
-							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($mercaderias as $mercaderia): ?>
+								<tr class="text-start">
+									<td class="border text-primary text-center"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['familia']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_pri']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_sec']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_por']) ?></td>
+									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
+									<td class="border text-primary text-center">
+										<div class="d-flex no-wrap">
+											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+												data-bs-toggle="modal" 
+												data-bs-target="#modalEditarMercaderia"
+												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+												data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
+												data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
+												data-familia="<?= htmlspecialchars($mercaderia['familia']) ?>"
+												data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
+												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
+												data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
+												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
+												<i class="bi bi-pencil me-2"></i>Editar
+											</a>
+											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEliminarMercaderia"
+												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+												data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>">
+												<i class="bi bi-trash me-2"></i>Eliminar
+											</a>
+										</div>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
 					</table>
 
 					<!-- Modal de creación -->

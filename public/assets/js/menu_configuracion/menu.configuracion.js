@@ -16,6 +16,7 @@ $(document).ready(function () {
 			realtime: true
 		},
 		colReorder: true,
+		scrollX: true,
 		dom: 'Blfrtip',
 		buttons: [
 			{

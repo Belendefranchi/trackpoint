@@ -7,73 +7,65 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
   const subtitulo = 'Permisos';
 </script>
 
-<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4">
-					<table>
-							<tr>
-								<td>
-									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2 text-primary">Permisos</h2>
-										<a href="#" class="btn btn-sm btn-primary"
-											data-bs-toggle="modal" 
-											data-bs-target="#modalCrearPermiso">
-											<i class="bi-plus-circle me-2"></i>Nuevo Permiso
-										</a>
-									</div>
-								</td>
+				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
+
+					<div class="d-flex justify-content-between align-items-center">
+						<h2 class="text-primary">Permisos</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalCrearPermiso">
+							<i class="bi-plus-circle me-2"></i>Nuevo Permiso
+						</a>
+					</div>
+
+					<table id="miTabla" class="display" style="width:100%">
+						<thead class="table-primary">
+							<tr class="text-light">
+								<td class="border">ID</td>
+								<td class="border">Permiso</td>
+								<td class="border">Descripción</td>
+								<td class="border">Pantalla</td>
+								<td class="border">Fecha de creación</td>
+								<td class="border">Creado por</td>
+								<td class="border">Fecha de edición</td>
+								<td class="border">Editado por</td>
+								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
-							<tr>
-								<td class="p-2">
-									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
-										<thead class="table-primary">
-											<tr class="text-light">
-												<td class="border">ID</td>
-												<td class="border">Permiso</td>
-												<td class="border">Descripción</td>
-												<td class="border">Pantalla</td>
-												<td class="border">Fecha de creación</td>
-												<td class="border">Creado por</td>
-												<td class="border">Fecha de edición</td>
-												<td class="border">Editado por</td>
-												<td class="border">Acciones</td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($permisos as $permiso): ?>
-												<tr class="text-start">
-													<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['creado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['creado_por']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['editado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['editado_por']) ?></td>
-													<td class="border text-primary text-center">
-														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-																data-bs-toggle="modal" 
-																data-bs-target="#modalEditarPermiso"
-																data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
-																data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>"
-																data-descripcion="<?= htmlspecialchars($permiso['descripcion']) ?>"
-																data-pantalla="<?= htmlspecialchars($permiso['pantalla']) ?>">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																data-bs-toggle="modal"
-																data-bs-target="#modalEliminarPermiso"
-																data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
-																data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-													</td>
-												</tr>
-											<?php endforeach; ?>
-										</tbody>
-									</table>
-								</td>
-							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($permisos as $permiso): ?>
+								<tr class="text-start">
+									<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['creado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['creado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['editado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['editado_por']) ?></td>
+									<td class="border text-primary text-center">
+										<div class="d-flex no-wrap">
+											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+												data-bs-toggle="modal" 
+												data-bs-target="#modalEditarPermiso"
+												data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
+												data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>"
+												data-descripcion="<?= htmlspecialchars($permiso['descripcion']) ?>"
+												data-pantalla="<?= htmlspecialchars($permiso['pantalla']) ?>">
+												<i class="bi bi-pencil me-2"></i>Editar
+											</a>
+											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEliminarPermiso"
+												data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
+												data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>">
+												<i class="bi bi-trash me-2"></i>Eliminar
+											</a>
+										</div>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
 					</table>
 
 					<!-- Modal de creación -->

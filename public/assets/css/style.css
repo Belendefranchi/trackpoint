@@ -42,7 +42,6 @@ h2{
 .table-primary {
   background-color: var(--bs-primary) !important;
   border-color: #2668c526 !important;
-
 }
 
 .table-hover:hover {
@@ -79,12 +78,6 @@ h2{
 	border-color: #3A4280 !important;
 }
 
-table.dataTable thead th, table.dataTable thead td,
-table.dataTable tbody th, table.dataTable tbody td  {
-  font-weight: normal;
-  padding: 2px !important;
-}
-
 /* Ajustar el tamaño del grip de redimensionado */
 table.dataTable td.dtr-resizable {
   cursor: ew-resize !important;
@@ -100,7 +93,7 @@ table.dataTable th.dtr-resizable:after {
   content: "";
   position: absolute;
   right: 0;
-  width: 20px;  /* Cambia el tamaño del grip */
+  width: 20px !important;  /* Cambia el tamaño del grip */
   top: 0;
   bottom: 0;
   cursor: ew-resize !important;
@@ -117,6 +110,7 @@ table.dataTable th.dtr-resizable:after {
 /* Paginador */
 .dataTables_paginate {
   color: #adadad !important;
+  margin: 10px 0 !important;
 }
 
 /* Estilo general para todos los botones de paginación */
@@ -169,6 +163,7 @@ table.dataTable th.dtr-resizable:after {
   padding: 4px !important;
 }
 
+/* Foco en el buscador y filtro de registros */
 .dataTables_wrapper .dataTables_filter input,
 .dataTables_wrapper .dataTables_length select:focus {
   outline: none;
@@ -181,11 +176,36 @@ table.dataTable.no-footer {
   border-bottom: 1px solid #DEE2E6 !important;
 }
 
+/* Quitar el borde inferior del encabezado generado por DataTables */
+.dataTables_scrollHeadInner table {
+  border-bottom: none !important;
+}
+
+/* Asegurarse que no haya bordes o espacios entre el thead y tbody */
+.dataTables_scrollHead table, 
+.dataTables_scrollBody table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+/* Aplica a las celdas de la tabla */
+table.dataTable td, 
+table.dataTable th {
+  white-space: nowrap !important; /* No permite salto de línea */
+  overflow: hidden !important;    /* Oculta el contenido que desborda */
+}
+
+.table.dataTable tbody th, table.dataTable tbody td {
+  padding: 4px !important;
+}
+
+
 /* Visibilidad de columnas */
 .btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis {
   background: transparent !important;
   color: #adadad !important;
   border: 1px solid #DEE2E6 !important;
+  margin-top: 10px !important;
   margin-left: 20px !important;
   padding: 4px !important;
   border-radius: 4px !important;
@@ -199,40 +219,39 @@ table.dataTable.no-footer {
   background: transparent !important;
   color: #adadad !important;
   border: 1px solid #DEE2E6 !important;
+  margin-top: 10px !important;
   margin-left: 10px !important;
   padding: 4px 12px !important;
   border-radius: 4px !important;
 }
 
+/* Boton de visibilidad de columnas */
 button.buttons-colvis::after {
   display: none !important;
 }
 
+/* Estilo para el caret del dropdown */
 .dropdown-caret {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: 0.3em;
+  margin-left: 0.3em; 
   vertical-align: middle;
   border-top: 0.4em solid;
   border-right: 0.4em solid transparent;
   border-left: 0.4em solid transparent;
 }
 
-/* Separacion del selector de columnas */
-table.dataTable thead td {
-  padding-right: 25px !important;
-}
-
+/* Estilo para el checkbox */
 .form-check-input {
   background-color: #dc3545 !important;
 }
-
 .form-check-input:checked {
   background-color: #198754 !important;
   border-color: #198754 !important;
 }
 
+/* Estilo para el input disabled */
 .input-disabled-style {
   background-color: #e9ecef;  /* gris claro típico de bootstrap disabled */
   color: #6c757d;             /* texto gris */

@@ -21,6 +21,8 @@ $(document).ready(function () {
 	const tablaEnModalProceso = $('#miTablaEnModalProceso').DataTable(configuracionDataTable);
 	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTable);
 
+	$('#miTabla').DataTable().destroy();
+
 	const tabla = $('#miTabla').DataTable({
 		stateSave: true,
 		stateLoadParams: function (settings, data) {
@@ -35,6 +37,7 @@ $(document).ready(function () {
 			realtime: true
 		},
 		colReorder: true,
+		scrollX: true,
 		dom: 'Blfrtip',
 		buttons: [
 			{

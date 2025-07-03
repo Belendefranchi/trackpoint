@@ -8,89 +8,79 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
-					<table>
-							<tr>
-								<td>
-									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2 text-primary">Operadores</h2>
-										<a href="#" class="btn btn-sm btn-primary"
-											data-bs-toggle="modal" 
-											data-bs-target="#modalCrearOperador">
-											<i class="bi-plus-circle me-2"></i>Nuevo Operador
-										</a>
-									</div>
-								</td>
+					<div class="d-flex justify-content-between align-items-center">
+						<h2 class="text-primary">Operadores</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalCrearOperador">
+							<i class="bi-plus-circle me-2"></i>Nuevo Operador
+						</a>
+					</div>
+					<table id="miTabla" class="display" style="width:100%">
+						<thead class="table-primary">
+							<tr class="text-light">
+								<td class="border text-center">ID</td>
+								<td class="border">Operador</td>
+								<td class="border">Nombre y Apellido</td>
+								<td class="border">Email</td>
+								<td class="border">Rol</td>
+								<td class="border">Fecha de creación</td>
+								<td class="border">Creado por</td>
+								<td class="border">Fecha de edición</td>
+								<td class="border">Editado por</td>
+								<td class="border">Activo</td>
+								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
-							<tr>
-								<td class="p-2">
-									<table id="miTabla" class="display pt-2 pb-4" style="width:100%">
-										<thead class="table-primary">
-											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border">Operador</td>
-												<td class="border">Nombre y Apellido</td>
-												<td class="border">Email</td>
-												<td class="border">Rol</td>
-												<td class="border">Fecha de creación</td>
-												<td class="border">Creado por</td>
-												<td class="border">Fecha de edición</td>
-												<td class="border">Editado por</td>
-												<td class="border">Activo</td>
-												<td class="border text-center no-export">Acciones</td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($operadores as $operador): ?>
-												<tr class="text-start">
-													<td class="border text-primary text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['creado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['creado_por']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['editado_en']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($operador['editado_por']) ?></td>
-													<td class="border text-primary"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
-													<td class="border text-primary text-center">
-														<?php if ($operador['username'] === superadmin): ?>
-														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-														<?php else: ?>
-														<div class="d-flex no-wrap">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-																data-bs-toggle="modal" 
-																data-bs-target="#modalEditarOperador"
-																data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
-																data-username="<?= htmlspecialchars($operador['username']) ?>"
-																data-nombre="<?= htmlspecialchars($operador['nombre_completo']) ?>"
-																data-email="<?= htmlspecialchars($operador['email']) ?>"
-																data-rol="<?= htmlspecialchars($operador['rol']) ?>"
-																data-activo="<?= htmlspecialchars($operador['activo']) ?>">
-																<i class="bi bi-pencil me-2"></i>Editar
-															</a>
-															<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																data-bs-toggle="modal"
-																data-bs-target="#modalEliminarOperador"
-																data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
-																data-username="<?= htmlspecialchars($operador['username']) ?>">
-																<i class="bi bi-trash me-2"></i>Eliminar
-															</a>
-														</div>
-														<?php endif ?>
-													</td>
-												</tr>
-											<?php endforeach; ?>
-										</tbody>
-									</table>
-								</td>
-							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($operadores as $operador): ?>
+								<tr class="text-start">
+									<td class="border text-primary text-center"><?= htmlspecialchars($operador['operador_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['creado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['creado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['editado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['editado_por']) ?></td>
+									<td class="border text-primary"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
+									<td class="border text-primary text-center">
+										<?php if ($operador['username'] === superadmin): ?>
+										<div class="d-flex no-wrap">
+											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+												<i class="bi bi-pencil me-2"></i>Editar
+											</a>
+											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+												<i class="bi bi-trash me-2"></i>Eliminar
+											</a>
+										</div>
+										<?php else: ?>
+										<div class="d-flex no-wrap">
+											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+												data-bs-toggle="modal" 
+												data-bs-target="#modalEditarOperador"
+												data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
+												data-username="<?= htmlspecialchars($operador['username']) ?>"
+												data-nombre="<?= htmlspecialchars($operador['nombre_completo']) ?>"
+												data-email="<?= htmlspecialchars($operador['email']) ?>"
+												data-rol="<?= htmlspecialchars($operador['rol']) ?>"
+												data-activo="<?= htmlspecialchars($operador['activo']) ?>">
+												<i class="bi bi-pencil me-2"></i>Editar
+											</a>
+											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEliminarOperador"
+												data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
+												data-username="<?= htmlspecialchars($operador['username']) ?>">
+												<i class="bi bi-trash me-2"></i>Eliminar
+											</a>
+										</div>
+										<?php endif ?>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
 					</table>
 
 					<!-- Modal de creación -->
