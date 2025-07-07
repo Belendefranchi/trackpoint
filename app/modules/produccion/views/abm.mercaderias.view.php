@@ -113,34 +113,79 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 										</div>
 
-										<div class="mb-3">
-											<label for="crearCodigoMercaderia" class="form-label text-primary">Código</label>
-											<input type="text" class="form-control" name="codigo" id="crearCodigoMercaderia">
-										</div>
+										<ul class="nav nav-tabs">
+											<li class="nav-item">
+												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-tab" data-bs-toggle="tab" href="#datos-obligatorios">Datos obligatorios</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link p-2 text-primary" id="datos-adicionales-tab" data-bs-toggle="tab" href="#datos-adicionales">Datos adicionales</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link p-2 text-primary" id="datos-externos-tab" data-bs-toggle="tab" href="#datos-externos">Datos externos</a>
+											</li>
+										</ul>
 
-										<div class="mb-3">
-											<label for="crearDescripcionMercaderia" class="form-label text-primary">Descripción</label>
-											<input type="text" class="form-control" name="descripcion" id="crearDescripcionMercaderia">
-										</div>
+										<div class="tab-content">
+											<div class="tab-pane fade show active" id="datos-obligatorios" role="tabpanel" aria-labelledby="datos-obligatorios-tab">
+												<div class="mb-3 pt-2">
+													<label for="crearCodigoMercaderia" class="form-label text-primary">Código</label>
+													<input type="text" class="form-control" name="codigo" id="crearCodigoMercaderia" required>
+												</div>
+											
+												<div class="mb-3">
+													<label for="crearDescripcionMercaderia" class="form-label text-primary">Descripción</label>
+													<input type="text" class="form-control" name="descripcion" id="crearDescripcionMercaderia" required>
+												</div>
 
-										<div class="mb-3">
-											<label for="crearFamiliaMercaderia" class="form-label text-primary">Familia</label>
-											<input type="text" class="form-control" name="familia" id="crearFamiliaMercaderia">
-										</div>
+												<div class="mb-3">
+													<label for="crearMarcaMercaderia" class="form-label text-primary">Marca</label>
+													<input type="text" class="form-control" name="marca" id="crearMarcaMercaderia">
+												</div>
+											</div>
 
-										<div class="mb-3">
-											<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
-											<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
-										</div>
+											<div class="tab-pane fade" id="datos-adicionales" role="tabpanel" aria-labelledby="datos-adicionales-tab">
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
+														<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="crearSubGrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
+														<input type="text" class="form-control" name="subgrupo" id="crearSubGrupoMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="crearPesoMinimoMercaderia" class="form-label text-primary">Peso Mínimo</label>
+														<input type="number" class="form-control" name="peso_min" id="crearPesoMinimoMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="crearPesoMaximoMercaderia" class="form-label text-primary">Peso Máximo</label>
+														<input type="number" class="form-control" name="peso_max" id="crearPesoMaximoMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="crearCantidadPropuestaMercaderia" class="form-label text-primary">Cantidad Propuesta</label>
+														<input type="number" class="form-control" name="cantidad_propuesta" id="crearCantidadPropuestaMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="crearUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
+														<input type="text" class="form-control" name="unidad_medida" id="crearUnidadMedidaMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="crearEnvasePrimarioMercaderia" class="form-label text-primary">Envase Primario</label>
+														<input type="text" class="form-control" name="envase_pri" id="crearEnvasePrimarioMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="crearEnvaseSecundarioMercaderia" class="form-label text-primary">Envase Secundario</label>
+														<input type="text" class="form-control" name="envase_sec" id="crearEnvaseSecundarioMercaderia">
+													</div>
+												</div>
+											</div>
 
-										<div class="mb-3">
-											<label for="crearSubGrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-											<input type="text" class="form-control" name="subgrupo" id="crearSubGrupoMercaderia">
-										</div>
-
-										<div class="mb-3">
-											<label for="crearUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
-											<input type="text" class="form-control" name="unidad_medida" id="crearUnidadMedidaMercaderia">
 										</div>
 
 									</div>
