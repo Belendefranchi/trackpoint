@@ -10,10 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       modalCrearMercaderia.querySelector('#crearCodigoMercaderia').value = button.getAttribute('data-codigo');
       modalCrearMercaderia.querySelector('#crearDescripcionMercaderia').value = button.getAttribute('data-descripcion');
-      modalCrearMercaderia.querySelector('#crearFamiliaMercaderia').value = button.getAttribute('data-familia');
+      modalCrearMercaderia.querySelector('#crearUnidadMedidaMercaderia').value = button.getAttribute('data-unidad');
       modalCrearMercaderia.querySelector('#crearGrupoMercaderia').value = button.getAttribute('data-grupo');
       modalCrearMercaderia.querySelector('#crearSubgrupoMercaderia').value = button.getAttribute('data-subgrupo');
-      modalCrearMercaderia.querySelector('#crearUnidadMedidaMercaderia').value = button.getAttribute('data-unidad-medida');
+      modalCrearMercaderia.querySelector('#crearEnvasePriMercaderia').value = button.getAttribute('data-envasepri');
+      modalCrearMercaderia.querySelector('#crearEnvaseSecMercaderia').value = button.getAttribute('data-envasesec');
+      modalCrearMercaderia.querySelector('#crearMarcaMercaderia').value = button.getAttribute('data-marca');
+      modalCrearMercaderia.querySelector('#crearCantidadPropuestaMercaderia').value = button.getAttribute('data-cantidadprop');
+      modalCrearMercaderia.querySelector('#crearPesoPropuestoMercaderia').value = button.getAttribute('data-pesoprop');
+      modalCrearMercaderia.querySelector('#crearPesoMinMercaderia').value = button.getAttribute('data-pesomin');
+      modalCrearMercaderia.querySelector('#crearPesoMaxMercaderia').value = button.getAttribute('data-pesomax');
+      modalCrearMercaderia.querySelector('#crearEtiquetaSecMercaderia').value = button.getAttribute('data-etiquetasec');
 
     });
   }
@@ -40,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Respuesta del servidor:', response);
 
           if (response.success) {
-            console.log('Perfil creado con éxito:', response.message);
+            console.log('Mercadería creada con éxito:', response.message);
 
             const tabla = $('#miTabla').DataTable();
             localStorage.setItem('paginaMercaderias', tabla.page());
@@ -86,10 +93,17 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarMercaderia.querySelector('#editarMercaderiaId').value = button.getAttribute('data-id');
       modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigo');
       modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcion');
-      modalEditarMercaderia.querySelector('#editarFamiliaMercaderia').value = button.getAttribute('data-familia');
+      modalEditarMercaderia.querySelector('#editarUnidadMedidaMercaderia').value = button.getAttribute('data-unidad');
       modalEditarMercaderia.querySelector('#editarGrupoMercaderia').value = button.getAttribute('data-grupo');
       modalEditarMercaderia.querySelector('#editarSubgrupoMercaderia').value = button.getAttribute('data-subgrupo');
-      modalEditarMercaderia.querySelector('#editarUnidadMedidaMercaderia').value = button.getAttribute('data-unidad');
+      modalEditarMercaderia.querySelector('#editarEnvasePriMercaderia').value = button.getAttribute('data-envasepri');
+      modalEditarMercaderia.querySelector('#editarEnvaseSecMercaderia').value = button.getAttribute('data-envasesec');
+      modalEditarMercaderia.querySelector('#editarMarcaMercaderia').value = button.getAttribute('data-marca');
+      modalEditarMercaderia.querySelector('#editarCantidadPropuestaMercaderia').value = button.getAttribute('data-cantidadprop');
+      modalEditarMercaderia.querySelector('#editarPesoPropuestoMercaderia').value = button.getAttribute('data-pesoprop');
+      modalEditarMercaderia.querySelector('#editarPesoMinMercaderia').value = button.getAttribute('data-pesomin');
+      modalEditarMercaderia.querySelector('#editarPesoMaxMercaderia').value = button.getAttribute('data-pesomax');
+      modalEditarMercaderia.querySelector('#editarEtiquetaSecMercaderia').value = button.getAttribute('data-etiquetasec');
       modalEditarMercaderia.querySelector('#editarActivoMercaderia').value = button.getAttribute('data-activo');
     });
   }
@@ -160,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var button = event.relatedTarget;
 
       modalEliminarMercaderia.querySelector('#eliminarMercaderiaId').value = button.getAttribute('data-id');
-      modalEliminarMercaderia.querySelector('#eliminarNombreMercaderia').value = button.getAttribute('data-nombre');
+      modalEliminarMercaderia.querySelector('#eliminarCodigoMercaderia').value = button.getAttribute('data-codigo');
     });
   }
 

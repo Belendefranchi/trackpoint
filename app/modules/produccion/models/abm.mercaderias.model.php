@@ -29,7 +29,7 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 function mercaderiaExists($codigo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT codigo FROM produccion_abm_mercaderias WHERE codigo = :codigo");
+		$stmt = $conn->prepare("SELECT mercaderia_id, codigo FROM produccion_abm_mercaderias WHERE codigo = :codigo");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->execute();
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -40,18 +40,25 @@ function mercaderiaExists($codigo) {
 	}
 }
 
-function crearMercaderia($codigo, $descripcion, $familia, $grupo, $subgrupo, $unidad_medida) {
+function crearMercaderia($codigo, $descripcion, $unidad_medida, $grupo, $subgrupo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec) {
 	session_start();
 	$creado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("INSERT INTO produccion_abm_mercaderias (codigo, descripcion, familia, grupo, subgrupo, unidad_medida, creado_por) VALUES (:codigo, :descripcion, :familia, :grupo, :subgrupo, :unidad_medida, :creado_por)");
+		$stmt = $conn->prepare("INSERT INTO produccion_abm_mercaderias (codigo, descripcion, unidad_medida, grupo, subgrupo, envase_pri, envase_sec, marca, cantidad_propuesta, peso_propuesto, peso_min, peso_max, creado_por, etiqueta_sec) VALUES (:codigo, :descripcion, :unidad_medida, :grupo, :subgrupo, :envase_pri, :envase_sec, :marca, :cantidad_propuesta, :peso_propuesto, :peso_min, :peso_max, :creado_por, :etiqueta_sec)");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
-		$stmt->bindParam(':familia', $familia);
+		$stmt->bindParam(':unidad_medida', $unidad_medida);
 		$stmt->bindParam(':grupo', $grupo);
 		$stmt->bindParam(':subgrupo', $subgrupo);
-		$stmt->bindParam(':unidad_medida', $unidad_medida);
+		$stmt->bindParam(':envase_pri', $envase_pri);
+		$stmt->bindParam(':envase_sec', $envase_sec);
+		$stmt->bindParam(':marca', $marca);
+		$stmt->bindParam(':cantidad_propuesta', $cantidad_propuesta);
+		$stmt->bindParam(':peso_propuesto', $peso_propuesto);
+		$stmt->bindParam(':peso_min', $peso_min);
+		$stmt->bindParam(':peso_max', $peso_max);
+		$stmt->bindParam(':etiqueta_sec', $etiqueta_sec);
 		$stmt->bindParam(':creado_por', $creado_por);
 		$result = $stmt->execute();
 		if ($result) {
@@ -78,19 +85,26 @@ function eliminarMercaderia($mercaderia_id) {
 	}
 }
 
-function editarMercaderia($mercaderia_id, $codigo, $descripcion, $familia, $grupo, $subgrupo, $unidad_medida, $activo) {
+function editarMercaderia($mercaderia_id, $codigo, $descripcion, $unidad_medida, $grupo, $subgrupo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec, $activo) {
 	session_start();
 	$editado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, familia = :familia, grupo = :grupo, subgrupo = :subgrupo, unidad_medida = :unidad_medida, editado_por = :editado_por, activo = :activo WHERE mercaderia_id = :mercaderia_id");
+		$stmt = $conn->prepare("UPDATE produccion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, unidad_medida = :unidad_medida, grupo = :grupo, subgrupo = :subgrupo, envase_pri = :envase_pri, envase_sec = :envase_sec, marca = :marca, cantidad_propuesta = :cantidad_propuesta, peso_propuesto = :peso_propuesto, peso_min = :peso_min, peso_max = :peso_max, editado_por = :editado_por, activo = :activo, etiqueta_sec = :etiqueta_sec WHERE mercaderia_id = :mercaderia_id");
 		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
-		$stmt->bindParam(':familia', $familia);
+		$stmt->bindParam(':unidad_medida', $unidad_medida);
 		$stmt->bindParam(':grupo', $grupo);
 		$stmt->bindParam(':subgrupo', $subgrupo);
-		$stmt->bindParam(':unidad_medida', $unidad_medida);
+		$stmt->bindParam(':envase_pri', $envase_pri);
+		$stmt->bindParam(':envase_sec', $envase_sec);
+		$stmt->bindParam(':marca', $marca);
+		$stmt->bindParam(':cantidad_propuesta', $cantidad_propuesta);
+		$stmt->bindParam(':peso_propuesto', $peso_propuesto);
+		$stmt->bindParam(':peso_min', $peso_min);
+		$stmt->bindParam(':peso_max', $peso_max);
+		$stmt->bindParam(':etiqueta_sec', $etiqueta_sec);
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $activo);
 		$stmt->execute();

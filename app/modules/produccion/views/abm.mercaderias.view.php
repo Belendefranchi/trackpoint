@@ -22,18 +22,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border text-center">ID</td>
 								<td class="border">Código</td>
 								<td class="border">Descripción</td>
-								<td class="border">Familia</td>
+								<td class="border">Unidad de Medida</td>
 								<td class="border">Grupo</td>
 								<td class="border">Subgrupo</td>
-								<td class="border">Unidad de Medida</td>
+								<td class="border">Envase</td>
+								<!-- <td class="border">Envase Secundario</td> -->
+								<td class="border">Marca</td>
 								<td class="border">Cantidad Propuesta</td>
+								<td class="border">Peso Propuesto</td>
 								<td class="border">Peso Mínimo</td>
 								<td class="border">Peso Máximo</td>
-								<td class="border">Marca</td>
-								<td class="border">Envase Primario</td>
-								<td class="border">Envase Secundario</td>
-								<td class="border">Tara Primaria</td>
-								<td class="border">Tara Secundaria</td>
+								<td class="border">Etiqueta</td>
 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
@@ -48,18 +47,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary text-center"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['familia']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
+									<!-- <td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td> -->
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_propuesto']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_pri']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['tara_sec']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
@@ -73,10 +71,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
 												data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
 												data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
-												data-familia="<?= htmlspecialchars($mercaderia['familia']) ?>"
+												data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
 												data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
 												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
-												data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
+												data-cantidadprop="<?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?>"
+												data-pesoprop="<?= htmlspecialchars($mercaderia['peso_propuesto']) ?>"
+												data-pesomin="<?= htmlspecialchars($mercaderia['peso_min']) ?>"
+												data-pesomax="<?= htmlspecialchars($mercaderia['peso_max']) ?>"
+												data-envasepri="<?= htmlspecialchars($mercaderia['envase_pri']) ?>"
+												data-envasesec="<?= htmlspecialchars($mercaderia['envase_sec']) ?>"
+												data-marca="<?= htmlspecialchars($mercaderia['marca']) ?>"
+												data-etiquetasec="<?= htmlspecialchars($mercaderia['etiqueta_sec']) ?>"
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
@@ -120,26 +125,29 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<li class="nav-item">
 												<a class="nav-link p-2 text-primary" id="datos-adicionales-tab" data-bs-toggle="tab" href="#datos-adicionales">Datos adicionales</a>
 											</li>
-											<li class="nav-item">
+											<!--<li class="nav-item">
 												<a class="nav-link p-2 text-primary" id="datos-externos-tab" data-bs-toggle="tab" href="#datos-externos">Datos externos</a>
-											</li>
+											</li> -->
 										</ul>
 
 										<div class="tab-content">
 											<div class="tab-pane fade show active" id="datos-obligatorios" role="tabpanel" aria-labelledby="datos-obligatorios-tab">
 												<div class="mb-3 pt-2">
 													<label for="crearCodigoMercaderia" class="form-label text-primary">Código</label>
-													<input type="text" class="form-control" name="codigo" id="crearCodigoMercaderia" required>
+													<input type="text" class="form-control" name="codigo" id="crearCodigoMercaderia">
 												</div>
 											
 												<div class="mb-3">
 													<label for="crearDescripcionMercaderia" class="form-label text-primary">Descripción</label>
-													<input type="text" class="form-control" name="descripcion" id="crearDescripcionMercaderia" required>
+													<input type="text" class="form-control" name="descripcion" id="crearDescripcionMercaderia">
 												</div>
 
 												<div class="mb-3">
-													<label for="crearMarcaMercaderia" class="form-label text-primary">Marca</label>
-													<input type="text" class="form-control" name="marca" id="crearMarcaMercaderia">
+													<label for="crearUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
+													<select class="form-select" name="unidad_medida" id="crearUnidadMedidaMercaderia">
+														<option value="Kg">Kg</option>
+														<option value="Unidades">Unidades</option>
+													</select>
 												</div>
 											</div>
 
@@ -150,48 +158,54 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
 													</div>
 													<div class="col-md-6">
-														<label for="crearSubGrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-														<input type="text" class="form-control" name="subgrupo" id="crearSubGrupoMercaderia">
+														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
+														<input type="text" class="form-control" name="subgrupo" id="crearSubgrupoMercaderia">
 													</div>
 												</div>
-												<div class="mb-3 row align-items-center pt-2">
+												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
-														<label for="crearPesoMinimoMercaderia" class="form-label text-primary">Peso Mínimo</label>
-														<input type="number" class="form-control" name="peso_min" id="crearPesoMinimoMercaderia">
+														<label for="crearEnvasePriMercaderia" class="form-label text-primary">Envase</label>
+														<input type="text" class="form-control" name="envase_pri" id="crearEnvasePriMercaderia">
 													</div>
 													<div class="col-md-6">
-														<label for="crearPesoMaximoMercaderia" class="form-label text-primary">Peso Máximo</label>
-														<input type="number" class="form-control" name="peso_max" id="crearPesoMaximoMercaderia">
+														<label for="crearEnvaseSecMercaderia" class="form-label text-primary">Envase Secundario</label>
+														<input type="text" class="form-control" name="envase_sec" id="crearEnvaseSecMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="crearMarcaMercaderia" class="form-label text-primary">Marca</label>
+														<input type="text" class="form-control" name="marca" id="crearMarcaMercaderia">
 													</div>
 												</div>
-												<div class="mb-3 row align-items-center pt-2">
+												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="crearCantidadPropuestaMercaderia" class="form-label text-primary">Cantidad Propuesta</label>
 														<input type="number" class="form-control" name="cantidad_propuesta" id="crearCantidadPropuestaMercaderia">
 													</div>
 													<div class="col-md-6">
-														<label for="crearUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
-														<input type="text" class="form-control" name="unidad_medida" id="crearUnidadMedidaMercaderia">
+														<label for="crearPesoPropuestoMercaderia" class="form-label text-primary">Peso Propuesto</label>
+														<input type="number" class="form-control" name="peso_propuesto" id="crearPesoPropuestoMercaderia">
 													</div>
 												</div>
-												<div class="mb-3 row align-items-center pt-2">
+												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
-														<label for="crearEnvasePrimarioMercaderia" class="form-label text-primary">Envase Primario</label>
-														<input type="text" class="form-control" name="envase_pri" id="crearEnvasePrimarioMercaderia">
+														<label for="crearPesoMinMercaderia" class="form-label text-primary">Peso Mínimo</label>
+														<input type="number" class="form-control" name="peso_min" id="crearPesoMinMercaderia">
 													</div>
 													<div class="col-md-6">
-														<label for="crearEnvaseSecundarioMercaderia" class="form-label text-primary">Envase Secundario</label>
-														<input type="text" class="form-control" name="envase_sec" id="crearEnvaseSecundarioMercaderia">
+														<label for="crearPesoMaxMercaderia" class="form-label text-primary">Peso Máximo</label>
+														<input type="number" class="form-control" name="peso_max" id="crearPesoMaxMercaderia">
 													</div>
+												</div>
+												<div class="mb-3 align-items-center">
+													<label for="crearEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
+													<input type="text" class="form-control" name="etiqueta_sec" id="crearEtiquetaSecMercaderia">
 												</div>
 											</div>
-
 										</div>
-
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
-										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+										<div class="modal-footer d-flex justify-content-center p-2">
+											<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+											<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+										</div>
 									</div>
 								</div>
 							</form>
@@ -218,47 +232,101 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 										</div>
 
-										<div class="mb-3">
-											<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
-											<input type="text" class="form-control" name="codigo" id="editarCodigoMercaderia">
-										</div>
+										<ul class="nav nav-tabs">
+											<li class="nav-item">
+												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-tab" data-bs-toggle="tab" href="#datos-obligatorios">Datos obligatorios</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link p-2 text-primary" id="datos-adicionales-tab" data-bs-toggle="tab" href="#datos-adicionales">Datos adicionales</a>
+											</li>
+											<!--<li class="nav-item">
+												<a class="nav-link p-2 text-primary" id="datos-externos-tab" data-bs-toggle="tab" href="#datos-externos">Datos externos</a>
+											</li> -->
+										</ul>
 
-										<div class="mb-3">
-											<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
-											<input type="text" class="form-control" name="descripcion" id="editarDescripcionMercaderia">
-										</div>
+										<div class="tab-content">
+											<div class="tab-pane fade show active" id="datos-obligatorios" role="tabpanel" aria-labelledby="datos-obligatorios-tab">
+												<div class="mb-3 pt-2">
+													<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
+													<input type="text" class="form-control" name="codigo" id="editarCodigoMercaderia">
+												</div>
+											
+												<div class="mb-3">
+													<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
+													<input type="text" class="form-control" name="descripcion" id="editarDescripcionMercaderia">
+												</div>
 
-										<div class="mb-3">
-											<label for="editarFamiliaMercaderia" class="form-label text-primary">Familia</label>
-											<input type="text" class="form-control" name="familia" id="editarFamiliaMercaderia">
-										</div>
+												<div class="mb-3">
+													<label for="editarUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
+													<select class="form-select" name="unidad_medida" id="editarUnidadMedidaMercaderia">
+														<option value="Kg">Kg</option>
+														<option value="Unidades">Unidades</option>
+													</select>
+												</div>
+												<div class="mb-3">
+													<label for="editarActivoMercaderia" class="form-label text-primary">Activo</label>
+													<select class="form-select" name="activo" id="editarActivoMercaderia">
+														<option value="1">Sí</option>
+														<option value="0">No</option>
+													</select>
+												</div>
+											</div>
 
-										<div class="mb-3">
-											<label for="editarGrupoMercaderia" class="form-label text-primary">Grupo</label>
-											<input type="text" class="form-control" name="grupo" id="editarGrupoMercaderia">
+											<div class="tab-pane fade" id="datos-adicionales" role="tabpanel" aria-labelledby="datos-adicionales-tab">
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="editarGrupoMercaderia" class="form-label text-primary">Grupo</label>
+														<input type="text" class="form-control" name="grupo" id="editarGrupoMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
+														<input type="text" class="form-control" name="subgrupo" id="editarSubgrupoMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="editarEnvasePriMercaderia" class="form-label text-primary">Envase</label>
+														<input type="text" class="form-control" name="envase_pri" id="editarEnvasePriMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="editarEnvaseSecMercaderia" class="form-label text-primary">Envase Secundario</label>
+														<input type="text" class="form-control" name="envase_sec" id="editarEnvaseSecMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="editarMarcaMercaderia" class="form-label text-primary">Marca</label>
+														<input type="text" class="form-control" name="marca" id="editarMarcaMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="editarCantidadPropuestaMercaderia" class="form-label text-primary">Cantidad Propuesta</label>
+														<input type="number" class="form-control" name="cantidad_propuesta" id="editarCantidadPropuestaMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="editarPesoPropuestoMercaderia" class="form-label text-primary">Peso Propuesto</label>
+														<input type="number" class="form-control" name="peso_propuesto" id="editarPesoPropuestoMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 row align-items-center pt-2">
+													<div class="col-md-6">
+														<label for="editarPesoMinMercaderia" class="form-label text-primary">Peso Mínimo</label>
+														<input type="number" class="form-control" name="peso_min" id="editarPesoMinMercaderia">
+													</div>
+													<div class="col-md-6">
+														<label for="editarPesoMaxMercaderia" class="form-label text-primary">Peso Máximo</label>
+														<input type="number" class="form-control" name="peso_max" id="editarPesoMaxMercaderia">
+													</div>
+												</div>
+												<div class="mb-3 align-items-center pt-2">
+													<label for="editarEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
+													<input type="text" class="form-control" name="etiqueta_sec" id="editarEtiquetaSecMercaderia">
+												</div>
+											</div>
 										</div>
-
-										<div class="mb-3">
-											<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-											<input type="text" class="form-control" name="subgrupo" id="editarSubgrupoMercaderia">
+										<div class="modal-footer d-flex justify-content-center p-2">
+											<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+											<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 										</div>
-
-										<div class="mb-3">
-											<label for="editarUnidadMedidaMercaderia" class="form-label text-primary">Unidad de Medida</label>
-											<input type="text" class="form-control" name="unidad_medida" id="editarUnidadMedidaMercaderia">
-										</div>
-
-										<div class="mb-3">
-											<label for="editarActivoMercaderia" class="form-label text-primary">Activo</label>
-											<select class="form-select" name="activo" id="editarActivoMercaderia">
-												<option value="1">Sí</option>
-												<option value="0">No</option>
-											</select>
-										</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
-										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 									</div>
 								</div>
 							</form>
@@ -276,7 +344,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 									<div class="modal-body">
 										<input type="hidden" name="mercaderia_id" id="eliminarMercaderiaId">
-										<input type="hidden" name="codigo" id="eliminarcodigoMercadería">
+										<input type="hidden" name="codigo" id="eliminarCodigoMercadería">
 
 										<div class="mb-3">
 											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
