@@ -76,28 +76,32 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 														</div>
 
-														<!-- Código -->
+														<!-- Código y Descripción -->
 														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label text-primary">Código</label>
-															<div class="col-md-10 ps-0">
-																<div class="input-group">
-																	<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
-																	<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()">
-																		<i class="bi bi-search"></i>
-																	</button>
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label class="col-md-4 col-form-label text-primary">Código</label>
+																	<div class="col-md-8 ps-0">
+																		<div class="input-group">
+																			<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
+																			<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()">
+																				<i class="bi bi-search"></i>
+																			</button>
+																		</div>
+																	</div>
 																</div>
 															</div>
-														</div>
-
-														<!-- Descripción -->
-														<div class="mb-3 row align-items-center">
-															<label class="col-md-2 col-form-label text-primary">Descripción</label>
-															<div class="col-md-10 ps-0">
-																<div class="input-group">
-																	<input type="text" class="form-control" name="descripcion_producto" id="descripcion_producto" readonly required>
-																	<button type="button" class="btn btn-primary" onclick="abrirSelectorDescripcion()">
-																		<i class="bi bi-search"></i>
-																	</button>
+															<div class="col-md-6">
+																<div class="row align-items-center">
+																	<label class="col-md-4 col-form-label text-primary ps-5">Descripción</label>
+																	<div class="col-md-8 ps-0">
+																		<div class="input-group">
+																			<input type="text" class="form-control" name="descripcion_producto" id="descripcion_producto" readonly required>
+																			<button type="button" class="btn btn-primary" onclick="abrirSelectorDescripcion()">
+																				<i class="bi bi-search"></i>
+																			</button>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -189,11 +193,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</div>
 													</div>
 													<div class="card-footer bg-light text-end">
-														<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" >
+														<button type="submit" class="btn btn-sm btn-success mx-1" name="editar_modal" >
 															<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 														</button>
-														<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
-															<i class="bi-trash me-2"></i>Vaciar
+														<button type="button" class="btn btn-sm btn-danger mx-1" id="btn-limpiar-listado">
+															<i class="bi-trash me-2"></i>Eliminar
 														</button>
 												</div>
 											</div>
