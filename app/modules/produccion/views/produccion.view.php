@@ -105,7 +105,7 @@ $activeItems = [
             ABM
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
-            <a class="nav-link <?= $activeItems['familias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/familias">Familias</a>
+<!--             <a class="nav-link <?= $activeItems['familias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/familias">Familias</a> -->
             <a class="nav-link <?= $activeItems['grupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/grupos">Grupos</a>
             <a class="nav-link <?= $activeItems['subGrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/subGrupos">Sub Grupos</a>
             <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/mercaderias">Mercaderías</a>

@@ -79,7 +79,7 @@ $activeItems = [
             ABM
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABM">
-            <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/hacienda">Hacienda</a>
+<!--             <a class="nav-link <?= $activeItems['hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/hacienda">Hacienda</a> -->
             <a class="nav-link <?= $activeItems['materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/materiaPrima">Materia prima</a>
             <a class="nav-link <?= $activeItems['insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/insumos">Insumos</a>
             <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/mercaderias">Mercaderías</a>

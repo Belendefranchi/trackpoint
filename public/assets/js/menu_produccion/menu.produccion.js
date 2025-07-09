@@ -24,6 +24,22 @@ $(document).ready(function () {
 	$('#miTabla').DataTable().destroy();
 
 	const tabla = $('#miTabla').DataTable({
+		initComplete: function () {
+      var api = this.api();
+
+      api.columns().every(function () {
+        var empty = true;
+        this.data().each(function (value) {
+          if ($.trim(value) !== '') {
+            empty = false;
+            return false; // Salir del loop si encuentra dato
+          }
+        });
+
+        // Ocultar la columna si está vacía
+        api.column(this.index()).visible(!empty);
+      });
+    },
 		stateSave: true,
 		stateLoadParams: function (settings, data) {
 			// Solo restaurar la página si hay un estado guardado

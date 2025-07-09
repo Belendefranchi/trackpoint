@@ -33,10 +33,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border">Peso Mínimo</td>
 								<td class="border">Peso Máximo</td>
 								<td class="border">Etiqueta</td>
-								<td class="border">Fecha de creación</td>
+<!-- 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
-								<td class="border">Editado por</td>
+								<td class="border">Editado por</td> -->
 								<td class="border">Activo</td>
 								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
@@ -58,10 +58,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
+<!-- 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_por']) ?></td> -->
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex no-wrap">
@@ -120,10 +120,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 										<ul class="nav nav-tabs">
 											<li class="nav-item">
-												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-tab" data-bs-toggle="tab" href="#datos-obligatorios">Datos obligatorios</a>
+												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-c" data-bs-toggle="tab" href="#datos-obligatorios-crear">Datos obligatorios</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link p-2 text-primary" id="datos-adicionales-tab" data-bs-toggle="tab" href="#datos-adicionales">Datos adicionales</a>
+												<a class="nav-link p-2 text-primary" id="datos-adicionales-c" data-bs-toggle="tab" href="#datos-adicionales-crear">Datos adicionales</a>
 											</li>
 											<!--<li class="nav-item">
 												<a class="nav-link p-2 text-primary" id="datos-externos-tab" data-bs-toggle="tab" href="#datos-externos">Datos externos</a>
@@ -131,7 +131,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</ul>
 
 										<div class="tab-content">
-											<div class="tab-pane fade show active" id="datos-obligatorios" role="tabpanel" aria-labelledby="datos-obligatorios-tab">
+											<div class="tab-pane fade show active" id="datos-obligatorios-crear" role="tabpanel" aria-labelledby="datos-obligatorios-crear">
 												<div class="mb-3 pt-2">
 													<label for="crearCodigoMercaderia" class="form-label text-primary">Código</label>
 													<input type="text" class="form-control" name="codigo" id="crearCodigoMercaderia">
@@ -151,7 +151,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 
-											<div class="tab-pane fade" id="datos-adicionales" role="tabpanel" aria-labelledby="datos-adicionales-tab">
+											<div class="tab-pane fade" id="datos-adicionales-crear" role="tabpanel" aria-labelledby="datos-adicionales-crear">
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
@@ -234,10 +234,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 										<ul class="nav nav-tabs">
 											<li class="nav-item">
-												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-tab" data-bs-toggle="tab" href="#datos-obligatorios">Datos obligatorios</a>
+												<a class="nav-link active p-2 text-primary" aria-current="page" id="datos-obligatorios-e" data-bs-toggle="tab" href="#datos-obligatorios-editar">Datos obligatorios</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link p-2 text-primary" id="datos-adicionales-tab" data-bs-toggle="tab" href="#datos-adicionales">Datos adicionales</a>
+												<a class="nav-link p-2 text-primary" id="datos-adicionales-e" data-bs-toggle="tab" href="#datos-adicionales-editar">Datos adicionales</a>
 											</li>
 											<!--<li class="nav-item">
 												<a class="nav-link p-2 text-primary" id="datos-externos-tab" data-bs-toggle="tab" href="#datos-externos">Datos externos</a>
@@ -245,7 +245,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</ul>
 
 										<div class="tab-content">
-											<div class="tab-pane fade show active" id="datos-obligatorios" role="tabpanel" aria-labelledby="datos-obligatorios-tab">
+											<div class="tab-pane fade show active" id="datos-obligatorios-editar" role="tabpanel" aria-labelledby="datos-obligatorios-editar">
 												<div class="mb-3 pt-2">
 													<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
 													<input type="text" class="form-control" name="codigo" id="editarCodigoMercaderia">
@@ -272,7 +272,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 
-											<div class="tab-pane fade" id="datos-adicionales" role="tabpanel" aria-labelledby="datos-adicionales-tab">
+											<div class="tab-pane fade" id="datos-adicionales-editar" role="tabpanel" aria-labelledby="datos-adicionales-editar">
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="editarGrupoMercaderia" class="form-label text-primary">Grupo</label>
