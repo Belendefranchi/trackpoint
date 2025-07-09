@@ -85,20 +85,20 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/ABMs/mercaderias">Mercaderías</a>
           </div>
           
-          <a class="nav-link text-white table-hover rounded <?= $ingresosPActive ?>" data-bs-toggle="collapse" href="#submenuProductivos" role="button" aria-expanded="<?= $ingresosPOpen ? 'true' : 'false' ?>" aria-controls="submenuProductivos">
-            PRODUCTIVOS
-          </a>
-          <div class="collapse ps-3 <?= $ingresosPOpen ?>" id="submenuProductivos">
-            <a class="nav-link <?= $activeItems['ingreso_hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/hacienda">Ingreso de Hacienda</a>
-            <a class="nav-link <?= $activeItems['ingreso_materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/materiaPrima">Ingreso de Materia Prima</a>
-            <a class="nav-link <?= $activeItems['ingreso_insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/insumos">Ingreso de Insumos</a>
-          </div>
-
           <a class="nav-link text-white table-hover rounded <?= $ingresosNPActive ?>" data-bs-toggle="collapse" href="#submenuNoProductivos" role="button" aria-expanded="<?= $ingresosNPOpen ? 'true' : 'false' ?>" aria-controls="submenuNoProductivos">
             NO PRODUCTIVOS
           </a>
           <div class="collapse ps-3 <?= $ingresosNPOpen ?>" id="submenuNoProductivos">
             <a class="nav-link <?= $activeItems['ingreso_mercaderia'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia">Ingreso de Mercaderías</a>
+          </div>
+          
+          <a class="nav-link text-white table-hover rounded <?= $ingresosPActive ?>" data-bs-toggle="collapse" href="#submenuProductivos" role="button" aria-expanded="<?= $ingresosPOpen ? 'true' : 'false' ?>" aria-controls="submenuProductivos">
+            PRODUCTIVOS
+          </a>
+          <div class="collapse ps-3 <?= $ingresosPOpen ?>" id="submenuProductivos">
+<!--             <a class="nav-link <?= $activeItems['ingreso_hacienda'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/hacienda">Ingreso de Hacienda</a> -->
+            <a class="nav-link <?= $activeItems['ingreso_materiaPrima'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/materiaPrima">Ingreso de Materia Prima</a>
+            <a class="nav-link <?= $activeItems['ingreso_insumos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/recepcion/productivos/insumos">Ingreso de Insumos</a>
           </div>
 
         </div>
