@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<!-- ############################################################################# -->
 								<div class="container-fluid mt-4">
 
-									<form action="recepcion_mercaderias.php" method="POST" id="form-recepcion-mercderias">
+									<form method="POST" id="formIngresarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&ingresarMercaderia">
 
 										<div class="row">
 
@@ -78,30 +78,41 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 														<!-- Código y Descripción -->
 														<div class="mb-3 row align-items-center">
+
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label class="col-md-4 col-form-label text-primary">Código</label>
+
+																	<label class="form-label col-md-4 text-primary">Código</label>
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
-																			<input type="text" class="form-control" name="codigo_producto" id="codigo_producto" readonly required>
-																			<button type="button" class="btn btn-primary" onclick="abrirSelectorProducto()">
+																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada ? htmlspecialchars($mercaderiaSeleccionada['codigo']) : ''; ?>" readonly required>
+																			<a href="#" class="btn btn-primary"
+																			data-bs-toggle="modal" 
+																			data-bs-target="#modalSeleccionarMercaderia">
 																				<i class="bi bi-search"></i>
-																			</button>
+																			</a>
 																		</div>
 																	</div>
 																</div>
 															</div>
+
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label class="col-md-4 col-form-label text-primary ps-5">Descripción</label>
+																	
+																	<label class="form-label col-md-4 text-primary ps-5">Descripción</label>
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
-																			<input type="text" class="form-control" name="descripcion_producto" id="descripcion_producto" readonly required>
-																			<button type="button" class="btn btn-primary" onclick="abrirSelectorDescripcion()">
-																				<i class="bi bi-search"></i>
-																			</button>
+																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada ? htmlspecialchars($mercaderiaSeleccionada['descripcion']) : ''; ?>" readonly required>
+																				<a href="#" class="btn btn-primary"
+																					data-bs-toggle="modal" 
+																					data-bs-target="#modalSeleccionarMercaderia">
+																					<i class="bi bi-search"></i>
+																				</a>
 																		</div>
 																	</div>
+
 																</div>
 															</div>
 														</div>
@@ -193,10 +204,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</div>
 													</div>
 													<div class="card-footer bg-light text-end">
-														<button type="submit" class="btn btn-sm btn-success mx-1" name="editar_modal" >
+														<button type="submit" class="btn btn-sm btn-success my-2 me-1" name="editar_modal" >
 															<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 														</button>
-														<button type="button" class="btn btn-sm btn-danger mx-1" id="btn-limpiar-listado">
+														<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
 															<i class="bi-trash me-2"></i>Eliminar
 														</button>
 												</div>
@@ -212,6 +223,68 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</table>
 				</div>
 
+				<!-- Modal de selección de mercadería -->
+				<div class="modal fade m-5" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog d-flex">
+						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarMercaderia">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+
+									<div class="mb-3">
+										<div id="mensaje-error-seleccionar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
+											<thead class="table-primary">
+												<tr class="text-light">
+													<td class="border text-center">ID</td>
+													<td class="border">Código</td>
+													<td class="border">Descripción</td>
+													<td class="border"><i class="bi-check-circle me-2"></i></td>
+												</tr>
+											</thead>
+											<tbody>
+											<?php foreach ($mercaderias as $mercaderia): ?>
+													<tr class="text-start">
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+														<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+														<td class="border text-primary">
+															<input type="radio" name="seleccion_mercaderia"
+																class="form-check-input seleccionar-mercaderia"
+																data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+																data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
+																data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Campos ocultos para enviar en el form -->
+									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+									<input type="hidden" name="codigo-mercaderia" id="input-codigo-mercaderia">
+									<input type="hidden" name="descripcion-mercaderia" id="input-descripcion-mercaderia">
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
 			</main>
 		</div>
 	</div>
@@ -219,6 +292,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
 	<script src="/trackpoint/public/assets/js/menu_recepcion/menu.recepcion.js"></script>
+	<script src="/trackpoint/public/assets/js/menu_recepcion/noProductivos.mercaderias.modales.js"></script>
+
 
 </body>
 </html>

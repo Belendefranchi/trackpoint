@@ -18,7 +18,6 @@ $(document).ready(function () {
 		}
 	};
 
-	const tablaEnModalProceso = $('#miTablaEnModalProceso').DataTable(configuracionDataTable);
 	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTable);
 
 	const tabla = $('#miTabla').DataTable({
@@ -230,13 +229,10 @@ document.getElementById('unidades').addEventListener('input', function () {
 this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
 });
 
-document.getElementById('cantidad').addEventListener('input', function () {
+document.getElementById('peso').addEventListener('input', function () {
 this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
 });
 
 function getFloat(id) {
 	return parseFloat(document.getElementById(id).value) || 0;
 }
-
-
-

@@ -13,6 +13,7 @@ function obtenerMercaderias() {
 		return false;
 	}
 }
+
 function obtenerMercaderiaPorId($mercaderia_id) {
 	try {
 		$conn = getConnection();
@@ -26,6 +27,7 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 		return false;
 	}
 }
+
 function mercaderiaExists($codigo) {
 	try {
 		$conn = getConnection();
