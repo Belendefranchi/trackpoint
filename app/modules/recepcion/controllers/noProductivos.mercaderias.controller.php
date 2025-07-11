@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$codigo = $_POST['codigo-mercaderia'] ?? null;
+		$codigo = $_POST['codigo_mercaderia'] ?? null;
 
 		if (empty($codigo)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el código de la mercaderia']);
@@ -55,7 +55,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} else {
 			$mercaderia = obtenerMercaderiaPorCodigo($codigo);  // función que deberías tener
 			if ($mercaderia) {
+
 				$_SESSION['mercaderia_seleccionada'] = $mercaderia;
+
+				echo json_encode([
+					'success' => true,
+					'mercaderia_id' => $mercaderia['mercaderia_id'],
+					'codigo' => $mercaderia['codigo'],
+					'descripcion' => $mercaderia['descripcion'],
+				]);
+    		exit;
 
 			} else {
 				echo json_encode(['success' => false, 'message' => 'Error: No se encontró la mercadería con el código proporcionado']);

@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-  const inputCodigo = document.getElementById('codigo_mercaderia');
+	const inputCodigo = document.getElementById('codigo_mercaderia');
   const inputDescripcion = document.getElementById('descripcion_mercaderia');
+  const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
-  // Buscar automáticamente al escribir el código
   inputCodigo.addEventListener('keyup', function () {
     const codigo = this.value.trim();
 
@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
         success: function (response) {
           if (response.success) {
             inputDescripcion.value = response.descripcion;
+            mensajeBusqueda.textContent = '';
           } else {
             inputDescripcion.value = '';
+            mensajeBusqueda.textContent = 'Mercadería no encontrada.';
           }
         },
         error: function () {
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     } else {
       inputDescripcion.value = '';
+      mensajeBusqueda.textContent = '';
     }
   });
 
@@ -64,4 +67,5 @@ document.addEventListener('DOMContentLoaded', function () {
       inputDescripcion.value = this.dataset.descripcionm;
     });
   });
+
 });

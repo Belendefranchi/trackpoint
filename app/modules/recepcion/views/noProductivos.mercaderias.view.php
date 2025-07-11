@@ -88,11 +88,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
 																			
 																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo'] ?? ''; ?>" required>
-																			
-<!-- 																			<a href="#" class="btn btn-primary"
-																			data-bs-toggle="modal"
-																			data-bs-target="#modalSeleccionarMercaderia">
-																				<i class="bi bi-search"></i> -->
+																			<div id="mensaje-busqueda" class="text-danger mt-2"></div>
 																			</a>
 																		</div>
 																	</div>
@@ -106,7 +102,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion'] ?? ''; ?>" readonly required>
+																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" id="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion'] ?? ''; ?>" readonly required>
 																				<a href="#" class="btn btn-primary"
 																					data-bs-toggle="modal" 
 																					data-bs-target="#modalSeleccionarMercaderia">
