@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['seleccionarProceso'])) {
 
 		$proceso_id = $_POST['proceso_id'] ?? null;
-		$codigo = $_POST['codigo'] ?? '';
-		$descripcion = $_POST['descripcion'] ?? '';
+		$codigo = $_POST['codigo-proceso'] ?? '';
+		$descripcion = $_POST['descripcion-proceso'] ?? '';
 
 		if (empty($proceso_id)) {
       echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del proceso']);
@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['seleccionarMercaderia'])) {
 		
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
-		$codigo = $_POST['codigo'] ?? '';
-		$descripcion = $_POST['descripcion'] ?? '';
+		$codigo = $_POST['codigo-mercaderia'] ?? '';
+		$descripcion = $_POST['descripcion-mercaderia'] ?? '';
 		
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -79,8 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $datosVista = [
 	'procesos' => $procesos,
 	'mercaderias' => $mercaderias,
-	'proceso_seleccionado' => $procesoSeleccionado,
-	'mercaderia_seleccionada' => $mercaderiaSeleccionada
+/* 	'proceso_seleccionado' => $procesoSeleccionado,
+	'mercaderia_seleccionada' => $mercaderiaSeleccionada */
 ];
 
 // Llamar a la función común que carga todo en el layout

@@ -250,8 +250,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<!-- Campos ocultos para enviar en el form -->
 									<input type="text" name="proceso_id" id="input-proceso-id">
-									<input type="hidden" name="codigop" id="input-codigo-proceso">
-									<input type="hidden" name="descripcionp" id="input-descripcion-proceso">
+									<input type="text" name="codigo-proceso" id="input-codigo-proceso">
+									<input type="text" name="descripcion-proceso" id="input-descripcion-proceso">
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
 									<button type="submit" class="btn btn-sm btn-success m-2" name="proceso_seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
@@ -311,9 +311,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<!-- Campos ocultos para enviar en el form -->
-									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
-									<input type="hidden" name="codigo-mercaderia" id="input-codigo-mercaderia">
-									<input type="hidden" name="descripcion-mercaderia" id="input-descripcion-mercaderia">
+									<input type="text" name="mercaderia_id" id="input-mercaderia-id">
+									<input type="text" name="codigo-mercaderia" id="input-codigo-mercaderia">
+									<input type="text" name="descripcion-mercaderia" id="input-descripcion-mercaderia">
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
 									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>

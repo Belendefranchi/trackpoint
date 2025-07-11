@@ -28,3 +28,24 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 });
+
+
+$('#codigo_mercaderia').on('change', function() {
+    const codigo = $(this).val();
+    $.ajax({
+        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
+        method: 'POST',
+        data: { codigo_mercaderia: codigo },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                $('#codigo_mercaderia').val(response.codigo);
+            } else {
+                alert('Mercadería no encontrada');
+            }
+        },
+        error: function() {
+            alert('Error en la búsqueda');
+        }
+    });
+});
