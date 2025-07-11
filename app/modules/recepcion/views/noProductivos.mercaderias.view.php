@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<!-- ############################################################################# -->
 								<div class="container-fluid mt-4">
 
-									<form method="POST" id="formIngresarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&ingresarMercaderia">
+									<form method="POST" id="formIngresarMercaderia" action="">
 
 										<div class="row">
 
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="nro_remito" class="col-md-4 col-form-label text-primary">Nro. Remito</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="text" class="form-control" id="nro_remito" name="nro_remito" required>
+																		<input type="text" class="form-control" id="nro_remito" name="nro_remito">
 																	</div>
 																</div>
 															</div>
@@ -70,7 +70,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="fecha_remito" class="col-md-4 col-form-label text-primary ps-5">Fecha Remito</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito" required>
+																		<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito">
 																	</div>
 																</div>
 															</div>
@@ -86,11 +86,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada ? htmlspecialchars($mercaderiaSeleccionada['codigo']) : ''; ?>" required>
-																			<a href="#" class="btn btn-primary"
+																			
+																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo'] ?? ''; ?>" required>
+																			
+<!-- 																			<a href="#" class="btn btn-primary"
 																			data-bs-toggle="modal"
 																			data-bs-target="#modalSeleccionarMercaderia">
-																				<i class="bi bi-search"></i>
+																				<i class="bi bi-search"></i> -->
 																			</a>
 																		</div>
 																	</div>
@@ -104,7 +106,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada ? htmlspecialchars($mercaderiaSeleccionada['descripcion']) : ''; ?>" readonly required>
+																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion'] ?? ''; ?>" readonly required>
 																				<a href="#" class="btn btn-primary"
 																					data-bs-toggle="modal" 
 																					data-bs-target="#modalSeleccionarMercaderia">
@@ -123,7 +125,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="1" min="1" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="0" required>
+																		<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="0">
 																	</div>
 																</div>
 															</div>
@@ -131,7 +133,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="peso" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso" id="peso" value="0.00" required>
+																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso" id="peso" value="0.00">
 																	</div>
 																</div>
 															</div>

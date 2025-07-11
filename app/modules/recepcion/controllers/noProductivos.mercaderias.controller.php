@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'codigo' => $codigo,
 				'descripcion' => $descripcion
 			];
+
 		}
 	}
 
@@ -52,9 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el código de la mercaderia']);
 			exit;
 		} else {
-			$mercaderia = buscarMercaderiaPorCodigo($codigo);  // función que deberías tener
+			$mercaderia = obtenerMercaderiaPorCodigo($codigo);  // función que deberías tener
 			if ($mercaderia) {
 				$_SESSION['mercaderia_seleccionada'] = $mercaderia;
+
 			} else {
 				echo json_encode(['success' => false, 'message' => 'Error: No se encontró la mercadería con el código proporcionado']);
 				exit;

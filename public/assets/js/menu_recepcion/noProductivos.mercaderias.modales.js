@@ -27,25 +27,41 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-});
+  const inputCodigo = document.getElementById('codigo_mercaderia');
+  const inputDescripcion = document.getElementById('descripcion_mercaderia');
 
+  // Buscar automáticamente al escribir el código
+  inputCodigo.addEventListener('keyup', function () {
+    const codigo = this.value.trim();
 
-$('#codigo_mercaderia').on('change', function() {
-    const codigo = $(this).val();
-    $.ajax({
+    if (codigo.length >= 2) {
+      $.ajax({
         url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
         method: 'POST',
         data: { codigo_mercaderia: codigo },
         dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                $('#codigo_mercaderia').val(response.codigo);
-            } else {
-                alert('Mercadería no encontrada');
-            }
+        success: function (response) {
+          if (response.success) {
+            inputDescripcion.value = response.descripcion;
+          } else {
+            inputDescripcion.value = '';
+          }
         },
-        error: function() {
-            alert('Error en la búsqueda');
+        error: function () {
+          console.error('Error al buscar mercadería.');
         }
+      });
+    } else {
+      inputDescripcion.value = '';
+    }
+  });
+
+  // Completar los campos si seleccionan desde el modal
+  document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
+    radio.addEventListener('change', function () {
+      document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
+      inputCodigo.value = this.dataset.codigom;
+      inputDescripcion.value = this.dataset.descripcionm;
     });
+  });
 });

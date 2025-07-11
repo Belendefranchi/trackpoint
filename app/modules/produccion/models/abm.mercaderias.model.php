@@ -28,6 +28,20 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 	}
 }
 
+function obtenerMercaderiaPorCodigo($codigo) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("SELECT * FROM produccion_abm_mercaderias WHERE codigo = :codigo");
+		$stmt->bindParam(':codigo', $codigo);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Mercaderías Model: Error al obtener la mercadería por código, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function mercaderiaExists($codigo) {
 	try {
 		$conn = getConnection();

@@ -81,3 +81,4 @@ function emitirCodbar($codigo, $descripcion, $familia, $grupo, $subgrupo, $unida
 		return false;
 	}
 }
+
