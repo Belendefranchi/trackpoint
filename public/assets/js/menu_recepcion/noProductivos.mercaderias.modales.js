@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
     radio.addEventListener('change', function () {
       document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
-      inputCodigo.value = this.dataset.codigom;
-      inputDescripcion.value = this.dataset.descripcionm;
+      document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
+      document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
     });
   });
 
