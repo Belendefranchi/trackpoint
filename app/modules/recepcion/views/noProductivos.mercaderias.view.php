@@ -86,10 +86,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			
-																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo'] ?? ''; ?>" required>
-																			<div id="mensaje-busqueda" class="text-danger mt-2"></div>
-																			</a>
+																			<div class="d-flex flex-column w-100">
+																				<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>" required>
+																				<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
+																					<i class="bi bi-exclamation-triangle-fill me-2"></i>
+																					<span class="mensaje-texto"></span>
+																					<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+																				</div>
+																			</div>
 																		</div>
 																	</div>
 																</div>
@@ -102,7 +106,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<input type="text" class="form-control text-primary" name="descripcion-mercaderia" id="descripcion-mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion'] ?? ''; ?>" readonly required>
+																			<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly required>
 																				<a href="#" class="btn btn-primary"
 																					data-bs-toggle="modal" 
 																					data-bs-target="#modalSeleccionarMercaderia">
@@ -233,7 +237,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="modal-body">
 
 									<div class="mb-3">
-										<div id="mensaje-error-seleccionar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
+										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none p-2" role="alert">
 											<i class="bi bi-exclamation-triangle-fill me-2"></i>
 											<span class="mensaje-texto"></span>
 											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
@@ -271,8 +275,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<!-- Campos ocultos para enviar en el form -->
 									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
-									<input type="hidden" name="codigo-mercaderia" id="input-codigo-mercaderia">
-									<input type="hidden" name="descripcion-mercaderia" id="input-descripcion-mercaderia">
+									<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
+									<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
 									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>

@@ -31,7 +31,7 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 function obtenerMercaderiaPorCodigo($codigo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM produccion_abm_mercaderias WHERE codigo = :codigo");
+		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion FROM produccion_abm_mercaderias WHERE codigo = :codigo");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);

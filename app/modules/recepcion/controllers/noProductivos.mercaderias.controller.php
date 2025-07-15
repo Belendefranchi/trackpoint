@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['seleccionarMercaderia'])) {
 		
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
-		$codigo = $_POST['codigo-mercaderia'] ?? '';
-		$descripcion = $_POST['descripcion-mercaderia'] ?? '';
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
+		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
 
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -35,9 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Guardar la mercadería en sesión
 			$_SESSION['mercaderia_seleccionada'] = [
 				'mercaderia_id' => $mercaderia_id,
-				'codigo' => $codigo,
-				'descripcion' => $descripcion
+				'codigo_mercaderia' => $codigo_mercaderia,
+				'descripcion_mercaderia' => $descripcion_mercaderia
 			];
+
+			echo json_encode(['success' => true]);
+      exit;
 
 		}
 	}
@@ -47,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$codigo = $_POST['codigo_mercaderia'] ?? null;
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? null;
 
-		if (empty($codigo)) {
+		if (empty($codigo_mercaderia)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el código de la mercaderia']);
 			exit;
 		} else {
-			$mercaderia = obtenerMercaderiaPorCodigo($codigo);  // función que deberías tener
+			$mercaderia = obtenerMercaderiaPorCodigo($codigo_mercaderia);  // función que deberías tener
 			if ($mercaderia) {
 
 				$_SESSION['mercaderia_seleccionada'] = $mercaderia;
@@ -61,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				echo json_encode([
 					'success' => true,
 					'mercaderia_id' => $mercaderia['mercaderia_id'],
-					'codigo' => $mercaderia['codigo'],
-					'descripcion' => $mercaderia['descripcion'],
+					'codigo_mercaderia' => $mercaderia['codigo'],
+					'descripcion_mercaderia' => $mercaderia['descripcion'],
 				]);
     		exit;
 

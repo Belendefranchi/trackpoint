@@ -1,71 +1,140 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-	/* ##################### MODAL DE SELECCIÓN MERCADERÍA ##################### */
+  /* ##################### MODAL: SELECCIÓN DE MERCADERÍA ##################### */
 
-	// Limpiar el mensaje de error al cerrar el modal
-	var modalSeleccionarMercaderia = document.getElementById('modalSeleccionarMercaderia');
+  const modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+  const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
+  const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
-	if (modalSeleccionarMercaderia) {
-		modalSeleccionarMercaderia.addEventListener('hidden.bs.modal', function () {
-			var mensajeError = document.getElementById('mensaje-error-seleccionar-mercaderia');
-			if (mensajeError) {
-				mensajeError.classList.add('d-none'); // Ocultar el div
-				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
-			}
-		});
-	}
+  const inputId = document.getElementById('input-mercaderia-id');
+  const inputCodigo = document.getElementById('input-codigo-mercaderia');
+  const inputDescripcion = document.getElementById('input-descripcion-mercaderia');
 
-	// Manejar el cambio de selección de la mercadería
-	document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
-		radio.addEventListener('change', function () {
+  // Ocultar mensaje de error, desmarcar radios al cerrar el modal y limpiar inputs
+  if (modalSeleccionar) {
+    modalSeleccionar.addEventListener('hidden.bs.modal', function () {
+      if (mensajeErrorSeleccionar) {
+        mensajeErrorSeleccionar.classList.add('d-none');
+        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
+      }
 
-			// Cargar datos al formulario cuando se confirma el modal
-			document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
-			document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
-			document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
+      document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
+        radio.checked = false;
+      });
 
-		});
-	});
+      document.getElementById('input-mercaderia-id').value = '';
+      document.getElementById('input-codigo-mercaderia').value = '';
+      document.getElementById('input-descripcion-mercaderia').value = '';
+    });
+  }
 
-	const inputCodigo = document.getElementById('codigo_mercaderia');
-  const inputDescripcion = document.getElementById('descripcion_mercaderia');
-  const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+  // Cargar datos en inputs ocultos al seleccionar una mercadería
+  document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
+    radio.addEventListener('change', function () {
+      inputId.value = this.dataset.mercaderiaid;
+      inputCodigo.value = this.dataset.codigom;
+      inputDescripcion.value = this.dataset.descripcionm;
+    });
+  });
 
-  inputCodigo.addEventListener('keyup', function () {
-    const codigo = this.value.trim();
+  // Enviar formulario del modal por AJAX
+  if (formSeleccionar) {
+    formSeleccionar.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    if (codigo.length >= 2) {
+      mensajeErrorSeleccionar.classList.add('d-none');
+      mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
+
+      const mercaderiaId = inputId.value;
+      const codigo = inputCodigo.value;
+      const descripcion = inputDescripcion.value;
+
+      if (!mercaderiaId) {
+        mensajeErrorSeleccionar.classList.remove('d-none');
+        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar una mercadería.';
+        return;
+      }
+
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
+        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarMercaderia',
         method: 'POST',
-        data: { codigo_mercaderia: codigo },
+        data: {
+          mercaderia_id: mercaderiaId,
+          codigo_mercaderia: codigo,
+          descripcion_mercaderia: descripcion
+        },
         dataType: 'json',
         success: function (response) {
           if (response.success) {
-            inputDescripcion.value = response.descripcion;
-            mensajeBusqueda.textContent = '';
+            const modal = bootstrap.Modal.getInstance(modalSeleccionar);
+            if (modal) modal.hide();
+              // Recargar la vista principal para reflejar los datos de $_SESSION
+              location.reload();
+              // Cargar valores directamente
+              /* document.getElementById('codigo_mercaderia').value = codigo;
+              document.getElementById('descripcion_mercaderia').value = descripcion; */
           } else {
-            inputDescripcion.value = '';
-            mensajeBusqueda.textContent = 'Mercadería no encontrada.';
+            mensajeErrorSeleccionar.classList.remove('d-none');
+            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
           }
         },
         error: function () {
-          console.error('Error al buscar mercadería.');
+          mensajeErrorSeleccionar.classList.remove('d-none');
+          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
         }
       });
-    } else {
-      inputDescripcion.value = '';
-      mensajeBusqueda.textContent = '';
-    }
-  });
-
-  // Completar los campos si seleccionan desde el modal
-  document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
-    radio.addEventListener('change', function () {
-      document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
-      document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
-      document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
     });
-  });
+  }
+
+  /* ##################### BÚSQUEDA POR CÓDIGO ##################### */
+
+  const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
+  const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
+  const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+
+  if (inputCodigoBusqueda) {
+    inputCodigoBusqueda.addEventListener('keyup', function () {
+      const codigo = this.value.trim();
+
+      if (codigo.length >= 2) {
+        $.ajax({
+          url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
+          method: 'POST',
+          data: { codigo_mercaderia: codigo },
+          dataType: 'json',
+          success: function (response) {
+            if (response.success) {
+              inputDescripcionBusqueda.value = response.descripcion_mercaderia;
+              mensajeBusqueda.classList.add('d-none');
+              mensajeBusqueda.querySelector('.mensaje-texto').textContent = '';
+            } else {
+              inputDescripcionBusqueda.value = '';
+              mensajeBusqueda.classList.remove('d-none');
+              mensajeBusqueda.querySelector('.mensaje-texto').textContent = 'Mercadería no encontrada.';
+            }
+          },
+          error: function () {
+            inputDescripcionBusqueda.value = '';
+            mensajeBusqueda.classList.remove('d-none');
+            mensajeBusqueda.querySelector('.mensaje-texto').textContent = 'Error de conexión al buscar.';
+          }
+        });
+      } else {
+        inputDescripcionBusqueda.value = '';
+        mensajeBusqueda.classList.add('d-none');
+        mensajeBusqueda.querySelector('.mensaje-texto').textContent = '';
+      }
+    });
+
+    // Confirmar búsqueda con Enter
+    inputCodigo.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Evita que se envíe el formulario
+        buscarMercaderiaPorCodigo(this.value.trim());
+      }
+    });
+
+
+  }
 
 });
