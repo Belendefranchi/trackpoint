@@ -4,10 +4,6 @@ define('VISTA_INTERNA', true);
 // Iniciar sesión siempre al comienzo
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-	unset($_SESSION['mercaderia_seleccionada']);
-}
-
 require_once __DIR__ . '/recepcion.controller.php';
 require_once __DIR__ . '/../../produccion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../models/noProductivos.mercaderias.model.php';
