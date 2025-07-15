@@ -92,49 +92,57 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
-  if (inputCodigoBusqueda) {
-    inputCodigoBusqueda.addEventListener('keyup', function () {
-      const codigo = this.value.trim();
+  // Función reutilizable para buscar mercadería
+  function buscarMercaderiaPorCodigo(codigo) {
+    if (codigo.length >= 2) {
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
+        method: 'POST',
+        data: { 'codigo_mercaderia': codigo },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            inputDescripcionBusqueda.value = response.descripcion_mercaderia || response.descripcion || '';
+            document.getElementById('input-mercaderia-id').value = response.mercaderia_id || '';
 
-      if (codigo.length >= 2) {
-        $.ajax({
-          url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarCodigoMercaderia',
-          method: 'POST',
-          data: { codigo_mercaderia: codigo },
-          dataType: 'json',
-          success: function (response) {
-            if (response.success) {
-              inputDescripcionBusqueda.value = response.descripcion_mercaderia;
-              mensajeBusqueda.classList.add('d-none');
-              mensajeBusqueda.querySelector('.mensaje-texto').textContent = '';
-            } else {
-              inputDescripcionBusqueda.value = '';
-              mensajeBusqueda.classList.remove('d-none');
-              mensajeBusqueda.querySelector('.mensaje-texto').textContent = 'Mercadería no encontrada.';
-            }
-          },
-          error: function () {
+            mensajeBusqueda.textContent = '';
+            mensajeBusqueda.classList.add('d-none');
+          } else {
             inputDescripcionBusqueda.value = '';
+            document.getElementById('input-mercaderia-id').value = '';
+            mensajeBusqueda.textContent = 'Mercadería no encontrada.';
             mensajeBusqueda.classList.remove('d-none');
-            mensajeBusqueda.querySelector('.mensaje-texto').textContent = 'Error de conexión al buscar.';
           }
-        });
-      } else {
-        inputDescripcionBusqueda.value = '';
-        mensajeBusqueda.classList.add('d-none');
-        mensajeBusqueda.querySelector('.mensaje-texto').textContent = '';
-      }
-    });
-
-    // Confirmar búsqueda con Enter
-    inputCodigo.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault(); // Evita que se envíe el formulario
-        buscarMercaderiaPorCodigo(this.value.trim());
-      }
-    });
-
-
+        },
+        error: function () {
+          inputDescripcionBusqueda.value = '';
+          document.getElementById('input-mercaderia-id').value = '';
+          mensajeBusqueda.textContent = 'Error al buscar mercadería.';
+          mensajeBusqueda.classList.remove('d-none');
+        }
+      });
+    } else {
+      inputDescripcionBusqueda.value = '';
+      document.getElementById('input-mercaderia-id').value = '';
+      mensajeBusqueda.textContent = '';
+      mensajeBusqueda.classList.add('d-none');
+    }
   }
+
+  // Buscar mientras escribe
+/*   inputCodigoBusqueda.addEventListener('keyup', function (e) {
+    if (e.key !== 'Enter') {
+      buscarMercaderiaPorCodigo(this.value.trim());
+    }
+  }); */
+
+  // Confirmar búsqueda con Enter
+  inputCodigoBusqueda.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Evita que se envíe el formulario al presionar Enter
+      buscarMercaderiaPorCodigo(this.value.trim());
+    }
+  });
+
 
 });
