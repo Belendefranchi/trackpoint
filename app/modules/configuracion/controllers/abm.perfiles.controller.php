@@ -41,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			} else {
 				// Respuesta de error
-				registrarEvento("Perfiles Controller: Error al crear el perfil => " . $nombre, "ERROR");
+				registrarEvento("Perfiles Controller: Error al crear el perfil => " . $nombre . $e->getMessage(), "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el perfil']);
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -87,12 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			} else {
 				// Respuesta de error
-				registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre, "ERROR");
+				registrarEvento("Perfiles Controller: Error al modificar el perfil => " . $nombre . " " . $e->getMessage(), "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el perfil']);
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre . " " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -120,12 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			} else {
 					// Respuesta de error
-					registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre, "ERROR");
+					registrarEvento("Perfiles Controller: Error al eliminar el perfil => " . $nombre . " " . $e->getMessage(), "ERROR");
 					echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el perfil']);
 					exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre, "ERROR");
+			registrarEvento("Perfiles Controller: Error al procesar los datos => " . $nombre . " " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}

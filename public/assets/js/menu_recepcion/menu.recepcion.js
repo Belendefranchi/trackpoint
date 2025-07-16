@@ -220,18 +220,17 @@ $(document).ready(function () {
 
 window.addEventListener('DOMContentLoaded', function () {
 	const hoy = new Date().toISOString().split('T')[0];
-	document.getElementById('fecha_ingreso').value = hoy;
+	document.getElementById('fecha_recepcion').value = hoy;
 /* 	document.getElementById('fecha_produccion').value = hoy; */
 });
 
-
-document.getElementById('unidades').addEventListener('input', function () {
+/* document.getElementById('unidades').addEventListener('input', function () {
 this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
 });
 
 document.getElementById('peso').addEventListener('input', function () {
 this.value = this.value.replace(/\D/g, ''); // Elimina cualquier cosa que no sea dígito
-});
+}); */
 
 function getFloat(id) {
 	return parseFloat(document.getElementById(id).value) || 0;

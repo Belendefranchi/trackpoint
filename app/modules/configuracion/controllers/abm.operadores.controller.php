@@ -56,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			} else {
 				// Respuesta de error
-				registrarEvento("Operador Controller: Error al crear el operador => " . $username, "ERROR");
+				registrarEvento("Operador Controller: Error al crear el operador => " . $username . " " . $e->getMessage(), "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el operador']);
 				exit;
 			}
 			echo json_encode(['success' => true]);
 		} catch (Exception $e) {
-			registrarEvento("Operador Controller: Error al procesar los datos => " . $username, "ERROR");
+			registrarEvento("Operador Controller: Error al procesar los datos => " . $username . " " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -107,12 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			} else {
 				// Respuesta de error
-				registrarEvento("Operadores Controller: Error al modificar el operador => " . $username, "ERROR");
+				registrarEvento("Operadores Controller: Error al modificar el operador => " . $username . " " . $e->getMessage(), "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el operador']);
 				exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username, "ERROR");
+			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username . " " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
@@ -140,12 +140,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			} else {
 					// Respuesta de error
-					registrarEvento("Operadores Controller: Error al eliminar el operador => " . $username, "ERROR");
+					registrarEvento("Operadores Controller: Error al eliminar el operador => " . $username . " " . $e->getMessage(), "ERROR");
 					echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el operador']);
 					exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username, "ERROR");
+			registrarEvento("Operadores Controller: Error al procesar los datos => " . $username . " " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}

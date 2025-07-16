@@ -60,24 +60,13 @@ CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(user
 
 
 
-/* ############################################################################################## */
-/* -------------------------------------- TABLAS RECEPCIÓN -------------------------------------- */
-/* ############################################################################################## */
-
-/* -------------------------------------------- ABMS -------------------------------------------- */
-
-
-
-/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
-
-
-
 
 /* ############################################################################################## */
 /* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
 /* ############################################################################################## */
 
-/* -------------------------------------------- ABMS -------------------------------------------- */
+/* ------------------------------------------- ABMS --------------------------------------------- */
+
 CREATE TABLE produccion_abm_mercaderias (
     mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
@@ -161,7 +150,7 @@ CREATE TABLE produccion_abm_traducciones (
 );
 GO
 
-/* ---------------------------------- SALIDAS DE PRODUCCION ------------------------------------- */
+/* --------------------------------------- PRODUCTIVAS ------------------------------------------ */
 
 CREATE TABLE produccion_pallets (
     pallet_id INT PRIMARY KEY IDENTITY(1,1),
@@ -177,14 +166,14 @@ CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
 
     -- Trazabilidad
-    fecha_faena DATE NULL,
-    fecha_produccion DATE NULL,
-    fecha_recepcion DATE NULL,
-    fecha_remito DATE NULL,
+    fecha_faena DATE NOT NULL,
+    fecha_produccion DATE NOT NULL,
+    fecha_recepcion DATE NOT NULL,
+    fecha_remito DATE NOT NULL,
 
     -- Datos del sistema
-    fecha_sistema DATETIME2(0) NOT NULL DEFAULT SYSUTCDATETIME(),
-    fecha_modificacion DATETIME2(0) NULL,
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NULL,
 
     -- Referencias de usuario (ID + nombre al momento)
     creado_por_id INT NOT NULL,
@@ -193,25 +182,25 @@ CREATE TABLE produccion_general (
     editado_por_username VARCHAR(100) NULL,
 
     -- Referencias a proceso y producto
-    proceso_id INT NULL,
+    proceso_id INT NOT NULL,
     mercaderia_id INT NOT NULL,
-    proveedor_id INT NULL,
+    proveedor_id INT NOT NULL,
 
     -- Asociación futura
-    pallet_id INT NULL,
-    pedido_id INT NULL,
+    pallet_id INT NOT NULL,
+    pedido_id INT NOT NULL,
 
     -- Datos físicos
-    unidades INT NULL,
-    cantidad INT NULL,
-    peso_neto DECIMAL(10,2) NULL,
-    peso_bruto DECIMAL(10,2) NULL,
-    tara_pri DECIMAL(10,2) NULL,
-    tara_sec DECIMAL(10,2) NULL,
+    unidades INT NOT NULL,
+    cantidad INT NOT NULL,
+    peso_neto DECIMAL(10,2) NOT NULL,
+    peso_bruto DECIMAL(10,2) NOT NULL,
+    tara_pri DECIMAL(10,2) NOT NULL,
+    tara_sec DECIMAL(10,2) NOT NULL,
 
     -- Codificación y trazabilidad por escaneo
-    codbar_e VARCHAR(100) NULL,
-    codbar_s VARCHAR(100) NULL,
+    codbar_e VARCHAR(100) NOT NULL,
+    codbar_s VARCHAR(100) NOT NULL,
 
     -- Estado de la etiqueta
     estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (estado IN (
@@ -250,3 +239,50 @@ CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
+
+
+/* ############################################################################################## */
+/* -------------------------------------- TABLAS RECEPCIÓN -------------------------------------- */
+/* ############################################################################################## */
+
+/* ------------------------------------------- ABMS --------------------------------------------- */
+
+/* --------------------------------------- PRODUCTIVAS ------------------------------------------ */
+
+CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
+    recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
+    fecha_recepcion DATE NOT NULL,
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NOT NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
+);
+
+
+CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
+    item_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID único de cada fila temporal
+    recepcion_id INT NOT NULL,                       -- ID único por grupo de mercaderías (puede ser el GUID de toda la recepción)
+    
+    -- Datos del formulario
+    proveedor_id VARCHAR(50) NOT NULL,
+    fecha_recepcion DATE NOT NULL,
+    nro_remito VARCHAR(50) NULL,
+    fecha_remito DATE NULL,
+    mercaderia_id INT NOT NULL,
+    unidades INT NOT NULL,
+    peso_neto DECIMAL(10,2) NOT NULL,
+
+    -- Datos de auditoría
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NOT NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
+
+    -- Claves foráneas
+        
+    FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
+    FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id)
+);
+
+
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */

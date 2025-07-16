@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<!-- ############################################################################# -->
 								<div class="container-fluid mt-4">
 
-									<form method="POST" id="formIngresarMercaderia" action="">
+									<form method="POST" id="formIngresarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
 
 										<div class="row">
 
@@ -38,7 +38,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<label class="col-md-4 col-form-label text-primary">Proveedor</label>
 																	<div class="col-md-8 ps-0">
 																		<div class="input-group">
-																			<input type="text" class="form-control" name="codigo_proveedor" id="codigo_proveedor" readonly required>
+																			<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id">
 																			<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
 																				<i class="bi bi-search"></i>
 																			</button>
@@ -48,9 +48,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="fecha_ingreso" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
+																	<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control text-primary" id="fecha_ingreso" name="fecha_ingreso" required>
+																		<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion" required>
 																	</div>
 																</div>
 															</div>
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="nro_remito" class="col-md-4 col-form-label text-primary">Nro. Remito</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="text" class="form-control" id="nro_remito" name="nro_remito">
+																		<input type="text" class="form-control text-primary" id="nro_remito" name="nro_remito">
 																	</div>
 																</div>
 															</div>
@@ -117,6 +117,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 																</div>
 															</div>
+															<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 														</div>
 
 														<!-- Unidades y Peso -->
@@ -131,9 +132,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</div>
 															<div class="col-md-6">
 																<div class="row align-items-center">
-																	<label for="peso" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
+																	<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso" id="peso" value="0.00">
+																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="0.00">
 																	</div>
 																</div>
 															</div>
@@ -142,6 +143,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													</div>
 
 													<div class="card-footer bg-light text-end">
+														<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none p-2" role="alert">
+															<i class="bi bi-exclamation-triangle-fill me-2"></i>
+															<span class="mensaje-texto"></span>
+															<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+														</div>
 														<button type="submit" class="btn btn-sm btn-primary my-2" id="btn-guardar-mercaderia">
 															<i class="bi-plus-circle me-2"></i>Agregar
 														</button>
@@ -151,8 +157,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 											<div class="">
 												<div class="card mb-3">
-													<div class="card-header bg-light text-primary">
-														<strong>Detalle</strong>
+													<div class="card-header bg-light">
+														<ul class="nav nav-underline">
+															<li class="nav-item">
+																<a class="nav-link text-primary active" aria-current="page" href="#">Resumen</a>
+															</li>
+															<li class="nav-item">
+																<a class="nav-link text-primary" aria-current="page" href="#">Detalle</a>
+															</li>
+														</ul>
 													</div>
 													<div class="card-body p-2">
 														<div id="listado-etiquetas">
