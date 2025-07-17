@@ -253,7 +253,7 @@ CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
     recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
     fecha_recepcion DATE NOT NULL,
     fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NOT NULL,
+    fecha_modificacion DATE NULL,
     operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
 );

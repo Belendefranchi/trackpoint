@@ -82,35 +82,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['agregarMercaderia'])) {
 
 		header('Content-Type: application/json');
+		
+    $datos = [
+			'proveedor_id' => $_POST['proveedor_id'],
+      'fecha_recepcion'  => $_POST['fecha_recepcion'],
+			'nro_remito' => $_POST['nro_remito'],
+			'fecha_remito' => $_POST['fecha_remito'],
+			'mercaderia_id' => $_POST['mercaderia_id'],
+			'unidades' => $_POST['unidades'],
+			'peso_neto' => $_POST['peso_neto'],
+			'operador_id' => $_SESSION['operador_id'],
+    ];
 
-		$proveedor_id = $_POST['proveedor_id'];
-		$fecha_recepcion = $_POST['fecha_recepcion'];
-		$nro_remito = $_POST['nro_remito'];
-		$fecha_remito = $_POST['fecha_remito'];
-		$mercaderia_id = $_POST['mercaderia_id'];
-		$unidades = $_POST['unidades'];
-		$peso_neto = $_POST['peso_neto'];
-		$fechaActual = date('Y-m-d H:i:s');
-		$operador_id = $_SESSION['operador_id'];
 
 		// Validar datos obligatorios
-		if (empty($_POST['mercaderia_id']) || empty($_POST['proveedor_id']) || empty($_POST['fecha_recepcion']) || empty($_POST['mercaderia_id']) || empty($_POST['unidades']) || empty($_POST['peso_neto'])) {
+		if (empty($_POST['proveedor_id']) || empty($_POST['fecha_recepcion']) || empty($_POST['mercaderia_id']) || empty($_POST['unidades']) || empty($_POST['peso_neto'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: Faltan datos obligatorios']);
 			exit;
 		}
 
 		try {
-			$result = agregarMercaderia([
-				'proveedor_id' => $proveedor_id,
-				'fecha_recepcion' => $fecha_recepcion,
-				'nro_remito' => $nro_remito,
-				'fecha_remito' => $fecha_remito,
-				'mercaderia_id' => $mercaderia_id,
-				'unidades' => $unidades,
-				'peso_neto' => $peso_neto,
-				'fecha_sistema' => $fechaActual,
-				'operador_id' => $operador_id
-			]);
+			$result = agregarMercaderia($datos);
 
 			echo json_encode($result);
 			exit;
@@ -128,35 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$mercaderia_id = $_POST['mercaderia_id'];
-    $proveedor_id = $_POST['proveedor_id'];
-    $fecha_recepcion = $_POST['fecha_recepcion'];
-    $nro_remito = $_POST['nro_remito'];
-    $fecha_remito = $_POST['fecha_remito'];
-    $codigo_mercaderia = $_POST['codigo_mercaderia'];
-    $descripcion_mercaderia = $_POST['descripcion_mercaderia'];
-    $unidades = $_POST['unidades'];
-    $peso_neto = $_POST['peso_neto'];
-
-		if (empty($fecha_recepcion) || empty($codigo_mercaderia) || empty($descripcion_mercaderia) || empty($unidades) || empty($peso_neto) ) {
-			echo json_encode(['success' => false, 'message' => 'Error: Faltan datos obligatorios']);
-			exit;
-		}
-
+		$recepcion_id = $_POST['recepcion_id'];
+		
 		try {
 			// Lógica para guardar la mercadería
-			$result = guardarMercaderia([
-				'mercaderia_id' => $mercaderia_id,
-				'proveedor_id' => $proveedor_id,
-				'fecha_recepcion' => $fecha_recepcion,
-				'nro_remito' => $nro_remito,
-				'fecha_remito' => $fecha_remito,
-				'codigo_mercaderia' => $codigo_mercaderia,
-				'descripcion_mercaderia' => $descripcion_mercaderia,
-				'unidades' => $unidades,
-				'peso_neto' => $peso_neto,
-				'tara' => $_POST['tara'] ?? 0
-			]);
+			$result = guardarMercaderia($recepcion_id);
 
 			echo json_encode($result);
 			exit;

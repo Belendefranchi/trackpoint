@@ -22,10 +22,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<!-- ############################################################################# -->
 								<div class="container-fluid mt-4">
 
-									<form method="POST" id="formIngresarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
-
-										<div class="row">
-
+									<div class="row">
+										<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
 											<div class="">
 												<div class="card mb-3">
 													<div class="card-body">
@@ -126,7 +124,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="0">
+																		<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="1">
 																	</div>
 																</div>
 															</div>
@@ -134,7 +132,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="0.00">
+																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="1.00">
 																	</div>
 																</div>
 															</div>
@@ -154,7 +152,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													</div>
 												</div>
 											</div>
-
+										</form>
+										<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarMercaderia">
 											<div class="">
 												<div class="card mb-3">
 													<div class="card-header bg-light">
@@ -227,10 +226,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</button>
 												</div>
 											</div>
-										</div>
-
-
-									</form>
+										</form>
+									</div>
 								</div>
 								<!-- ######################################################################## -->
 							</td>
