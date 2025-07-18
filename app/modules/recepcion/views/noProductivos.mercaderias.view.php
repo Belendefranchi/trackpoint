@@ -89,7 +89,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																				<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
 																					<i class="bi bi-exclamation-triangle-fill me-2"></i>
 																					<span class="mensaje-texto"></span>
-																					<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+																					<!-- Mensajes de error que se cargarán de forma dinámica -->
 																				</div>
 																			</div>
 																		</div>
@@ -128,6 +128,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	</div>
 																</div>
 															</div>
+															
 															<div class="col-md-6">
 																<div class="row align-items-center">
 																	<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
@@ -144,7 +145,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none p-2" role="alert">
 															<i class="bi bi-exclamation-triangle-fill me-2"></i>
 															<span class="mensaje-texto"></span>
-															<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+															<!-- Mensajes de error que se cargarán de forma dinámica -->
 														</div>
 														<button type="submit" class="btn btn-sm btn-primary my-2" id="btn-guardar-mercaderia">
 															<i class="bi-plus-circle me-2"></i>Agregar
@@ -153,68 +154,86 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 										</form>
-										<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarMercaderia">
+										<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion">
 											<div class="">
 												<div class="card mb-3">
 													<div class="card-header bg-light">
-														<ul class="nav nav-underline">
-															<li class="nav-item">
-																<a class="nav-link text-primary active" aria-current="page" href="#">Resumen</a>
+														<ul class="nav nav-underline" id="recepcionTabs" role="tablist">
+															<li class="nav-item" role="presentation">
+																<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
 															</li>
 															<li class="nav-item">
-																<a class="nav-link text-primary" aria-current="page" href="#">Detalle</a>
+																<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
 															</li>
 														</ul>
 													</div>
 													<div class="card-body p-2">
-														<div id="listado-etiquetas">
-															<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-															<!-- <p class="text-muted text-center">Aún no se ingresaron mercaderías</p> -->
-															<table id="miTablaEnModal" class="display" style="width:100%">
-																<thead class="table-primary">
-																	<tr class="text-light">
-																		<td class="border">Código</td>
-																		<td class="border">Descripción</td>
-																		<td class="border">Unidades</td>
-																		<td class="border">Peso</td>
-																		<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr class="text-start">
-																		<td class="border text-primary text-center">M001</td>
-																		<td class="border text-primary text-center">Descripción de la mercadería</td>
-																		<td class="border text-primary text-center">100 u</td>
-																		<td class="border text-primary text-center">1000 kg</td>
-																		<td class="border text-primary text-center">
-																			<div class="d-flex no-wrap justify-content-center">
-																				<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																					<i class="bi bi-pencil me-2"></i>Editar
-																				</a>
-																				<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																					<i class="bi bi-trash me-2"></i>Eliminar
-																				</a>
-																			</div>
-																		</td>
-																	</tr>
-																	<tr class="text-start">
-																		<td class="border text-primary text-center">M002</td>
-																		<td class="border text-primary text-center">Descripción de la mercadería</td>
-																		<td class="border text-primary text-center">200 u</td>
-																		<td class="border text-primary text-center">2000 kg</td>
-																		<td class="border text-primary text-center">
-																			<div class="d-flex no-wrap justify-content-center">
-																				<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																					<i class="bi bi-pencil me-2"></i>Editar
-																				</a>
-																				<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																					<i class="bi bi-trash me-2"></i>Eliminar
-																				</a>
-																			</div>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
+														<div class="tab-content p-3 border border-top-0 rounded-bottom" id="recepcionTabsContent">
+
+															<div class="tab-pane fade show active" id="resumen" role="tabpanel">
+																<div id="resumen-recepcion">
+																	<?php if (empty($resumen)): ?>
+																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+																	<?php endif; ?>
+																	<table>
+																		<thead class="table-primary">
+																			<tr class="text-light">
+																				<td class="border">ID Recepción</td>
+																				<td class="border">Fecha Recepción</td>
+																				<td class="border">Unidades</td>
+																				<td class="border">Peso Neto</td>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr class="text-start">
+																				<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
+																				<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
+																				<td class="border text-primary text-center"><?php echo $resumen['unidades']; ?></td>
+																				<td class="border text-primary text-center"><?php echo $resumen['peso_neto']; ?></td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+															<div class="tab-pane fade show" id="detalle" role="tabpanel">
+																<div id="detalle-recepcion">
+																	<?php if (empty($detalle)): ?>
+																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+																	<?php endif; ?>
+																	<table>
+																		<thead class="table-primary">
+																			<tr class="text-light">
+																				<td class="border">Código</td>
+																				<td class="border">Descripción</td>
+																				<td class="border">Unidades</td>
+																				<td class="border">Peso</td>
+																				<td class="border text-center no-export">Acciones</td>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<?php foreach ($detalle as $row): ?>
+																				<tr class="text-start">
+																					<td class="border text-primary text-center"><?php echo $row['codigo']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['descripcion']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
+																					<td class="border text-primary text-center">
+																						<div class="d-flex no-wrap justify-content-center">
+																							<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+																								<i class="bi bi-pencil me-2"></i>Editar
+																							</a>
+																							<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+																								<i class="bi bi-trash me-2"></i>Eliminar
+																							</a>
+																						</div>
+																					</td>
+																				</tr>
+																			<?php endforeach; ?>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+
 														</div>
 													</div>
 													<div class="card-footer bg-light text-end">

@@ -144,5 +144,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-
 });
+
+  /* ##################### AGREGAR MERCADERÍA ##################### */
+
+  const mensajeErrorAgregar = document.getElementById('mensaje-error-agregar');
+  const formAgregar = document.getElementById('formAgregarMercaderia');
+
+  function mostrarMensajeErrorAgregar(mensaje) {
+    mensajeErrorAgregar.classList.remove('d-none');
+    mensajeErrorAgregar.querySelector('.mensaje-texto').textContent = mensaje;
+  }
+

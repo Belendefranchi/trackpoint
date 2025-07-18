@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-
 	// ####### AGREGAR MERCADERÍA #######
 	if (isset($_GET['agregarMercaderia'])) {
 
@@ -105,6 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = agregarMercaderia($datos);
 
 			echo json_encode($result);
+			
+			return $result;
 			exit;
 		} catch (Exception $e) {
 			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
@@ -113,26 +114,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		
 	}
-	
 
-	// ####### GUARDAR MERCADERÍA #######
-	if (isset($_GET['guardarMercaderia'])) {
+	// ####### OBTENER MERCADERÍAS PENDIENTES #######
+	if (isset($_GET['obtenerMercaderiasPendientes'])) {
 
 		header('Content-Type: application/json');
 
-		$recepcion_id = $_POST['recepcion_id'];
-		
-		try {
-			// Lógica para guardar la mercadería
-			$result = guardarMercaderia($recepcion_id);
+		$operador_id = $_SESSION['operador_id'];
+		$recepcion_id = obtenerRecepcionAbierta($operador_id);
 
-			echo json_encode($result);
+		if ($recepcion_id) {
+			try {
+
+				$resumen = obtenerResumenRecepcion($recepcion_id);
+				$detalle = obtenerDetalleRecepcion($recepcion_id);
+
+				echo json_encode([
+					'success' => true,
+					'resumen' => $resumen,
+					'detalle' => $detalle
+				]);
+				exit;
+			} catch (Exception $e) {
+				registrarEvento("Recepción Mercaderías Controller: Error al obtener mercaderías pendientes " . $e->getMessage(), "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			}
+		} else {
+			echo json_encode(['success' => false, 'message' => 'No se encontró ninguna recepción abierta para este operador.']);
+		}
+		
+		exit;
+	}
+	
+	// ####### ACTUALIZAR MERCADERÍA #######
+	if (isset($_GET['actualizarMercaderia'])) {
+
+		header('Content-Type: application/json');
+
+		$datos = $_POST;
+
+		if (empty($datos['mercaderia_id'])) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
-		} catch (Exception $e) {
-			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 		}
 
+		// Lógica para actualizar la mercadería
+		$resultado = actualizarMercaderia($datos);
+
+		echo json_encode($resultado);
 	}
 
 	// ####### ELIMINAR MERCADERÍA #######
@@ -153,29 +182,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		echo json_encode($resultado);
 	}
 
-	// ####### ACTUALIZAR MERCADERÍA #######
-	if (isset($_GET['actualizarMercaderia'])) {
+	// ####### GUARDAR MERCADERÍA #######
+	if (isset($_GET['guardarRecepcion'])) {
 
 		header('Content-Type: application/json');
 
-		$datos = $_POST;
+		$operador_id = $_SESSION['operador_id'];
+		$recepcion_id = obtenerRecepcionAbierta($operador_id);
+		
+		try {
 
-		if (empty($datos['mercaderia_id'])) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
+			if ($recepcion_id) {
+				$resultado = guardarRecepcion($recepcion_id);
+				echo json_encode($resultado);
+			} else {
+				echo json_encode(['success' => false, 'message' => 'No se encontró ninguna recepción abierta para este operador.']);
+			}
 			exit;
+		} catch (Exception $e) {
+			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 		}
 
-		// Lógica para actualizar la mercadería
-		$resultado = actualizarMercaderia($datos);
-
-		echo json_encode($resultado);
 	}
+
 };
 
 	
 // Obtener datos para pasar a la vista
 $datosVista = [
-	'mercaderias' => $mercaderias
+	'mercaderias' => $mercaderias,
+	'resumen' => $resumen ?? [],
+	'detalle' => $detalle ?? []
 ];
 	
 // Llamar a la función común que carga todo en el layout

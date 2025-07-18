@@ -91,17 +91,57 @@ function agregarMercaderia($datos) {
 	}
 }
 
-function guardarMercaderia($recepcion_id) {
+function obtenerResumenRecepcion($recepcion_id) {
+	try {
+		$conn = getConnection();
+		$sql = "SELECT * FROM recepcion_noProductivos_mercaderias_resumen WHERE recepcion_id = :recepcion_id";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':recepcion_id', $recepcion_id);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento("Recepción Mercaderías Model: Error al buscar resumen, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => $e->getMessage()];
+	}
+
+}
+
+function obtenerDetalleRecepcion($recepcion_id) {
+	try{
+		$conn = getConnection();
+		$sql = "SELECT * FROM recepcion_noProductivos_mercaderias_detalle WHERE recepcion_id = :recepcion_id";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':recepcion_id', $recepcion_id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento("Recepción Mercaderías Model: Error al buscar detalle, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => $e->getMessage()];
+	}
+}
+
+function obtenerRecepcionAbierta($operador_id) {
+	$conn = getConnection();
+	$sql = "SELECT recepcion_id FROM recepcion_noProductivos_mercaderias_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
+	$stmt = $conn->prepare($sql);
+	$stmt->bindValue(':operador_id', $operador_id);
+	$stmt->execute();
+	return $stmt->fetchColumn(); // Devuelve directamente el recepcion_id o false si no hay
+}
+
+function guardarRecepcion($recepcion_id) {
 
 	$fechaActual = date('Y-m-d H:i:s');
   $creado_por_id = $_SESSION['operador_id'];
   $creado_por_username = $_SESSION['username'];
 
 	try {
-
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM recepcion_noProductivos_mercaderias_detalle WHERE recepcion_id = :recepcion_id AND estado = 'pendiente'");
+		$stmt = $conn->prepare("SELECT * FROM recepcion_noProductivos_mercaderias_detalle WHERE recepcion_id = :recepcion_id AND estado = 'pendiente' AND operador_id = :operador_id");
 		$stmt->bindParam(':recepcion_id', $recepcion_id);
+		$stmt->bindParam(':operador_id', $creado_por_id);
 		$stmt->execute();
 
 		$mercaderias = $stmt->fetchAll(PDO::FETCH_ASSOC);
