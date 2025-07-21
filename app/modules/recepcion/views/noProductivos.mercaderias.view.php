@@ -23,6 +23,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="container-fluid mt-4">
 
 									<div class="row">
+										<!-- FORM AGREGAR -->
 										<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
 											<div class="">
 												<div class="card mb-3">
@@ -154,6 +155,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 										</form>
+
+										<!-- FORM GUARDAR -->
 										<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion">
 											<div class="">
 												<div class="card mb-3">
@@ -175,7 +178,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<?php if (empty($resumen)): ?>
 																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
 																	<?php endif; ?>
-																	<table>
+																	<table id="miTablaResumen" class="display" style="width:100%">
 																		<thead class="table-primary">
 																			<tr class="text-light">
 																				<td class="border">ID Recepción</td>
@@ -188,8 +191,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																			<tr class="text-start">
 																				<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
 																				<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
-																				<td class="border text-primary text-center"><?php echo $resumen['unidades']; ?></td>
-																				<td class="border text-primary text-center"><?php echo $resumen['peso_neto']; ?></td>
+																				<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
+																				<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
 																			</tr>
 																		</tbody>
 																	</table>
@@ -200,9 +203,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<?php if (empty($detalle)): ?>
 																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
 																	<?php endif; ?>
-																	<table>
+																	<table id="miTablaDetalle" class="display" style="width:100%">
 																		<thead class="table-primary">
 																			<tr class="text-light">
+																				<td class="border text-center">Recepción</td>
+																				<td class="border">Proveedor</td>
+																				<td class="border">Fecha Recepción</td>
+																				<td class="border">Nro Remito</td>
+																				<td class="border">Fecha Remito</td>
 																				<td class="border">Código</td>
 																				<td class="border">Descripción</td>
 																				<td class="border">Unidades</td>
@@ -213,8 +221,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																		<tbody>
 																			<?php foreach ($detalle as $row): ?>
 																				<tr class="text-start">
-																					<td class="border text-primary text-center"><?php echo $row['codigo']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['descripcion']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
+																					<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
 																					<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
 																					<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
 																					<td class="border text-primary text-center">

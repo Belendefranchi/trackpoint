@@ -14,6 +14,9 @@ $mercaderias = obtenerMercaderias();
 
 $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null;
 
+// Obtener resumen y detalle de recepción si hay una sesión activa
+$resumen = obtenerResumenRecepcion($_SESSION['operador_id'] ?? null);
+$detalle = obtenerDetalleRecepcion($resumen['recepcion_id'] ?? null);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -121,13 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$operador_id = $_SESSION['operador_id'];
-		$recepcion_id = obtenerRecepcionAbierta($operador_id);
 
-		if ($recepcion_id) {
+		if ($operador_id) {
 			try {
 
-				$resumen = obtenerResumenRecepcion($recepcion_id);
-				$detalle = obtenerDetalleRecepcion($recepcion_id);
+				$resumen = obtenerResumenRecepcion($operador_id);
+				$detalle = obtenerDetalleRecepcion($resumen['recepcion_id']);
 
 				echo json_encode([
 					'success' => true,
@@ -212,8 +214,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-	'resumen' => $resumen ?? [],
-	'detalle' => $detalle ?? []
+	'mercaderiaSeleccionada' => $mercaderiaSeleccionada,
+	'resumen' => $resumen,
+	'detalle' => $detalle
 ];
 	
 // Llamar a la función común que carga todo en el layout

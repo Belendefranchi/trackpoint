@@ -19,6 +19,8 @@ $(document).ready(function () {
 	};
 
 	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTable);
+	const tablaResumen = $('#miTablaResumen').DataTable(configuracionDataTable);
+	const tablaDetalle = $('#miTablaDetalle').DataTable(configuracionDataTable);
 
 	const tabla = $('#miTabla').DataTable({
 		stateSave: true,

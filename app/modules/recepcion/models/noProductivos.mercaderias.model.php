@@ -91,12 +91,29 @@ function agregarMercaderia($datos) {
 	}
 }
 
-function obtenerResumenRecepcion($recepcion_id) {
+function obtenerResumenRecepcion($operador_id) {
 	try {
 		$conn = getConnection();
-		$sql = "SELECT * FROM recepcion_noProductivos_mercaderias_resumen WHERE recepcion_id = :recepcion_id";
+		$sql = "SELECT 
+								r.recepcion_id,
+								r.fecha_recepcion,
+								r.operador_id,
+								r.estado,
+								ISNULL(SUM(d.unidades), 0) AS total_unidades,
+								ISNULL(SUM(d.peso_neto), 0) AS total_peso_neto
+						FROM recepcion_noProductivos_mercaderias_resumen r
+						LEFT JOIN recepcion_noProductivos_mercaderias_detalle d 
+								ON r.recepcion_id = d.recepcion_id
+						WHERE r.operador_id = :operador_id 
+							AND r.estado = 'pendiente'
+						GROUP BY 
+								r.recepcion_id, 
+								r.fecha_recepcion,
+								r.operador_id, 
+								r.estado
+						";
 		$stmt = $conn->prepare($sql);
-		$stmt->bindValue(':recepcion_id', $recepcion_id);
+		$stmt->bindValue(':operador_id', $operador_id);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -110,7 +127,23 @@ function obtenerResumenRecepcion($recepcion_id) {
 function obtenerDetalleRecepcion($recepcion_id) {
 	try{
 		$conn = getConnection();
-		$sql = "SELECT * FROM recepcion_noProductivos_mercaderias_detalle WHERE recepcion_id = :recepcion_id";
+		$sql = "SELECT 
+								d.recepcion_id,
+								d.proveedor_id,
+								d.fecha_recepcion,
+								d.nro_remito,
+								d.fecha_remito,
+								m.codigo AS codigo_mercaderia,
+								m.descripcion AS descripcion_mercaderia,
+								d.unidades,
+								d.peso_neto,
+								d.estado
+						FROM recepcion_noProductivos_mercaderias_detalle d
+						JOIN produccion_abm_mercaderias m 
+							ON d.mercaderia_id = m.mercaderia_id
+						WHERE d.recepcion_id = :recepcion_id
+							AND d.estado = 'pendiente'
+						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':recepcion_id', $recepcion_id);
 		$stmt->execute();
@@ -120,15 +153,6 @@ function obtenerDetalleRecepcion($recepcion_id) {
 		registrarEvento("Recepción Mercaderías Model: Error al buscar detalle, " . $e->getMessage(), "ERROR");
 		return ['success' => false, 'message' => $e->getMessage()];
 	}
-}
-
-function obtenerRecepcionAbierta($operador_id) {
-	$conn = getConnection();
-	$sql = "SELECT recepcion_id FROM recepcion_noProductivos_mercaderias_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
-	$stmt = $conn->prepare($sql);
-	$stmt->bindValue(':operador_id', $operador_id);
-	$stmt->execute();
-	return $stmt->fetchColumn(); // Devuelve directamente el recepcion_id o false si no hay
 }
 
 function guardarRecepcion($recepcion_id) {
