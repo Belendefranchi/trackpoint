@@ -177,73 +177,75 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div id="resumen-recepcion">
 																	<?php if (empty($resumen)): ?>
 																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+																	<?php else: ?>
+																		<table id="miTablaResumen" class="display" style="width:100%">
+																			<thead class="table-primary">
+																				<tr class="text-light">
+																					<td class="border">ID Recepción</td>
+																					<td class="border">Fecha Recepción</td>
+																					<td class="border">Unidades</td>
+																					<td class="border">Peso Neto</td>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr class="text-start">
+																					<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
+																					<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
+																				</tr>
+																			</tbody>
+																		</table>
 																	<?php endif; ?>
-																	<table id="miTablaResumen" class="display" style="width:100%">
-																		<thead class="table-primary">
-																			<tr class="text-light">
-																				<td class="border">ID Recepción</td>
-																				<td class="border">Fecha Recepción</td>
-																				<td class="border">Unidades</td>
-																				<td class="border">Peso Neto</td>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr class="text-start">
-																				<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
-																				<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
-																				<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
-																				<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
-																			</tr>
-																		</tbody>
-																	</table>
 																</div>
 															</div>
 															<div class="tab-pane fade show" id="detalle" role="tabpanel">
 																<div id="detalle-recepcion">
 																	<?php if (empty($detalle)): ?>
 																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-																	<?php endif; ?>
-																	<table id="miTablaDetalle" class="display" style="width:100%">
-																		<thead class="table-primary">
-																			<tr class="text-light">
-																				<td class="border text-center">Recepción</td>
-																				<td class="border">Proveedor</td>
-																				<td class="border">Fecha Recepción</td>
-																				<td class="border">Nro Remito</td>
-																				<td class="border">Fecha Remito</td>
-																				<td class="border">Código</td>
-																				<td class="border">Descripción</td>
-																				<td class="border">Unidades</td>
-																				<td class="border">Peso</td>
-																				<td class="border text-center no-export">Acciones</td>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<?php foreach ($detalle as $row): ?>
-																				<tr class="text-start">
-																					<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
-																					<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
-																					<td class="border text-primary text-center">
-																						<div class="d-flex no-wrap justify-content-center">
-																							<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																								<i class="bi bi-pencil me-2"></i>Editar
-																							</a>
-																							<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																								<i class="bi bi-trash me-2"></i>Eliminar
-																							</a>
-																						</div>
-																					</td>
+																	<?php else: ?>
+																		<table id="miTablaDetalle" class="display" style="width:100%">
+																			<thead class="table-primary">
+																				<tr class="text-light">
+																					<td class="border text-center">Recepción</td>
+																					<td class="border">Proveedor</td>
+																					<td class="border">Fecha Recepción</td>
+																					<td class="border">Nro Remito</td>
+																					<td class="border">Fecha Remito</td>
+																					<td class="border">Código</td>
+																					<td class="border">Descripción</td>
+																					<td class="border">Unidades</td>
+																					<td class="border">Peso</td>
+																					<td class="border text-center no-export">Acciones</td>
 																				</tr>
-																			<?php endforeach; ?>
-																		</tbody>
-																	</table>
+																			</thead>
+																			<tbody>
+																				<?php foreach ($detalle as $row): ?>
+																					<tr class="text-start">
+																						<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
+																						<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
+																						<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
+																						<td class="border text-primary text-center">
+																							<div class="d-flex no-wrap justify-content-center">
+																								<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+																									<i class="bi bi-pencil me-2"></i>Editar
+																								</a>
+																								<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+																									<i class="bi bi-trash me-2"></i>Eliminar
+																								</a>
+																							</div>
+																						</td>
+																					</tr>
+																				<?php endforeach; ?>
+																			</tbody>
+																		</table>
+																	<?php endif; ?>
 																</div>
 															</div>
 

@@ -162,6 +162,15 @@ CREATE TABLE produccion_pallets (
     activo BIT DEFAULT 1
 );
 
+CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
+    recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
+    fecha_recepcion DATE NOT NULL,
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
+);
+
 CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
 
@@ -182,9 +191,10 @@ CREATE TABLE produccion_general (
     editado_por_username VARCHAR(100) NULL,
 
     -- Referencias a proceso y producto
+    recepcion_id INT NOT NULL,
+    proveedor_id INT NOT NULL,
     proceso_id INT NOT NULL,
     mercaderia_id INT NOT NULL,
-    proveedor_id INT NOT NULL,
 
     -- Asociación futura
     pallet_id INT NOT NULL,
@@ -214,6 +224,8 @@ CREATE TABLE produccion_general (
     CONSTRAINT FK_produccion_editado_por FOREIGN KEY (editado_por_id) REFERENCES configuracion_abm_operadores(operador_id),
     CONSTRAINT FK_produccion_proceso FOREIGN KEY (proceso_id) REFERENCES produccion_abm_procesos(proceso_id),
     CONSTRAINT FK_produccion_producto FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id),
+    CONSTRAINT FK_produccion_recepcion FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id)
+
     --CONSTRAINT FK_produccion_pallet FOREIGN KEY (pallet_id) REFERENCES produccion_pallets(pallet_id),
     --CONSTRAINT FK_produccion_pedido FOREIGN KEY (pedido_id) REFERENCES expedicion_pedidos(pedido_id)
 );
@@ -249,16 +261,6 @@ CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (O
 
 /* --------------------------------------- PRODUCTIVAS ------------------------------------------ */
 
-CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
-    recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
-    fecha_recepcion DATE NOT NULL,
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NULL,
-    operador_id INT NOT NULL,
-    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
-);
-
-
 CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
     item_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID único de cada fila temporal
     recepcion_id INT NOT NULL,                       -- ID único por grupo de mercaderías (puede ser el GUID de toda la recepción)
@@ -279,7 +281,6 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
 
     -- Claves foráneas
-        
     FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
     FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id)
 );

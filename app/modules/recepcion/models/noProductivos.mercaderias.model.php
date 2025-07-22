@@ -206,6 +206,7 @@ function guardarRecepcion($recepcion_id) {
 												:fecha_sistema,
 												:creado_por_id,
 												:creado_por_username,
+												:proceso_id,
 												:mercaderia_id,
 												:proveedor_id,
 												:pallet_id,
@@ -233,20 +234,21 @@ function guardarRecepcion($recepcion_id) {
 				':fecha_sistema' => $fechaActual,
 				':creado_por_id' => $creado_por_id,
 				':creado_por_username' => $creado_por_username,
+				':proceso_id' => '1',
 				':mercaderia_id' => $mercaderia['mercaderia_id'],
 				':proveedor_id' => $mercaderia['proveedor_id'],
-				':pallet_id' => 0, // Asignar valor por defecto
-				':pedido_id' => 0, // Asignar valor por defecto
+				':pallet_id' => 0,
+				':pedido_id' => 0,
 				':unidades' => $mercaderia['unidades'],
-				':cantidad' => 0, // Asignar valor por defecto
+				':cantidad' => 0,
 				':peso_neto' => $mercaderia['peso_neto'],
-				':peso_bruto' => $mercaderia['peso_neto'] + $mercaderia['tara'], // Calcular peso bruto
-				':tara_pri' => $mercaderia['tara'],
-				':tara_sec' => $mercaderia['tara'],
-				':codbar_e' => null, // Asignar valor por defecto
-				':codbar_s' => 'codbar', // Asignar valor por defecto
-				':estado' => 'disponible', // Estado inicial
-				':impreso' => 1 // Por defecto
+				':peso_bruto' => $mercaderia['peso_neto'] + ($mercaderia['tara'] ?? 0),
+				':tara_pri' => $mercaderia['tara'] ?? 0,
+				':tara_sec' => $mercaderia['tara'] ?? 0,
+				':codbar_e' => 0,
+				':codbar_s' => 'codbar',
+				':estado' => 'disponible',
+				':impreso' => 1
 			]);
 		}
 

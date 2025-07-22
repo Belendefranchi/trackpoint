@@ -144,15 +144,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-});
 
   /* ##################### AGREGAR MERCADERÍA ##################### */
 
-  const mensajeErrorAgregar = document.getElementById('mensaje-error-agregar');
-  const formAgregar = document.getElementById('formAgregarMercaderia');
+  // Interceptar el envío del formulario con AJAX
+  const formAgregar = document.querySelector('#formAgregarMercaderia');
+  if (formAgregar) {
+    formAgregar.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-  function mostrarMensajeErrorAgregar(mensaje) {
-    mensajeErrorAgregar.classList.remove('d-none');
-    mensajeErrorAgregar.querySelector('.mensaje-texto').textContent = mensaje;
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Mercadería agregada con éxito:', response.message);
+            location.reload();
+          } else {
+            console.log('Error al agregar la mercadería:', response.message);
+            $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText); 
+          $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
   }
 
+});

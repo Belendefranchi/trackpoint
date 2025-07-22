@@ -106,10 +106,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		try {
 			$result = agregarMercaderia($datos);
 
-			echo json_encode($result);
-			
-			return $result;
-			exit;
+			if ($result){
+				registrarEvento("Mercaderías Controller: Mercadería agregada correctamente => " . $datos['mercaderia_id'], "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				registrarEvento("Recepción Mercaderías Controller: Error al agregar la mercadería => " . $datos['mercaderia_id'], "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo agregar la mercadería']);
+				exit;
+			}
 		} catch (Exception $e) {
 			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
@@ -190,7 +195,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$operador_id = $_SESSION['operador_id'];
-		$recepcion_id = obtenerRecepcionAbierta($operador_id);
+		$resumen = obtenerResumenRecepcion($operador_id);
+		$recepcion_id = $resumen['recepcion_id'];
+
 		
 		try {
 
