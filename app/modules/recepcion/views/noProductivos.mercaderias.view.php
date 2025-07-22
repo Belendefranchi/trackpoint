@@ -49,7 +49,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<div class="row align-items-center">
 																	<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
 																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion" required>
+																		<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion">
 																	</div>
 																</div>
 															</div>
@@ -86,7 +86,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																		<div class="input-group">
 																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
 																			<div class="d-flex flex-column w-100">
-																				<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>" required>
+																				<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
 																				<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
 																					<i class="bi bi-exclamation-triangle-fill me-2"></i>
 																					<span class="mensaje-texto"></span>
@@ -142,8 +142,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 													</div>
 
-													<div class="card-footer bg-light text-end">
-														<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none p-2" role="alert">
+													<div class="card-footer bg-light d-flex justify-content-end">
+														<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none m-2 p-2" role="alert">
 															<i class="bi bi-exclamation-triangle-fill me-2"></i>
 															<span class="mensaje-texto"></span>
 															<!-- Mensajes de error que se cargarán de forma dinámica -->
@@ -248,11 +248,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<?php endif; ?>
 																</div>
 															</div>
-
 														</div>
 													</div>
 													<div class="card-footer bg-light text-end">
-														<button type="submit" class="btn btn-sm btn-success my-2 me-1" name="editar_modal" >
+														<button type="button" class="btn btn-sm btn-success my-2 me-1" name="guardar_modal" id="btnMostrarConfirmacion">
 															<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 														</button>
 														<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
@@ -330,6 +329,45 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</form>
 					</div>
 				</div>
+
+				<!-- Modal de confirmación -->
+				<div class="modal fade" id="modalConfirmarGuardar" tabindex="-1" aria-labelledby="modalConfirmarGuardarLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header bg-warning text-dark">
+								<h5 class="modal-title" id="modalConfirmarGuardarLabel">Confirmar guardado</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<div class="modal-body text-center">
+								<p>¿Estás seguro de que querés guardar la recepción? Una vez guardada no podrá modificarse.</p>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								<button id="btnConfirmarGuardar" type="button" class="btn btn-success">Confirmar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal de éxito / error -->
+				<div class="modal fade" id="modalMensajeRecepcion" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content border-0 shadow">
+							<div class="modal-header bg-primary text-white">
+								<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<div class="modal-body">
+								<p id="textoModalMensaje" class="text-center fs-5"></p>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
 
 			</main>
 		</div>

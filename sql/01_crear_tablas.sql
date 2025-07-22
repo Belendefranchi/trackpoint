@@ -174,6 +174,16 @@ CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
 CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
 
+    -- Codificación y trazabilidad por escaneo
+    codbar_s VARCHAR(100) NOT NULL,
+    codbar_e VARCHAR(100) NOT NULL,
+
+    -- Estado de la etiqueta
+    estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (estado IN (
+        'disponible', 'eliminado', 'palletizado', 'en_pedido', 'en_carga',
+        'en_proceso', 'despachado', 'remitido', 'baja_por_inventario'
+    )),
+
     -- Trazabilidad
     fecha_faena DATE NOT NULL,
     fecha_produccion DATE NOT NULL,
@@ -191,14 +201,14 @@ CREATE TABLE produccion_general (
     editado_por_username VARCHAR(100) NULL,
 
     -- Referencias a proceso y producto
-    recepcion_id INT NOT NULL,
-    proveedor_id INT NOT NULL,
-    proceso_id INT NOT NULL,
+    recepcion_id INT NULL,
+    proveedor_id INT NULL,
+    proceso_id INT NULL,
     mercaderia_id INT NOT NULL,
 
     -- Asociación futura
-    pallet_id INT NOT NULL,
-    pedido_id INT NOT NULL,
+    pallet_id INT NULL,
+    pedido_id INT NULL,
 
     -- Datos físicos
     unidades INT NOT NULL,
@@ -208,15 +218,6 @@ CREATE TABLE produccion_general (
     tara_pri DECIMAL(10,2) NOT NULL,
     tara_sec DECIMAL(10,2) NOT NULL,
 
-    -- Codificación y trazabilidad por escaneo
-    codbar_e VARCHAR(100) NOT NULL,
-    codbar_s VARCHAR(100) NOT NULL,
-
-    -- Estado de la etiqueta
-    estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (estado IN (
-        'disponible', 'eliminado', 'palletizado', 'en_pedido', 'en_carga',
-        'en_proceso', 'despachado', 'remitido', 'baja_por_inventario'
-    )),
     impreso INT NOT NULL DEFAULT 1,
 
     -- Claves foráneas
@@ -224,10 +225,12 @@ CREATE TABLE produccion_general (
     CONSTRAINT FK_produccion_editado_por FOREIGN KEY (editado_por_id) REFERENCES configuracion_abm_operadores(operador_id),
     CONSTRAINT FK_produccion_proceso FOREIGN KEY (proceso_id) REFERENCES produccion_abm_procesos(proceso_id),
     CONSTRAINT FK_produccion_producto FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id),
-    CONSTRAINT FK_produccion_recepcion FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id)
-
+    CONSTRAINT FK_produccion_recepcion FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
+    
     --CONSTRAINT FK_produccion_pallet FOREIGN KEY (pallet_id) REFERENCES produccion_pallets(pallet_id),
-    --CONSTRAINT FK_produccion_pedido FOREIGN KEY (pedido_id) REFERENCES expedicion_pedidos(pedido_id)
+    --CONSTRAINT FK_produccion_pedido FOREIGN KEY (pedido_id) REFERENCES expedicion_pedidos(pedido_id),
+    
+    CONSTRAINT CK_produccion_origen_valido CHECK ( recepcion_id IS NOT NULL OR proceso_id IS NOT NULL)
 );
 GO
 

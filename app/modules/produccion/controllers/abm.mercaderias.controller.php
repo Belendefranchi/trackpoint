@@ -165,5 +165,3 @@ $datosVista = [
 ];
 
 cargarVistaProduccion('abm.mercaderias.view.php', $datosVista);
-
-

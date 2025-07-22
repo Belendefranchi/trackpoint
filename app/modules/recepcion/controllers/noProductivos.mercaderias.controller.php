@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					]);
 					exit;
 				} else {
-					echo json_encode(['success' => false, 'message' => 'Error: No se encontró la mercadería con el código proporcionado']);
+					echo json_encode(['success' => false, 'message' => 'Mercadería no encontrada']);
 					exit;
 				}
 			} catch (Exception $e) {
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Validar datos obligatorios
 		if (empty($_POST['proveedor_id']) || empty($_POST['fecha_recepcion']) || empty($_POST['mercaderia_id']) || empty($_POST['unidades']) || empty($_POST['peso_neto'])) {
-			echo json_encode(['success' => false, 'message' => 'Error: Faltan datos obligatorios']);
+			echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
 			exit;
 		}
 
@@ -197,17 +197,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$operador_id = $_SESSION['operador_id'];
 		$resumen = obtenerResumenRecepcion($operador_id);
 		$recepcion_id = $resumen['recepcion_id'];
-
 		
 		try {
 
-			if ($recepcion_id) {
-				$resultado = guardarRecepcion($recepcion_id);
-				echo json_encode($resultado);
+			$result = guardarRecepcion($recepcion_id);
+
+			if ($result){
+				registrarEvento("Recepción Mercaderías Controller: Recepción guardada correctamente => " . $resumen['recepcion_id'], "INFO");
+				echo json_encode(['success' => true]);
+				exit;
 			} else {
-				echo json_encode(['success' => false, 'message' => 'No se encontró ninguna recepción abierta para este operador.']);
+				registrarEvento("Recepción Mercaderías Controller: Error al guardar la recepción => " . $resumen['recepcion_id'], "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo guardar la recepción']);
+				exit;
 			}
-			exit;
 		} catch (Exception $e) {
 			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);

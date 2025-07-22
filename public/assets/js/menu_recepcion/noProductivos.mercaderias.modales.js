@@ -1,4 +1,24 @@
+// Guardar pestaña activa en localStorage
+const recepcionTabs = document.querySelectorAll('#recepcionTabsContent .tab-pane');
+
+recepcionTabs.forEach(tab => {
+  tab.addEventListener('shown.bs.tab', function (e) {
+    const tabId = e.target.id;
+    localStorage.setItem('pestanaRecepcionActiva', tabId);
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
+
+  // Restaurar pestaña activa al cargar
+  const lastTab = localStorage.getItem('pestanaRecepcionActiva');
+
+  if (lastTab) {
+    const trigger = document.querySelector(`a[data-bs-toggle="tab"][href="#${lastTab}"]`);
+    if (trigger) {
+      new bootstrap.Tab(trigger).show();
+    }
+  }
 
   /* ##################### MODAL: SELECCIÓN DE MERCADERÍA ##################### */
 
@@ -104,21 +124,18 @@ document.addEventListener('DOMContentLoaded', function () {
           if (response.success) {
             inputDescripcionBusqueda.value = response.descripcion_mercaderia || response.descripcion || '';
             document.getElementById('input-mercaderia-id').value = response.mercaderia_id || '';
-
             mensajeBusqueda.textContent = '';
             mensajeBusqueda.classList.add('d-none');
           } else {
             inputDescripcionBusqueda.value = '';
             document.getElementById('input-mercaderia-id').value = '';
-            mensajeBusqueda.textContent = 'Mercadería no encontrada.';
-            mensajeBusqueda.classList.remove('d-none');
+            $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function () {
           inputDescripcionBusqueda.value = '';
           document.getElementById('input-mercaderia-id').value = '';
-          mensajeBusqueda.textContent = 'Error al buscar mercadería.';
-          mensajeBusqueda.classList.remove('d-none');
+          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
         }
       });
     } else {
@@ -170,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           if (response.success) {
             console.log('Mercadería agregada con éxito:', response.message);
+            localStorage.setItem('pestanaActiva', $('.nav-link.active').attr('id'));
             location.reload();
           } else {
             console.log('Error al agregar la mercadería:', response.message);
@@ -186,5 +204,55 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
+
+  /* ##################### GUARDAR MERCADERÍA ##################### */
+
+  // Mostrar el modal al hacer clic
+  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarGuardar'));
+    modal.show();
+  });
+
+  document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarGuardar'));
+    modal.show();
+  });
+
+document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
+  // Cierra el modal
+  bootstrap.Modal.getInstance(document.getElementById('modalConfirmarGuardar')).hide();
+
+  // Hacer la llamada AJAX para guardar la recepción
+  $.ajax({
+    url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion',
+    type: 'POST',
+    dataType: 'json',
+    success: function (response) {
+      if (response.success) {
+        // Cerrar modal de confirmación
+        const modalConfirmar = bootstrap.Modal.getInstance(document.getElementById('modalConfirmarG6uardar'));
+        if (modalConfirmar) {
+          modalConfirmar.hide();
+        }
+        $('#modalMensajeLabel').text('Recepción guardada');
+        $('#textoModalMensaje').text('La recepción fue guardada correctamente.');
+      } else {
+        $('#modalMensajeLabel').text('Error al guardar');
+        $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+      }
+      
+      // Mostrar el modal
+      const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+      modalMensaje.show();
+    },
+    error: function (xhr, status, error) {
+      console.error('Error al guardar la recepción:', error);
+      alert('Error inesperado al guardar la recepción.');
+    }
+  });
+});
+
+
+
 
 });

@@ -175,6 +175,9 @@ function guardarRecepcion($recepcion_id) {
 		}
 
 		$sqlInsert = "INSERT INTO produccion_general (
+												codbar_s,
+												codbar_e,
+												estado,
 												fecha_faena,
 												fecha_produccion,
 												fecha_recepcion,
@@ -182,9 +185,10 @@ function guardarRecepcion($recepcion_id) {
 												fecha_sistema,
 												creado_por_id,
 												creado_por_username,
+												recepcion_id,
+												proveedor_id,
 												proceso_id,
 												mercaderia_id,
-												proveedor_id,
 												pallet_id,
 												pedido_id,
 												unidades,
@@ -193,12 +197,12 @@ function guardarRecepcion($recepcion_id) {
 												peso_bruto,
 												tara_pri,
 												tara_sec,
-												codbar_e,
-												codbar_s,
-												estado,
 												impreso
 											)
 											VALUES (
+												:codbar_s,
+												:codbar_e,
+												:estado,
 												:fecha_faena,
 												:fecha_produccion,
 												:fecha_recepcion,
@@ -206,9 +210,10 @@ function guardarRecepcion($recepcion_id) {
 												:fecha_sistema,
 												:creado_por_id,
 												:creado_por_username,
+												:recepcion_id,
+												:proveedor_id,
 												:proceso_id,
 												:mercaderia_id,
-												:proveedor_id,
 												:pallet_id,
 												:pedido_id,
 												:unidades,
@@ -217,9 +222,6 @@ function guardarRecepcion($recepcion_id) {
 												:peso_bruto,
 												:tara_pri,
 												:tara_sec,
-												:codbar_e,
-												:codbar_s,
-												:estado,
 												:impreso
 											)";
 
@@ -227,6 +229,9 @@ function guardarRecepcion($recepcion_id) {
 
 		foreach ($mercaderias as $mercaderia) {
 			$stmtInsert->execute([
+				':codbar_s' => 'codbar',
+				':codbar_e' => 0,
+				':estado' => 'disponible',
 				':fecha_faena' => $fechaActual,
 				':fecha_produccion' => $fechaActual,
 				':fecha_recepcion' => $mercaderia['fecha_recepcion'],
@@ -234,26 +239,24 @@ function guardarRecepcion($recepcion_id) {
 				':fecha_sistema' => $fechaActual,
 				':creado_por_id' => $creado_por_id,
 				':creado_por_username' => $creado_por_username,
-				':proceso_id' => '1',
-				':mercaderia_id' => $mercaderia['mercaderia_id'],
+				':recepcion_id' => $recepcion_id,
 				':proveedor_id' => $mercaderia['proveedor_id'],
-				':pallet_id' => 0,
-				':pedido_id' => 0,
+				':proceso_id' => null,
+				':mercaderia_id' => $mercaderia['mercaderia_id'],
+				':pallet_id' => null,
+				':pedido_id' => null,
 				':unidades' => $mercaderia['unidades'],
 				':cantidad' => 0,
 				':peso_neto' => $mercaderia['peso_neto'],
 				':peso_bruto' => $mercaderia['peso_neto'] + ($mercaderia['tara'] ?? 0),
 				':tara_pri' => $mercaderia['tara'] ?? 0,
 				':tara_sec' => $mercaderia['tara'] ?? 0,
-				':codbar_e' => 0,
-				':codbar_s' => 'codbar',
-				':estado' => 'disponible',
 				':impreso' => 1
 			]);
 		}
 
 		if ($stmtInsert->execute()) {
-			registrarEvento("Recepción Mercaderías Model: mercadería guardada correctamente.", "INFO");
+			registrarEvento("Recepción Mercaderías Model: recepción guardada correctamente.", "INFO");
 		}
 
 		$sqlCerrarResumen = "UPDATE recepcion_noProductivos_mercaderias_resumen SET estado = 'cerrada', fecha_modificacion = :fecha WHERE recepcion_id = :recepcion_id";
@@ -274,7 +277,7 @@ function guardarRecepcion($recepcion_id) {
 
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Recepción Mercaderías Model: Error al guardar la mercadería, " . $e->getMessage(), "ERROR");
+		registrarEvento("Recepción Mercaderías Model: Error al guardar la recepción, " . $e->getMessage(), "ERROR");
 		return ['success' => false, 'message' => 'Error al guardar la recepción.'];
 	}
 }
