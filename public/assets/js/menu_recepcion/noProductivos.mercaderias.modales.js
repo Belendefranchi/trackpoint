@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Restaurar pestaña activa al cargar
   const lastTab = localStorage.getItem('pestanaRecepcionActiva');
-
   if (lastTab) {
     const trigger = document.querySelector(`a[data-bs-toggle="tab"][href="#${lastTab}"]`);
     if (trigger) {
@@ -20,87 +19,86 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ##################### MODAL DE SELECCIÓN DE MERCADERÍA ##################### */
+  /* ##################### MODAL SELECCIÓN DE MERCADERÍA ##################### */
 
-  const modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
-  const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
-  
-  const inputId = document.getElementById('input-mercaderia-id');
-  const inputCodigo = document.getElementById('input-codigo-mercaderia');
-  const inputDescripcion = document.getElementById('input-descripcion-mercaderia');
-  
-  // Ocultar mensaje de error, desmarcar radios al cerrar el modal y limpiar inputs
+  var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+  var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+
   if (modalSeleccionar) {
     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
       if (mensajeErrorSeleccionar) {
         mensajeErrorSeleccionar.classList.add('d-none');
         mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
       }
-      
-      document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
-        radio.checked = false;
-      });
-      
-      document.getElementById('input-mercaderia-id').value = '';
-      document.getElementById('input-codigo-mercaderia').value = '';
-      document.getElementById('input-descripcion-mercaderia').value = '';
+
+      document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => radio.checked = false);
+
+      modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
+      modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
+      modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
     });
-  }
-  
-  // Cargar datos en inputs ocultos al seleccionar una mercadería
-  document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
-    radio.addEventListener('change', function () {
-      inputId.value = this.dataset.mercaderiaid;
-      inputCodigo.value = this.dataset.codigom;
-      inputDescripcion.value = this.dataset.descripcionm;
+
+    // Manejar el cambio de selección de la mercadería
+    document.querySelectorAll('.seleccionar-operador').forEach(radio => {
+      radio.addEventListener('change', function () {
+        // Cargar datos al formulario cuando se confirma el modal
+        document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
+        document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
+        document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
+      })
     });
-  });
-  
-  // Enviar formulario del modal por AJAX
-  const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
-  if (formSeleccionar) {
-    formSeleccionar.addEventListener('submit', function (e) {
-      e.preventDefault();
 
-      mensajeErrorSeleccionar.classList.add('d-none');
-      mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
+    // Enviar formulario con AJAX
+    const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
+    if (formSeleccionar) {
+      formSeleccionar.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-      const mercaderiaId = inputId.value;
-      const codigo = inputCodigo.value;
-      const descripcion = inputDescripcion.value;
+        // Limpiar cualquier mensaje de error antes de hacer la solicitud
+        $('#mensaje-error-seleccionar').addClass('d-none').find('.mensaje-texto').text('');
 
-      if (!mercaderiaId) {
-        mensajeErrorSeleccionar.classList.remove('d-none');
-        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar una mercadería.';
-        return;
-      }
+        const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
+        const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid;
+        const codigo = radioSeleccionado.dataset.codigom || '';
+        const descripcion = radioSeleccionado.dataset.descripcionm || '';
 
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarMercaderia',
-        method: 'POST',
-        data: {
-          mercaderia_id: mercaderiaId,
-          codigo_mercaderia: codigo,
-          descripcion_mercaderia: descripcion
-        },
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            const modal = bootstrap.Modal.getInstance(modalSeleccionar);
-            if (modal) modal.hide();
-              // Recargar la vista principal para reflejar los datos de $_SESSION
-              location.reload();
-          } else {
+        if (!mercaderiaId) {
+          if (mensajeErrorSeleccionar) {
             mensajeErrorSeleccionar.classList.remove('d-none');
-            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
+            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar una mercadería.';
           }
-        },
-        error: function () {
-          mensajeErrorSeleccionar.classList.remove('d-none');
-          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
+          return;
         }
+
+        const formData = new FormData();
+        formData.append('mercaderia_id', mercaderiaId);
+        formData.append('codigo_mercaderia', codigo);
+        formData.append('descripcion_mercaderia', descripcion);
+
+        $.ajax({
+          url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarMercaderia',
+          method: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: 'json',
+          success: function (response) {
+            if (response.success) {
+              const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
+              if (modal) modal.hide();
+              location.reload();
+            } else {
+              mensajeErrorSeleccionar.classList.remove('d-none');
+              mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
+            }
+          },
+          error: function () {
+            mensajeErrorSeleccionar.classList.remove('d-none');
+            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
+          }
+        });
       });
-    });
+    }
   }
 
   /* ##################### BÚSQUEDA POR CÓDIGO ##################### */
@@ -109,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
-  // Función reutilizable para buscar mercadería
   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
       $.ajax({
@@ -119,9 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: 'json',
         success: function (response) {
           if (response.success) {
-            inputDescripcionBusqueda.value = response.descripcion_mercaderia || response.descripcion || '';
+            inputDescripcionBusqueda.value = response.descripcion_mercaderia || '';
             document.getElementById('input-mercaderia-id').value = response.mercaderia_id || '';
-            mensajeBusqueda.textContent = '';
             mensajeBusqueda.classList.add('d-none');
           } else {
             inputDescripcionBusqueda.value = '';
@@ -132,42 +128,29 @@ document.addEventListener('DOMContentLoaded', function () {
         error: function () {
           inputDescripcionBusqueda.value = '';
           document.getElementById('input-mercaderia-id').value = '';
-          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
         }
       });
     } else {
       inputDescripcionBusqueda.value = '';
       document.getElementById('input-mercaderia-id').value = '';
-      mensajeBusqueda.textContent = '';
       mensajeBusqueda.classList.add('d-none');
     }
   }
 
-  // Buscar mientras escribe
-/*   inputCodigoBusqueda.addEventListener('keyup', function (e) {
-    if (e.key !== 'Enter') {
-      buscarMercaderiaPorCodigo(this.value.trim());
-    }
-  }); */
-
-  // Confirmar búsqueda con Enter
   inputCodigoBusqueda.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Evita que se envíe el formulario al presionar Enter
+      e.preventDefault();
       buscarMercaderiaPorCodigo(this.value.trim());
     }
   });
 
-
   /* ##################### AGREGAR MERCADERÍA ##################### */
 
-  // Interceptar el envío del formulario con AJAX
   const formAgregar = document.querySelector('#formAgregarMercaderia');
   if (formAgregar) {
     formAgregar.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      // Limpiar cualquier mensaje de error antes de hacer la solicitud
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
       const formData = new FormData(this);
@@ -180,90 +163,53 @@ document.addEventListener('DOMContentLoaded', function () {
         contentType: false,
         dataType: 'json',
         success: function (response) {
-          console.log('Respuesta del servidor:', response);
-
           if (response.success) {
-            console.log('Mercadería agregada con éxito:', response.message);
-
             localStorage.setItem('pestanaActiva', $('.nav-link.active').attr('id'));
-
             location.reload();
           } else {
-            console.log('Error al agregar la mercadería:', response.message);
             $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function (xhr, status, error) {
-          console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
-          console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText); 
           $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
     });
   }
 
-  /* ##################### GUARDAR MERCADERÍA ##################### */
-  
-  // Interceptar el evento de apertura del modal de confirmación
-/*   var modalConfirmarMercaderia = document.getElementById('modalConfirmarMercaderia');
-  if (modalConfirmarMercaderia) {
-    modalConfirmarMercaderia.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
+  /* ##################### GUARDAR RECEPCIÓN ##################### */
 
-    })
-  } */
-  
-  
-  
-  
-  // Mostrar el modal al hacer clic
   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalConfirmarGuardar'));
     modal.show();
   });
 
   document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarGuardar'));
-    modal.show();
-  });
+    bootstrap.Modal.getInstance(document.getElementById('modalConfirmarGuardar')).hide();
 
-document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
-  // Cierra el modal
-  bootstrap.Modal.getInstance(document.getElementById('modalConfirmarGuardar')).hide();
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion',
+      type: 'POST',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          $('#modalMensajeLabel').text('Recepción guardada');
+          $('#textoModalMensaje').text('La recepción fue guardada correctamente.');
+        } else {
+          $('#modalMensajeLabel').text('Error al guardar');
+          $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+        }
 
-  // Interceptar el envío del formulario con AJAX
-  $.ajax({
-    url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion',
-    type: 'POST',
-    dataType: 'json',
-    success: function (response) {
-      if (response.success) {
-        // Cerrar modal de confirmación
-/*         const modalConfirmar = bootstrap.Modal.getInstance(document.getElementById('modalConfirmarGuardar'));
-        if (modalConfirmar) {
-          modalConfirmar.hide();
-        } */
-        $('#modalMensajeLabel').text('Recepción guardada');
-        $('#textoModalMensaje').text('La recepción fue guardada correctamente.');
-      } else {
-        $('#modalMensajeLabel').text('Error al guardar');
-        $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
+      },
+      error: function () {
+        $('#modalMensajeLabel').text('Error inesperado');
+        $('#textoModalMensaje').text('Hubo un problema al intentar guardar la recepción.');
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
       }
-      
-      // Mostrar el modal
-      const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
-      modalMensaje.show();
-    },
-    error: function (xhr, status, error) {
-      console.error('Error al guardar la recepción:', error);
-      alert('Error inesperado al guardar la recepción.');
-    }
+    });
   });
-});
-
-
-
 
 });

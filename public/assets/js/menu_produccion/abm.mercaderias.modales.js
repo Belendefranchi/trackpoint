@@ -108,61 +108,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-    // Interceptar el envío del formulario con AJAX
-    const formEditar = document.querySelector('#formEditarMercaderia');
-    if (formEditar) {
-      formEditar.addEventListener('submit', function (e) {
-        e.preventDefault();
-  
-        // Limpiar cualquier mensaje de error antes de hacer la solicitud
-        $('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
-  
-        const formData = new FormData(this);
-  
-        $.ajax({
-          url: '/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&editar',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: 'json',
-          success: function (response) {
-            console.log('Respuesta del servidor:', response);
-  
-            if (response.success) {
-              console.log('Mercadería modificada con éxito:', response.message);
-  
-              const tabla = $('#miTabla').DataTable();
-              localStorage.setItem('paginaMercaderias', tabla.page());
+  // Interceptar el envío del formulario con AJAX
+  const formEditar = document.querySelector('#formEditarMercaderia');
+  if (formEditar) {
+    formEditar.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-              location.reload();
-            } else {
-              console.log('Error al modificar la mercadería:', response.message); 
-              $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
-            }
-          },
-          error: function (xhr, status, error) {
-            console.log('Error al guardar los datos');
-            console.log('Código de estado:', xhr.status);
-            console.log('Mensaje de error:', error);
-            console.log('Respuesta del servidor:', xhr.responseText); 
-            $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&editar',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Mercadería modificada con éxito:', response.message);
+
+            const tabla = $('#miTabla').DataTable();
+            localStorage.setItem('paginaMercaderias', tabla.page());
+
+            location.reload();
+          } else {
+            console.log('Error al modificar la mercadería:', response.message); 
+            $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
-        });
-      });
-    }
-  
-    // Limpiar el mensaje de error al cerrar el modal
-    var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
-    if (modalEditarMercaderia) {
-      modalEditarMercaderia.addEventListener('hidden.bs.modal', function () {
-        var mensajeError = document.getElementById('mensaje-error-editar');
-        if (mensajeError) {
-          mensajeError.classList.add('d-none'); // Ocultar el div
-          mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText); 
+          $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
-    }
+    });
+  }
+
+  // Limpiar el mensaje de error al cerrar el modal
+  var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
+  if (modalEditarMercaderia) {
+    modalEditarMercaderia.addEventListener('hidden.bs.modal', function () {
+      var mensajeError = document.getElementById('mensaje-error-editar');
+      if (mensajeError) {
+        mensajeError.classList.add('d-none'); // Ocultar el div
+        mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+      }
+    });
+  }
 
 
 /* ##################### MODAL DE ELIMINACIÓN ##################### */
