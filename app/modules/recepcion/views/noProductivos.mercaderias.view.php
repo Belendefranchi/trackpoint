@@ -8,264 +8,253 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
-					<table>
-						<tr>
-							<td>
-								<div class="d-flex justify-content-between align-items-center pe-2">
-									<h2 class="ms-2 text-primary">Ingreso de mercaderías no productivas</h2>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
+					<div class="d-flex justify-content-between align-items-center">
+						<h2 class="ms-2 text-primary">Ingreso de mercaderías no productivas</h2>
+					</div>
 
-								<!-- ############################################################################# -->
-								<div class="container-fluid mt-4">
+					<!-- ############################################################################# -->
+					<div class="container-fluid mt-4">
 
-									<div class="row">
-										<!-- FORM AGREGAR -->
-										<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
-											<div class="">
-												<div class="card mb-3">
-													<div class="card-body">
+						<div class="row">
+							<!-- FORM AGREGAR -->
+							<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">
+								<div class="">
+									<div class="card mb-3">
+										<div class="card-body">
 
-														<!-- Proveedor y Fecha Ingreso -->
-														<div class="mb-3 row">
-															
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label class="col-md-4 col-form-label text-primary">Proveedor</label>
-																	<div class="col-md-8 ps-0">
-																		<div class="input-group">
-																			<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id">
-																			<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
-																				<i class="bi bi-search"></i>
-																			</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
-																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion">
-																	</div>
-																</div>
+											<!-- Proveedor y Fecha Ingreso -->
+											<div class="mb-3 row">
+												
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label class="col-md-4 col-form-label text-primary">Proveedor</label>
+														<div class="col-md-8 ps-0">
+															<div class="input-group">
+																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id">
+																<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
+																	<i class="bi bi-search"></i>
+																</button>
 															</div>
 														</div>
-
-														<!-- Nro Remito y Fecha Remito -->
-														<div class="mb-3 row">
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label for="nro_remito" class="col-md-4 col-form-label text-primary">Nro. Remito</label>
-																	<div class="col-md-8 ps-0">
-																		<input type="text" class="form-control text-primary" id="nro_remito" name="nro_remito">
-																	</div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label for="fecha_remito" class="col-md-4 col-form-label text-primary ps-5">Fecha Remito</label>
-																	<div class="col-md-8 ps-0">
-																		<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito">
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<!-- Código y Descripción -->
-														<div class="mb-3 row align-items-center">
-
-															<div class="col-md-6">
-																<div class="row align-items-center">
-
-																	<label class="form-label col-md-4 text-primary">Código</label>
-																	<div class="col-md-8 ps-0">
-																		<div class="input-group">
-																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<div class="d-flex flex-column w-100">
-																				<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
-																				<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
-																					<i class="bi bi-exclamation-triangle-fill me-2"></i>
-																					<span class="mensaje-texto"></span>
-																					<!-- Mensajes de error que se cargarán de forma dinámica -->
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	
-																	<label class="form-label col-md-4 text-primary ps-5">Descripción</label>
-																	<div class="col-md-8 ps-0">
-																		<div class="input-group">
-																			<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																			<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly required>
-																				<a href="#" class="btn btn-primary"
-																					data-bs-toggle="modal" 
-																					data-bs-target="#modalSeleccionarMercaderia">
-																					<i class="bi bi-search"></i>
-																				</a>
-																		</div>
-																	</div>
-
-																</div>
-															</div>
-															<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
-														</div>
-
-														<!-- Unidades y Peso -->
-														<div class="mb-3 row">
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
-																	<div class="col-md-8 ps-0">
-																		<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="1">
-																	</div>
-																</div>
-															</div>
-															
-															<div class="col-md-6">
-																<div class="row align-items-center">
-																	<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
-																	<div class="col-md-8 ps-0">
-																		<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="1.00">
-																	</div>
-																</div>
-															</div>
-														</div>
-
 													</div>
-
-													<div class="card-footer bg-light d-flex justify-content-end">
-														<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none m-2 p-2" role="alert">
-															<i class="bi bi-exclamation-triangle-fill me-2"></i>
-															<span class="mensaje-texto"></span>
-															<!-- Mensajes de error que se cargarán de forma dinámica -->
+												</div>
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
+														<div class="col-md-8 ps-0">
+															<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion">
 														</div>
-														<button type="submit" class="btn btn-sm btn-primary my-2" id="btn-guardar-mercaderia">
-															<i class="bi-plus-circle me-2"></i>Agregar
-														</button>
 													</div>
 												</div>
 											</div>
-										</form>
 
-										<!-- FORM GUARDAR -->
-										<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion">
-											<div class="">
-												<div class="card mb-3">
-													<div class="card-header bg-light">
-														<ul class="nav nav-underline" id="recepcionTabs" role="tablist">
-															<li class="nav-item" role="presentation">
-																<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
-															</li>
-															<li class="nav-item">
-																<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
-															</li>
-														</ul>
+											<!-- Nro Remito y Fecha Remito -->
+											<div class="mb-3 row">
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label for="nro_remito" class="col-md-4 col-form-label text-primary">Nro. Remito</label>
+														<div class="col-md-8 ps-0">
+															<input type="text" class="form-control text-primary" id="nro_remito" name="nro_remito">
+														</div>
 													</div>
-													<div class="card-body p-2">
-														<div class="tab-content p-3 border border-top-0 rounded-bottom" id="recepcionTabsContent">
+												</div>
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label for="fecha_remito" class="col-md-4 col-form-label text-primary ps-5">Fecha Remito</label>
+														<div class="col-md-8 ps-0">
+															<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito">
+														</div>
+													</div>
+												</div>
+											</div>
 
-															<div class="tab-pane fade show active" id="resumen" role="tabpanel">
-																<div id="resumen-recepcion">
-																	<?php if (empty($resumen)): ?>
-																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-																	<?php else: ?>
-																		<table id="miTablaResumen" class="display" style="width:100%">
-																			<thead class="table-primary">
-																				<tr class="text-light">
-																					<td class="border">ID Recepción</td>
-																					<td class="border">Fecha Recepción</td>
-																					<td class="border">Unidades</td>
-																					<td class="border">Peso Neto</td>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr class="text-start">
-																					<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
-																					<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
-																				</tr>
-																			</tbody>
-																		</table>
-																	<?php endif; ?>
-																</div>
-															</div>
-															<div class="tab-pane fade show" id="detalle" role="tabpanel">
-																<div id="detalle-recepcion">
-																	<?php if (empty($detalle)): ?>
-																		<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-																	<?php else: ?>
-																		<table id="miTablaDetalle" class="display" style="width:100%">
-																			<thead class="table-primary">
-																				<tr class="text-light">
-																					<td class="border text-center">Recepción</td>
-																					<td class="border">Proveedor</td>
-																					<td class="border">Fecha Recepción</td>
-																					<td class="border">Nro Remito</td>
-																					<td class="border">Fecha Remito</td>
-																					<td class="border">Código</td>
-																					<td class="border">Descripción</td>
-																					<td class="border">Unidades</td>
-																					<td class="border">Peso</td>
-																					<td class="border text-center no-export">Acciones</td>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<?php foreach ($detalle as $row): ?>
-																					<tr class="text-start">
-																						<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
-																						<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
-																						<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
-																						<td class="border text-primary text-center">
-																							<div class="d-flex no-wrap justify-content-center">
-																								<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-																									<i class="bi bi-pencil me-2"></i>Editar
-																								</a>
-																								<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-																									<i class="bi bi-trash me-2"></i>Eliminar
-																								</a>
-																							</div>
-																						</td>
-																					</tr>
-																				<?php endforeach; ?>
-																			</tbody>
-																		</table>
-																	<?php endif; ?>
+											<!-- Código y Descripción -->
+											<div class="mb-3 row align-items-center">
+
+												<div class="col-md-6">
+													<div class="row align-items-center">
+
+														<label class="form-label col-md-4 text-primary">Código</label>
+														<div class="col-md-8 ps-0">
+															<div class="input-group">
+																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+																<div class="d-flex flex-column w-100">
+																	<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
+																	<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
+																		<i class="bi bi-exclamation-triangle-fill me-2"></i>
+																		<span class="mensaje-texto"></span>
+																		<!-- Mensajes de error que se cargarán de forma dinámica -->
+																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
-													<div class="card-footer bg-light text-end">
-														<button type="button" class="btn btn-sm btn-success my-2 me-1" name="guardar_modal" id="btnMostrarConfirmacion">
-															<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
-														</button>
-														<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
-															<i class="bi-trash me-2"></i>Eliminar
-														</button>
+												</div>
+
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														
+														<label class="form-label col-md-4 text-primary ps-5">Descripción</label>
+														<div class="col-md-8 ps-0">
+															<div class="input-group">
+																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+																<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly required>
+																	<a href="#" class="btn btn-primary"
+																		data-bs-toggle="modal" 
+																		data-bs-target="#modalSeleccionarMercaderia">
+																		<i class="bi bi-search"></i>
+																	</a>
+															</div>
+														</div>
+
+													</div>
+												</div>
+												<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+											</div>
+
+											<!-- Unidades y Peso -->
+											<div class="mb-3 row">
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
+														<div class="col-md-8 ps-0">
+															<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="1">
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-md-6">
+													<div class="row align-items-center">
+														<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
+														<div class="col-md-8 ps-0">
+															<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="1.00">
+														</div>
+													</div>
 												</div>
 											</div>
-										</form>
+
+										</div>
+
+										<div class="card-footer bg-light d-flex justify-content-end">
+											<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none m-2 p-2" role="alert">
+												<i class="bi bi-exclamation-triangle-fill me-2"></i>
+												<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargarán de forma dinámica -->
+											</div>
+											<button type="submit" class="btn btn-sm btn-primary my-2" id="btn-guardar-mercaderia">
+												<i class="bi-plus-circle me-2"></i>Agregar
+											</button>
+										</div>
 									</div>
 								</div>
-								<!-- ######################################################################## -->
-							</td>
-						</tr>
-					</table>
+							</form>
+
+							<!-- FORM GUARDAR -->
+							<form method="POST" id="formGuardarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion">
+								<div class="">
+									<div class="card mb-3">
+										<div class="card-header bg-light">
+											<ul class="nav nav-underline" id="recepcionTabs" role="tablist">
+												<li class="nav-item" role="presentation">
+													<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
+												</li>
+											</ul>
+										</div>
+										<div class="card-body p-2">
+											<div class="tab-content p-3 border border-top-0 rounded-bottom" id="recepcionTabsContent">
+
+												<div class="tab-pane fade show active" id="resumen" role="tabpanel">
+													<div id="resumen-recepcion">
+														<?php if (empty($resumen)): ?>
+															<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+														<?php else: ?>
+															<table id="miTablaResumen" class="display" style="width:100%">
+																<thead class="table-primary">
+																	<tr class="text-light">
+																		<td class="border">ID Recepción</td>
+																		<td class="border">Fecha Recepción</td>
+																		<td class="border">Unidades</td>
+																		<td class="border">Peso Neto</td>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr class="text-start">
+																		<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
+																		<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
+																		<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
+																		<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
+																	</tr>
+																</tbody>
+															</table>
+														<?php endif; ?>
+													</div>
+												</div>
+												<div class="tab-pane fade show" id="detalle" role="tabpanel">
+													<div id="detalle-recepcion">
+														<?php if (empty($detalle)): ?>
+															<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+														<?php else: ?>
+															<table id="miTablaDetalle" class="display" style="width:100%">
+																<thead class="table-primary">
+																	<tr class="text-light">
+																		<td class="border text-center">Recepción</td>
+																		<td class="border">Proveedor</td>
+																		<td class="border">Fecha Recepción</td>
+																		<td class="border">Nro Remito</td>
+																		<td class="border">Fecha Remito</td>
+																		<td class="border">Código</td>
+																		<td class="border">Descripción</td>
+																		<td class="border">Unidades</td>
+																		<td class="border">Peso</td>
+																		<td class="border text-center no-export">Acciones</td>
+																	</tr>
+																</thead>
+																<tbody>
+																	<?php foreach ($detalle as $row): ?>
+																		<tr class="text-start">
+																			<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
+																			<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
+																			<td class="border text-primary text-center">
+																				<div class="d-flex no-wrap justify-content-center">
+																					<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+																						<i class="bi bi-pencil me-2"></i>Editar
+																					</a>
+																					<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+																						<i class="bi bi-trash me-2"></i>Eliminar
+																					</a>
+																				</div>
+																			</td>
+																		</tr>
+																	<?php endforeach; ?>
+																</tbody>
+															</table>
+														<?php endif; ?>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer bg-light text-end">
+											<button type="button" class="btn btn-sm btn-success my-2 me-1" name="guardar_modal" id="btnMostrarConfirmacion">
+												<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
+											</button>
+											<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
+												<i class="bi-trash me-2"></i>Eliminar
+											</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 
 				<!-- Modal de selección de mercadería -->
@@ -334,17 +323,48 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				<div class="modal fade" id="modalConfirmarGuardar" tabindex="-1" aria-labelledby="modalConfirmarGuardarLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content shadow">
-							<div class="modal-header bg-warning text-dark">
-								<h5 class="modal-title" id="modalConfirmarGuardarLabel">Confirmar guardado</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalConfirmarGuardarLabel">Confirmar recepción</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 							</div>
-							<div class="modal-body text-center">
-								<p>¿Estás seguro de que querés guardar la recepción? Una vez guardada no podrá modificarse.</p>
-							</div>
-							<div class="modal-footer justify-content-center">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-								<button id="btnConfirmarGuardar" type="button" class="btn btn-success">Confirmar</button>
-							</div>
+							
+							
+							<?php if (empty($resumen)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									</div>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
+									</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										<button id="btnConfirmarGuardar" type="button" class="btn btn-success">Confirmar</button>
+									</div>
+								</div>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>

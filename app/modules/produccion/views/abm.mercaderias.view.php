@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 ?>
 
 <script>
-  const subtitulo = 'Mercaderías';
+  const subtitulo = 'ABM Mercaderías';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
@@ -101,7 +101,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 					<!-- Modal de creación -->
 					<div class="modal fade m-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
-						<div class="modal-dialog">
+						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
@@ -214,7 +214,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
-						<div class="modal-dialog">
+						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
@@ -337,7 +337,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&eliminar">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -351,7 +351,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
 												<span class="mensaje-texto"></span>
 													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
-												</div>
+											</div>
 										</div>
 
 										<div class="mb-3">
