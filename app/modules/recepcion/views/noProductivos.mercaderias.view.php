@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="card mb-3">
 										<div class="card-body">
 
-											<!-- Proveedor y Fecha Ingreso -->
+											<!-- Proveedor y Fecha Recepción -->
 											<div class="mb-3 row">
 												
 												<div class="col-md-6">
@@ -40,7 +40,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 												<div class="col-md-6">
 													<div class="row align-items-center">
-														<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Ingreso</label>
+														<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Recepción</label>
 														<div class="col-md-8 ps-0">
 															<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion">
 														</div>
@@ -217,19 +217,33 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																		<tr class="text-start">
 																			<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
 																			<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['fecha_recepcion']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['nro_remito']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['fecha_remito']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['codigo_mercaderia']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['descripcion_mercaderia']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['unidades']; ?></td>
-																			<td class="border text-primary text-center"><?php echo $row['peso_neto']; ?></td>
+																			<td class="border text-primary"><?php echo $row['fecha_recepcion']; ?></td>
+																			<td class="border text-primary"><?php echo $row['nro_remito']; ?></td>
+																			<td class="border text-primary"><?php echo $row['fecha_remito']; ?></td>
+																			<td class="border text-primary"><?php echo $row['codigo_mercaderia']; ?></td>
+																			<td class="border text-primary"><?php echo $row['descripcion_mercaderia']; ?></td>
+																			<td class="border text-primary"><?php echo $row['unidades']; ?></td>
+																			<td class="border text-primary"><?php echo $row['peso_neto']; ?></td>
 																			<td class="border text-primary text-center">
 																				<div class="d-flex no-wrap justify-content-center">
-																					<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
+																					<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+																						data-bs-toggle="modal"
+																						data-bs-target="#modalEditarMercaderia"
+																						data-id="<?= htmlspecialchars($row['item_id']) ?>"
+																						data-proveedor="<?= htmlspecialchars($row['proveedor_id']) ?>"
+																						data-frecepcion="<?= htmlspecialchars($row['fecha_recepcion']) ?>"
+																						data-remito="<?= htmlspecialchars($row['nro_remito']) ?>"
+																						data-fremito="<?= htmlspecialchars($row['fecha_remito']) ?>"
+																						data-codigom="<?= htmlspecialchars($row['codigo_mercaderia']) ?>"
+																						data-descripcionm="<?= htmlspecialchars($row['descripcion_mercaderia']) ?>"
+																						data-unidades="<?= htmlspecialchars($row['unidades']) ?>"
+																						data-peso="<?= htmlspecialchars($row['peso_neto']) ?>">
 																						<i class="bi bi-pencil me-2"></i>Editar
 																					</a>
-																					<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
+																					<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+																						data-bs-toggle="modal"
+																						data-bs-target="#modalEliminarMercaderia"
+																						data-id="<?= htmlspecialchars($row['item_id']) ?>">
 																						<i class="bi bi-trash me-2"></i>Eliminar
 																					</a>
 																				</div>
@@ -386,6 +400,100 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<!-- Modal de edición -->
+				<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&editarMercaderia">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="item_id" id="editarItemId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarProveedorMercaderia" class="form-label text-primary">Proveedor</label>
+										<input type="text" class="form-control" name="proveedor_id" id="editarProveedorMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarFechaRecepcionMercaderia" class="form-label text-primary">Fecha Recepción</label>
+										<input type="date" class="form-control" name="fecha_recepcion" id="editarFechaRecepcionMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarNroRemitoMercaderia" class="form-label text-primary">Nro. Remito</label>
+										<input type="text" class="form-control" name="nro_remito" id="editarNroRemitoMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarFechaRemitoMercaderia" class="form-label text-primary">Fecha Remito</label>
+										<input type="date" class="form-control" name="fecha_remito" id="editarFechaRemitoMercaderia">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarUnidadesMercaderia" class="form-label text-primary">Unidades</label>
+										<input type="number" class="form-control" name="unidades" id="editarUnidadesMercaderia">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarPesoNetoMercaderia" class="form-label text-primary">Peso Neto</label>
+										<input type="number" class="form-control" name="peso_neto" id="editarPesoNetoMercaderia">
+									</div>
+
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de eliminación -->
+				<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&eliminarMercaderia">
+							<div class="modal-content shadow">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="item_id" id="eliminarItemId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<p>¿Está seguro que desea eliminar la mercadería?</p>
+										<p>Esta acción no se puede deshacer.</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-danger m-2" name="eliminar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+									<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 

@@ -128,6 +128,7 @@ function obtenerDetalleRecepcion($recepcion_id) {
 	try{
 		$conn = getConnection();
 		$sql = "SELECT 
+								d.item_id,
 								d.recepcion_id,
 								d.proveedor_id,
 								d.fecha_recepcion,
@@ -277,6 +278,52 @@ function guardarRecepcion($recepcion_id) {
 		// Manejo de errores
 		registrarEvento("Recepción Mercaderías Model: Error al guardar la recepción, " . $e->getMessage(), "ERROR");
 		return ['success' => false, 'message' => 'Error al guardar la recepción.'];
+	}
+}
+
+function editarMercaderiaRecepcion($datos) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("UPDATE recepcion_noProductivos_mercaderias_detalle
+														SET
+															proveedor_id = :proveedor_id,
+															nro_remito = :nro_remito,
+															fecha_remito = :fecha_remito,
+															unidades = :unidades,
+															peso_neto = :peso_neto
+														WHERE
+															item_id = :item_id");
+
+		$stmt->bindParam(':item_id', $datos['item_id']);		
+		$stmt->bindParam(':proveedor_id', $datos['proveedor_id']);
+		$stmt->bindParam(':nro_remito', $datos['nro_remito']);
+		$stmt->bindParam(':fecha_remito', $datos['fecha_remito']);
+		$stmt->bindParam(':unidades', $datos['unidades']);
+		$stmt->bindParam(':peso_neto', $datos['peso_neto']);
+		$stmt->execute();
+		$result = $stmt->execute();
+
+		if ($result) {
+			registrarEvento("Recepción Mercaderías Model: mercadería editada correctamente.", "INFO");
+		}
+		return $result;
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Recepción Mercaderías Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function eliminarMercaderiaRecepcion($item_id) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("DELETE FROM recepcion_noProductivos_mercaderias_detalle WHERE item_id = :item_id");
+		$stmt->bindParam(':item_id', $item_id);
+		return $stmt->execute();
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Recepción Mercaderías Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
+		return false;
 	}
 }
 

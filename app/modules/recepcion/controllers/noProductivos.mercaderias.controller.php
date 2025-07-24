@@ -90,13 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'proveedor_id' => $_POST['proveedor_id'],
       'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'],
-			'fecha_remito' => $_POST['fecha_remito'],
+			'fecha_remito' => $_POST['fecha_remito'] ?? '',
 			'mercaderia_id' => $_POST['mercaderia_id'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
 			'operador_id' => $_SESSION['operador_id'],
     ];
-
 
 		// Validar datos obligatorios
 		if (empty($_POST['proveedor_id']) || empty($_POST['fecha_recepcion']) || empty($_POST['mercaderia_id']) || empty($_POST['unidades']) || empty($_POST['peso_neto'])) {
@@ -155,22 +154,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 	
-	// ####### ACTUALIZAR MERCADERÍA #######
-	if (isset($_GET['actualizarMercaderia'])) {
+	// ####### EDITAR MERCADERÍA #######
+	if (isset($_GET['editarMercaderia'])) {
 
 		header('Content-Type: application/json');
 
-		$datos = $_POST;
+		$datos = [
+			'item_id' => $_POST['item_id'],
+			'proveedor_id' => $_POST['proveedor_id'],
+      'fecha_recepcion'  => $_POST['fecha_recepcion'],
+			'nro_remito' => $_POST['nro_remito'] ?? '',
+			'fecha_remito' => $_POST['fecha_remito'],
+			'unidades' => $_POST['unidades'],
+			'peso_neto' => $_POST['peso_neto'],
+    ];
 
-		if (empty($datos['mercaderia_id'])) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
+		if (empty($datos['item_id'])) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del ítem']);
 			exit;
 		}
+		
+		try {
+		// Lógica para editar la mercadería
+		$result = editarMercaderiaRecepcion($datos);
 
-		// Lógica para actualizar la mercadería
-		$resultado = actualizarMercaderia($datos);
+		if ($result) {
+			registrarEvento("Recepción Mecaderías Controller: Ítem modificado correctamente", "INFO");
+			echo json_encode(['success' => true]);
+			exit;
+		}	else {
+				// Respuesta de error
+				/* registrarEvento("Recepción Mecaderías Controller: Error al modificar el ítem " . $e->getMessage(), "ERROR"); */
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Recepción Mecaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
 
-		echo json_encode($resultado);
 	}
 
 	// ####### ELIMINAR MERCADERÍA #######
@@ -178,17 +202,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
+		$item_id = $_POST['item_id'] ?? null;
 
-		if (empty($mercaderia_id)) {
+		if (empty($item_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
 		}
 
 		// Lógica para eliminar la mercadería
-		$resultado = eliminarMercaderia($mercaderia_id);
+		$result = eliminarMercaderiaRecepcion($item_id);
 
-		echo json_encode($resultado);
+		echo json_encode(['success' => true]);
+		exit;
 	}
 
 	// ####### GUARDAR MERCADERÍA #######
