@@ -6,7 +6,7 @@ $(document).ready(function () {
 		stateSave: true,
 		stateLoadParams: function (settings, data) {
 			// Solo restaurar la página si hay un estado guardado
-			const paginaGuardada = localStorage.getItem('pagina_' + subtitulo);
+			const paginaGuardada = localStorage.getItem('pagina' + subtitulo);
 			if (paginaGuardada !== null) {
 				// Establecer la página guardada al cargar la tabla
 				settings.oApi._fnPageChange(settings, parseInt(paginaGuardada));
@@ -180,7 +180,7 @@ $(document).ready(function () {
 	});
 
 	tabla.on('page.dt', function () {
-		localStorage.setItem('pagina_' + subtitulo, tabla.page());
+		localStorage.setItem('pagina' + subtitulo, tabla.page());
 	});
 
 	const tablaEnModal = $('#miTablaEnModal').DataTable({

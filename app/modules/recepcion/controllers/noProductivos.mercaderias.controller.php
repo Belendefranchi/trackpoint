@@ -7,7 +7,8 @@ session_start();
 require_once __DIR__ . '/recepcion.controller.php';
 require_once __DIR__ . '/../../produccion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../models/noProductivos.mercaderias.model.php';
-require_once __DIR__ . '/../../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
+
 
 // Obtener mercaderías
 $mercaderias = obtenerMercaderias();

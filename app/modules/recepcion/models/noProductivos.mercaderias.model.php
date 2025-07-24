@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../../core/config/db.php';
-require_once __DIR__ . '/../../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 function agregarMercaderia($datos) {
 
@@ -255,9 +255,7 @@ function guardarRecepcion($recepcion_id) {
 			]);
 		}
 
-		if ($stmtInsert->execute()) {
-			registrarEvento("Recepción Mercaderías Model: recepción guardada correctamente.", "INFO");
-		}
+		registrarEvento("Recepción Mercaderías Model: recepción guardada correctamente.", "INFO");
 
 		$sqlCerrarResumen = "UPDATE recepcion_noProductivos_mercaderias_resumen SET estado = 'cerrada', fecha_modificacion = :fecha WHERE recepcion_id = :recepcion_id";
 		$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);

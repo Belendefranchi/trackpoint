@@ -13,7 +13,7 @@ require_once __DIR__ . '/produccion.controller.php';
 require_once __DIR__ . '/../models/abm.procesos.model.php';
 require_once __DIR__ . '/../models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../models/salida.etqSecSinSeleccion.model.php';
-require_once __DIR__ . '/../../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener procesos y mercaderías
 $procesos = obtenerProcesos();

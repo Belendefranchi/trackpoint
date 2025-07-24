@@ -3,7 +3,7 @@ define('VISTA_INTERNA', true);
 
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.permisos.model.php';
-require_once __DIR__ . '/../../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Lógica ajax de actualizar, eliminar y crear permisos
 $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';

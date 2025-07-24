@@ -3,7 +3,7 @@ define('VISTA_INTERNA', true);
 
 require_once __DIR__ . '/produccion.controller.php';
 require_once __DIR__ . '/../models/abm.procesos.model.php';
-require_once __DIR__ . '/../../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Lógica ajax de actualizar, eliminar y crear Operadores
 $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
