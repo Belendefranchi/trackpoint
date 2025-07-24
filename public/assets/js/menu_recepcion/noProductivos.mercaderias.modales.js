@@ -1,15 +1,4 @@
-// Guardar pestaña activa en localStorage
-const recepcionTabs = document.querySelectorAll('#recepcionTabsContent .tab-pane');
-
-recepcionTabs.forEach(tab => {
-  tab.addEventListener('shown.bs.tab', function (e) {
-    const tabId = e.target.id;
-    localStorage.setItem('pestanaRecepcionActiva', tabId);
-  });
-});
-
 document.addEventListener('DOMContentLoaded', function () {
-
   // Restaurar pestaña activa al cargar
   const lastTab = localStorage.getItem('pestanaRecepcionActiva');
   if (lastTab) {
@@ -18,6 +7,16 @@ document.addEventListener('DOMContentLoaded', function () {
       new bootstrap.Tab(trigger).show();
     }
   }
+
+  // Guardar pestaña activa al cambiar
+  const tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
+  tabLinks.forEach(link => {
+    link.addEventListener('shown.bs.tab', function (e) {
+      const href = e.target.getAttribute('href'); // ej: #tabResumen
+      const tabId = href.replace('#', '');
+      localStorage.setItem('pestanaRecepcionActiva', tabId);
+    });
+  });
 
   /* ##################### MODAL SELECCIÓN DE MERCADERÍA ##################### */
 
@@ -202,6 +201,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
         modalMensaje.show();
+
+        // Esperar a que el modal se cierre para recargar
+        const modalElement = document.getElementById('modalMensajeRecepcion');
+        modalElement.addEventListener('hidden.bs.modal', function () {
+          location.reload();
+        }, { once: true });
+
       },
       error: function () {
         $('#modalMensajeLabel').text('Error inesperado');
