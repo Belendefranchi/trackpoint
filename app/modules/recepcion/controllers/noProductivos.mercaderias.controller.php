@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}	else {
 				// Respuesta de error
-				/* registrarEvento("Recepción Mecaderías Controller: Error al modificar el ítem " . $e->getMessage(), "ERROR"); */
+				registrarEvento("Recepción Mecaderías Controller: Error al modificar el ítem", "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
 				exit;
 			}
@@ -194,7 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}
 		exit;
-
 	}
 
 	// ####### ELIMINAR MERCADERÍA #######
@@ -208,15 +207,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
 		}
+		try {
+			// Lógica para eliminar la mercadería
+			$result = eliminarMercaderiaRecepcion($item_id);
 
-		// Lógica para eliminar la mercadería
-		$result = eliminarMercaderiaRecepcion($item_id);
-
-		echo json_encode(['success' => true]);
+			if ($result) {
+				registrarEvento("Recepción Mecaderías Controller: Ítem eliminado correctamente", "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Recepción Mecaderías Controller: Error al eliminar el ítem", "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el ítem']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Recepción Mecaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
 		exit;
 	}
 
-	// ####### GUARDAR MERCADERÍA #######
+	// ####### GUARDAR RECEPCIÓN #######
 	if (isset($_GET['guardarRecepcion'])) {
 
 		header('Content-Type: application/json');
@@ -224,14 +237,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$operador_id = $_SESSION['operador_id'];
 		$resumen = obtenerResumenRecepcion($operador_id);
 		$recepcion_id = $resumen['recepcion_id'];
+
+		// Validar si hay mercaderías cargadas
+    if (empty($resumen)) {
+			echo json_encode([
+					'success' => false,
+					'message' => 'Aún no se ingresaron mercaderías'
+			]);
+			exit;
+    }
 		
 		try {
-
 			$result = guardarRecepcion($recepcion_id);
 
-			if ($result){
+			if ($result['success']) {
 				registrarEvento("Recepción Mercaderías Controller: Recepción guardada correctamente => " . $resumen['recepcion_id'], "INFO");
-				echo json_encode(['success' => true]);
+				echo json_encode(['success' => true, 'message' => $result['message']]);
 				exit;
 			} else {
 				registrarEvento("Recepción Mercaderías Controller: Error al guardar la recepción => " . $resumen['recepcion_id'], "ERROR");
@@ -243,6 +264,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 		}
 
+	}
+
+		// ####### CANCELAR RECEPCIÓN #######
+	if (isset($_GET['cancelarRecepcion'])) {
+
+		header('Content-Type: application/json');
+
+		$operador_id = $_SESSION['operador_id'];
+		$resumen = obtenerResumenRecepcion($operador_id);
+		$recepcion_id = $resumen['recepcion_id'];
+
+		// Validar si hay mercaderías cargadas
+    if (empty($resumen)) {
+			echo json_encode([
+					'success' => false,
+					'message' => 'Aún no se ingresaron mercaderías'
+			]);
+			exit;
+    }
+		
+		try {
+			$result = cancelarRecepcion($recepcion_id);
+
+			if ($result['success']) {
+				registrarEvento("Recepción Mercaderías Controller: Recepción cancelada correctamente => " . $resumen['recepcion_id'], "INFO");
+				echo json_encode(['success' => true, 'message' => $result['message']]);
+				exit;
+			} else {
+				registrarEvento("Recepción Mercaderías Controller: Error al cancelar la recepción => " . $resumen['recepcion_id'], "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo cancelar la recepción']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+		}
 	}
 
 };

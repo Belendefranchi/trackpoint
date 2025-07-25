@@ -201,12 +201,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<thead class="table-primary">
 																	<tr class="text-light">
 																		<td class="border text-center">Recepción</td>
+																		<td class="border">Código</td>
+																		<td class="border">Descripción</td>
 																		<td class="border">Proveedor</td>
 																		<td class="border">Fecha Recepción</td>
 																		<td class="border">Nro Remito</td>
 																		<td class="border">Fecha Remito</td>
-																		<td class="border">Código</td>
-																		<td class="border">Descripción</td>
 																		<td class="border">Unidades</td>
 																		<td class="border">Peso</td>
 																		<td class="border text-center no-export">Acciones</td>
@@ -216,12 +216,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<?php foreach ($detalle as $row): ?>
 																		<tr class="text-start">
 																			<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
+																			<td class="border text-primary"><?php echo $row['codigo_mercaderia']; ?></td>
+																			<td class="border text-primary"><?php echo $row['descripcion_mercaderia']; ?></td>
 																			<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
 																			<td class="border text-primary"><?php echo $row['fecha_recepcion']; ?></td>
 																			<td class="border text-primary"><?php echo $row['nro_remito']; ?></td>
 																			<td class="border text-primary"><?php echo $row['fecha_remito']; ?></td>
-																			<td class="border text-primary"><?php echo $row['codigo_mercaderia']; ?></td>
-																			<td class="border text-primary"><?php echo $row['descripcion_mercaderia']; ?></td>
 																			<td class="border text-primary"><?php echo $row['unidades']; ?></td>
 																			<td class="border text-primary"><?php echo $row['peso_neto']; ?></td>
 																			<td class="border text-primary text-center">
@@ -234,8 +234,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																						data-frecepcion="<?= htmlspecialchars($row['fecha_recepcion']) ?>"
 																						data-remito="<?= htmlspecialchars($row['nro_remito']) ?>"
 																						data-fremito="<?= htmlspecialchars($row['fecha_remito']) ?>"
-																						data-codigom="<?= htmlspecialchars($row['codigo_mercaderia']) ?>"
-																						data-descripcionm="<?= htmlspecialchars($row['descripcion_mercaderia']) ?>"
 																						data-unidades="<?= htmlspecialchars($row['unidades']) ?>"
 																						data-peso="<?= htmlspecialchars($row['peso_neto']) ?>">
 																						<i class="bi bi-pencil me-2"></i>Editar
@@ -258,11 +256,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 										</div>
 										<div class="card-footer bg-light text-end">
-											<button type="button" class="btn btn-sm btn-success my-2 me-1" name="guardar_modal" id="btnMostrarConfirmacion">
+											<button type="button" class="btn btn-sm btn-success my-2" name="guardar_modal" id="btnMostrarConfirmacion">
 												<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 											</button>
-											<button type="button" class="btn btn-sm btn-danger my-2" id="btn-limpiar-listado">
-												<i class="bi-trash me-2"></i>Eliminar
+											<button type="button" class="btn btn-sm btn-danger my-2" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
+												<i class="bi-trash me-2"></i>Cancelar
 											</button>
 									</div>
 								</div>
@@ -333,77 +331,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
-				<!-- Modal de confirmación -->
-				<div class="modal fade" id="modalConfirmarGuardar" tabindex="-1" aria-labelledby="modalConfirmarGuardarLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content shadow">
-							<div class="modal-header table-primary text-white">
-								<h5 class="modal-title" id="modalConfirmarGuardarLabel">Confirmar recepción</h5>
-								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-							</div>
-							
-							
-							<?php if (empty($resumen)): ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
-											<i class="bi bi-exclamation-triangle-fill me-2"></i>
-											<span class="mensaje-texto"></span>
-												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
-										</div>
-									</div>
-									<div class="mb-3">
-										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-									</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									</div>
-								</div>
-							<?php else: ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
-											<i class="bi bi-exclamation-triangle-fill me-2"></i>
-											<span class="mensaje-texto"></span>
-												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
-										</div>
-									</div>
-									<div class="mb-3">
-										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
-									</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-										<button id="btnConfirmarGuardar" type="button" class="btn btn-success">Confirmar</button>
-									</div>
-								</div>
-							<?php endif; ?>
-						</div>
-					</div>
-				</div>
-
-				<!-- Modal de éxito / error -->
-				<div class="modal fade" id="modalMensajeRecepcion" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content border-0 shadow">
-							<div class="modal-header table-primary text-white">
-								<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
-								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-							</div>
-							<div class="modal-body text-center">
-								<div class="mb-3">
-									<p class="text-muted text-center" id="textoModalMensaje"></p>
-							</div>
-							</div>
-							<div class="modal-footer justify-content-center">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Modal de edición -->
+				<!-- Modal de edición de mercadería -->
 				<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&editarMercaderia">
@@ -463,7 +391,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
-				<!-- Modal de eliminación -->
+				<!-- Modal de eliminación de mercadería -->
 				<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&eliminarMercaderia">
@@ -497,7 +425,93 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
+				<!-- Modal de confirmación de recepción -->
+				<div class="modal fade m-5" id="modalGuardarRecepcion" tabindex="-1" aria-labelledby="modalGuardarRecepcionLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalGuardarRecepcionLabel">Confirmar recepción</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<?php if (empty($resumen)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									</div>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
+									</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+									</div>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
 
+				<!-- Modal de cancelación de recepción -->
+				<div class="modal fade m-5" id="modalCancelarRecepcion" tabindex="-1" aria-labelledby="modalCancelarRecepcionLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalCancelarRecepcionLabel">Cancelar recepción</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<?php if (empty($resumen)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									</div>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro que querés cancelar la recepción?</p>
+										<p class="text-muted text-center">Esta acción no se puede deshacer</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-danger" id="btnConfirmarCancelar" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal mensaje resultado -->
+				<div class="modal fade m-5" id="modalMensajeRecepcion" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content border-0 shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<div class="modal-body text-center">
+								<div class="mb-3">
+									<p class="text-muted text-center" id="textoModalMensaje"></p>
+								</div>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</main>
 		</div>

@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			} else {
 				// Respuesta de error
-				registrarEvento("Operadores Controller: Error al modificar el operador => " . $username . " " . $e->getMessage(), "ERROR");
+				registrarEvento("Operadores Controller: Error al modificar el operador => " . $username, "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el operador']);
 				exit;
 			}

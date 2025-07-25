@@ -179,49 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-
-  /* ##################### GUARDAR RECEPCIÓN ##################### */
-
-  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarGuardar'));
-    modal.show();
-  });
-
-  document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
-    bootstrap.Modal.getInstance(document.getElementById('modalConfirmarGuardar')).hide();
-
-    $.ajax({
-      url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion',
-      type: 'POST',
-      dataType: 'json',
-      success: function (response) {
-        if (response.success) {
-          $('#modalMensajeLabel').text('Recepción guardada');
-          $('#textoModalMensaje').text('La recepción fue guardada correctamente.');
-        } else {
-          $('#modalMensajeLabel').text('Error al guardar');
-          $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
-        }
-
-        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
-        modalMensaje.show();
-
-        // Esperar a que el modal se cierre para recargar
-        const modalElement = document.getElementById('modalMensajeRecepcion');
-        modalElement.addEventListener('hidden.bs.modal', function () {
-          location.reload();
-        }, { once: true });
-
-      },
-      error: function () {
-        $('#modalMensajeLabel').text('Error inesperado');
-        $('#textoModalMensaje').text('Hubo un problema al intentar guardar la recepción.');
-        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
-        modalMensaje.show();
-      }
-    });
-  });
-
   /* ##################### MODAL DE EDICIÓN ##################### */
 
 	// Interceptar el evento de apertura del modal de edición
@@ -241,8 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			modalEditarMercaderia.querySelector('#editarFechaRecepcionMercaderia').value = button.getAttribute('data-frecepcion');
 			modalEditarMercaderia.querySelector('#editarNroRemitoMercaderia').value = button.getAttribute('data-remito');
 			modalEditarMercaderia.querySelector('#editarFechaRemitoMercaderia').value = button.getAttribute('data-fremito');
-			modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
-      modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
       modalEditarMercaderia.querySelector('#editarUnidadesMercaderia').value = button.getAttribute('data-unidades');
       modalEditarMercaderia.querySelector('#editarPesoNetoMercaderia').value = button.getAttribute('data-peso');
 		});
@@ -272,12 +227,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (response.success) {
 						console.log('Recepción Mercadería modificado con éxito:', response.message);
 
-						const tabla = $('#miTabla').DataTable();
-						localStorage.setItem('paginaOperadores', tabla.page());
+						const tabla = $('#miTablaDetalle').DataTable();
+						localStorage.setItem('paginaRecepcionDetalle', tabla.page());
 
 						location.reload();
 					} else {
-						console.log('Error al modificar el operador:', response.message); 
+						console.log('Error al modificar la mercadería:', response.message); 
 						$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
@@ -303,7 +258,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	}
-  
   
   /* ##################### MODAL DE ELIMINACIÓN ##################### */
 
@@ -372,5 +326,93 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  
+  /* ##################### GUARDAR RECEPCIÓN ##################### */
+
+  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalGuardarRecepcion'));
+    modal.show();
+  });
+
+  document.getElementById('btnConfirmarGuardar').addEventListener('click', function () {
+    bootstrap.Modal.getInstance(document.getElementById('modalGuardarRecepcion')).hide();
+
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&guardarRecepcion',
+      type: 'POST',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          console.log(response)
+          $('#modalMensajeLabel').text('Recepción guardada');
+          $('#textoModalMensaje').text('La recepción fue guardada correctamente.');
+        } else {
+          $('#modalMensajeLabel').text('Error al guardar');
+          $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+        }
+
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
+
+        // Esperar a que el modal se cierre para recargar
+        const modalElement = document.getElementById('modalMensajeRecepcion');
+        modalElement.addEventListener('hidden.bs.modal', function () {
+          location.reload();
+        }, { once: true });
+
+      },
+      error: function () {
+        $('#modalMensajeLabel').text('Error inesperado');
+        $('#textoModalMensaje').text('Hubo un problema al intentar guardar la recepción.');
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
+      }
+    });
+  });
+
+  
+  /* ##################### CANCELAR RECEPCIÓN ##################### */
+
+  document.getElementById('btnMostrarCancelarRecepcion').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalCancelarRecepcion'));
+    modal.show();
+  });
+
+  document.getElementById('btnConfirmarCancelar').addEventListener('click', function () {
+    bootstrap.Modal.getInstance(document.getElementById('modalCancelarRecepcion')).hide();
+
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&cancelarRecepcion',
+      type: 'POST',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          console.log(response)
+          $('#modalMensajeLabel').text('Recepción cancelada');
+          $('#textoModalMensaje').text('La recepción fue cancelada correctamente.');
+        } else {
+          $('#modalMensajeLabel').text('Error al cancelar');
+          $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+        }
+
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
+
+        // Esperar a que el modal se cierre para recargar
+        const modalElement = document.getElementById('modalMensajeRecepcion');
+        modalElement.addEventListener('hidden.bs.modal', function () {
+          location.reload();
+        }, { once: true });
+
+      },
+      error: function () {
+        $('#modalMensajeLabel').text('Error inesperado');
+        $('#textoModalMensaje').text('Hubo un problema al intentar guardar la recepción.');
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
+        modalMensaje.show();
+      }
+    });
+  });
 
 });
