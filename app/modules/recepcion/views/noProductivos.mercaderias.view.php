@@ -433,26 +433,24 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<h5 class="modal-title" id="modalGuardarRecepcionLabel">Confirmar recepción</h5>
 								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 							</div>
-							<?php if (empty($resumen)): ?>
+							<?php if (empty($detalle)): ?>
 								<div class="modal-body text-center">
 									<div class="mb-3">
 										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
 									</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 								</div>
 							<?php else: ?>
 								<div class="modal-body text-center">
 									<div class="mb-3">
 										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
 									</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
-										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -467,25 +465,23 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<h5 class="modal-title" id="modalCancelarRecepcionLabel">Cancelar recepción</h5>
 								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 							</div>
-							<?php if (empty($resumen)): ?>
+							<?php if (empty($detalle)): ?>
 								<div class="modal-body text-center">
 									<div class="mb-3">
 										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
 									</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center p-2">
-										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 								</div>
 							<?php else: ?>
 								<div class="modal-body text-center">
 									<div class="mb-3">
-										<p class="text-muted text-center">¿Estás seguro que querés cancelar la recepción?</p>
-										<p class="text-muted text-center">Esta acción no se puede deshacer</p>
+										<p class="text-muted text-center">¿Estás seguro de que querés cancelar la recepción?</p>
 									</div>
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="button" class="btn btn-sm btn-danger" id="btnConfirmarCancelar" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarCancelar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
 									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 								</div>
 							<?php endif; ?>
