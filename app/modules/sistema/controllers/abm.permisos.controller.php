@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/sistema.controller.php';
 require_once __DIR__ . '/../models/abm.permisos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -142,4 +142,4 @@ $datosVista = [
 	'permisos' => $permisos
 ];
 
-cargarVistaConfiguracion('abm.permisos.view.php', $datosVista);
+cargarVistaSistema('abm.permisos.view.php', $datosVista);

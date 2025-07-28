@@ -1,3 +1,17 @@
+CREATE TABLE sistema_logs_tiposHabilitados (
+    tipo VARCHAR(20) PRIMARY KEY, -- 'INFO', 'ERROR', etc.
+    habilitado BIT NOT NULL       -- 1 = habilitado, 0 = deshabilitado
+);
+GO
+
+CREATE TABLE sistema_estados_tiposHabilitados (
+    estado VARCHAR(20) PRIMARY KEY, -- 'D', 'P', etc
+    descripcion VARCHAR(50), -- 'disponible', 'palletizado', etc.
+    habilitado BIT NOT NULL
+);
+GO
+
+
 /* ############################################################################################## */
 /* ------------------------------------ TABLAS CONFIGURACIÓN ------------------------------------ */
 /* ############################################################################################## */

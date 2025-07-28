@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../../core/middleware/auth.middleware.php';
 require_once __DIR__ . '/../../../../core/middleware/permisos.middleware.php';
+require_once __DIR__ . '/../../../../core/config/constants.php';
 require_once __DIR__ . '/../../../layouts/layout.view.php';
 
 verificarPermiso();
@@ -18,7 +19,6 @@ $activeItems = [
   'operadores' => str_contains($currentUri, 'operadores') ? 'fw-semibold text-primary' : '',
   'perfiles' => str_contains($currentUri, 'perfiles') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
   'perfilesPorOperador' => str_contains($currentUri, 'perfilesPorOperador') ? 'fw-semibold text-primary' : '',
-  'permisos' => str_contains($currentUri, 'permisos') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
   'permisosPorPerfil' => str_contains($currentUri, 'permisosPorPerfil') ? 'fw-semibold text-primary' : '',
   'personas' => str_contains($currentUri, 'personas') ? 'fw-semibold text-primary' : '',
   'numeradores' => str_contains($currentUri, 'numeradores') ? 'fw-semibold text-primary' : '',
@@ -53,6 +53,11 @@ $activeItems = [
           <li class="nav-item">
             <a class="nav-link text-white active" style="background-color: #3A4280;" href="/trackpoint/public/configuracion" aria-current="page">CONFIGURACIÓN</a>
           </li>
+          <?php if (isset($_SESSION['username']) && $_SESSION['username'] === superadmin): ?>
+            <li class="nav-item">
+              <a class="nav-link text-white table-hover" href="/trackpoint/public/sistema">SISTEMA</a>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
 
@@ -81,7 +86,6 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['operadores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/operadores">Operadores</a>
             <a class="nav-link <?= $activeItems['perfiles'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfiles">Perfiles</a>
             <a class="nav-link <?= $activeItems['perfilesPorOperador'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador">Perfiles por Operador</a>
-            <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisos">Permisos</a>
             <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
             <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
             <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../../core/middleware/auth.middleware.php';
 require_once __DIR__ . '/../../../../core/middleware/permisos.middleware.php';
+require_once __DIR__ . '/../../../../core/config/constants.php';
 require_once __DIR__ . '/../../../layouts/layout.view.php';
 
 verificarPermiso();
@@ -77,9 +78,13 @@ $activeItems = [
             <a class="nav-link text-white table-hover" href="/trackpoint/public/reportes">REPORTES</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link text-white table-hover" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
-
+            <a class="nav-link text-white table-hover" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
           </li>
+          <?php if (isset($_SESSION['username']) && $_SESSION['username'] === superadmin): ?>
+            <li class="nav-item">
+              <a class="nav-link text-white table-hover" href="/trackpoint/public/sistema">SISTEMA</a>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
 

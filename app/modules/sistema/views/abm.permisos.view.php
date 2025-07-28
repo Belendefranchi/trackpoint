@@ -71,7 +71,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de creación -->
 					<div class="modal fade m-5" id="modalCrearPermiso" tabindex="-1" aria-labelledby="modalCrearPermisoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formCrearPermiso" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&crear">
+							<form method="POST" id="formCrearPermiso" action="/trackpoint/public/index.php?route=/sistema/ABMs/permisos&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearPermisoLabel">Nuevo permiso</h5>
@@ -115,7 +115,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarPermiso" tabindex="-1" aria-labelledby="modalEditarPermisoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEditarPermiso" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar">
+							<form method="POST" id="formEditarPermiso" action="/trackpoint/public/index.php?route=/sistema/ABMs/permisos&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarPermisoLabel">Editar permiso</h5>
@@ -159,7 +159,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de eliminación -->
 					<div class="modal fade m-5" id="modalEliminarPermiso" tabindex="-1" aria-labelledby="modalEliminarPermisoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEliminarPermiso" action="/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&eliminar">
+							<form method="POST" id="formEliminarPermiso" action="/trackpoint/public/index.php?route=/sistema/ABMs/permisos&eliminar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarPermisoLabel">Eliminar permiso</h5>
@@ -199,8 +199,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.permisos.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_sistema/menu.sistema.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_sistema/abm.permisos.modales.js"></script>
 
 </body>
 </html>

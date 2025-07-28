@@ -1,36 +1,45 @@
 <?php
 
 function registrarEvento($mensaje, $tipo = 'INFO') {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    $fechaHora = date('Y-m-d H:i:s');
-    $fechaArchivo = date('Y-m-d'); // formato YYYY-MM-DD
+	$tipo = strtoupper($tipo);
 
-    // Usuario actual si está logueado
-    $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : 'Invitado';
+	// Obtener tipos habilitados desde la base
+	try {
+		require_once __DIR__ . '/../config/db.php';
+		$conn = getConnection();
 
-    // Formato del mensaje
-    $linea = "[$fechaHora] | $tipo | $usuario | $mensaje\n";
+		$stmt = $conn->prepare("SELECT 1 FROM sistema_logs_tiposHabilitados WHERE tipo = ? AND habilitado = 1");
+		$stmt->execute([$tipo]);
+		if ($stmt->rowCount() === 0) {
+				return; // Tipo no habilitado
+		}
+	} catch (Exception $e) {
+		// Si hay error al acceder a la base, registrar como CRITICAL para no perder errores importantes
+		error_log("[FALLO] No se pudo acceder a configuración de logs: " . $e->getMessage() . "\n", 3, __DIR__ . '/../logs/error_' . date('Y-m-d') . '.log');
+		return;
+	}
 
-    // Carpeta de logs
-    $carpetaLogs = __DIR__ . '/../logs';
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+	$fechaHora = date('Y-m-d H:i:s');
+	$fechaArchivo = date('Y-m-d');
 
-    // Crear carpeta si no existe
-    if (!file_exists($carpetaLogs)) {
-        mkdir($carpetaLogs, 0777, true);
-    }
+	$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : 'Invitado';
+	$linea = "[$fechaHora] | $tipo | $usuario | $mensaje\n";
 
-    // Nombre del archivo según tipo y fecha
-    if (in_array($tipo, ['ERROR', 'CRITICAL'])) {
-        $rutaLog = "$carpetaLogs/error_$fechaArchivo.log";
-    } else {
-        $rutaLog = "$carpetaLogs/eventos_$fechaArchivo.log";
-    }
+	$carpetaLogs = __DIR__ . '/../logs';
+	if (!file_exists($carpetaLogs)) {
+			mkdir($carpetaLogs, 0777, true);
+	}
 
-    // Escribir en el archivo correspondiente
-    error_log($linea, 3, $rutaLog);
+	$rutaLog = in_array($tipo, ['ERROR', 'CRITICAL']) ?
+			"$carpetaLogs/error_$fechaArchivo.log" :
+			"$carpetaLogs/eventos_$fechaArchivo.log";
+
+	error_log($linea, 3, $rutaLog);
 }
+
 
 
 /* ################################### EJEMPLOS DE USO ################################# */

@@ -17,6 +17,7 @@ function getConnection() {
       return $conn;
     } catch (PDOException $e) {
       // Guardamos error para mostrarlo si falla todo
+      registrarEvento("Error al acceder a la base de datos: " . $e->getMessage(), "CRITICAL");
       $lastError = $e->getMessage();
     }
   }

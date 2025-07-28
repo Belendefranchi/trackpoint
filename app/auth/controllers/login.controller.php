@@ -14,7 +14,7 @@ if (isset($_SESSION['operador_id'])) {
 }
 
 require_once __DIR__ . '/../models/login.model.php';
-require_once __DIR__ . '/../../../core/config/helpers.php';
+require_once __DIR__ . '/../../../core/helpers/logs.helper.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

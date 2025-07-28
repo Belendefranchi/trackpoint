@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&crear',
+        url: '/trackpoint/public/index.php?route=/sistema/ABMs/permisos&crear',
         type: 'POST',
         data: formData,
         processData: false,
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const formData = new FormData(this);
 
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&editar',
+				url: '/trackpoint/public/index.php?route=/sistema/ABMs/permisos&editar',
 				type: 'POST',
 				data: formData,
 				processData: false,
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisos&eliminar',
+        url: '/trackpoint/public/index.php?route=/sistema/ABMs/permisos&eliminar',
         type: 'POST',
         data: formData,
         processData: false,

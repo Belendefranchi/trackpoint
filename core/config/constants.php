@@ -5,6 +5,6 @@ const roles = [
   'operador' => 'Operador',
 ];
 
-const superadmin = "superadmin";
+const superadmin = "admin";
 
 const titulo = "PUNTO CONECTADO";

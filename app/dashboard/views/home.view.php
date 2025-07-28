@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../core/middleware/auth.middleware.php';
+require_once __DIR__ . '/../../../core/config/constants.php';
 require_once __DIR__ . '/../../layouts/layout.view.php';
 
 ?>
@@ -25,6 +26,11 @@ require_once __DIR__ . '/../../layouts/layout.view.php';
           <li class="nav-item">
             <a class="nav-link text-white table-hover" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
           </li>
+          <?php if (isset($_SESSION['username']) && $_SESSION['username'] === superadmin): ?>
+            <li class="nav-item">
+              <a class="nav-link text-white table-hover" href="/trackpoint/public/sistema">SISTEMA</a>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
 
