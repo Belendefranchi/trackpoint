@@ -8,84 +8,72 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
-					<table>
-							<tr>
-								<td>
-									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2 text-primary">Permisos por Perfil</h2>
-										<a href="#" class="btn btn-sm btn-primary"
-											data-bs-toggle="modal" 
-											data-bs-target="#modalSeleccionarPerfil">
-											<i class="bi-check-circle me-2"></i>Seleccionar perfil
-										</a>
-									</div>
-									<div>
-										<h6 id="perfilSeleccionado" class="text-secondary mt-3"></h6>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="p-2">
-									<!-- Tabla de Perfil seleccionado -->
-									<?php if (isset($_SESSION['perfil_seleccionado'])): ?>
-										<?php $perfilSeleccionado = $_SESSION['perfil_seleccionado']; ?>
-										<script>
-											const objetoSeleccionado = "<?= $perfilSeleccionado['nombre'] ?>";
-										</script>
-										<div class="mt-4">
-											<table class="display pt-2 pb-4" style="width:100%">
-												<thead class="table-primary">
-													<tr class="text-light">
-														<td class="border text-center">ID</td>
-														<td class="border">Perfil</td>
-														<td class="border">Descripción</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="border text-primary text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									<?php endif; ?>
-								</td>
-							</tr>
 
-							<tr>
-								<td class="p-2">
-									<!-- Tabla de Permisos -->
-									<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
-										<thead class="table-primary">
-											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border">Permiso</td>
-												<td class="border">Descripción</td>
-												<td class="border">Pantalla</td>
-												<td class="border"><i class="bi-check-circle me-2"></i></td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php $permisosAsignados = $permisosAsignados ?? []; ?>
-											<?php foreach ($permisos as $permiso): ?>
-												<?php $checked = in_array($permiso['permiso_id'], $permisosAsignados) ? 'checked' : ''; ?>
-												<tr class="" data-permiso-id="<?= htmlspecialchars($permiso['permiso_id']) ?>">
-													<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
-													<td class="border text-primary">
-														<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
-														<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
-													</td>
-												</tr>
-											<?php endforeach; ?>
-										</tbody>
-									</table>
-								</td>
+					<div class="d-flex justify-content-between align-items-center pe-2">
+						<h2 class="ms-2 text-primary">Permisos por Perfil</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalSeleccionarPerfil">
+							<i class="bi-check-circle me-2"></i>Seleccionar perfil
+						</a>
+					</div>
+					<div>
+						<h6 id="perfilSeleccionado" class="text-secondary mt-3"></h6>
+					</div>
+
+					<!-- Tabla de Perfil seleccionado -->
+					<?php if (isset($_SESSION['perfil_seleccionado'])): ?>
+						<?php $perfilSeleccionado = $_SESSION['perfil_seleccionado']; ?>
+						<script>
+							const objetoSeleccionado = "<?= $perfilSeleccionado['nombre'] ?>";
+						</script>
+						<div class="mt-4">
+							<table class="display pt-2 pb-4" style="width:100%">
+								<thead class="table-primary">
+									<tr class="text-light">
+										<td class="border text-center">ID</td>
+										<td class="border">Perfil</td>
+										<td class="border">Descripción</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="border text-primary text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<?php endif; ?>
+
+					<!-- Tabla de Permisos -->
+					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
+						<thead class="table-primary">
+							<tr class="text-light">
+								<td class="border text-center">ID</td>
+								<td class="border">Permiso</td>
+								<td class="border">Descripción</td>
+								<td class="border">Pantalla</td>
+								<td class="border"><i class="bi-check-circle me-2"></i></td>
 							</tr>
+						</thead>
+						<tbody>
+							<?php $permisosAsignados = $permisosAsignados ?? []; ?>
+							<?php foreach ($permisos as $permiso): ?>
+								<?php $checked = in_array($permiso['permiso_id'], $permisosAsignados) ? 'checked' : ''; ?>
+								<tr class="" data-permiso-id="<?= htmlspecialchars($permiso['permiso_id']) ?>">
+									<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
+									<td class="border text-primary">
+										<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
+										<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
 					</table>
 
 					<!-- Modal de selección de perfil -->

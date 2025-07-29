@@ -8,86 +8,73 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
-					<table>
-							<tr>
-								<td>
-									<div class="d-flex justify-content-between align-items-center pe-2">
-										<h2 class="ms-2 text-primary">Perfiles por Operador</h2>
-										<a href="#" class="btn btn-sm btn-primary"
-											data-bs-toggle="modal" 
-											data-bs-target="#modalSeleccionarOperador">
-											<i class="bi-check-circle me-2"></i>Seleccionar operador
-										</a>
-									</div>
-									<div>
-										<h6 id="operadorSeleccionado" class="text-secondary mt-3"></h6>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="p-2">
-									<!-- Tabla de Operador seleccionado -->
-									<?php if (isset($_SESSION['operador_seleccionado'])): ?>
-										<?php $operadorSeleccionado = $_SESSION['operador_seleccionado']; ?>
-										<script>
-											const objetoSeleccionado = "<?= $operadorSeleccionado['username'] ?>";
-										</script>
-										<div class="mt-4">
-											<table class="display pt-2 pb-4" style="width:100%">
-												<thead class="table-primary">
-													<tr class="text-light">
-														<td class="border text-center">ID</td>
-														<td class="border">Operador</td>
-														<td class="border">Nombre y Apellido</td>
-														<td class="border">Email</td>
-														<td class="border">Rol</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="border text-primary text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['rol']) ?></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									<?php endif; ?>
-								</td>
-							</tr>
+					<div class="d-flex justify-content-between align-items-center pe-2">
+						<h2 class="text-primary">Perfiles por Operador</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalSeleccionarOperador">
+							<i class="bi-check-circle me-2"></i>Seleccionar operador
+						</a>
+					</div>
+					<div>
+						<h6 id="operadorSeleccionado" class="text-secondary mt-3"></h6>
+					</div>
 
-							<tr>
-								<td class="p-2">
-									<!-- Tabla de Perfiles -->
-									<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
-										<thead class="table-primary">
-											<tr class="text-light">
-												<td class="border text-center">ID</td>
-												<td class="border">Perfil</td>
-												<td class="border">Descripción</td>
-												<td class="border"><i class="bi-check-circle me-2"></i></td>
-											</tr>
-										</thead>
-										<tbody>
-											<?php $perfilesAsignados = $perfilesAsignados ?? []; ?>
-											<?php foreach ($perfiles as $perfil): ?>
-												<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
-												<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-													<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
-													<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-													<td class="border text-primary">
-														<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
-														<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
-													</td>
-												</tr>
-											<?php endforeach; ?>
-										</tbody>
-									</table>
-								</td>
+					<!-- Tabla de Operador seleccionado -->
+					<?php if (isset($_SESSION['operador_seleccionado'])): ?>
+						<?php $operadorSeleccionado = $_SESSION['operador_seleccionado']; ?>
+						<script>
+							const objetoSeleccionado = "<?= $operadorSeleccionado['username'] ?>";
+						</script>
+						<div class="mt-4">
+							<table class="display pt-2 pb-4" style="width:100%">
+								<thead class="table-primary">
+									<tr class="text-light">
+										<td class="border text-center">ID</td>
+										<td class="border">Operador</td>
+										<td class="border">Nombre y Apellido</td>
+										<td class="border">Email</td>
+										<td class="border">Rol</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="border text-primary text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
+										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['rol']) ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<?php endif; ?>
+
+					<!-- Tabla de Perfiles -->
+					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
+						<thead class="table-primary">
+							<tr class="text-light">
+								<td class="border text-center">ID</td>
+								<td class="border">Perfil</td>
+								<td class="border">Descripción</td>
+								<td class="border"><i class="bi-check-circle me-2"></i></td>
 							</tr>
+						</thead>
+						<tbody>
+							<?php $perfilesAsignados = $perfilesAsignados ?? []; ?>
+							<?php foreach ($perfiles as $perfil): ?>
+								<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
+								<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
+									<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
+									<td class="border text-primary">
+										<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
+										<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
 					</table>
 
 					<!-- Modal de selección de operador -->

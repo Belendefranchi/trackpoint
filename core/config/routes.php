@@ -46,7 +46,7 @@ $routes = [
 	
 	'/sistema' => 'app/modules/sistema/controllers/sistema.controller.php',
 	'/sistema/ABMs/permisos' => 'app/modules/sistema/controllers/abm.permisos.controller.php',
-	'/sistema/ABMs/logs' => 'app/modules/sistema/controllers/logs.configuracion.controller.php',
+	'/sistema/ABMs/logs' => 'app/modules/sistema/controllers/logs.controller.php',
 
 
 
