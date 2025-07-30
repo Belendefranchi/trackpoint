@@ -11,13 +11,11 @@ $currentUri = $_SERVER['REQUEST_URI'];
 $abmsOpen = str_contains($currentUri, '/sistema/ABMs') ? 'show' : '';
 $abmsActive = str_contains($currentUri, '/sistema/ABMs') ? 'active' : '';
 
-$configPCOpen = str_contains($currentUri, '/sistema/configPC') ? 'show' : '';
-$configPCActive = str_contains($currentUri, '/sistema/configPC') ? 'active' : '';
-
 $activeItems = [
 
-  'permisos' => str_contains($currentUri, 'permisos') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
+  'estados' => str_contains($currentUri, 'estados') ? 'fw-semibold text-primary' : '',
   'logs' => str_contains($currentUri, 'logs') ? 'fw-semibold text-primary' : '',
+  'permisos' => str_contains($currentUri, 'permisos') && !str_contains($currentUri, 'Por') ? 'fw-semibold text-primary' : '',
 
 ];
 
@@ -73,8 +71,8 @@ $activeItems = [
             ABM
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
+            <a class="nav-link <?= $activeItems['estados'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/sistema/ABMs/estados">Estados</a>
             <a class="nav-link <?= $activeItems['logs'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/sistema/ABMs/logs">Logs</a>
-
             <a class="nav-link <?= $activeItems['permisos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/sistema/ABMs/permisos">Permisos</a>
             
           </div>

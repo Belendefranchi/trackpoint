@@ -395,3 +395,57 @@ $(document).ready(function () {
 	});
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.formHabilitar').forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: this.action,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            location.reload();
+          } else {
+            alert('Error al habilitar: ' + (response.message || ''));
+          }
+        },
+        error: function (xhr) {
+          alert('Error al procesar la solicitud: ' + xhr.responseText);
+        }
+      });
+    });
+  });
+
+  document.querySelectorAll('.formDeshabilitar').forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: this.action,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            location.reload();
+          } else {
+            alert('Error al deshabilitar: ' + (response.message || ''));
+          }
+        },
+        error: function (xhr) {
+          alert('Error al procesar la solicitud: ' + xhr.responseText);
+        }
+      });
+    });
+  });
+});
