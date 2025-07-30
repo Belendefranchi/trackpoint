@@ -65,9 +65,9 @@ $activeItems = [
           <li class="nav-item">
             <a class="nav-link text-light" href="/trackpoint/public/ingresos">INGRESO A PLANTA</a>
           </li>
-          <li class="nav-item">
+<!--           <li class="nav-item">
             <a class="nav-link text-light" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link text-light" href="/trackpoint/public/depositos">DEPÓSITOS</a>
           </li>

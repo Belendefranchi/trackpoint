@@ -22,15 +22,15 @@ $routes = [
 
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
-	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+/* 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
 
 	'/produccion/ABMs/mercaderias' => 'app/modules/produccion/controllers/abm.mercaderias.controller.php',
 	'/produccion/ABMs/procesos' => 'app/modules/produccion/controllers/abm.procesos.controller.php',
-	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
+	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php', */
 
 
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */
-	'/expedicion' => 'app/modules/expedicion/controllers/expedicion.controller.php',
+/* 	'/expedicion' => 'app/modules/expedicion/controllers/expedicion.controller.php', */
 
 
 	/* ########################################### ---------CONFIGURACIÓN--------- ########################################### */
