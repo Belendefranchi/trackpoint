@@ -11,9 +11,9 @@ require_once __DIR__ . '/../../layouts/layout.view.php';
           <li class="nav-item">
             <a class="nav-link text-white table-hover" href="/trackpoint/public/recepcion">RECEPCIÓN</a>
           </li>
-          <li class="nav-item">
+<!--           <li class="nav-item">
             <a class="nav-link text-white table-hover" href="/trackpoint/public/produccion">PRODUCCIÓN</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link text-white table-hover" href="/trackpoint/public/depositos">DEPÓSITOS</a>
           </li>
