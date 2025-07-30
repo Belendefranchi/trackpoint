@@ -16,23 +16,30 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<tr class="text-light">
 								<td class="border">Perfil</td>
 								<td class="border">Habilitado</td>
-								<td class="border"><i class="bi-check-circle me-2"></i>Acciones</td>
+								<td class="border no-export"><i class="bi-check-circle me-2"></i>Acciones</td>
 							</tr>
 						</thead>
 						<tbody>
+              
               <?php foreach ($tipos as $tipo): ?>
                 <tr>
                   <td class="border text-primary"><?= htmlspecialchars($tipo['tipo']) ?></td>
                   <td class="border text-primary"><?= htmlspecialchars($tipo['habilitado']) ?></td>
                   <td class="border text-center">
                     <?php if ($tipo['habilitado']): ?>
-                      <button class="btn btn-sm btn-danger" onclick="deshabilitarTipo('<?= htmlspecialchars($tipo['tipo']) ?>')">
-                        <i class="bi-x-circle"></i>
-                      </button>
+                      <form method="POST" id="formLogsHabilitar" action="/trackpoint/public/index.php?route=/sistema/ABMs/logs&habilitar">
+                        <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo['tipo']) ?>">
+                        <button type="submit" class="btn btn-sm btn-danger">
+                          <i class="bi-x-circle"></i>
+                        </button>
+                      </form>
                     <?php else: ?>
-                      <button class="btn btn-sm btn-success" onclick="habilitarTipo('<?= htmlspecialchars($tipo['tipo']) ?>')">
-                        <i class="bi-check-circle"></i>
-                      </button>
+                      <form method="POST" id="formLogsDeshabilitar" action="/trackpoint/public/index.php?route=/sistema/ABMs/logs&deshabilitar">
+                        <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo['tipo']) ?>">
+                        <button type="submit" class="btn btn-sm btn-success">
+                          <i class="bi-check-circle"></i>
+                        </button>
+                      </form>
                     <?php endif; ?>
                   </td>
                 </tr>

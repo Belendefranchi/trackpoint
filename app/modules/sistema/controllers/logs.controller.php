@@ -20,14 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			habilitarTipo($tipo);
 
 			registrarEvento("Configuración de logs actualizada", "INFO");
+			echo json_encode(['success' => true]);
 			exit;
 		} catch (Exception $e) {
 			registrarEvento("Error al actualizar configuración de logs: " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, "error" => $e->getMessage()]);
 			exit;
 		}
 	}
 
-			if (isset($_GET['deshabilitar'])) {
+	if (isset($_GET['deshabilitar'])) {
 		
 		header('Content-Type: application/json');
 		
@@ -38,9 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			deshabilitarTipo($tipo);
 
 			registrarEvento("Configuración de logs actualizada", "INFO");
+			echo json_encode(['success' => true]);
 			exit;
 		} catch (Exception $e) {
 			registrarEvento("Error al actualizar configuración de logs: " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, "error" => $e->getMessage()]);
 			exit;
 		}
 	}
