@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 function agregarMercaderia($datos) {
 
 	$fechaActual = date('Y-m-d H:i:s');
+	$datos['fecha_remito'] = trim($datos['fecha_remito']) === '' ? null : $datos['fecha_remito'];
 	
 	try {
 		$conn = getConnection();

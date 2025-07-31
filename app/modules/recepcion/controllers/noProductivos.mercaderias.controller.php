@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'proveedor_id' => $_POST['proveedor_id'],
       'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'],
-			'fecha_remito' => $_POST['fecha_remito'] ?? '',
+			'fecha_remito' => $_POST['fecha_remito'] ?? null,
 			'mercaderia_id' => $_POST['mercaderia_id'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
