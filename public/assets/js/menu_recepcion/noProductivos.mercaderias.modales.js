@@ -18,6 +18,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Restaurar valores fijados desde localStorage
+	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito'];
+
+	campos.forEach(campo => {
+		const checkbox = document.getElementById(`${campo}_checkbox`);
+		const input = document.getElementById(campo);
+
+		if (!checkbox || !input) return;
+
+		const guardado = localStorage.getItem(`fijar_${campo}`);
+		const valor = localStorage.getItem(`valor_${campo}`);
+
+		if (guardado === 'true' && valor !== null) {
+			checkbox.checked = true;
+			input.value = valor;
+		}
+
+		// Evento para cambiar el estado del checkbox
+		checkbox.addEventListener('change', () => {
+			if (checkbox.checked) {
+				localStorage.setItem(`fijar_${campo}`, 'true');
+				localStorage.setItem(`valor_${campo}`, input.value);
+			} else {
+				localStorage.removeItem(`fijar_${campo}`);
+				localStorage.removeItem(`valor_${campo}`);
+			}
+		});
+
+		// Actualizar el valor fijado si cambia el input
+		input.addEventListener('input', () => {
+			if (checkbox.checked) {
+				localStorage.setItem(`valor_${campo}`, input.value);
+			}
+		});
+	});
+
+
+
 
   /* ##################### MODAL SELECCIÓN DE MERCADERÍA ##################### */
 

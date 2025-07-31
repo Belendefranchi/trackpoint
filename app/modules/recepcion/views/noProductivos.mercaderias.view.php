@@ -29,7 +29,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="row align-items-center">
 														<label class="col-md-4 col-form-label text-primary">Proveedor</label>
 														<div class="col-md-8 ps-0">
-															<div class="input-group">
+															<div class="input-group d-flex align-items-center">
+															<input type="checkbox" name="proveedor_id_checkbox" id="proveedor_id_checkbox" class="form-check-input me-2" title="Fijar">
 																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id">
 																<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
 																	<i class="bi bi-search"></i>
@@ -41,7 +42,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-6">
 													<div class="row align-items-center">
 														<label for="fecha_recepcion" class="col-md-4 col-form-label text-primary ps-5">Fecha Recepción</label>
-														<div class="col-md-8 ps-0">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="fecha_recepcion_checkbox" id="fecha_recepcion_checkbox" class="form-check-input me-2" title="Fijar">
 															<input type="date" class="form-control text-primary" id="fecha_recepcion" name="fecha_recepcion">
 														</div>
 													</div>
@@ -53,7 +55,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-6">
 													<div class="row align-items-center">
 														<label for="nro_remito" class="col-md-4 col-form-label text-primary">Nro. Remito</label>
-														<div class="col-md-8 ps-0">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="nro_remito_checkbox" id="nro_remito_checkbox" class="form-check-input me-2" title="Fijar">
 															<input type="text" class="form-control text-primary" id="nro_remito" name="nro_remito">
 														</div>
 													</div>
@@ -61,7 +64,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-6">
 													<div class="row align-items-center">
 														<label for="fecha_remito" class="col-md-4 col-form-label text-primary ps-5">Fecha Remito</label>
-														<div class="col-md-8 ps-0">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="fecha_remito_checkbox" id="fecha_remito_checkbox" class="form-check-input me-2" title="Fijar">
 															<input type="date" class="form-control text-primary" id="fecha_remito" name="fecha_remito">
 														</div>
 													</div>
