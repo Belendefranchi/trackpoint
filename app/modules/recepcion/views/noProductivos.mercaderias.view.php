@@ -27,14 +27,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												
 												<div class="col-md-6">
 													<div class="row align-items-center">
-														<label class="col-md-4 col-form-label text-primary">Proveedor</label>
-														<div class="col-md-8 ps-0">
-															<div class="input-group d-flex align-items-center">
+														<label class="form-label col-md-4 text-primary">Proveedor</label>
+														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="proveedor_id_checkbox" id="proveedor_id_checkbox" class="form-check-input me-2" title="Fijar">
-																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id">
-																<button type="button" class="btn btn-primary" onclick="abrirSelectorProveedor()">
+															<div class="input-group">
+																<?php $proveedorSeleccionado = $_SESSION['proveedor_seleccionado'] ?? null; ?>
+																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id" value="<?php echo $proveedorSeleccionado['proveedor_id'] ?? ''; ?>" readonly required>
+																<a href="#" class="btn btn-primary"
+																	data-bs-toggle="modal" 
+																	data-bs-target="#modalSeleccionarProveedor">
 																	<i class="bi bi-search"></i>
-																</button>
+																</a>
 															</div>
 														</div>
 													</div>
@@ -79,7 +82,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="row align-items-center">
 
 														<label class="form-label col-md-4 text-primary">Código</label>
-														<div class="col-md-8 ps-0">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="codigo_mercaderia_checkbox" id="codigo_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
 																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
 																<div class="d-flex flex-column w-100">
@@ -97,23 +101,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 												<div class="col-md-6">
 													<div class="row align-items-center">
-														
 														<label class="form-label col-md-4 text-primary ps-5">Descripción</label>
-														<div class="col-md-8 ps-0">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="descripcion_mercaderia_checkbox" id="descripcion_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
 																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
 																<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly required>
-																	<a href="#" class="btn btn-primary"
-																		data-bs-toggle="modal" 
-																		data-bs-target="#modalSeleccionarMercaderia">
-																		<i class="bi bi-search"></i>
-																	</a>
+																<a href="#" class="btn btn-primary"
+																	data-bs-toggle="modal" 
+																	data-bs-target="#modalSeleccionarMercaderia">
+																	<i class="bi bi-search"></i>
+																</a>
 															</div>
 														</div>
-
 													</div>
 												</div>
-												<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+												<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 											</div>
 
 											<!-- Unidades y Peso -->

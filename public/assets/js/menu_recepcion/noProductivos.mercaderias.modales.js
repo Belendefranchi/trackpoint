@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Restaurar valores fijados desde localStorage
-	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito'];
+	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito', 'codigo_mercaderia', 'descripcion_mercaderia'];
 
 	campos.forEach(campo => {
 		const checkbox = document.getElementById(`${campo}_checkbox`);
@@ -155,18 +155,18 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: 'json',
         success: function (response) {
           if (response.success) {
-            inputDescripcionBusqueda.value = response.descripcion_mercaderia || '';
-            document.getElementById('input-mercaderia-id').value = response.mercaderia_id || '';
+            inputDescripcionBusqueda.value = response.descripcion_mercaderia;
+            document.getElementById('mercaderia_id').value = response.mercaderia_id;
             mensajeBusqueda.classList.add('d-none');
           } else {
             inputDescripcionBusqueda.value = '';
-            document.getElementById('input-mercaderia-id').value = '';
+            document.getElementById('mercaderia_id').value = '';
             $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function () {
           inputDescripcionBusqueda.value = '';
-          document.getElementById('input-mercaderia-id').value = '';
+          document.getElementById('mercaderia_id').value = '';
           $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
         }
       });
@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
       const formData = new FormData(this);
+      console.log('Datos del formulario:', Array.from(formData.entries()));
 
       $.ajax({
         url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia',
