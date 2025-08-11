@@ -33,14 +33,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		} else {
 			// Guardar la mercadería en sesión
-			$_SESSION['mercaderia_seleccionada'] = [
+/* 			$_SESSION['mercaderia_seleccionada'] = [
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
 				'descripcion_mercaderia' => $descripcion_mercaderia
-			];
+			]; */
 
-			echo json_encode(['success' => true]);
-      exit;
+			echo json_encode([
+				'success' => true,
+				'mercaderia_id' => $mercaderia_id,
+				'codigo_mercaderia' => $codigo_mercaderia,
+				'descripcion_mercaderia' => $descripcion_mercaderia,
+			]);
+			exit;
 
 		}
 	}

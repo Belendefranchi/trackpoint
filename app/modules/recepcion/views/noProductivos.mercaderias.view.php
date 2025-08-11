@@ -10,6 +10,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 					<div class="d-flex justify-content-between align-items-center">
 						<h2 class="ms-2 text-primary">Ingreso de mercaderías no productivas</h2>
+						<a href="" onclick="localStorage.clear();" class="btn btn-sm btn-outline-secondary me-2">
+							Clear local storage
+						</a>
 					</div>
 
 					<!-- ############################################################################# -->

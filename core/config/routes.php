@@ -8,6 +8,7 @@ $routes = [
 	'/register' => 'app/auth/controllers/register.controller.php',
 	'/forbidden' => 'app/layouts/error403.view.php',
 	'/notFound' => 'app/layouts/error404.view.php',
+	'/clearLocalStorage' => 'public/clear.localStorage.js',
 
 
 	/* ########################################### ----------RECEPCIÓN----------- ########################################### */

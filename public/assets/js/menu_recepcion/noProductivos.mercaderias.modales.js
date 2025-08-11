@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Restaurar valores fijados desde localStorage
-	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito', 'codigo_mercaderia', 'descripcion_mercaderia'];
+	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito'];
 
 	campos.forEach(campo => {
 		const checkbox = document.getElementById(`${campo}_checkbox`);
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Evento para cambiar el estado del checkbox
 		checkbox.addEventListener('change', () => {
 			if (checkbox.checked) {
-				localStorage.setItem(`fijar_${campo}`, 'true');
-				localStorage.setItem(`valor_${campo}`, input.value);
+        localStorage.setItem(`fijar_${campo}`, 'true');
+        localStorage.setItem(`valor_${campo}`, input.value);
 			} else {
 				localStorage.removeItem(`fijar_${campo}`);
 				localStorage.removeItem(`valor_${campo}`);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  /* ##################### MODAL SELECCIÓN DE MERCADERÍA ##################### */
+  /* ##################### MODAL BUSQUEDA POR DESCRIPCIÓN ##################### */
 
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
@@ -77,12 +77,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Manejar el cambio de selección de la mercadería
-    document.querySelectorAll('.seleccionar-operador').forEach(radio => {
+    document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
       radio.addEventListener('change', function () {
         // Cargar datos al formulario cuando se confirma el modal
         document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
         document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
         document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
+
+        const checkboxDescripcion = document.getElementById('descripcion_mercaderia_checkbox');
+        const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
+        const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
+
+        checkboxDescripcion.addEventListener('change', () => {
+          if (checkboxDescripcion.checked) {
+            localStorage.setItem('fijar_descripcion_mercaderia', 'true');
+            localStorage.setItem('valor_descripcion_mercaderia', inputDescripcionModal.value);
+
+            localStorage.setItem('fijar_mercaderia_id', 'true');
+            localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdModal.value);
+          } else {
+            localStorage.removeItem('fijar_descripcion_mercaderia');
+            localStorage.removeItem('valor_descripcion_mercaderia');
+
+            localStorage.removeItem('fijar_mercaderia_id');
+            localStorage.removeItem('valor_mercaderia_id');
+          }
+        });
       })
     });
 
@@ -95,10 +115,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Limpiar cualquier mensaje de error antes de hacer la solicitud
         $('#mensaje-error-seleccionar').addClass('d-none').find('.mensaje-texto').text('');
 
-        const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
-        const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid;
-        const codigo = radioSeleccionado.dataset.codigom || '';
-        const descripcion = radioSeleccionado.dataset.descripcionm || '';
+        const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked'); 
+        const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid || '';
+        const codigo = radioSeleccionado?.dataset.codigom || '';
+        const descripcion = radioSeleccionado?.dataset.descripcionm || '';
 
         if (!mercaderiaId) {
           if (mensajeErrorSeleccionar) {
@@ -122,6 +142,21 @@ document.addEventListener('DOMContentLoaded', function () {
           dataType: 'json',
           success: function (response) {
             if (response.success) {
+
+              console.log('Datos de la mercadería seleccionada:', {
+                id: response.mercaderia_id,
+                codigo: response.codigo_mercaderia,
+                descripcion: response.descripcion_mercaderia
+              });
+              
+              const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
+              const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
+              const inputCodigoModal = document.getElementById('codigo_mercaderia');
+
+              inputMercaderiaIdModal.value = response.mercaderia_id;
+              inputDescripcionModal.value = response.descripcion_mercaderia;
+              inputCodigoModal.value = response.codigo_mercaderia;
+
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
               if (modal) modal.hide();
               location.reload();
@@ -140,10 +175,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /* ##################### BÚSQUEDA POR CÓDIGO ##################### */
-
+  /* ##################### INPUT BÚSQUEDA POR CÓDIGO ##################### */
+  
+  const checkboxCodigo = document.getElementById('codigo_mercaderia_checkbox');
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
+  const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
+
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
   function buscarMercaderiaPorCodigo(codigo) {
@@ -155,9 +193,35 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: 'json',
         success: function (response) {
           if (response.success) {
+
+            console.log('Datos de la mercadería seleccionada:', {
+              id: response.mercaderia_id,
+              codigo: response.codigo_mercaderia,
+              descripcion: response.descripcion_mercaderia
+            });
+
+            inputMercaderiaIdBusqueda.value = response.mercaderia_id;
             inputDescripcionBusqueda.value = response.descripcion_mercaderia;
-            document.getElementById('mercaderia_id').value = response.mercaderia_id;
+            inputCodigoBusqueda.value = response.codigo_mercaderia;
+
             mensajeBusqueda.classList.add('d-none');
+
+            checkboxCodigo.addEventListener('change', () => {
+              if (checkboxCodigo.checked) {
+                localStorage.setItem('fijar_codigo_mercaderia', 'true');
+                localStorage.setItem('valor_codigo_mercaderia', inputCodigoBusqueda.value);
+
+                localStorage.setItem('fijar_mercaderia_id', 'true');
+                localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdBusqueda.value);
+              } else {
+                localStorage.removeItem('fijar_codigo_mercaderia');
+                localStorage.removeItem('valor_codigo_mercaderia');
+
+                localStorage.removeItem('fijar_mercaderia_id');
+                localStorage.removeItem('valor_mercaderia_id');
+              }
+            });
+
           } else {
             inputDescripcionBusqueda.value = '';
             document.getElementById('mercaderia_id').value = '';
@@ -205,7 +269,6 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: 'json',
         success: function (response) {
           if (response.success) {
-            localStorage.setItem('pestanaActiva', $('.nav-link.active').attr('id'));
             location.reload();
           } else {
             $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
