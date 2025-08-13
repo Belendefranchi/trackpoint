@@ -10,9 +10,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 					<div class="d-flex justify-content-between align-items-center">
 						<h2 class="ms-2 text-primary">Ingreso de mercaderías no productivas</h2>
-						<a href="" onclick="localStorage.clear();" class="btn btn-sm btn-outline-secondary me-2">
-							Clear local storage
-						</a>
 					</div>
 
 					<!-- ############################################################################# -->
@@ -151,8 +148,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargarán de forma dinámica -->
 											</div>
-											<button type="submit" class="btn btn-sm btn-primary my-2" id="btn-guardar-mercaderia">
+											<button type="submit" class="btn btn-sm btn-primary m-1" id="btn-guardar-mercaderia">
 												<i class="bi-plus-circle me-2"></i>Agregar
+											</button>
+											<button type="button" class="btn btn-sm btn-secondary m-1" onclick="localStorage.clear();">
+												<i class="bi bi-x-circle me-2"></i>Vaciar
 											</button>
 										</div>
 									</div>
@@ -266,10 +266,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 										</div>
 										<div class="card-footer bg-light text-end">
-											<button type="button" class="btn btn-sm btn-success my-2" name="guardar_modal" id="btnMostrarConfirmacion">
+											<button type="button" class="btn btn-sm btn-success m-1" name="guardar_modal" id="btnMostrarConfirmacion">
 												<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 											</button>
-											<button type="button" class="btn btn-sm btn-danger my-2" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
+											<button type="button" class="btn btn-sm btn-danger my-1" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
 												<i class="bi-trash me-2"></i>Cancelar
 											</button>
 									</div>

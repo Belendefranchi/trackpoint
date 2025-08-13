@@ -182,7 +182,8 @@ function editarMercaderiaRecepcion($datos) {
 		if ($result) {
 			registrarEvento("Recepción Mercaderías Model: mercadería editada correctamente.", "INFO");
 		}
-		return $result;
+		return ['success' => true, 'message' => 'Mercadería editada correctamente.'];
+
 		} catch (PDOException $e) {
 			// Manejo de errores
 			registrarEvento("Recepción Mercaderías Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
