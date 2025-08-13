@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Restaurar valores fijados desde localStorage
-	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito'];
+	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito', 'codigo_mercaderia', 'descripcion_mercaderia'];
 
 	campos.forEach(campo => {
 		const checkbox = document.getElementById(`${campo}_checkbox`);
@@ -55,6 +55,29 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 
+  // Sincronizar checkboxes de código y descripción, y mantener mercaderia_id
+  $('#codigo_mercaderia_checkbox, #descripcion_mercaderia_checkbox').on('change', function () {
+      const estado = $(this).prop('checked');
+
+      // Sincronizar ambos checkboxes
+      $('#codigo_mercaderia_checkbox, #descripcion_mercaderia_checkbox').prop('checked', estado);
+
+      // Si están tildados y hay datos en LocalStorage, aseguramos mercaderia_id
+      if (estado) {
+        const mercaderiaGuardada = localStorage.getItem('valor_mercaderia_id');
+
+        if (mercaderiaGuardada) {
+            const datos = JSON.parse(mercaderiaGuardada);
+
+            // Aseguramos que mercaderia_id esté presente en el input hidden
+            if (datos.mercaderia_id) {
+                $('#mercaderia_id').val(datos.mercaderia_id);
+            }
+        }
+      }
+  });
+
+
 
 
   /* ##################### MODAL BUSQUEDA POR DESCRIPCIÓN ##################### */
@@ -76,35 +99,51 @@ document.addEventListener('DOMContentLoaded', function () {
       modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
     });
 
-    // Manejar el cambio de selección de la mercadería
+
+    // --- Listener para guardar descripción e ID si está tildado ---
+    const checkboxDescripcion = document.getElementById('descripcion_mercaderia_checkbox');
+    const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
+    const inputCodigoModal = document.getElementById('codigo_mercaderia');
+    const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
+
+    if (checkboxDescripcion) {
+      checkboxDescripcion.addEventListener('change', () => {
+        if (checkboxDescripcion.checked) {
+          localStorage.setItem('fijar_descripcion_mercaderia', 'true');
+          localStorage.setItem('valor_descripcion_mercaderia', inputDescripcionModal.value);
+
+          localStorage.setItem('fijar_codigo_mercaderia', 'true');
+          localStorage.setItem('valor_codigo_mercaderia', inputCodigoModal.value);
+
+          localStorage.setItem('fijar_mercaderia_id', 'true');
+          localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdModal.value);
+        } else {
+          localStorage.removeItem('fijar_descripcion_mercaderia');
+          localStorage.removeItem('valor_descripcion_mercaderia');
+
+          localStorage.removeItem('fijar_codigo_mercaderia');
+          localStorage.removeItem('valor_codigo_mercaderia');
+
+          localStorage.removeItem('fijar_mercaderia_id');
+          localStorage.removeItem('valor_mercaderia_id');
+        }
+      });
+    }
+
+    // --- Al seleccionar la mercadería desde el modal ---
     document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
       radio.addEventListener('change', function () {
-        // Cargar datos al formulario cuando se confirma el modal
         document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
         document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
         document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
 
-        const checkboxDescripcion = document.getElementById('descripcion_mercaderia_checkbox');
-        const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
-        const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
+        // Cargar en el formulario principal
+        inputMercaderiaIdModal.value = this.dataset.mercaderiaid;
+        inputDescripcionModal.value = this.dataset.descripcionm;
 
-        checkboxDescripcion.addEventListener('change', () => {
-          if (checkboxDescripcion.checked) {
-            localStorage.setItem('fijar_descripcion_mercaderia', 'true');
-            localStorage.setItem('valor_descripcion_mercaderia', inputDescripcionModal.value);
-
-            localStorage.setItem('fijar_mercaderia_id', 'true');
-            localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdModal.value);
-          } else {
-            localStorage.removeItem('fijar_descripcion_mercaderia');
-            localStorage.removeItem('valor_descripcion_mercaderia');
-
-            localStorage.removeItem('fijar_mercaderia_id');
-            localStorage.removeItem('valor_mercaderia_id');
-          }
-        });
-      })
+      });
     });
+
 
     // Enviar formulario con AJAX
     const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
@@ -148,18 +187,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 codigo: response.codigo_mercaderia,
                 descripcion: response.descripcion_mercaderia
               });
-              
-              const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
-              const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
-              const inputCodigoModal = document.getElementById('codigo_mercaderia');
 
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputDescripcionModal.value = response.descripcion_mercaderia;
               inputCodigoModal.value = response.codigo_mercaderia;
 
+              if (checkboxDescripcion && checkboxDescripcion.checked) {
+                localStorage.setItem('valor_descripcion_mercaderia', response.descripcion_mercaderia);
+                localStorage.setItem('valor_mercaderia_id', response.mercaderia_id);
+
+                // Guardar también el código
+                localStorage.setItem('fijar_codigo_mercaderia', 'true');
+                localStorage.setItem('valor_codigo_mercaderia', response.codigo_mercaderia);
+              }
+
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
               if (modal) modal.hide();
-              location.reload();
+              /* location.reload(); */
             } else {
               mensajeErrorSeleccionar.classList.remove('d-none');
               mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
@@ -176,13 +220,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ##################### INPUT BÚSQUEDA POR CÓDIGO ##################### */
-  
+
   const checkboxCodigo = document.getElementById('codigo_mercaderia_checkbox');
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
-
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+
+  if (checkboxCodigo) {
+    checkboxCodigo.addEventListener('change', () => {
+      if (checkboxCodigo.checked) {
+        localStorage.setItem('fijar_codigo_mercaderia', 'true');
+        localStorage.setItem('valor_codigo_mercaderia', inputCodigoBusqueda.value);
+
+        localStorage.setItem('fijar_descripcion_mercaderia', 'true');
+        localStorage.setItem('valor_descripcion_mercaderia', inputDescripcionBusqueda.value);
+
+        localStorage.setItem('fijar_mercaderia_id', 'true');
+        localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdBusqueda.value);
+      } else {
+        localStorage.removeItem('fijar_codigo_mercaderia');
+        localStorage.removeItem('valor_codigo_mercaderia');
+
+        localStorage.removeItem('fijar_descripcion_mercaderia');
+        localStorage.removeItem('valor_descripcion_mercaderia');
+
+        localStorage.removeItem('fijar_mercaderia_id');
+        localStorage.removeItem('valor_mercaderia_id');
+      }
+    });
+  }
 
   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
@@ -206,37 +273,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
             mensajeBusqueda.classList.add('d-none');
 
-            checkboxCodigo.addEventListener('change', () => {
-              if (checkboxCodigo.checked) {
-                localStorage.setItem('fijar_codigo_mercaderia', 'true');
-                localStorage.setItem('valor_codigo_mercaderia', inputCodigoBusqueda.value);
+            // Si el checkbox está marcado, guardar automáticamente
+            if (checkboxCodigo && checkboxCodigo.checked) {
+              localStorage.setItem('valor_codigo_mercaderia', response.codigo_mercaderia);
+              localStorage.setItem('valor_mercaderia_id', response.mercaderia_id);
 
-                localStorage.setItem('fijar_mercaderia_id', 'true');
-                localStorage.setItem('valor_mercaderia_id', inputMercaderiaIdBusqueda.value);
-              } else {
-                localStorage.removeItem('fijar_codigo_mercaderia');
-                localStorage.removeItem('valor_codigo_mercaderia');
+              // Guardar también la descripción
+              localStorage.setItem('fijar_descripcion_mercaderia', 'true');
+              localStorage.setItem('valor_descripcion_mercaderia', response.descripcion_mercaderia);
+            }
 
-                localStorage.removeItem('fijar_mercaderia_id');
-                localStorage.removeItem('valor_mercaderia_id');
-              }
-            });
 
           } else {
             inputDescripcionBusqueda.value = '';
-            document.getElementById('mercaderia_id').value = '';
+            inputMercaderiaIdBusqueda.value = '';
             $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function () {
           inputDescripcionBusqueda.value = '';
-          document.getElementById('mercaderia_id').value = '';
+          inputMercaderiaIdBusqueda.value = '';
           $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
         }
       });
     } else {
       inputDescripcionBusqueda.value = '';
-      document.getElementById('input-mercaderia-id').value = '';
+      inputMercaderiaIdBusqueda.value = '';
       mensajeBusqueda.classList.add('d-none');
     }
   }
@@ -249,6 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+
   /* ##################### AGREGAR MERCADERÍA ##################### */
 
   const formAgregar = document.querySelector('#formAgregarMercaderia');
@@ -257,7 +320,25 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
-      const formData = new FormData(this);
+      const proveedorId = document.getElementById('proveedor_id').value;
+      const fechaRecepcion = document.getElementById('fecha_recepcion').value;
+      const nroRemito = document.getElementById('nro_remito').value;
+      const fechaRemito = document.getElementById('fecha_remito').value;
+      const mercaderiaId = localStorage.getItem('valor_mercaderia_id');
+      const unidades = document.getElementById('unidades').value;
+      const pesoNeto = document.getElementById('peso_neto').value;
+      /* const operadorId = document.getElementById('operador_id').value; */
+
+      const formData = new FormData();
+      formData.append('mercaderia_id', mercaderiaId);
+      formData.append('proveedor_id', proveedorId);
+      formData.append('fecha_recepcion', fechaRecepcion);
+      formData.append('nro_remito', nroRemito);
+      formData.append('fecha_remito', fechaRemito);
+      formData.append('unidades', unidades);
+      formData.append('peso_neto', pesoNeto);
+      /* formData.append('operador_id', operadorId); */
+
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
       $.ajax({

@@ -13,7 +13,7 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 // Obtener mercaderías
 $mercaderias = obtenerMercaderias();
 
-$mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null;
+/* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */
 
 // Obtener resumen y detalle de recepción si hay una sesión activa
 $resumen = obtenerResumenRecepcion($_SESSION['operador_id'] ?? null);
@@ -32,12 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
 		} else {
-			// Guardar la mercadería en sesión
-/* 			$_SESSION['mercaderia_seleccionada'] = [
-				'mercaderia_id' => $mercaderia_id,
-				'codigo_mercaderia' => $codigo_mercaderia,
-				'descripcion_mercaderia' => $descripcion_mercaderia
-			]; */
 
 			echo json_encode([
 				'success' => true,
@@ -313,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-	'mercaderiaSeleccionada' => $mercaderiaSeleccionada,
+	/* 'mercaderiaSeleccionada' => $mercaderiaSeleccionada, */
 	'resumen' => $resumen,
 	'detalle' => $detalle
 ];
