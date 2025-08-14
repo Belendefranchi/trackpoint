@@ -92,6 +92,20 @@ function agregarMercaderia($datos) {
 	}
 }
 
+function obtenerRecepcionId($operador_id) {
+	try {
+		$conn = getConnection();
+		$sql = "SELECT recepcion_id FROM recepcion_noProductivos_mercaderias_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':operador_id', $operador_id);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	} catch (PDOException $e) {
+		registrarEvento("Recepción Mercaderías Model: Error al obtener ID de recepción, " . $e->getMessage(), "ERROR");
+		return null;
+	}
+}
+
 function obtenerResumenRecepcion($operador_id) {
 	try {
 		$conn = getConnection();
@@ -100,23 +114,30 @@ function obtenerResumenRecepcion($operador_id) {
 								r.fecha_recepcion,
 								r.operador_id,
 								r.estado,
+								m.codigo AS codigo_mercaderia,
 								ISNULL(SUM(d.unidades), 0) AS total_unidades,
 								ISNULL(SUM(d.peso_neto), 0) AS total_peso_neto
 						FROM recepcion_noProductivos_mercaderias_resumen r
-						LEFT JOIN recepcion_noProductivos_mercaderias_detalle d 
+						LEFT JOIN recepcion_noProductivos_mercaderias_detalle d
 								ON r.recepcion_id = d.recepcion_id
+						LEFT JOIN produccion_abm_mercaderias m
+								ON d.mercaderia_id = m.mercaderia_id
 						WHERE r.operador_id = :operador_id 
 							AND r.estado = 'pendiente'
 						GROUP BY 
-								r.recepcion_id, 
+								r.recepcion_id,
 								r.fecha_recepcion,
-								r.operador_id, 
-								r.estado
+								r.operador_id,
+								r.estado,
+								m.codigo
+						ORDER BY 
+								r.recepcion_id, 
+								m.codigo;
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
 		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	} catch (PDOException $e) {
 		registrarEvento("Recepción Mercaderías Model: Error al buscar resumen, " . $e->getMessage(), "ERROR");
@@ -141,7 +162,7 @@ function obtenerDetalleRecepcion($recepcion_id) {
 								d.peso_neto,
 								d.estado
 						FROM recepcion_noProductivos_mercaderias_detalle d
-						JOIN produccion_abm_mercaderias m 
+						JOIN produccion_abm_mercaderias m
 							ON d.mercaderia_id = m.mercaderia_id
 						WHERE d.recepcion_id = :recepcion_id
 							AND d.estado = 'pendiente'

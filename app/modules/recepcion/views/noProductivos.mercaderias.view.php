@@ -148,10 +148,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargarán de forma dinámica -->
 											</div>
-											<button type="submit" class="btn btn-sm btn-primary m-1" id="btn-guardar-mercaderia">
+											<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
 												<i class="bi-plus-circle me-2"></i>Agregar
 											</button>
-											<button type="button" class="btn btn-sm btn-secondary m-1" onclick="localStorage.clear();">
+											<button type="button" class="btn btn-sm btn-secondary mx-1 my-3" id="btn-vaciar-mercaderia">
 												<i class="bi bi-x-circle me-2"></i>Vaciar
 											</button>
 										</div>
@@ -186,17 +186,21 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<tr class="text-light">
 																		<td class="border">ID Recepción</td>
 																		<td class="border">Fecha Recepción</td>
+																		<td class="border">Código</td>
 																		<td class="border">Unidades</td>
 																		<td class="border">Peso Neto</td>
 																	</tr>
 																</thead>
 																<tbody>
-																	<tr class="text-start">
-																		<td class="border text-primary text-center"><?php echo $resumen['recepcion_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $resumen['fecha_recepcion']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $resumen['total_unidades']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $resumen['total_peso_neto']; ?></td>
-																	</tr>
+																	<?php foreach ($resumen as $filaResumen): ?>
+																		<tr class="text-start">
+																			<td class="border text-primary text-center"><?php echo $filaResumen['recepcion_id']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $filaResumen['fecha_recepcion']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $filaResumen['codigo_mercaderia']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $filaResumen['total_unidades']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $filaResumen['total_peso_neto']; ?></td>
+																		</tr>
+																	<?php endforeach; ?>
 																</tbody>
 															</table>
 														<?php endif; ?>
@@ -223,35 +227,35 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	</tr>
 																</thead>
 																<tbody>
-																	<?php foreach ($detalle as $row): ?>
+																	<?php foreach ($detalle as $filaDetalle): ?>
 																		<tr class="text-start">
-																			<td class="border text-primary text-center"><?php echo $row['recepcion_id']; ?></td>
-																			<td class="border text-primary"><?php echo $row['codigo_mercaderia']; ?></td>
-																			<td class="border text-primary"><?php echo $row['descripcion_mercaderia']; ?></td>
-																			<td class="border text-primary"><?php echo $row['proveedor_id']; ?></td>
-																			<td class="border text-primary"><?php echo $row['fecha_recepcion']; ?></td>
-																			<td class="border text-primary"><?php echo $row['nro_remito']; ?></td>
-																			<td class="border text-primary"><?php echo $row['fecha_remito']; ?></td>
-																			<td class="border text-primary"><?php echo $row['unidades']; ?></td>
-																			<td class="border text-primary"><?php echo $row['peso_neto']; ?></td>
+																			<td class="border text-primary text-center"><?php echo $filaDetalle['recepcion_id']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['codigo_mercaderia']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['descripcion_mercaderia']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['proveedor_id']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['fecha_recepcion']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['nro_remito']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['fecha_remito']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['unidades']; ?></td>
+																			<td class="border text-primary"><?php echo $filaDetalle['peso_neto']; ?></td>
 																			<td class="border text-primary text-center">
 																				<div class="d-flex no-wrap justify-content-center">
 																					<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																						data-bs-toggle="modal"
 																						data-bs-target="#modalEditarMercaderia"
-																						data-id="<?= htmlspecialchars($row['item_id']) ?>"
-																						data-proveedor="<?= htmlspecialchars($row['proveedor_id']) ?>"
-																						data-frecepcion="<?= htmlspecialchars($row['fecha_recepcion']) ?>"
-																						data-remito="<?= htmlspecialchars($row['nro_remito']) ?>"
-																						data-fremito="<?= htmlspecialchars($row['fecha_remito']) ?>"
-																						data-unidades="<?= htmlspecialchars($row['unidades']) ?>"
-																						data-peso="<?= htmlspecialchars($row['peso_neto']) ?>">
+																						data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
+																						data-proveedor="<?= htmlspecialchars($filaDetalle['proveedor_id']) ?>"
+																						data-frecepcion="<?= htmlspecialchars($filaDetalle['fecha_recepcion']) ?>"
+																						data-remito="<?= htmlspecialchars($filaDetalle['nro_remito']) ?>"
+																						data-fremito="<?= htmlspecialchars($filaDetalle['fecha_remito']) ?>"
+																						data-unidades="<?= htmlspecialchars($filaDetalle['unidades']) ?>"
+																						data-peso="<?= htmlspecialchars($filaDetalle['peso_neto']) ?>">
 																						<i class="bi bi-pencil me-2"></i>Editar
 																					</a>
 																					<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 																						data-bs-toggle="modal"
 																						data-bs-target="#modalEliminarMercaderia"
-																						data-id="<?= htmlspecialchars($row['item_id']) ?>">
+																						data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>">
 																						<i class="bi bi-trash me-2"></i>Eliminar
 																					</a>
 																				</div>
@@ -265,12 +269,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 										</div>
-										<div class="card-footer bg-light text-end">
-											<button type="button" class="btn btn-sm btn-success m-1" name="guardar_modal" id="btnMostrarConfirmacion">
+										<div class="card-footer bg-light d-flex justify-content-end">
+											<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal" id="btnMostrarConfirmacion">
 												<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 											</button>
-											<button type="button" class="btn btn-sm btn-danger my-1" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
-												<i class="bi-trash me-2"></i>Cancelar
+											<button type="button" class="btn btn-sm btn-danger mx-1 my-3" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
+												<i class="bi bi-x-circle me-2"></i>Cancelar
 											</button>
 									</div>
 								</div>

@@ -17,7 +17,7 @@ $mercaderias = obtenerMercaderias();
 
 // Obtener resumen y detalle de recepción si hay una sesión activa
 $resumen = obtenerResumenRecepcion($_SESSION['operador_id'] ?? null);
-$detalle = obtenerDetalleRecepcion($resumen['recepcion_id'] ?? null);
+$detalle = obtenerDetalleRecepcion($resumen[0]['recepcion_id'] ?? null);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -122,36 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		
 	}
-
-	// ####### OBTENER MERCADERÍAS PENDIENTES #######
-	if (isset($_GET['obtenerMercaderiasPendientes'])) {
-
-		header('Content-Type: application/json');
-
-		$operador_id = $_SESSION['operador_id'];
-
-		if ($operador_id) {
-			try {
-
-				$resumen = obtenerResumenRecepcion($operador_id);
-				$detalle = obtenerDetalleRecepcion($resumen['recepcion_id']);
-
-				echo json_encode([
-					'success' => true,
-					'resumen' => $resumen,
-					'detalle' => $detalle
-				]);
-				exit;
-			} catch (Exception $e) {
-				registrarEvento("Recepción Mercaderías Controller: Error al obtener mercaderías pendientes " . $e->getMessage(), "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-			}
-		} else {
-			echo json_encode(['success' => false, 'message' => 'No se encontró ninguna recepción abierta para este operador.']);
-		}
-		
-		exit;
-	}
 	
 	// ####### EDITAR MERCADERÍA #######
 	if (isset($_GET['editarMercaderia'])) {
@@ -235,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$operador_id = $_SESSION['operador_id'];
 		$resumen = obtenerResumenRecepcion($operador_id);
-		$recepcion_id = $resumen['recepcion_id'];
+		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
     if (empty($resumen)) {
@@ -250,11 +220,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = guardarRecepcion($recepcion_id);
 
 			if ($result['success']) {
-				registrarEvento("Recepción Mercaderías Controller: Recepción guardada correctamente => " . $resumen['recepcion_id'], "INFO");
+				registrarEvento("Recepción Mercaderías Controller: Recepción guardada correctamente => " . $resumen[0]['recepcion_id'], "INFO");
 				echo json_encode(['success' => true, 'message' => $result['message']]);
 				exit;
 			} else {
-				registrarEvento("Recepción Mercaderías Controller: Error al guardar la recepción => " . $resumen['recepcion_id'], "ERROR");
+				registrarEvento("Recepción Mercaderías Controller: Error al guardar la recepción => " . $resumen[0]['recepcion_id'], "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo guardar la recepción']);
 				exit;
 			}
@@ -272,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$operador_id = $_SESSION['operador_id'];
 		$resumen = obtenerResumenRecepcion($operador_id);
-		$recepcion_id = $resumen['recepcion_id'];
+		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
     if (empty($resumen)) {
@@ -287,11 +257,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = cancelarRecepcion($recepcion_id);
 
 			if ($result['success']) {
-				registrarEvento("Recepción Mercaderías Controller: Recepción cancelada correctamente => " . $resumen['recepcion_id'], "INFO");
+				registrarEvento("Recepción Mercaderías Controller: Recepción cancelada correctamente => " . $resumen[0]['recepcion_id'], "INFO");
 				echo json_encode(['success' => true, 'message' => $result['message']]);
 				exit;
 			} else {
-				registrarEvento("Recepción Mercaderías Controller: Error al cancelar la recepción => " . $resumen['recepcion_id'], "ERROR");
+				registrarEvento("Recepción Mercaderías Controller: Error al cancelar la recepción => " . $resumen[0]['recepcion_id'], "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo cancelar la recepción']);
 				exit;
 			}

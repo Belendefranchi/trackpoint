@@ -310,7 +310,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  /* ##################### VACIAR MERCADERÍA ##################### */
 
+  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
+  if (btnVaciarMercaderia) {
+    btnVaciarMercaderia.addEventListener('click', function () {
+      // 1. Limpiar todo el localStorage
+      localStorage.clear();
+
+      // 2. Resetear el formulario
+      document.getElementById('formAgregarMercaderia').reset();
+    });
+  }
 
   /* ##################### AGREGAR MERCADERÍA ##################### */
 
@@ -387,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Interceptar el envío del formulario con AJAX
-	const formEditar = document.querySelector('#formEditarOperador');
+	const formEditar = document.querySelector('#formEditarMercaderia');
 	if (formEditar) {
 		formEditar.addEventListener('submit', function (e) {
 			e.preventDefault();
@@ -431,9 +442,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Limpiar el mensaje de error al cerrar el modal
-	var modalEditarOperador = document.getElementById('modalEditarOperador');
-	if (modalEditarOperador) {
-		modalEditarOperador.addEventListener('hidden.bs.modal', function () {
+	var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
+	if (modalEditarMercaderia) {
+		modalEditarMercaderia.addEventListener('hidden.bs.modal', function () {
 			var mensajeError = document.getElementById('mensaje-error-editar');
 			if (mensajeError) {
 				mensajeError.classList.add('d-none'); // Ocultar el div
@@ -594,9 +605,12 @@ document.addEventListener('DOMContentLoaded', function () {
           }, { once: true });
 
         },
-        error: function () {
+        error: function (xhr, status, error) {
+          console.log("Estado:", status);
+          console.log("Error:", error);
+          console.log("Respuesta cruda:", xhr.responseText);
           $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar guardar la recepción.');
+          $('#textoModalMensaje').text('Hubo un problema al intentar eliminar la recepción.');
           const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeRecepcion'));
           modalMensaje.show();
         }
