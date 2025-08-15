@@ -27,7 +27,7 @@ $activeItems = [
   'vehiculos' => str_contains($currentUri, 'vehiculos') ? 'fw-semibold text-primary' : '',
   'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
   'grupos' => str_contains($currentUri, 'grupos') ? 'fw-semibold text-primary' : '',
-  'subGrupos' => str_contains($currentUri, 'subGrupos') ? 'fw-semibold text-primary' : '',
+  'subgrupos' => str_contains($currentUri, 'subgrupos') ? 'fw-semibold text-primary' : '',
   'traducciones' => str_contains($currentUri, 'traducciones') ? 'fw-semibold text-primary' : '',
 
   // Ítems del Submenú Config PC
@@ -98,7 +98,7 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a> -->
             <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/mercaderias">Mercaderías</a>
             <a class="nav-link <?= $activeItems['grupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/grupos">Grupos</a>
-            <a class="nav-link <?= $activeItems['subGrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/subGrupos">Sub Grupos</a>
+            <a class="nav-link <?= $activeItems['subgrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/subgrupos">Subgrupos</a>
             <a class="nav-link <?= $activeItems['traducciones'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/traducciones">Traducciones</a>
           </div>
           

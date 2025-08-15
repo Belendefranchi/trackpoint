@@ -1,19 +1,19 @@
 <?php
-require_once __DIR__ . '/../controllers/abm.grupos.controller.php';
+require_once __DIR__ . '/../controllers/abm.subgrupos.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
 ?>
 
 <script>
-  const subtitulo = 'Grupos';
+  const subtitulo = 'Subgrupos';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 					<div class="d-flex justify-content-between align-items-center">
-						<h2 class="text-primary">Grupos</h2>
+						<h2 class="text-primary">Subgrupos</h2>
 						<a href="#" class="btn btn-sm btn-primary"
 							data-bs-toggle="modal" 
-							data-bs-target="#modalCrearGrupo">
-							<i class="bi-plus-circle me-2"></i>Nuevo Grupo
+							data-bs-target="#modalCrearSubgrupo">
+							<i class="bi-plus-circle me-2"></i>Nuevo Subgrupo
 						</a>
 					</div>
 					<table id="miTabla" class="display" style="width:100%">
@@ -22,6 +22,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border text-center">ID</td>
 								<td class="border">Código</td>
 								<td class="border">Descripción</td>
+								<td class="border">Grupo</td>
 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
@@ -31,30 +32,31 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($grupos as $grupo): ?>
+							<?php foreach ($subgrupos as $subgrupo): ?>
 								<tr class="text-start">
-									<td class="border text-primary text-center"><?= htmlspecialchars($grupo['grupo_id']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['codigo']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['descripcion']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['creado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['creado_por']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['editado_por']) ?></td>
-									<td class="border text-primary"><?= $grupo['activo'] == 1 ? 'Si' : 'No' ?></td>
+									<td class="border text-primary text-center"><?= htmlspecialchars($subgrupo['grupo_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['codigo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['descripcion']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['grupo_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['creado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['creado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['editado_en']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['editado_por']) ?></td>
+									<td class="border text-primary"><?= $subgrupo['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex no-wrap">
 											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-												data-bs-toggle="modal" data-bs-target="#modalEditarGrupo"
-												data-id="<?= htmlspecialchars($grupo['grupo_id']) ?>"
-												data-codigo="<?= htmlspecialchars($grupo['codigo']) ?>"
-												data-descripcion="<?= htmlspecialchars($grupo['descripcion']) ?>"
-												data-activo="<?= htmlspecialchars($grupo['activo']) ?>">
+												data-bs-toggle="modal" data-bs-target="#modalEditarSubgrupo"
+												data-id="<?= htmlspecialchars($subgrupo['grupo_id']) ?>"
+												data-codigo="<?= htmlspecialchars($subgrupo['codigo']) ?>"
+												data-descripcion="<?= htmlspecialchars($subgrupo['descripcion']) ?>"
+												data-activo="<?= htmlspecialchars($subgrupo['activo']) ?>">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
 											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 												data-bs-toggle="modal" data-bs-target="#modalEliminarGrupo"
-												data-id="<?= htmlspecialchars($grupo['grupo_id']) ?>"
-												data-codigo="<?= htmlspecialchars($grupo['codigo']) ?>">
+												data-id="<?= htmlspecialchars($subgrupo['grupo_id']) ?>"
+												data-codigo="<?= htmlspecialchars($subgrupo['codigo']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
 										</div>
@@ -65,12 +67,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</table>
 
 					<!-- Modal de creación -->
-					<div class="modal fade m-5" id="modalCrearGrupo" tabindex="-1" aria-labelledby="modalCrearGrupoLabel" aria-hidden="true">
+					<div class="modal fade m-5" id="modalCrearSubgrupo" tabindex="-1" aria-labelledby="modalCrearSubgrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formCrearGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&crear">
+							<form method="POST" id="formCrearGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalCrearGrupoLabel">Nuevo grupo</h5>
+										<h5 class="modal-title" id="modalCrearSubgrupoLabel">Nuevo subgrupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
@@ -93,6 +95,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<input type="text" class="form-control" name="descripcion" id="crearDescripcionGrupo">
 										</div>
 
+										<div class="mb-3">
+											<label for="crearGrupoSubgrupo" class="form-label text-primary">Grupo</label>
+											<select class="form-select" name="grupo_id" id="crearGrupoSubgrupo">
+												<?php foreach ($grupos as $grupo): ?>
+													<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+
 									</div>
 									<div class="modal-footer d-flex justify-content-center p-2">
 										<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
@@ -104,16 +115,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 
 					<!-- Modal de edición -->
-					<div class="modal fade m-5" id="modalEditarGrupo" tabindex="-1" aria-labelledby="modalEditarGrupoLabel" aria-hidden="true">
+					<div class="modal fade m-5" id="modalEditarSubgrupo" tabindex="-1" aria-labelledby="modalEditarSubgrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEditarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&editar">
+							<form method="POST" id="formEditarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalEditarGrupoLabel">Editar grupo</h5>
+										<h5 class="modal-title" id="modalEditarSubgrupoLabel">Editar subgrupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
-										<input type="hidden" name="grupo_id" id="editarGrupoId">
+										<input type="hidden" name="subgrupo_id" id="editarSubgrupoId">
 
 										<div class="mb-3">
 											<div id="mensaje-error-editar" class="alert alert-danger rounded d-none" role="alert">
@@ -124,18 +135,18 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<label for="editarCodigoGrupo" class="form-label text-primary">Código</label>
-											<input type="text" class="form-control" name="codigo" id="editarCodigoGrupo">
+											<label for="editarCodigoSubgrupo" class="form-label text-primary">Código</label>
+											<input type="text" class="form-control" name="codigo" id="editarCodigoSubgrupo">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarDescripcionGrupo" class="form-label text-primary">Descripción</label>
-											<input type="text" class="form-control" name="descripcion" id="editarDescripcionGrupo">
+											<label for="editarDescripcionSubgrupo" class="form-label text-primary">Descripción</label>
+											<input type="text" class="form-control" name="descripcion" id="editarDescripcionSubgrupo">
 										</div>
 
 										<div class="mb-3">
-											<label for="editarActivoGrupo" class="form-label text-primary">Activo</label>
-											<select class="form-select" name="activo" id="editarActivoGrupo">
+											<label for="editarActivoSubgrupo" class="form-label text-primary">Activo</label>
+											<select class="form-select" name="activo" id="editarActivoSubgrupo">
 												<option value="1">Sí</option>
 												<option value="0">No</option>
 											</select>
@@ -151,17 +162,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 
 					<!-- Modal de eliminación -->
-					<div class="modal fade m-5" id="modalEliminarGrupo" tabindex="-1" aria-labelledby="modalEliminarGrupoLabel" aria-hidden="true">
+					<div class="modal fade m-5" id="modalEliminarSubgrupo" tabindex="-1" aria-labelledby="modalEliminarSubgrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEliminarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&eliminar">
+							<form method="POST" id="formEliminarSubgrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&eliminar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
-										<h5 class="modal-title" id="modalEliminarGrupoLabel">Eliminar grupo</h5>
+										<h5 class="modal-title" id="modalEliminarSubgrupoLabel">Eliminar subgrupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
-										<input type="hidden" name="grupo_id" id="eliminarGrupoId">
-										<input type="hidden" name="codigo" id="eliminarCodigoGrupo">
+										<input type="hidden" name="subgrupo_id" id="eliminarSubgrupoId">
+										<input type="hidden" name="codigo" id="eliminarCodigoSubgrupo">
 
 										<div class="mb-3">
 											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
@@ -172,7 +183,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 
 										<div class="mb-3">
-											<p>¿Está seguro que desea eliminar el grupo?</p>
+											<p>¿Está seguro que desea eliminar el subgrupo?</p>
 											<p>Esta acción no se puede deshacer.</p>
 										</div>
 									</div>
@@ -194,7 +205,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
   <!-- Script DataTables y modales -->
   <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.grupos.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.subgrupos.modales.js"></script>
 
 </body>
 </html>

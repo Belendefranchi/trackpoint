@@ -23,10 +23,10 @@ $routes = [
 
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
-	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+/* 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
 
 	'/produccion/ABMs/procesos' => 'app/modules/produccion/controllers/abm.procesos.controller.php',
-	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
+	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php', */
 	
 	
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */
