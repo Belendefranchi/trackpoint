@@ -59,6 +59,33 @@ BEGIN
 END;
 GO
 
+CREATE TRIGGER trg_Update_grupos
+ON configuracion_abm_grupos
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE configuracion_abm_grupos
+	SET editado_en = GETDATE()
+	FROM configuracion_abm_grupos g
+	INNER JOIN inserted i ON g.grupo_id = i.grupo_id;
+END;
+GO
+
+CREATE TRIGGER trg_Update_subgrupos
+ON configuracion_abm_subgrupos
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE configuracion_abm_subgrupos
+	SET editado_en = GETDATE()
+	FROM configuracion_abm_subgrupos g
+	INNER JOIN inserted i ON g.subgrupo_id = i.subgrupo_id;
+END;
+GO
 
 CREATE TRIGGER trg_Update_produccion_general
 ON produccion_general
