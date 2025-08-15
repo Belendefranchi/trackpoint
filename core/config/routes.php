@@ -23,24 +23,29 @@ $routes = [
 
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
-/* 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
 
-	'/produccion/ABMs/mercaderias' => 'app/modules/produccion/controllers/abm.mercaderias.controller.php',
 	'/produccion/ABMs/procesos' => 'app/modules/produccion/controllers/abm.procesos.controller.php',
-	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php', */
-
-
+	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
+	
+	
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */
-/* 	'/expedicion' => 'app/modules/expedicion/controllers/expedicion.controller.php', */
-
-
+	/* 	'/expedicion' => 'app/modules/expedicion/controllers/expedicion.controller.php', */
+	
+	
 	/* ########################################### ---------CONFIGURACIÓN--------- ########################################### */
 	'/configuracion' => 'app/modules/configuracion/controllers/configuracion.controller.php',
-
+	
 	'/configuracion/ABMs/operadores' => 'app/modules/configuracion/controllers/abm.operadores.controller.php',
 	'/configuracion/ABMs/perfiles' => 'app/modules/configuracion/controllers/abm.perfiles.controller.php',
 	'/configuracion/ABMs/perfilesPorOperador' => 'app/modules/configuracion/controllers/abm.perfilesPorOperador.controller.php',
 	'/configuracion/ABMs/permisosPorPerfil' => 'app/modules/configuracion/controllers/abm.permisosPorPerfil.controller.php',
+	'/configuracion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
+	'/configuracion/ABMs/grupos' => 'app/modules/configuracion/controllers/abm.grupos.controller.php',
+	'/configuracion/ABMs/subgrupos' => 'app/modules/configuracion/controllers/abm.subgrupos.controller.php',
+	'/configuracion/ABMs/traducciones' => 'app/modules/configuracion/controllers/abm.traducciones.controller.php',
+
+
 	
 	
 	/* ########################################### ---------SISTEMA--------- ########################################### */

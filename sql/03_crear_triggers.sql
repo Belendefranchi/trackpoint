@@ -46,15 +46,15 @@ GO
 
 -- 4. Ejecutar trigger mercaderias
 CREATE TRIGGER trg_Update_mercaderias
-ON produccion_abm_mercaderias
+ON configuracion_abm_mercaderias
 AFTER UPDATE
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	UPDATE produccion_abm_mercaderias
+	UPDATE configuracion_abm_mercaderias
 	SET editado_en = GETDATE()
-	FROM produccion_abm_mercaderias m
+	FROM configuracion_abm_mercaderias m
 	INNER JOIN inserted i ON m.mercaderia_id = i.mercaderia_id;
 END;
 GO

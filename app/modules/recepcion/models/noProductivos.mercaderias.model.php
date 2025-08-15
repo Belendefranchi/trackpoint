@@ -120,7 +120,7 @@ function obtenerResumenRecepcion($operador_id) {
 						FROM recepcion_noProductivos_mercaderias_resumen r
 						LEFT JOIN recepcion_noProductivos_mercaderias_detalle d
 								ON r.recepcion_id = d.recepcion_id
-						LEFT JOIN produccion_abm_mercaderias m
+						LEFT JOIN configuracion_abm_mercaderias m
 								ON d.mercaderia_id = m.mercaderia_id
 						WHERE r.operador_id = :operador_id 
 							AND r.estado = 'pendiente'
@@ -162,7 +162,7 @@ function obtenerDetalleRecepcion($recepcion_id) {
 								d.peso_neto,
 								d.estado
 						FROM recepcion_noProductivos_mercaderias_detalle d
-						JOIN produccion_abm_mercaderias m
+						JOIN configuracion_abm_mercaderias m
 							ON d.mercaderia_id = m.mercaderia_id
 						WHERE d.recepcion_id = :recepcion_id
 							AND d.estado = 'pendiente'

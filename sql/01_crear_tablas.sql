@@ -68,20 +68,7 @@ CREATE TABLE configuracion_abm_permisosPorPerfil (
 	FOREIGN KEY (permiso_id) REFERENCES configuracion_abm_permisos(permiso_id) ON DELETE CASCADE
 );
 
-/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
-
-CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(username);
-
-
-
-
-/* ############################################################################################## */
-/* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
-/* ############################################################################################## */
-
-/* ------------------------------------------- ABMS --------------------------------------------- */
-
-CREATE TABLE produccion_abm_mercaderias (
+CREATE TABLE configuracion_abm_mercaderias (
     mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
@@ -105,19 +92,7 @@ CREATE TABLE produccion_abm_mercaderias (
 );
 GO
 
-CREATE TABLE produccion_abm_familias (
-    familia_id INT PRIMARY KEY IDENTITY(1,1),
-    nombre VARCHAR(100) NOT NULL UNIQUE,
-    descripcion VARCHAR(255) NOT NULL,
-    creado_en DATETIME DEFAULT GETDATE(),
-    creado_por VARCHAR(20) NULL,
-    editado_en DATETIME NULL,
-    editado_por VARCHAR(20) NULL,
-    activo BIT DEFAULT 1
-);
-GO
-
-CREATE TABLE produccion_abm_grupos (
+CREATE TABLE configuracion_abm_grupos (
     grupo_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
@@ -129,7 +104,7 @@ CREATE TABLE produccion_abm_grupos (
 );
 GO
 
-CREATE TABLE produccion_abm_subgrupos (
+CREATE TABLE configuracion_abm_subgrupos (
     subgrupo_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
@@ -140,9 +115,9 @@ CREATE TABLE produccion_abm_subgrupos (
     activo BIT DEFAULT 1
 );
 
-CREATE TABLE produccion_abm_procesos (
-    proceso_id INT PRIMARY KEY IDENTITY(1,1),
-    codigo VARCHAR(100) NOT NULL UNIQUE,
+CREATE TABLE configuracion_abm_traducciones (
+    traduccion_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
@@ -152,9 +127,22 @@ CREATE TABLE produccion_abm_procesos (
 );
 GO
 
-CREATE TABLE produccion_abm_traducciones (
-    traduccion_id INT PRIMARY KEY IDENTITY(1,1),
-    codigo VARCHAR(50) NOT NULL UNIQUE,
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
+
+CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(username);
+
+
+
+
+/* ############################################################################################## */
+/* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
+/* ############################################################################################## */
+
+/* ------------------------------------------- ABMS --------------------------------------------- */
+
+CREATE TABLE produccion_abm_procesos (
+    proceso_id INT PRIMARY KEY IDENTITY(1,1),
+    codigo VARCHAR(100) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
@@ -238,7 +226,7 @@ CREATE TABLE produccion_general (
     CONSTRAINT FK_produccion_creado_por FOREIGN KEY (creado_por_id) REFERENCES configuracion_abm_operadores(operador_id),
     CONSTRAINT FK_produccion_editado_por FOREIGN KEY (editado_por_id) REFERENCES configuracion_abm_operadores(operador_id),
     CONSTRAINT FK_produccion_proceso FOREIGN KEY (proceso_id) REFERENCES produccion_abm_procesos(proceso_id),
-    CONSTRAINT FK_produccion_producto FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id),
+    CONSTRAINT FK_produccion_producto FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id),
     CONSTRAINT FK_produccion_recepcion FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
     
     --CONSTRAINT FK_produccion_pallet FOREIGN KEY (pallet_id) REFERENCES produccion_pallets(pallet_id),
@@ -299,7 +287,7 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
 
     -- Claves foráneas
     FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
-    FOREIGN KEY (mercaderia_id) REFERENCES produccion_abm_mercaderias(mercaderia_id)
+    FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
 );
 
 

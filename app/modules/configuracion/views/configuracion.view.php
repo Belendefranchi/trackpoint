@@ -25,6 +25,10 @@ $activeItems = [
   'destinos' => str_contains($currentUri, 'destinos') ? 'fw-semibold text-primary' : '',
   'transportes' => str_contains($currentUri, 'transportes') ? 'fw-semibold text-primary' : '',
   'vehiculos' => str_contains($currentUri, 'vehiculos') ? 'fw-semibold text-primary' : '',
+  'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
+  'grupos' => str_contains($currentUri, 'grupos') ? 'fw-semibold text-primary' : '',
+  'subGrupos' => str_contains($currentUri, 'subGrupos') ? 'fw-semibold text-primary' : '',
+  'traducciones' => str_contains($currentUri, 'traducciones') ? 'fw-semibold text-primary' : '',
 
   // Ítems del Submenú Config PC
   'impresoras' => str_contains($currentUri, 'impresoras') ? 'fw-semibold text-primary' : '',
@@ -89,9 +93,13 @@ $activeItems = [
             <a class="nav-link <?= $activeItems['permisosPorPerfil'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil">Permisos por Perfil</a>
             <a class="nav-link <?= $activeItems['personas'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/personas">Personas</a>
             <a class="nav-link <?= $activeItems['numeradores'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/numeradores">Numeradores</a>
-            <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
+<!--             <a class="nav-link <?= $activeItems['destinos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/destinos">Destinos</a>
             <a class="nav-link <?= $activeItems['transportes'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/transportes">Transportes</a>
-            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a>
+            <a class="nav-link <?= $activeItems['vehiculos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/vehiculos">Vehículos</a> -->
+            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/mercaderias">Mercaderías</a>
+            <a class="nav-link <?= $activeItems['grupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/grupos">Grupos</a>
+            <a class="nav-link <?= $activeItems['subGrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/subGrupos">Sub Grupos</a>
+            <a class="nav-link <?= $activeItems['traducciones'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/configuracion/ABMs/traducciones">Traducciones</a>
           </div>
           
           <a class="nav-link text-white table-hover rounded <?= $configPCActive ?>" data-bs-toggle="collapse" href="#submenuConfigPC" role="button" aria-expanded="<?= $configPCOpen ? 'true' : 'false' ?>" aria-controls="submenuConfigPC">

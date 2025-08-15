@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/produccion.controller.php';
+require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -164,4 +164,4 @@ $datosVista = [
   'mercaderias' => $mercaderias
 ];
 
-cargarVistaProduccion('abm.mercaderias.view.php', $datosVista);
+cargarVistaConfiguracion('abm.mercaderias.view.php', $datosVista);

@@ -31,12 +31,7 @@ $etqSecundariasActive = str_contains($currentUri, '/produccion/etqSecundarias') 
 
 $activeItems = [
   // Ítems del submenú ABMs
-  'familias' => str_contains($currentUri, 'familias') ? 'fw-semibold text-primary' : '',
-  'grupos' => str_contains($currentUri, 'grupos') ? 'fw-semibold text-primary' : '',
-  'subGrupos' => str_contains($currentUri, 'subGrupos') ? 'fw-semibold text-primary' : '',
-  'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
   'procesos' => str_contains($currentUri, 'procesos') ? 'fw-semibold text-primary' : '',
-  'traducciones' => str_contains($currentUri, 'traducciones') ? 'fw-semibold text-primary' : '',
 
   // Ítems del Submenú Recetas
   'nuevaReceta' => str_contains($currentUri, 'nuevaReceta') ? 'fw-semibold text-primary' : '',
@@ -111,11 +106,7 @@ $activeItems = [
           </a>
           <div class="collapse ps-3 <?= $abmsOpen ?>" id="submenuABMs">
 <!--             <a class="nav-link <?= $activeItems['familias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/familias">Familias</a> -->
-            <a class="nav-link <?= $activeItems['grupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/grupos">Grupos</a>
-            <a class="nav-link <?= $activeItems['subGrupos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/subGrupos">Sub Grupos</a>
-            <a class="nav-link <?= $activeItems['mercaderias'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/mercaderias">Mercaderías</a>
             <a class="nav-link <?= $activeItems['procesos'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/procesos">Procesos Productivos</a>
-            <a class="nav-link <?= $activeItems['traducciones'] ? 'active-lateral' : 'table-hover rounded text-white' ?>" href="/trackpoint/public/produccion/ABMs/traducciones">Traducciones</a>
           </div>
 
           <a class="nav-link text-white table-hover rounded <?= $recetasActive ?>" data-bs-toggle="collapse" href="#submenuRecetas" role="button" aria-expanded="<?= $recetasOpen ? 'true' : 'false' ?>" aria-controls="submenuRecetas">

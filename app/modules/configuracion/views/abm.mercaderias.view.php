@@ -102,7 +102,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de creación -->
 					<div class="modal fade m-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
-							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&crear">
+							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearMercaderiaLabel">Nueva Mercadería</h5>
@@ -215,7 +215,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
-							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&editar">
+							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
@@ -336,7 +336,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de eliminación -->
 					<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&eliminar">
+							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&eliminar">
 								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
@@ -376,8 +376,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_produccion/abm.mercaderias.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.mercaderias.modales.js"></script>
 
 </body>
 </html>

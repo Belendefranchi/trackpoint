@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&crear',
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&crear',
         type: 'POST',
         data: formData,
         processData: false,
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&editar',
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&editar',
         type: 'POST',
         data: formData,
         processData: false,
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/produccion/ABMs/mercaderias&eliminar',
+        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&eliminar',
         type: 'POST',
         data: formData,
         processData: false,

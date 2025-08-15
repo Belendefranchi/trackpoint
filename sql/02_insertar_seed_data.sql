@@ -83,7 +83,7 @@ VALUES
 
 
 -- Insertar mercaderías de ejemplo
-INSERT INTO produccion_abm_mercaderias (
+INSERT INTO configuracion_abm_mercaderias (
 	codigo,
 	descripcion,
 	unidad_medida,
