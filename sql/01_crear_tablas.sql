@@ -108,6 +108,7 @@ CREATE TABLE configuracion_abm_subgrupos (
     subgrupo_id INT PRIMARY KEY IDENTITY(1,1),
     codigo VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL,
+    grupo_id INT NOT NULL,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,

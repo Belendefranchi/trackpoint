@@ -3,6 +3,7 @@ define('VISTA_INTERNA', true);
 
 require_once __DIR__ . '/configuracion.controller.php';
 require_once __DIR__ . '/../models/abm.subgrupos.model.php';
+require_once __DIR__ . '/../models/abm.grupos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Lógica ajax de actualizar, eliminar y crear Subgrupo
@@ -139,10 +140,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $subgrupos = obtenerSubgrupos();
+$grupos = obtenerGrupos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
-  'subgrupos' => $subgrupos
+  'subgrupos' => $subgrupos,
+  'grupos' => $grupos
 ];
 
 cargarVistaConfiguracion('abm.subgrupos.view.php', $datosVista);

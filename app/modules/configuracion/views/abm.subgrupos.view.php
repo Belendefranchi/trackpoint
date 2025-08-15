@@ -34,7 +34,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<tbody>
 							<?php foreach ($subgrupos as $subgrupo): ?>
 								<tr class="text-start">
-									<td class="border text-primary text-center"><?= htmlspecialchars($subgrupo['grupo_id']) ?></td>
+									<td class="border text-primary text-center"><?= htmlspecialchars($subgrupo['subgrupo_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['grupo_id']) ?></td>
@@ -47,15 +47,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="d-flex no-wrap">
 											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 												data-bs-toggle="modal" data-bs-target="#modalEditarSubgrupo"
-												data-id="<?= htmlspecialchars($subgrupo['grupo_id']) ?>"
+												data-id="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"
 												data-codigo="<?= htmlspecialchars($subgrupo['codigo']) ?>"
 												data-descripcion="<?= htmlspecialchars($subgrupo['descripcion']) ?>"
+												data-grupo="<?= htmlspecialchars($subgrupo['grupo_id']) ?>"
 												data-activo="<?= htmlspecialchars($subgrupo['activo']) ?>">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
 											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 												data-bs-toggle="modal" data-bs-target="#modalEliminarGrupo"
-												data-id="<?= htmlspecialchars($subgrupo['grupo_id']) ?>"
+												data-id="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"
 												data-codigo="<?= htmlspecialchars($subgrupo['codigo']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
@@ -142,6 +143,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<label for="editarDescripcionSubgrupo" class="form-label text-primary">Descripción</label>
 											<input type="text" class="form-control" name="descripcion" id="editarDescripcionSubgrupo">
+										</div>
+
+										<div class="mb-3">
+											<label for="editarGrupoSubgrupo" class="form-label text-primary">Grupo</label>
+											<select class="form-select" name="grupo_id" id="editarGrupoSubgrupo">
+												<?php foreach ($grupos as $grupo): ?>
+													<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 
 										<div class="mb-3">

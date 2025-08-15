@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			modalEditarSubgrupo.querySelector('#editarSubgrupoId').value = button.getAttribute('data-id');
 			modalEditarSubgrupo.querySelector('#editarCodigoSubgrupo').value = button.getAttribute('data-codigo');
 			modalEditarSubgrupo.querySelector('#editarDescripcionSubgrupo').value = button.getAttribute('data-descripcion');
+			modalEditarSubgrupo.querySelector('#editarGrupoSubgrupo').value = button.getAttribute('data-grupo');
 			modalEditarSubgrupo.querySelector('#editarActivoSubgrupo').value = button.getAttribute('data-activo');
 		});
 	}
