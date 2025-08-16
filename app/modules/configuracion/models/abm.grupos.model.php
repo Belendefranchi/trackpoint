@@ -17,7 +17,7 @@ function obtenerGrupos() {
 function grupoExists($codigo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT codigo FROM configuracion_abm_grupos WHERE codigo = :codigo");
+		$stmt = $conn->prepare("SELECT grupo_id, codigo FROM configuracion_abm_grupos WHERE codigo = :codigo");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->execute();
 		$grupo = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -77,12 +77,12 @@ function editarGrupo($grupo_id, $codigo, $descripcion, $activo) {
 		$result = $stmt->execute();
 
 		if ($result) {
-			registrarEvento("Grupos Model: operador editado correctamente.", "INFO");
+			registrarEvento("Grupos Model: grupo editado correctamente.", "INFO");
 		}
 		return $result;
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Grupos Model: Error al editar el operador, " . $e->getMessage(), "ERROR");
+		registrarEvento("Grupos Model: Error al editar el grupo, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

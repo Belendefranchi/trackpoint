@@ -26,7 +26,7 @@ $activeItems = [
   'transportes' => str_contains($currentUri, 'transportes') ? 'fw-semibold text-primary' : '',
   'vehiculos' => str_contains($currentUri, 'vehiculos') ? 'fw-semibold text-primary' : '',
   'mercaderias' => str_contains($currentUri, 'mercaderias') ? 'fw-semibold text-primary' : '',
-  'grupos' => str_contains($currentUri, 'grupos') ? 'fw-semibold text-primary' : '',
+  'grupos' => str_contains($currentUri, 'grupos') && !str_contains($currentUri, 'sub') ? 'fw-semibold text-primary' : '',
   'subgrupos' => str_contains($currentUri, 'subgrupos') ? 'fw-semibold text-primary' : '',
   'traducciones' => str_contains($currentUri, 'traducciones') ? 'fw-semibold text-primary' : '',
 

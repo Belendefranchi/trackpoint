@@ -28,11 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Verificar si el grupo ya existe
 		$grupo = grupoExists($codigo);
 		if ($grupo) {
-			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un grupo con ese código y/o descripción, intente con otro.']);
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un grupo con ese código, intente con otro.']);
 			exit;
 		}
 		try {
-			
 			// Crear el grupo en la base de datos
 			$result = crearGrupo($codigo, $descripcion);
 
@@ -72,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		// Verificar si el grupo ya existe
-		$grupo = grupoExists($grupo_id, $descripcion);
+		$grupo = grupoExists($codigo);
 		if ($grupo && $grupo['grupo_id'] != $grupo_id) {
 			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un Grupo con ese código, intente con otro.']);
 			exit;
@@ -101,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	// ####### ELIMINAR #######
-
 	if (isset($_GET['eliminar'])) {
 
 		header('Content-Type: application/json');

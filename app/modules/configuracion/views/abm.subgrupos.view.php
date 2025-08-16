@@ -37,7 +37,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary text-center"><?= htmlspecialchars($subgrupo['subgrupo_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['descripcion']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($subgrupo['grupo_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($subgrupo['grupo_codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($subgrupo['editado_en']) ?></td>
@@ -55,7 +55,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
 											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-												data-bs-toggle="modal" data-bs-target="#modalEliminarGrupo"
+												data-bs-toggle="modal" data-bs-target="#modalEliminarSubgrupo"
 												data-id="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"
 												data-codigo="<?= htmlspecialchars($subgrupo['codigo']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
@@ -70,7 +70,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de creación -->
 					<div class="modal fade m-5" id="modalCrearSubgrupo" tabindex="-1" aria-labelledby="modalCrearSubgrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formCrearGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&crear">
+							<form method="POST" id="formCrearSubgrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearSubgrupoLabel">Nuevo subgrupo</h5>
@@ -98,10 +98,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 										<div class="mb-3">
 											<label for="crearGrupoSubgrupo" class="form-label text-primary">Grupo</label>
-											<select class="form-select" name="grupo_id" id="crearGrupoSubgrupo">
-												<?php foreach ($grupos as $grupo): ?>
-													<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
-												<?php endforeach; ?>
+											<select class="form-select" name="grupo_id" id="editarGrupoSubgrupo">
+												<?php if (empty($grupos)): ?>
+													<option value="">No hay grupos disponibles</option>
+												<?php else: ?>
+													<?php foreach ($grupos as $grupo): ?>
+														<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+													<?php endforeach; ?>
+												<?php endif; ?>
 											</select>
 										</div>
 
@@ -118,7 +122,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarSubgrupo" tabindex="-1" aria-labelledby="modalEditarSubgrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEditarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&editar">
+							<form method="POST" id="formEditarSubgrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/subgrupos&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarSubgrupoLabel">Editar subgrupo</h5>
@@ -148,9 +152,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<label for="editarGrupoSubgrupo" class="form-label text-primary">Grupo</label>
 											<select class="form-select" name="grupo_id" id="editarGrupoSubgrupo">
-												<?php foreach ($grupos as $grupo): ?>
-													<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
-												<?php endforeach; ?>
+												<?php if (empty($grupos)): ?>
+													<option value="">No hay grupos disponibles</option>
+												<?php else: ?>
+													<?php foreach ($grupos as $grupo): ?>
+														<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+													<?php endforeach; ?>
+												<?php endif; ?>
 											</select>
 										</div>
 

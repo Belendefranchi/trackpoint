@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Verificar si el subgrupo ya existe
 		$subgrupo = subgrupoExists($codigo);
 		if ($subgrupo) {
-			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un subgrupo con ese código y/o descripción, intente con otro.']);
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un subgrupo con ese código, intente con otro.']);
 			exit;
 		}
 		try {
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Verificar si el subgrupo ya existe
 		$subgrupo = subgrupoExists($codigo);
 		if ($subgrupo && $subgrupo['subgrupo_id'] != $subgrupo_id) {
-			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un Subgrupo con ese código, intente con otro.']);
+			echo json_encode(['success' => false, 'message' => 'Error: Ya existe un subgrupo con ese código, intente con otro.']);
 			exit;
 		}
 		try {
@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	// ####### ELIMINAR #######
-
 	if (isset($_GET['eliminar'])) {
 
 		header('Content-Type: application/json');
