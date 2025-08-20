@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Restaurar valores fijados desde localStorage
-	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito', 'codigo_mercaderia', 'descripcion_mercaderia'];
+	const campos = ['proveedor_id', 'fecha_recepcion', 'nro_remito', 'fecha_remito', 'codigo_mercaderia', 'descripcion_mercaderia', 'unidades', 'peso_neto'];
 
 	campos.forEach(campo => {
 		const checkbox = document.getElementById(`${campo}_checkbox`);
@@ -78,34 +78,37 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-
-
   /* ##################### MODAL BUSQUEDA POR DESCRIPCIÓN ##################### */
 
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
   if (modalSeleccionar) {
+    // Listener para vaciar seleccion cuando se cierra el modal
     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
+      // Limpia el mensaje de error
       if (mensajeErrorSeleccionar) {
         mensajeErrorSeleccionar.classList.add('d-none');
         mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
       }
-
+      // Limpia los radios de selección de mercadería
       document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => radio.checked = false);
-
+      // Limpia los inputs hidden del modal
       modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
       modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
       modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
+      modalSeleccionar.querySelector('#input-cantidad-propuesta').value = '';
+      modalSeleccionar.querySelector('#input-peso-propuesto').value = '';
     });
 
-
-    // --- Listener para guardar descripción e ID si está tildado ---
     const checkboxDescripcion = document.getElementById('descripcion_mercaderia_checkbox');
     const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
     const inputCodigoModal = document.getElementById('codigo_mercaderia');
     const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
-
+    const inputCantidadPropuestaModal = document.getElementById('unidades');
+    const inputPesoPropuestoModal = document.getElementById('peso_neto');
+    
+    // Listener para guardar en localstorage descripción, código y id si se tilda el checkbox Descripción
     if (checkboxDescripcion) {
       checkboxDescripcion.addEventListener('change', () => {
         if (checkboxDescripcion.checked) {
@@ -130,22 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    // --- Al seleccionar la mercadería desde el modal ---
-    document.querySelectorAll('.seleccionar-mercaderia').forEach(radio => {
-      radio.addEventListener('change', function () {
-        document.getElementById('input-mercaderia-id').value = this.dataset.mercaderiaid;
-        document.getElementById('input-codigo-mercaderia').value = this.dataset.codigom;
-        document.getElementById('input-descripcion-mercaderia').value = this.dataset.descripcionm;
-
-        // Cargar en el formulario principal
-        inputMercaderiaIdModal.value = this.dataset.mercaderiaid;
-        inputDescripcionModal.value = this.dataset.descripcionm;
-
-      });
-    });
-
-
-    // Enviar formulario con AJAX
+    // Enviar formulario con AJAX para seleccionar mercadería
     const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
     if (formSeleccionar) {
       formSeleccionar.addEventListener('submit', function (e) {
@@ -154,11 +142,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Limpiar cualquier mensaje de error antes de hacer la solicitud
         $('#mensaje-error-seleccionar').addClass('d-none').find('.mensaje-texto').text('');
 
+        // Obtener el radio seleccionado y sus datos
         const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked'); 
         const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid || '';
         const codigo = radioSeleccionado?.dataset.codigom || '';
         const descripcion = radioSeleccionado?.dataset.descripcionm || '';
+        const cantidad = radioSeleccionado?.dataset.cantidadm || '';
+        const peso = radioSeleccionado?.dataset.pesom || '';
 
+        // Validar que se haya seleccionado una mercadería
         if (!mercaderiaId) {
           if (mensajeErrorSeleccionar) {
             mensajeErrorSeleccionar.classList.remove('d-none');
@@ -167,11 +159,15 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
+        // Crear objeto FormData para agregar los datos de la mercadería a los dataset
         const formData = new FormData();
         formData.append('mercaderia_id', mercaderiaId);
         formData.append('codigo_mercaderia', codigo);
         formData.append('descripcion_mercaderia', descripcion);
+        formData.append('unidades', cantidad);
+        formData.append('peso_neto', peso);
 
+        // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
         $.ajax({
           url: '/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&seleccionarMercaderia',
           method: 'POST',
@@ -182,16 +178,22 @@ document.addEventListener('DOMContentLoaded', function () {
           success: function (response) {
             if (response.success) {
 
-              console.log('Datos de la mercadería seleccionada:', {
+              console.log('Datos de la mercadería seleccionada - descripción:', {
                 id: response.mercaderia_id,
                 codigo: response.codigo_mercaderia,
-                descripcion: response.descripcion_mercaderia
+                descripcion: response.descripcion_mercaderia,
+                cantidad: response.cantidad_propuesta,
+                peso: response.peso_propuesto
               });
 
+              // Actualizar los inputs del modal con los datos de la mercadería seleccionada
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputDescripcionModal.value = response.descripcion_mercaderia;
               inputCodigoModal.value = response.codigo_mercaderia;
+              inputCantidadPropuestaModal.value = response.cantidad_propuesta;
+              inputPesoPropuestoModal.value = response.peso_propuesto;
 
+              // Guardar en localStorage si el checkbox está tildado
               if (checkboxDescripcion && checkboxDescripcion.checked) {
                 localStorage.setItem('valor_descripcion_mercaderia', response.descripcion_mercaderia);
                 localStorage.setItem('valor_mercaderia_id', response.mercaderia_id);
@@ -199,11 +201,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Guardar también el código
                 localStorage.setItem('fijar_codigo_mercaderia', 'true');
                 localStorage.setItem('valor_codigo_mercaderia', response.codigo_mercaderia);
+                localStorage.setItem('valor_unidades', response.cantidad_propuesta);
+                localStorage.setItem('valor_peso_neto', response.peso_propuesto);
               }
 
+              // Cerrar el modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
               if (modal) modal.hide();
-              /* location.reload(); */
             } else {
               mensajeErrorSeleccionar.classList.remove('d-none');
               mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
@@ -225,9 +229,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
+  const inputUnidadesBusqueda = document.getElementById('unidades');
+  const inputPesoNetoBusqueda = document.getElementById('peso_neto');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
-
+  
   if (checkboxCodigo) {
+    // Listener para guardar en localstorage descripción, código y id si se tilda el checkbox Código
     checkboxCodigo.addEventListener('change', () => {
       if (checkboxCodigo.checked) {
         localStorage.setItem('fijar_codigo_mercaderia', 'true');
@@ -261,15 +268,19 @@ document.addEventListener('DOMContentLoaded', function () {
         success: function (response) {
           if (response.success) {
 
-            console.log('Datos de la mercadería seleccionada:', {
+            console.log('Datos de la mercadería seleccionada - código:', {
               id: response.mercaderia_id,
               codigo: response.codigo_mercaderia,
-              descripcion: response.descripcion_mercaderia
+              descripcion: response.descripcion_mercaderia,
+              unidades: response.cantidad_propuesta,
+              peso_neto: response.peso_propuesto
             });
 
             inputMercaderiaIdBusqueda.value = response.mercaderia_id;
             inputDescripcionBusqueda.value = response.descripcion_mercaderia;
             inputCodigoBusqueda.value = response.codigo_mercaderia;
+            inputUnidadesBusqueda.value = response.cantidad_propuesta;
+            inputPesoNetoBusqueda.value = response.peso_propuesto;
 
             mensajeBusqueda.classList.add('d-none');
 
@@ -281,6 +292,8 @@ document.addEventListener('DOMContentLoaded', function () {
               // Guardar también la descripción
               localStorage.setItem('fijar_descripcion_mercaderia', 'true');
               localStorage.setItem('valor_descripcion_mercaderia', response.descripcion_mercaderia);
+              localStorage.setItem('valor_unidades', response.cantidad_propuesta);
+              localStorage.setItem('valor_peso_neto', response.peso_propuesto);
             }
 
 
@@ -299,6 +312,8 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       inputDescripcionBusqueda.value = '';
       inputMercaderiaIdBusqueda.value = '';
+      inputUnidadesBusqueda.value = '';
+      inputPesoNetoBusqueda.value = '';
       mensajeBusqueda.classList.add('d-none');
     }
   }
@@ -315,10 +330,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
   if (btnVaciarMercaderia) {
     btnVaciarMercaderia.addEventListener('click', function () {
-      // 1. Limpiar todo el localStorage
+      // Limpiar todo el localStorage
       localStorage.clear();
 
-      // 2. Resetear el formulario
+      // Resetear el formulario
       document.getElementById('formAgregarMercaderia').reset();
     });
   }

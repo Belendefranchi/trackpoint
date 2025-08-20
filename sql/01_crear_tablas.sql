@@ -191,7 +191,7 @@ CREATE TABLE produccion_general (
     fecha_faena DATE NOT NULL,
     fecha_produccion DATE NOT NULL,
     fecha_recepcion DATE NOT NULL,
-    fecha_remito DATE NOT NULL,
+    fecha_remito DATE NULL,
 
     -- Datos del sistema
     fecha_sistema DATE NOT NULL,

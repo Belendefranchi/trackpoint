@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
 		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
+		$cantidad_propuesta = $_POST['unidades'];
+		$peso_propuesto = $_POST['peso_neto'];
 
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -38,9 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
 				'descripcion_mercaderia' => $descripcion_mercaderia,
+				'cantidad_propuesta' => $cantidad_propuesta,
+				'peso_propuesto' => $peso_propuesto
 			]);
 			exit;
-
 		}
 	}
 
@@ -60,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 				if ($mercaderia) {
 
-					$_SESSION['mercaderia_seleccionada'] = $mercaderia;
-
 					echo json_encode([
 						'success' => true,
 						'mercaderia_id' => $mercaderia['mercaderia_id'],
 						'codigo_mercaderia' => $mercaderia['codigo'],
 						'descripcion_mercaderia' => $mercaderia['descripcion'],
+						'cantidad_propuesta' => $mercaderia['cantidad_propuesta'],
+						'peso_propuesto' => $mercaderia['peso_propuesto'],
 					]);
 					exit;
 				} else {
@@ -277,7 +280,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-	/* 'mercaderiaSeleccionada' => $mercaderiaSeleccionada, */
 	'resumen' => $resumen,
 	'detalle' => $detalle
 ];

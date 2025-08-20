@@ -24,15 +24,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 											<!-- Proveedor y Fecha Recepción -->
 											<div class="mb-3 row">
-												
 												<div class="col-md-6">
 													<div class="row align-items-center">
 														<label class="form-label col-md-4 text-primary">Proveedor</label>
 														<div class="col-md-8 ps-0 d-flex align-items-center">
-															<input type="checkbox" name="proveedor_id_checkbox" id="proveedor_id_checkbox" class="form-check-input me-2" title="Fijar">
+															<input type="checkbox" name="nombre_proveedor_checkbox" id="nombre_proveedor_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
 																<?php $proveedorSeleccionado = $_SESSION['proveedor_seleccionado'] ?? null; ?>
-																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id" value="<?php echo $proveedorSeleccionado['proveedor_id'] ?? ''; ?>" readonly required>
+																<input type="hidden" name="proveedor_id" id="proveedor_id">
+																<input type="text" class="form-control text-primary" name="nombre_proveedor" id="nombre_proveedor" value="<?php echo $proveedorSeleccionado['nombre_proveedor'] ?? ''; ?>">
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalSeleccionarProveedor">
@@ -76,11 +76,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</div>
 
 											<!-- Código y Descripción -->
-											<div class="mb-3 row align-items-center">
-
+											<div class="mb-3 row">
 												<div class="col-md-6">
 													<div class="row align-items-center">
-
 														<label class="form-label col-md-4 text-primary">Código</label>
 														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="codigo_mercaderia_checkbox" id="codigo_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
@@ -106,7 +104,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<input type="checkbox" name="descripcion_mercaderia_checkbox" id="descripcion_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
 																<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
-																<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly required>
+																<input type="hidden" name="mercaderia_id" id="mercaderia_id">
+																<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly>
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalSeleccionarMercaderia">
@@ -116,7 +115,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</div>
 													</div>
 												</div>
-												<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 											</div>
 
 											<!-- Unidades y Peso -->
@@ -124,17 +122,21 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-6">
 													<div class="row align-items-center">
 														<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
-														<div class="col-md-8 ps-0">
-															<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="1">
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="unidades_checkbox" id="unidades_checkbox" class="form-check-input me-2" title="Fijar">
+															<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+															<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="<?php echo $mercaderiaSeleccionada['cantidad_propuesta']; ?>">
 														</div>
 													</div>
 												</div>
 												
 												<div class="col-md-6">
 													<div class="row align-items-center">
-														<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso</label>
-														<div class="col-md-8 ps-0">
-															<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="1.00">
+														<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso Neto</label>
+														<div class="col-md-8 ps-0 d-flex align-items-center">
+															<input type="checkbox" name="peso_neto_checkbox" id="peso_neto_checkbox" class="form-check-input me-2" title="Fijar">
+															<?php $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; ?>
+															<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="<?php echo $mercaderiaSeleccionada['peso_propuesto']; ?>">
 														</div>
 													</div>
 												</div>
@@ -313,20 +315,28 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</tr>
 											</thead>
 											<tbody>
-											<?php foreach ($mercaderias as $mercaderia): ?>
-													<tr class="text-start">
-														<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
-														<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
-														<td class="border text-primary">
+												<?php if (empty($mercaderias)): ?>
+													<tr>
+														<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
+													</tr>
+												<?php else: ?>
+													<?php foreach ($mercaderias as $mercaderia): ?>
+														<tr class="text-start">
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+															<td class="border text-primary">
 															<input type="radio" name="seleccion_mercaderia"
 																class="form-check-input seleccionar-mercaderia"
 																data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
 																data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
-																data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
-														</td>
-													</tr>
-												<?php endforeach; ?>
+																data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
+																data-cantidadm="<?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?>"
+																data-pesom="<?= htmlspecialchars($mercaderia['peso_propuesto']) ?>">
+															</td>
+														</tr>
+													<?php endforeach; ?>
+												<?php endif; ?>
 											</tbody>
 										</table>
 									</div>
@@ -335,6 +345,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 									<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
 									<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
+									<input type="hidden" name="unidades" id="input-cantidad-propuesta">
+									<input type="hidden" name="peso_neto" id="input-peso-propuesto">
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
 									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
@@ -531,7 +543,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 	<script src="/trackpoint/public/assets/js/menu_recepcion/menu.recepcion.js"></script>
 	<script src="/trackpoint/public/assets/js/menu_recepcion/noProductivos.mercaderias.modales.js"></script>
-
 
 </body>
 </html>
