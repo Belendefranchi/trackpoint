@@ -31,8 +31,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<input type="checkbox" name="nombre_proveedor_checkbox" id="nombre_proveedor_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
 																<?php $proveedorSeleccionado = $_SESSION['proveedor_seleccionado'] ?? null; ?>
-																<input type="hidden" name="proveedor_id" id="proveedor_id">
-																<input type="text" class="form-control text-primary" name="nombre_proveedor" id="nombre_proveedor" value="<?php echo $proveedorSeleccionado['nombre_proveedor'] ?? ''; ?>">
+																<!-- <input type="hidden" name="proveedor_id" id="proveedor_id"> -->
+																<input type="text" class="form-control text-primary" name="proveedor_id" id="proveedor_id" value="<?php echo $proveedorSeleccionado['proveedor_id'] ?? 1; ?>">
 																<a href="#" class="btn btn-primary"
 																	data-bs-toggle="modal" 
 																	data-bs-target="#modalSeleccionarProveedor">
