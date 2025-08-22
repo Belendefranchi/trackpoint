@@ -3,6 +3,8 @@ define('VISTA_INTERNA', true);
 
 require_once __DIR__ . '/recepcion.controller.php';
 require_once __DIR__ . '/../models/abm.mercaderias.model.php';
+require_once __DIR__ . '/../../configuracion/models/abm.grupos.model.php';
+require_once __DIR__ . '/../../configuracion/models/abm.subgrupos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Lógica ajax de actualizar, eliminar y crear Operadores
@@ -19,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$codigo = $_POST['codigo'];
 		$descripcion = $_POST['descripcion'];
 		$unidad_medida = $_POST['unidad_medida'];
-		$grupo = $_POST['grupo'] ? $_POST['grupo'] : null;
-		$subgrupo = $_POST['subgrupo'] ? $_POST['subgrupo'] : null;
+		$grupo_codigo = $_POST['grupo_codigo'] ? $_POST['grupo_codigo'] : null;
+		$subgrupo_codigo = $_POST['subgrupo_codigo'] ? $_POST['subgrupo_codigo'] : null;
 		$envase_pri = $_POST['envase_pri'] ? $_POST['envase_pri'] : null;
 		$envase_sec = $_POST['envase_sec'] ? $_POST['envase_sec'] : null;
 		$marca = $_POST['marca'] ? $_POST['marca'] : null;
@@ -44,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		try {
 
-			$result = crearMercaderia($codigo, $descripcion, $unidad_medida, $grupo, $subgrupo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec);
+			$result = crearMercaderia($codigo, $descripcion, $unidad_medida, $grupo_codigo, $subgrupo_codigo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec);
 
 			if ($result) {
 				registrarEvento("Mercaderías Controller: Mercadería creada correctamente => " . $codigo, "INFO");
@@ -122,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	// ####### ELIMINAR #######
-
 	if (isset($_GET['eliminar'])) {
 
 		header('Content-Type: application/json');
@@ -158,10 +159,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $mercaderias = obtenerMercaderias();
+$grupos = obtenerGrupos();
+$subgrupos = obtenerSubgrupos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
-  'mercaderias' => $mercaderias
+  'mercaderias' => $mercaderias,
+	'grupos' => $grupos,
+	'subgrupos' => $subgrupos
 ];
 
 cargarVistaRecepcion('abm.mercaderias.view.php', $datosVista);

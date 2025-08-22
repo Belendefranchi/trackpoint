@@ -48,8 +48,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo_codigo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo_codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
 									<!-- <td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td> -->
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
@@ -102,7 +102,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de creación -->
 					<div class="modal fade m-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
-							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&crear">
+							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/recepcion/ABMs/mercaderias&crear">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearMercaderiaLabel">Nueva Mercadería</h5>
@@ -153,14 +153,33 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 											<div class="tab-pane fade" id="datos-adicionales-crear" role="tabpanel" aria-labelledby="datos-adicionales-crear">
 												<div class="mb-3 row align-items-center pt-2">
+
 													<div class="col-md-6">
 														<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
-														<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
+														<select class="form-select" name="grupo_id" id="crearGrupoMercaderia">
+															<?php if (empty($grupos)): ?>
+																<option value="">No hay grupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($grupos as $grupo): ?>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
+
 													<div class="col-md-6">
 														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-														<input type="text" class="form-control" name="subgrupo" id="crearSubgrupoMercaderia">
+														<select class="form-select" name="subgrupo_id" id="crearSubgrupoMercaderia">
+															<?php if (empty($subgrupos)): ?>
+																<option value="">No hay subgrupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($subgrupos as $subgrupo): ?>
+																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
+
 												</div>
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
@@ -215,7 +234,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de edición -->
 					<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
-							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&editar">
+							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/ABMs/mercaderias&editar">
 								<div class="modal-content m-5">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
@@ -336,7 +355,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Modal de eliminación -->
 					<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&eliminar">
+							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/ABMs/mercaderias&eliminar">
 								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
@@ -376,8 +395,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/abm.mercaderias.modales.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_recepcion/menu.recepcion.js"></script>
+  <script src="/trackpoint/public/assets/js/menu_recepcion/abm.mercaderias.modales.js"></script>
 
 </body>
 </html>
