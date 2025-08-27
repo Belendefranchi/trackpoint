@@ -29,6 +29,7 @@ CREATE TABLE configuracion_abm_operadores (
 	editado_por VARCHAR(20) NULL,
 	activo BIT DEFAULT 1
 );
+GO
 
 CREATE TABLE configuracion_abm_perfiles (
 	perfil_id INT PRIMARY KEY IDENTITY(1,1),
@@ -40,6 +41,7 @@ CREATE TABLE configuracion_abm_perfiles (
 	editado_por VARCHAR(20) NULL,
 	activo BIT DEFAULT 1
 );
+GO
 
 CREATE TABLE configuracion_abm_perfilesPorOperador (
 	operador_id INT,
@@ -48,6 +50,7 @@ CREATE TABLE configuracion_abm_perfilesPorOperador (
 	FOREIGN KEY (operador_id) REFERENCES configuracion_abm_operadores(operador_id) ON DELETE CASCADE,
 	FOREIGN KEY (perfil_id) REFERENCES configuracion_abm_perfiles(perfil_id) ON DELETE CASCADE
 );
+GO
 
 CREATE TABLE configuracion_abm_permisos (
 	permiso_id INT PRIMARY KEY IDENTITY(1,1),
@@ -59,6 +62,7 @@ CREATE TABLE configuracion_abm_permisos (
 	editado_en DATETIME NULL,
 	editado_por VARCHAR(20) NULL
 );
+GO
 
 CREATE TABLE configuracion_abm_permisosPorPerfil (
 	perfil_id INT,
@@ -67,6 +71,7 @@ CREATE TABLE configuracion_abm_permisosPorPerfil (
 	FOREIGN KEY (perfil_id) REFERENCES configuracion_abm_perfiles(perfil_id) ON DELETE CASCADE,
 	FOREIGN KEY (permiso_id) REFERENCES configuracion_abm_permisos(permiso_id) ON DELETE CASCADE
 );
+GO
 
 CREATE TABLE configuracion_abm_mercaderias (
     mercaderia_id INT PRIMARY KEY IDENTITY(1,1),
@@ -115,6 +120,7 @@ CREATE TABLE configuracion_abm_subgrupos (
     editado_por VARCHAR(20) NULL,
     activo BIT DEFAULT 1
 );
+GO
 
 CREATE TABLE configuracion_abm_traducciones (
     traduccion_id INT PRIMARY KEY IDENTITY(1,1),

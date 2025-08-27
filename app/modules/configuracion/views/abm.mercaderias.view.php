@@ -48,8 +48,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo_codigo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo_codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
 									<!-- <td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td> -->
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
@@ -72,8 +72,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
 												data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
 												data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
-												data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
-												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
+												data-grupo="<?= htmlspecialchars($mercaderia['grupo_id']) ?>"
+												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo_id']) ?>"
 												data-cantidadprop="<?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?>"
 												data-pesoprop="<?= htmlspecialchars($mercaderia['peso_propuesto']) ?>"
 												data-pesomin="<?= htmlspecialchars($mercaderia['peso_min']) ?>"
@@ -155,11 +155,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
-														<input type="text" class="form-control" name="grupo" id="crearGrupoMercaderia">
+														<select class="form-select" name="grupo_id" id="crearGrupoMercaderia">
+															<?php if (empty($grupos)): ?>
+																<option value="">No hay grupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($grupos as $grupo): ?>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 													<div class="col-md-6">
 														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-														<input type="text" class="form-control" name="subgrupo" id="crearSubgrupoMercaderia">
+														<select class="form-select" name="subgrupo_id" id="crearSubgrupoMercaderia">
+															<?php if (empty($subgrupos)): ?>
+																<option value="">No hay subgrupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($subgrupos as $subgrupo): ?>
+																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center">
@@ -263,6 +279,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<option value="Unidades">Unidades</option>
 													</select>
 												</div>
+												
 												<div class="mb-3">
 													<label for="editarActivoMercaderia" class="form-label text-primary">Activo</label>
 													<select class="form-select" name="activo" id="editarActivoMercaderia">
@@ -276,11 +293,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="editarGrupoMercaderia" class="form-label text-primary">Grupo</label>
-														<input type="text" class="form-control" name="grupo" id="editarGrupoMercaderia">
+														<select class="form-select" name="grupo_id" id="editarGrupoMercaderia">
+															<?php if (empty($grupos)): ?>
+																<option value="">No hay grupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($grupos as $grupo): ?>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 													<div class="col-md-6">
 														<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-														<input type="text" class="form-control" name="subgrupo" id="editarSubgrupoMercaderia">
+														<select class="form-select" name="subgrupo_id" id="editarSubgrupoMercaderia">
+															<?php if (empty($subgrupos)): ?>
+																<option value="">No hay subgrupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($subgrupos as $subgrupo): ?>
+																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center pt-2">

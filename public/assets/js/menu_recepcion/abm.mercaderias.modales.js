@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
       modalCrearMercaderia.querySelector('#crearPesoMinMercaderia').value = button.getAttribute('data-pesomin');
       modalCrearMercaderia.querySelector('#crearPesoMaxMercaderia').value = button.getAttribute('data-pesomax');
       modalCrearMercaderia.querySelector('#crearEtiquetaSecMercaderia').value = button.getAttribute('data-etiquetasec');
-
     });
   }
 

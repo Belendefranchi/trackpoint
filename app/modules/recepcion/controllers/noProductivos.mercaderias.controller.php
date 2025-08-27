@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
 		// Validar datos obligatorios
-		if (empty($_POST['proveedor_id']) || empty($_POST['fecha_recepcion']) || empty($_POST['mercaderia_id']) || empty($_POST['unidades']) || empty($_POST['peso_neto'])) {
+		if (empty($datos['proveedor_id']) || empty($datos['fecha_recepcion']) || empty($datos['mercaderia_id']) || empty($datos['unidades']) || empty($datos['peso_neto'])) {
 			echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
 			exit;
 		}

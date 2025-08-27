@@ -27,6 +27,20 @@ function obtenerSubgrupos() {
 	}
 }
 
+function obtenerSubgruposPorGrupoId($grupo_id) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("SELECT subgrupo_id, codigo, descripcion FROM configuracion_abm_subgrupos WHERE grupo_id = :grupo_id AND activo = 1");
+		$stmt->bindParam(':grupo_id', $grupo_id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Subgrupos Model: Error al obtener los subgrupos por grupo ID, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function subgrupoExists($codigo) {
 	try {
 		$conn = getConnection();

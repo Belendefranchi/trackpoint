@@ -79,6 +79,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-pesomin="<?= htmlspecialchars($mercaderia['peso_min']) ?>"
 												data-pesomax="<?= htmlspecialchars($mercaderia['peso_max']) ?>"
 												data-envasepri="<?= htmlspecialchars($mercaderia['envase_pri']) ?>"
+												data-envasesec="<?= htmlspecialchars($mercaderia['envase_sec']) ?>"
 												data-marca="<?= htmlspecialchars($mercaderia['marca']) ?>"
 												data-etiquetasec="<?= htmlspecialchars($mercaderia['etiqueta_sec']) ?>"
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
@@ -152,7 +153,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 											<div class="tab-pane fade" id="datos-adicionales-crear" role="tabpanel" aria-labelledby="datos-adicionales-crear">
 												<div class="mb-3 row align-items-center pt-2">
-
 													<div class="col-md-6">
 														<label for="crearGrupoMercaderia" class="form-label text-primary">Grupo</label>
 														<select class="form-select" name="grupo_id" id="crearGrupoMercaderia">
@@ -165,7 +165,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php endif; ?>
 														</select>
 													</div>
-
 													<div class="col-md-6">
 														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
 														<select class="form-select" name="subgrupo_id" id="crearSubgrupoMercaderia">
@@ -178,7 +177,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php endif; ?>
 														</select>
 													</div>
-
 												</div>
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
@@ -281,6 +279,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<option value="Unidades">Unidades</option>
 													</select>
 												</div>
+
 												<div class="mb-3">
 													<label for="editarActivoMercaderia" class="form-label text-primary">Activo</label>
 													<select class="form-select" name="activo" id="editarActivoMercaderia">
