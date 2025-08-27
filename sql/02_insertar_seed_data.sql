@@ -105,9 +105,9 @@ INSERT INTO configuracion_abm_mercaderias (
 	activo
 	)
 VALUES
-	( 'M001', 'Descripción de la mercadería 1', 'Unidad de medida', 1, 1, 'Envase', NULL, 'Marca', 10, 100, 1.00, 2.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 ),
-	( 'M002', 'Descripción de la mercadería 2', 'Unidad de medida', 1, 1, 'Envase', NULL, 'Marca', 20, 200, 2.00, 3.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 ),
-	( 'M003', 'Descripción de la mercadería 3', 'Unidad de medida', 1, 1, 'Envase', NULL, 'Marca', 30, 300, 3.00, 4.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 );
+	( 'M001', 'Descripción de la mercadería 1', 'Kg', 1, 1, 'Envase', NULL, 'Marca', 10, 100, 1.00, 2.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'M002', 'Descripción de la mercadería 2', 'Kg', 1, 1, 'Envase', NULL, 'Marca', 20, 200, 2.00, 3.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'M003', 'Descripción de la mercadería 3', 'Kg', 1, 1, 'Envase', NULL, 'Marca', 30, 300, 3.00, 4.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 );
 
 
 -- Insertar procesos de ejemplo

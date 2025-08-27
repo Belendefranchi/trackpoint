@@ -72,14 +72,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-codigo="<?= htmlspecialchars($mercaderia['codigo']) ?>"
 												data-descripcion="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
 												data-unidad="<?= htmlspecialchars($mercaderia['unidad_medida']) ?>"
-												data-grupo="<?= htmlspecialchars($mercaderia['grupo']) ?>"
-												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo']) ?>"
+												data-grupo="<?= htmlspecialchars($mercaderia['grupo_id']) ?>"
+												data-subgrupo="<?= htmlspecialchars($mercaderia['subgrupo_id']) ?>"
 												data-cantidadprop="<?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?>"
 												data-pesoprop="<?= htmlspecialchars($mercaderia['peso_propuesto']) ?>"
 												data-pesomin="<?= htmlspecialchars($mercaderia['peso_min']) ?>"
 												data-pesomax="<?= htmlspecialchars($mercaderia['peso_max']) ?>"
 												data-envasepri="<?= htmlspecialchars($mercaderia['envase_pri']) ?>"
-												data-envasesec="<?= htmlspecialchars($mercaderia['envase_sec']) ?>"
 												data-marca="<?= htmlspecialchars($mercaderia['marca']) ?>"
 												data-etiquetasec="<?= htmlspecialchars($mercaderia['etiqueta_sec']) ?>"
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
@@ -295,11 +294,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="editarGrupoMercaderia" class="form-label text-primary">Grupo</label>
-														<input type="text" class="form-control" name="grupo" id="editarGrupoMercaderia">
+														<select class="form-select" name="grupo_id" id="editarGrupoMercaderia">
+															<?php if (empty($grupos)): ?>
+																<option value="">No hay grupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($grupos as $grupo): ?>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 													<div class="col-md-6">
 														<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
-														<input type="text" class="form-control" name="subgrupo" id="editarSubgrupoMercaderia">
+														<select class="form-select" name="subgrupo_id" id="editarSubgrupoMercaderia">
+															<?php if (empty($subgrupos)): ?>
+																<option value="">No hay subgrupos disponibles</option>
+															<?php else: ?>
+																<?php foreach ($subgrupos as $subgrupo): ?>
+																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center pt-2">
@@ -395,6 +410,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
+  <script src="/trackpoint/public/assets/js/datatables.js"></script>
   <script src="/trackpoint/public/assets/js/menu_recepcion/menu.recepcion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_recepcion/abm.mercaderias.modales.js"></script>
 

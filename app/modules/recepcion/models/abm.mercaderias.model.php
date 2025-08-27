@@ -5,7 +5,6 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 function obtenerMercaderias() {
 	try {
 		$conn = getConnection();
-		/* $stmt = $conn->query("SELECT * FROM configuracion_abm_mercaderias"); */
 		$stmt = $conn->query("SELECT
 														m.mercaderia_id,
 														m.codigo,
@@ -13,8 +12,10 @@ function obtenerMercaderias() {
 														m.unidad_medida,
 														g.codigo AS grupo_codigo,
 														s.codigo AS subgrupo_codigo,
+														m.grupo_id,
+														m.subgrupo_id,
 														m.envase_pri,
-														/* m.envase_sec, */
+														m.envase_sec,
 														m.marca,
 														m.cantidad_propuesta,
 														m.peso_propuesto,
@@ -122,18 +123,18 @@ function eliminarMercaderia($mercaderia_id) {
 	}
 }
 
-function editarMercaderia($mercaderia_id, $codigo, $descripcion, $unidad_medida, $grupo, $subgrupo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec, $activo) {
+function editarMercaderia($mercaderia_id, $codigo, $descripcion, $unidad_medida, $grupo_id, $subgrupo_id, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec, $activo) {
 	session_start();
 	$editado_por = $_SESSION['username'];
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE configuracion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, unidad_medida = :unidad_medida, grupo = :grupo, subgrupo = :subgrupo, envase_pri = :envase_pri, envase_sec = :envase_sec, marca = :marca, cantidad_propuesta = :cantidad_propuesta, peso_propuesto = :peso_propuesto, peso_min = :peso_min, peso_max = :peso_max, editado_por = :editado_por, activo = :activo, etiqueta_sec = :etiqueta_sec WHERE mercaderia_id = :mercaderia_id");
+		$stmt = $conn->prepare("UPDATE configuracion_abm_mercaderias SET codigo = :codigo, descripcion = :descripcion, unidad_medida = :unidad_medida, grupo_id = :grupo_id, subgrupo_id = :subgrupo_id, envase_pri = :envase_pri, envase_sec = :envase_sec, marca = :marca, cantidad_propuesta = :cantidad_propuesta, peso_propuesto = :peso_propuesto, peso_min = :peso_min, peso_max = :peso_max, editado_por = :editado_por, activo = :activo, etiqueta_sec = :etiqueta_sec WHERE mercaderia_id = :mercaderia_id");
 		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->bindParam(':descripcion', $descripcion);
 		$stmt->bindParam(':unidad_medida', $unidad_medida);
-		$stmt->bindParam(':grupo', $grupo);
-		$stmt->bindParam(':subgrupo', $subgrupo);
+		$stmt->bindParam(':grupo_id', $grupo_id);
+		$stmt->bindParam(':subgrupo_id', $subgrupo_id);
 		$stmt->bindParam(':envase_pri', $envase_pri);
 		$stmt->bindParam(':envase_sec', $envase_sec);
 		$stmt->bindParam(':marca', $marca);

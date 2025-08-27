@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$codigo = $_POST['codigo'];
 		$descripcion = $_POST['descripcion'];
 		$unidad_medida = $_POST['unidad_medida'];
-		$grupo = $_POST['grupo'] ? $_POST['grupo'] : null;
-		$subgrupo = $_POST['subgrupo'] ? $_POST['subgrupo'] : null;
+		$grupo_id = $_POST['grupo_id'] ? $_POST['grupo_id'] : null;
+		$subgrupo_id = $_POST['subgrupo_id'] ? $_POST['subgrupo_id'] : null;
 		$envase_pri = $_POST['envase_pri'] ? $_POST['envase_pri'] : null;
 		$envase_sec = $_POST['envase_sec'] ? $_POST['envase_sec'] : null;
 		$marca = $_POST['marca'] ? $_POST['marca'] : null;
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		try {
 			// Llamar a la función que actualiza los datos
-			$result = editarMercaderia($mercaderia_id, $codigo, $descripcion, $unidad_medida, $grupo, $subgrupo, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec, $activo);
+			$result = editarMercaderia($mercaderia_id, $codigo, $descripcion, $unidad_medida, $grupo_id, $subgrupo_id, $envase_pri, $envase_sec, $marca, $cantidad_propuesta, $peso_propuesto, $peso_min, $peso_max, $etiqueta_sec, $activo);
 
 			if ($result) {
 				// Respuesta de éxito
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		try {
 			// Llamar a la función que actualiza los datos
-			$result = eliminarMercaderia($mercaderia_id, $codigo);
+			$result = eliminarMercaderia($mercaderia_id);
 
 			if ($result) {
 				// Respuesta de éxito

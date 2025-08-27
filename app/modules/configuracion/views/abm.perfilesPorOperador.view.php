@@ -155,6 +155,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
   <!-- Script DataTables y modales -->
+  <script src="/trackpoint/public/assets/js/datatables.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/abm.perfilesPorOperador.modales.js"></script>
 
