@@ -34,8 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'etiqueta_sec' => $_POST['etiqueta_sec'] ?? null,
 		];
 
-		$subgruposPorGrupoId = obtenerSubgruposPorGrupoId($datos['grupo_id']);
-
     // Validación básica
     if (empty($datos['codigo']) || empty($datos['descripcion']) || empty($datos['unidad_medida'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
@@ -160,12 +158,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		exit;
 	}
+
+	// ####### CARGAR SUBGRUPOS #######
+	if (isset($_GET['cargar_subgrupos'])) {
+
+		header('Content-Type: application/json');
+
+		$grupo_id = $_POST['grupo_id'];
+
+		try {
+			$subgrupos = obtenerSubgruposPorGrupoId($grupo_id);
+			echo json_encode(['success' => true, 'data' => $subgrupos]);
+			exit;
+		} catch (Exception $e) {
+			registrarEvento("Mercaderías Controller: Error al cargar los subgrupos => " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
 }
 
 // Obtener datos para pasar a la vista
 $mercaderias = obtenerMercaderias();
 $grupos = obtenerGruposActivos();
-$subgrupos = obtenerSubgruposActivos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
