@@ -14,6 +14,18 @@ function obtenerOperadores() {
 	}
 }
 
+function obtenerOperadoresActivos() {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->query("SELECT * FROM configuracion_abm_operadores WHERE activo = 1 AND username <> 'superadmin'");
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Operadores Model: Error al obtener los operadores activos, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function userExists($username, $email) {
 	try {
 		$conn = getConnection();

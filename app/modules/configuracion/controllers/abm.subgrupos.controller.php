@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $subgrupos = obtenerSubgrupos();
-$grupos = obtenerGrupos();
+$grupos = obtenerGruposActivos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [

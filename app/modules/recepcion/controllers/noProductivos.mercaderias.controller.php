@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 
 // Obtener mercaderías
-$mercaderias = obtenerMercaderias();
+$mercaderias = obtenerMercaderiasActivas();
 
 /* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */
 

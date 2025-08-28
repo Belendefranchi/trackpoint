@@ -50,10 +50,46 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 	}
 }
 
+function obtenerMercaderiasActivas() {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->query("SELECT
+														m.mercaderia_id,
+														m.codigo,
+														m.descripcion,
+														m.unidad_medida,
+														g.codigo AS grupo_codigo,
+														s.codigo AS subgrupo_codigo,
+														m.grupo_id,
+														m.subgrupo_id,
+														m.envase_pri,
+														m.envase_sec,
+														m.marca,
+														m.cantidad_propuesta,
+														m.peso_propuesto,
+														m.peso_min,
+														m.peso_max,
+														m.etiqueta_sec,
+														m.activo
+													FROM configuracion_abm_mercaderias m
+													LEFT JOIN configuracion_abm_subgrupos s
+														ON m.subgrupo_id = s.subgrupo_id
+													LEFT JOIN configuracion_abm_grupos g
+														ON m.grupo_id = g.grupo_id
+													WHERE m.activo = 1");
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Mercaderías Model: Error al obtener las mercaderías activas, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function obtenerMercaderiaPorCodigo($codigo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto FROM configuracion_abm_mercaderias WHERE codigo = :codigo");
+		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);

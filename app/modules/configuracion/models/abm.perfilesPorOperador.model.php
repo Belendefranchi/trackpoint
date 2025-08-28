@@ -44,7 +44,6 @@ function asignarPerfilAOperador($operador_id, $perfil_id) {
 	}
 }
 
-
 function desasignarPerfilAOperador($operador_id, $perfil_id) {
     $conn = getConnection();
     $sql = "DELETE FROM configuracion_abm_perfilesPorOperador WHERE operador_id = ? AND perfil_id = ?";

@@ -14,6 +14,18 @@ function obtenerGrupos() {
 	}
 }
 
+function obtenerGruposActivos() {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->query("SELECT grupo_id, codigo, descripcion FROM configuracion_abm_grupos WHERE activo = 1");
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Grupos Model: Error al obtener los grupos activos, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function grupoExists($codigo) {
 	try {
 		$conn = getConnection();

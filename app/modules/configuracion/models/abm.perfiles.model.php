@@ -14,6 +14,18 @@ function obtenerPerfiles() {
 	}
 }
 
+function obtenerPerfilesActivos() {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->query("SELECT * FROM configuracion_abm_perfiles WHERE activo = 1 AND nombre <> 'Permisos'");
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Perfiles Model: Error al obtener los perfiles activos, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function perfilExists($nombre) {
 	try {
 		$conn = getConnection();

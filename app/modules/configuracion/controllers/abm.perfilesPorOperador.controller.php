@@ -15,8 +15,8 @@ require_once __DIR__ . '/../models/abm.perfilesPorOperador.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener operadores y perfiles
-$operadores = obtenerOperadores();
-$perfiles = obtenerPerfiles();
+$operadores = obtenerOperadoresActivos();
+$perfiles = obtenerPerfilesActivos();
 
 $operadorSeleccionado = $_SESSION['operador_seleccionado'] ?? null;
 $perfilesAsignados = [];
