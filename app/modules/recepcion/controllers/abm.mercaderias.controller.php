@@ -164,7 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $mercaderias = obtenerMercaderias();
-$grupos = obtenerGrupos();
+$grupos = obtenerGruposActivos();
+$subgrupos = obtenerSubgruposActivos();
 
 // Llamar a la función común que carga todo en el layout
 $datosVista = [
