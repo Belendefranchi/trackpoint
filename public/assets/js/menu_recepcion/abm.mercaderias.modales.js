@@ -80,6 +80,55 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Vincular grupo y subgrupo
+  var grupoSelect = document.getElementById("crearGrupoMercaderia");
+  var subgrupoSelect = document.getElementById("crearSubgrupoMercaderia");
+  if (grupoSelect) {
+    grupoSelect.addEventListener("change", function () {
+      var grupoId = grupoSelect.value;
+
+      if (grupoId) {
+
+        $.ajax({
+          url: '/trackpoint/public/index.php?route=/recepcion/ABMs/mercaderias&cargar_subgrupos',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            grupo_id: grupoId
+          },
+          success: function (response) {
+            console.log('Respuesta del servidor:', response);
+            let $subgrupo = $(subgrupoSelect);
+            $subgrupo.empty(); // Limpio el select
+
+            if (response.success) {
+              // Cargo la opción por defecto
+              $subgrupo.append('<option value=""></option>');
+
+              // Recorro y agrego los subgrupos
+              $.each(response.data, function (i, subgrupo) {
+                $subgrupo.append(
+                  $('<option>', {
+                    value: subgrupo.subgrupo_id,
+                    text: subgrupo.codigo
+                  })
+                );
+              });
+            } else {
+              $subgrupo.append('<option value="">No hay subgrupos disponiblesssss</option>');
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('Error al obtener subgrupos:', error);
+          }
+        });
+      } else {
+        // Si no hay grupo seleccionado, limpio el select de subgrupos
+        $('#subgrupo_id').empty().append('<option value="">Seleccione un grupo primero</option>');
+      }
+    });
+  }
+
 
 /* ##################### MODAL DE EDICIÓN ##################### */
 

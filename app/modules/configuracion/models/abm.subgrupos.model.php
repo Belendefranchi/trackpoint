@@ -27,7 +27,7 @@ function obtenerSubgrupos() {
 	}
 }
 
-function obtenerSubgruposPorGrupoId($grupo_id) {
+function obtenerSubgruposActivosPorGrupoId($grupo_id) {
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("SELECT subgrupo_id, codigo, descripcion FROM configuracion_abm_subgrupos WHERE grupo_id = :grupo_id AND activo = 1");

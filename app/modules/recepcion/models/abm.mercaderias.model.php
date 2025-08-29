@@ -39,7 +39,7 @@ function obtenerMercaderias() {
 function obtenerMercaderiaPorId($mercaderia_id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id");
+		$stmt = $conn->prepare("SELECT * FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id AND activo = 1");
 		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);

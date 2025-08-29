@@ -168,13 +168,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="col-md-6">
 														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
 														<select class="form-select" name="subgrupo_id" id="crearSubgrupoMercaderia">
-															<?php if (empty($subgrupos)): ?>
-																<option value="">No hay subgrupos disponibles</option>
-															<?php else: ?>
-																<?php foreach ($subgrupos as $subgrupo): ?>
-																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
-																<?php endforeach; ?>
-															<?php endif; ?>
+															<option value=""></option>
 														</select>
 													</div>
 												</div>
@@ -306,13 +300,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="col-md-6">
 														<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
 														<select class="form-select" name="subgrupo_id" id="editarSubgrupoMercaderia">
-															<?php if (empty($subgrupos)): ?>
-																<option value="">No hay subgrupos disponibles</option>
-															<?php else: ?>
-																<?php foreach ($subgrupos as $subgrupo): ?>
-																	<option value="<?= htmlspecialchars($subgrupo['subgrupo_id']) ?>"><?= htmlspecialchars($subgrupo['codigo']) ?></option>
-																<?php endforeach; ?>
-															<?php endif; ?>
+															<option value=""></option>
 														</select>
 													</div>
 												</div>

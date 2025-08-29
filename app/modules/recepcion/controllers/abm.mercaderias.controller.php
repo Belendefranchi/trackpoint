@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$grupo_id = $_POST['grupo_id'];
 
 		try {
-			$subgrupos = obtenerSubgruposPorGrupoId($grupo_id);
+			$subgrupos = obtenerSubgruposActivosPorGrupoId($grupo_id);
 			echo json_encode(['success' => true, 'data' => $subgrupos]);
 			exit;
 		} catch (Exception $e) {
