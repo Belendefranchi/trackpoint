@@ -51,17 +51,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo_codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo_codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
-									<!-- <td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td> -->
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['cantidad_propuesta']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_propuesto']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
-<!-- 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['creado_por']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['editado_por']) ?></td> -->
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex no-wrap">
@@ -159,6 +154,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php if (empty($grupos)): ?>
 																<option value="">No hay grupos disponibles</option>
 															<?php else: ?>
+																<option value=""></option>
 																<?php foreach ($grupos as $grupo): ?>
 																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
 																<?php endforeach; ?>
@@ -291,6 +287,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php if (empty($grupos)): ?>
 																<option value="">No hay grupos disponibles</option>
 															<?php else: ?>
+																<option value=""></option>
 																<?php foreach ($grupos as $grupo): ?>
 																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
 																<?php endforeach; ?>

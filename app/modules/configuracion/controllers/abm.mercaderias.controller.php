@@ -79,16 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'codigo' => $_POST['codigo'],
 			'descripcion' => $_POST['descripcion'],
 			'unidad_medida' => $_POST['unidad_medida'],
-			'grupo_id' => $_POST['grupo_id'] ? $_POST['grupo_id'] : null,
-			'subgrupo_id' => $_POST['subgrupo_id'] ? $_POST['subgrupo_id'] : null,
-			'envase_pri' => $_POST['envase_pri'] ? $_POST['envase_pri'] : null,
-			'envase_sec' => $_POST['envase_sec'] ? $_POST['envase_sec'] : null,
-			'marca' => $_POST['marca'] ? $_POST['marca'] : null,
+			'grupo_id' => $_POST['grupo_id'] ?? null,
+			'subgrupo_id' => $_POST['subgrupo_id'] ?? null,
+			'envase_pri' => $_POST['envase_pri'] ?? null,
+			'envase_sec' => $_POST['envase_sec'] ?? null,
+			'marca' => $_POST['marca'] ?? null,
 			'cantidad_propuesta' => floatval($_POST['cantidad_propuesta']),
 			'peso_propuesto' => floatval($_POST['peso_propuesto']),
 			'peso_min' => floatval($_POST['peso_min']),
 			'peso_max' => floatval($_POST['peso_max']),
-			'etiqueta_sec' => $_POST['etiqueta_sec'] ? $_POST['etiqueta_sec'] : null,
+			'etiqueta_sec' => $_POST['etiqueta_sec'] ?? null,
 			'activo' => $_POST['activo'],
 		];
 
@@ -186,7 +186,7 @@ $grupos = obtenerGruposActivos();
 // Llamar a la función común que carga todo en el layou
 $datosVista = [
   'mercaderias' => $mercaderias,
-	'grupos' => $grupos,
+	'grupos' => $grupos
 ];
 
 cargarVistaConfiguracion('abm.mercaderias.view.php', $datosVista);
