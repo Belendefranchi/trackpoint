@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = agregarMercaderia($datos);
 
 			if ($result){
-				unset($_SESSION['mercaderia_seleccionada']);
+				/* unset($_SESSION['mercaderia_seleccionada']); */
 				registrarEvento("Mercaderías Controller: Mercadería agregada correctamente => " . $datos['mercaderia_id'], "INFO");
 				echo json_encode(['success' => true]);
 				exit;

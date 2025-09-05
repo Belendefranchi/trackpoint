@@ -346,11 +346,12 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
+      
+      const mercaderiaId = localStorage.getItem('valor_mercaderia_id') || document.getElementById('mercaderia_id').value;
       const proveedorId = document.getElementById('proveedor_id').value;
       const fechaRecepcion = document.getElementById('fecha_recepcion').value;
       const nroRemito = document.getElementById('nro_remito').value;
       const fechaRemito = document.getElementById('fecha_remito').value;
-      const mercaderiaId = localStorage.getItem('valor_mercaderia_id');
       const unidades = document.getElementById('unidades').value;
       const pesoNeto = document.getElementById('peso_neto').value;
       /* const operadorId = document.getElementById('operador_id').value; */
