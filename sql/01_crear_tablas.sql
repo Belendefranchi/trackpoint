@@ -1,3 +1,7 @@
+/* ############################################################################################## */
+/* --------------------------------------- TABLAS SISTEMA --------------------------------------- */
+/* ############################################################################################## */
+
 CREATE TABLE sistema_logs_tiposHabilitados (
     tipo VARCHAR(20) PRIMARY KEY, -- 'INFO', 'ERROR', etc.
     habilitado BIT NOT NULL       -- 1 = habilitado, 0 = deshabilitado
@@ -83,12 +87,17 @@ CREATE TABLE configuracion_abm_mercaderias (
     envase_pri VARCHAR(50) NULL,
     envase_sec VARCHAR(50) NULL,
     marca VARCHAR(50) NULL,
-    cantidad_propuesta INT NULL,
+    cantidad_propuesta DECIMAL(10,2) NULL,
     peso_propuesto DECIMAL(10,2) NULL,
     peso_min DECIMAL(10,2) NULL,
     peso_max DECIMAL(10,2) NULL,
     etiqueta_sec VARCHAR(100) NULL,
     codigo_externo VARCHAR(50) NULL,
+    precio_costo DECIMAL(10,2) NULL,
+    precio_venta DECIMAL(10,2) NULL,
+    iva_tasa DECIMAL(5,2) NULL,
+    descuento_porcentaje DECIMAL(5,2) NULL,
+    venta_fraccionada BIT DEFAULT 0,
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
     editado_en DATETIME NULL,
@@ -142,6 +151,56 @@ CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(user
 
 
 /* ############################################################################################## */
+/* -------------------------------------- TABLAS RECEPCIÓN -------------------------------------- */
+/* ############################################################################################## */
+
+/* ------------------------------------------- ABMS --------------------------------------------- */
+
+/* --------------------------------------- PRODUCTIVAS ------------------------------------------ */
+
+CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
+    recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
+    fecha_recepcion DATE NOT NULL,
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
+);
+GO
+
+CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
+    item_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID único de cada fila temporal
+    recepcion_id INT NOT NULL,                       -- ID único por grupo de mercaderías (puede ser el GUID de toda la recepción)
+    
+    -- Datos del formulario
+    proveedor_id VARCHAR(50) NOT NULL,
+    fecha_recepcion DATE NOT NULL,
+    nro_remito VARCHAR(50) NULL,
+    fecha_remito DATE NULL,
+    mercaderia_id INT NOT NULL,
+    unidades INT NOT NULL,
+    peso_neto DECIMAL(10,2) NOT NULL,
+
+    -- Datos de auditoría
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NOT NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
+
+    -- Claves foráneas
+    FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
+    FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
+);
+
+
+/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
+
+
+
+
+
+
+/* ############################################################################################## */
 /* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
 /* ############################################################################################## */
 
@@ -170,15 +229,7 @@ CREATE TABLE produccion_pallets (
     editado_por VARCHAR(20) NULL,
     activo BIT DEFAULT 1
 );
-
-CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
-    recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
-    fecha_recepcion DATE NOT NULL,
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NULL,
-    operador_id INT NOT NULL,
-    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
-);
+GO
 
 CREATE TABLE produccion_general (
     codbar_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -263,39 +314,3 @@ CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
-
-
-/* ############################################################################################## */
-/* -------------------------------------- TABLAS RECEPCIÓN -------------------------------------- */
-/* ############################################################################################## */
-
-/* ------------------------------------------- ABMS --------------------------------------------- */
-
-/* --------------------------------------- PRODUCTIVAS ------------------------------------------ */
-
-CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
-    item_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID único de cada fila temporal
-    recepcion_id INT NOT NULL,                       -- ID único por grupo de mercaderías (puede ser el GUID de toda la recepción)
-    
-    -- Datos del formulario
-    proveedor_id VARCHAR(50) NOT NULL,
-    fecha_recepcion DATE NOT NULL,
-    nro_remito VARCHAR(50) NULL,
-    fecha_remito DATE NULL,
-    mercaderia_id INT NOT NULL,
-    unidades INT NOT NULL,
-    peso_neto DECIMAL(10,2) NOT NULL,
-
-    -- Datos de auditoría
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NOT NULL,
-    operador_id INT NOT NULL,
-    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
-
-    -- Claves foráneas
-    FOREIGN KEY (recepcion_id) REFERENCES recepcion_noProductivos_mercaderias_resumen(recepcion_id),
-    FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
-);
-
-
-/* ---------------------------------- ÍNDICES Y OPTIMIZACIONES ---------------------------------- */
