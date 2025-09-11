@@ -83,7 +83,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="codigo_mercaderia_checkbox" id="codigo_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
-																<?php/*  $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */ ?>
 																<div class="d-flex flex-column w-100">
 																	<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
 																	<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
@@ -103,7 +102,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="descripcion_mercaderia_checkbox" id="descripcion_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 															<div class="input-group">
-																<?php /* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null;  */?>
 																<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 																<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly>
 																<a href="#" class="btn btn-primary"
@@ -124,7 +122,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
 														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="unidades_checkbox" id="unidades_checkbox" class="form-check-input me-2" title="Fijar">
-															<?php /* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */ ?>
 															<input type="number" step="1" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="unidades" id="unidades" value="<?php echo $mercaderiaSeleccionada['cantidad_propuesta']; ?>">
 														</div>
 													</div>
@@ -135,7 +132,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<label for="peso_neto" class="col-md-4 col-form-label text-primary ps-5">Peso Neto</label>
 														<div class="col-md-8 ps-0 d-flex align-items-center">
 															<input type="checkbox" name="peso_neto_checkbox" id="peso_neto_checkbox" class="form-check-input me-2" title="Fijar">
-															<?php /* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */ ?>
 															<input type="number" step="0.01" min="0" class="form-control form-control-lg text-end fw-bold text-primary" name="peso_neto" id="peso_neto" value="<?php echo $mercaderiaSeleccionada['peso_propuesto']; ?>">
 														</div>
 													</div>
