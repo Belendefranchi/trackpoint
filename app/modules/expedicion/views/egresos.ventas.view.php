@@ -8,104 +8,112 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
-					<table>
-						<tr>
-							<td>
-								<div class="d-flex justify-content-between align-items-center pe-2">
-									<h2 class="ms-2 text-primary">Ventas</h2>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
 
-								<!-- ############################################################################# -->
-								<div class="container-fluid mt-4">
+					<div class="d-flex justify-content-between align-items-center pe-2">
+						<h2 class="ms-2 text-primary">Ventas</h2>
+					</div>
 
-									<form action="guardar_etiqueta.php" method="POST" id="form-produccion">
 
-											<!-- Parte superior: información general -->
-											<div class="card mb-3">
-												<div class="card-body">
+					<!-- ############################################################################# -->
+					<div class="container-fluid mt-4">
 
-													<div class="mb-3 row align-items-center"><!-- ######################### -->
-														<div class="col-md-6">
-															<div class="row align-items-center">
-																<label for="fecha_produccion" class="col-md-4 form-label text-primary">Fecha</label>
-																<div class="col-md-8 ps-0">
-																	<input type="date" class="form-control text-primary" id="fecha_produccion" name="fecha_produccion" required>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="row align-items-center">
-																<label for="turno" class="col-md-4 form-label text-primary">Turno</label>
-																<div class="col-md-8 ps-0">
-																	<input type="text" class="form-control text-primary" id="turno" name="turno" required>
-																</div>
-															</div>
-														</div>
-													</div><!-- ######################### -->
+						<form action="" method="POST" id="form-produccion">
 
-													<div class="mb-3 row align-items-center">
+								<!-- Parte superior: información general -->
+								<div class="card mb-3">
+									<div class="card-body">
 
-														<div class="col-md-6">
-															<div class="row align-items-center">
-																<label for="codigo_mercaderia" class="col-md-4 form-label text-primary">Producto</label>
-																<div class="col-md-8 ps-0 d-flex align-items-center">
-																	<div class="input-group">
-																		<div class="d-flex flex-column w-100">
-																			<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
-																			<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
-																				<i class="bi bi-exclamation-triangle-fill me-2"></i>
-																				<span class="mensaje-texto"></span>
-																				<!-- Mensajes de error que se cargarán de forma dinámica -->
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<div class="col-md-6">
-															<div class="row align-items-center">
-																<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
-																<div class="col-md-8 ps-0">
-																	<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="unidades" id="unidades" value="1" required>
-																</div>
-															</div>
-														</div>
+										<div class="mb-3 row align-items-center"><!-- ######################### -->
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label for="fecha_produccion" class="col-md-4 form-label text-primary">Fecha</label>
+													<div class="col-md-8 ps-0">
+														<input type="date" class="form-control text-primary" id="fecha_produccion" name="fecha_produccion">
 													</div>
-
 												</div>
 											</div>
-
-
-											<!-- Parte inferior: listado en tiempo real -->
-											<div class="card">
-												<div class="card-header bg-light text-primary">
-													<strong>Ticket nro. 1</strong>
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label for="turno" class="col-md-4 form-label text-primary">Turno</label>
+													<div class="col-md-8 ps-0">
+														<input type="text" class="form-control text-primary" id="turno" name="turno">
+													</div>
 												</div>
-												<div class="card-body p-2">
-													<div id="listado-etiquetas" style="max-height: 300px; overflow-y: auto;">
-														<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
-														<p class="text-muted text-center">Aún no se seleccionaron productos</p>
+											</div>
+										</div><!-- ######################### -->
+
+										<div class="mb-3 row align-items-center">
+
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label class="col-md-4 form-label text-primary">Producto</label>
+													<div class="col-md-8 ps-0 d-flex align-items-center">
+														<input type="hidden" name="mercaderia_id" id="mercaderia_id">
+														<div class="input-group">
+															<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
+															<a href="#" class="btn btn-primary"
+																data-bs-toggle="modal" 
+																data-bs-target="#modalSeleccionarMercaderia">
+																<i class="bi bi-search"></i>
+															</a>
+														</div>
+														<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
+															<i class="bi bi-exclamation-triangle-fill me-2"></i>
+															<span class="mensaje-texto"></span>
+															<!-- Mensajes de error que se cargarán de forma dinámica -->
+														</div>
 													</div>
 												</div>
 											</div>
 
-									</form>
+
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
+													<div class="col-md-8 ps-0">
+														<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="unidades" id="unidades" value="1">
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="card-footer bg-light d-flex justify-content-end">
+										<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none m-2 p-2" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica -->
+										</div>
+										<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
+											<i class="bi-plus-circle me-2"></i>Agregar
+										</button>
+									</div>
 								</div>
-								<!-- ######################################################################## -->
-							</td>
-						</tr>
-					</table>
+
+
+								<!-- Parte inferior: listado en tiempo real -->
+								<div class="card">
+									<div class="card-header bg-light text-primary">
+										<strong>Ticket nro. 1</strong>
+									</div>
+									<div class="card-body p-2">
+										<div id="listado-etiquetas" style="max-height: 300px; overflow-y: auto;">
+											<!-- Aquí se inyectarán las etiquetas emitidas vía JS -->
+											<p class="text-muted text-center">Aún no se seleccionaron productos</p>
+										</div>
+									</div>
+								</div>
+
+						</form>
+					</div>
+					<!-- ######################################################################## -->
+
 				</div>
 
 				<!-- Modal de selección de mercadería -->
 				<div class="modal fade m-5" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
 					<div class="modal-dialog d-flex">
-						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/produccion/salida/etqSecSinSeleccion&seleccionarMercaderia">
+						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/ventas&seleccionarMercaderia">
 							<div class="modal-content m-5">
 								<div class="modal-header table-primary text-white">
 									<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
@@ -170,8 +178,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
-	<script src="/trackpoint/public/assets/js/menu_produccion/menu.produccion.js"></script>
-	<script src="/trackpoint/public/assets/js/produccion/salida.etqSecSinSeleccion.modales.js"></script>
+	<script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
+	<script src="/trackpoint/public/assets/js/expedicion/egresos.ventas.modales.js"></script>
 
 </body>
 </html>
