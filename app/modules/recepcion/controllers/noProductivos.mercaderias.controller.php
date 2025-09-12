@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-		// ####### SELECCIONAR X CODIGO #######
+	// ####### SELECCIONAR X CODIGO #######
 	if (isset($_GET['seleccionarCodigoMercaderia'])) {
 
 		header('Content-Type: application/json');
