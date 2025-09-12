@@ -179,7 +179,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
 	<script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
-	<script src="/trackpoint/public/assets/js/expedicion/egresos.ventas.modales.js"></script>
+	<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.ventas.modales.js"></script>
 
 </body>
 </html>
