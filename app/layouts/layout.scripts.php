@@ -2,7 +2,7 @@
 <script src="/trackpoint/public/assets/js/plugins/jquery.js"></script>
 
 <!-- Bootstrap JS -->
-<script src="/trackpoint/public/assets/js/plugins/bootstrap.min.js"></script>
+<script src="/trackpoint/public/assets/js/plugins/bootstrap.bundle.min.js"></script>
 
 <!-- Núcleo de DataTables -->
 <script src="/trackpoint/public/assets/js/plugins/jquery.dataTables.min.js"></script>
