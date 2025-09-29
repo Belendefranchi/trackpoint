@@ -46,7 +46,7 @@ $activeItems = [
                 <li>
                   <a class="dropdown-item" href="#">
                     <div class="card" style="width: 18rem;">
-                      <a href="#" class="text-dark text-decoration-none">
+                      <a href="/trackpoint/public/recepcion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body">
                           <h6 class="card-title text-primary">ABM Mercaderías</h6>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
@@ -59,7 +59,7 @@ $activeItems = [
                 <li>
                   <a class="dropdown-item" href="#">
                     <div class="card" style="width: 18rem;">
-                      <a href="#" class="text-dark text-decoration-none">
+                      <a href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia" class="text-dark text-decoration-none">
                         <div class="card-body">
                           <h6 class="card-title text-primary">Ingreso de mercaderías</h6>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
