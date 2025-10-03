@@ -49,7 +49,7 @@ $activeItems = [
                       <a href="/trackpoint/public/recepcion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body">
                           <h6 class="card-title text-primary">ABM Mercaderías</h6>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                          <p class="card-text">Alta, baja, modificación y consulta de mercaderías.</p>
                         </div>
                       </a>
                     </div>
@@ -62,7 +62,7 @@ $activeItems = [
                       <a href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia" class="text-dark text-decoration-none">
                         <div class="card-body">
                           <h6 class="card-title text-primary">Ingreso de mercaderías</h6>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                          <p class="card-text">Registro de mercaderías recepcionadas al sistema.</p>
                         </div>
                       </a>
                     </div>
@@ -140,7 +140,7 @@ $activeItems = [
         </div>
       </aside> -->
       <!-- Contenido principal -->
-      <main class="col-md-9 col-lg-10 p-4">
+      <main class="p-4">
         <?php if (isset($content) && file_exists($content)) {
           require_once $content;
         } else { ?>
