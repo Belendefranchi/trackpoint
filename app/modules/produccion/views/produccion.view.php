@@ -55,45 +55,7 @@ $activeItems = [
 
 ?>
 
-      <div class="col-6 d-flex justify-content-start align-items-center">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/recepcion">RECEPCIÓN</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white active" style="background-color: #3A4280;" href="/trackpoint/public/produccion" aria-current="page">PRODUCCIÓN</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/depositos">DEPÓSITOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/expedicion">EXPEDICIÓN</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/reportes">REPORTES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white table-hover" href="/trackpoint/public/configuracion">CONFIGURACIÓN</a>
-          </li>
-          <?php if (isset($_SESSION['username']) && $_SESSION['username'] === superadmin): ?>
-            <li class="nav-item">
-              <a class="nav-link text-white table-hover" href="/trackpoint/public/sistema">SISTEMA</a>
-            </li>
-          <?php endif; ?>
-        </ul>
-      </div>
 
-      <div class="col-4 d-flex align-items-center justify-content-end">
-        <div class="search-bar d-flex align-items-center me-3">
-          <i class="bd-search"></i>
-          <input type="text" class="form-control search-input" id="search" placeholder="Buscar..." aria-label="Search" />
-        </div>
-        <a class="nav-link text-white p-2"><?php echo $_SESSION['username']?></a>
-        <p class="nav-link text-white p-2 m-0"> | </p>
-        <a class="nav-link text-white p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
-      </div>
-    </div>
-  </nav>
 
   <!-- Layout con Aside + Main -->
   <div class="container-fluid">

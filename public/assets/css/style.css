@@ -260,4 +260,12 @@ button.buttons-colvis::after {
 }
 
 
+.item-menu-hover:hover {
+  background-color: #c8e2f7 !important; /* Cambia el color de fondo al pasar el cursor */
+  color: white !important; /* Cambia el color del texto al pasar el cursor */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  transform: scale(1.02); /* Efecto de zoom */
+}
+
+
 
