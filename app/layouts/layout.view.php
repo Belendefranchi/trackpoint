@@ -49,7 +49,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/recepcion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Mercaderías</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
                         </div>
                       </a>
@@ -62,7 +62,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Ingreso de mercaderías</h6>
+                          <h6 class="card-title text-primary fw-bold">Ingreso de mercaderías</h6>
                           <p class="card-text text-primary fst-italic">Registro de mercaderías recepcionadas al sistema.</p>
                         </div>
                       </a>
@@ -82,7 +82,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Mercaderías</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
                         </div>
                       </a>
@@ -95,7 +95,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ABMs/procesos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Procesos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Procesos</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de procesos.</p>
                         </div>
                       </a>
@@ -108,7 +108,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/recetas/recetas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Recetas</h6>
+                          <h6 class="card-title text-primary fw-bold">Recetas</h6>
                           <p class="card-text text-primary fst-italic">Creación y consulta de recetas para producción.</p>
                         </div>
                       </a>
@@ -121,7 +121,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/planificacion/planConSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Planificación de producción</h6>
+                          <h6 class="card-title text-primary fw-bold">Planificación de producción</h6>
                           <p class="card-text text-primary fst-italic">Creación y consulta de planes de producción.</p>
                         </div>
                       </a>
@@ -134,7 +134,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ingreso/planSinSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Ingreso a producción</h6>
+                          <h6 class="card-title text-primary fw-bold">Ingreso a producción</h6>
                           <p class="card-text text-primary fst-italic">Ingreso de productos semielaborados a producción.</p>
                         </div>
                       </a>
@@ -146,7 +146,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqPrim" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Etiquetas Primarias</h6>
+                          <h6 class="card-title text-primary fw-bold">Etiquetas Primarias</h6>
                           <p class="card-text text-primary fst-italic">Emisión de etiquetas primarias.</p>
                         </div>
                       </a>
@@ -159,7 +159,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqSec" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Etiquetas Secundarias</h6>
+                          <h6 class="card-title text-primary fw-bold">Etiquetas Secundarias</h6>
                           <p class="card-text text-primary fst-italic">Emisión de etiquetas secundarias.</p>
                         </div>
                       </a>
@@ -185,7 +185,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/destinos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Destinos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Destinos</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de destinos.</p>
                         </div>
                       </a>
@@ -198,7 +198,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/transportes" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Transportes</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Transportes</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de transportes.</p>
                         </div>
                       </a>
@@ -211,7 +211,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/vehiculos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Vehículos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Vehículos</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de vehículos.</p>
                         </div>
                       </a>
@@ -228,7 +228,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Ventas</h6>
+                          <h6 class="card-title text-primary fw-bold">Ventas</h6>
                           <p class="card-text text-primary fst-italic">Registro de ventas diarias.</p>
                         </div>
                       </a>
@@ -241,7 +241,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/cierre" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Cierre de caja</h6>
+                          <h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
                           <p class="card-text text-primary fst-italic">Cierre de caja diario.</p>
                         </div>
                       </a>
@@ -254,7 +254,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/despachos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Despachos</h6>
+                          <h6 class="card-title text-primary fw-bold">Despachos</h6>
                           <p class="card-text text-primary fst-italic">Emisión, eliminación y consulta de despachos.</p>
                         </div>
                       </a>
@@ -267,7 +267,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/remitos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Remitos</h6>
+                          <h6 class="card-title text-primary fw-bold">Remitos</h6>
                           <p class="card-text text-primary fst-italic">Emisión, eliminación y consulta de remitos.</p>
                         </div>
                       </a>
@@ -287,7 +287,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/operadores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Operadores</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Operadores</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de operadores.</p>
                         </div>
                       </a>
@@ -300,7 +300,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/perfiles" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Perfiles</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Perfiles</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de perfiles.</p>
                         </div>
                       </a>
@@ -313,7 +313,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Perfiles Por Operador</h6>
+                          <h6 class="card-title text-primary fw-bold">Perfiles Por Operador</h6>
                           <p class="card-text text-primary fst-italic">Asignación de perfiles por operador.</p>
                         </div>
                       </a>
@@ -326,7 +326,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Permisos por Perfil</h6>
+                          <h6 class="card-title text-primary fw-bold">Permisos por Perfil</h6>
                           <p class="card-text text-primary fst-italic">Asignación de permisos por perfil.</p>
                         </div>
                       </a>
@@ -343,7 +343,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Mercaderías</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
                         </div>
                       </a>
@@ -356,7 +356,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/grupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Grupos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Grupos</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de grupos.</p>
                         </div>
                       </a>
@@ -369,7 +369,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/subgrupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Subgrupos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Subgrupos</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de subgrupos.</p>
                         </div>
                       </a>
@@ -382,7 +382,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/traducciones" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Traducciones</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Traducciones</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de traducciones.</p>
                         </div>
                       </a>
@@ -398,7 +398,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/personas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Personas</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Personas</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de personas.</p>
                         </div>
                       </a>
@@ -411,7 +411,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/numeradores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Numeradores</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Numeradores</h6>
                           <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de numeradores.</p>
                         </div>
                       </a>
@@ -424,7 +424,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/configPC/dispositivos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">Configuración PCs</h6>
+                          <h6 class="card-title text-primary fw-bold">Configuración PCs</h6>
                           <p class="card-text text-primary fst-italic">Asignación de impresoras y balanzas.</p>
                         </div>
                       </a>
@@ -447,7 +447,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/estados" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Estados</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Estados</h6>
                           <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de estados.</p>
                         </div>
                       </a>
@@ -460,7 +460,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/logs" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Logs</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Logs</h6>
                           <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de logs.</p>
                         </div>
                       </a>
@@ -473,7 +473,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/permisos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold text-decoration-underline">ABM Permisos</h6>
+                          <h6 class="card-title text-primary fw-bold">ABM Permisos</h6>
                           <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de permisos.</p>
                         </div>
                       </a>
