@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['mercaderia_seleccionada']);
 }
 
-require_once __DIR__ . '/expedicion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/egresos.ventas.model.php';
 require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
@@ -122,4 +122,4 @@ $datosVista = [
 ];
 
 // Llamar a la función común que carga todo en el layout
-cargarVistaExpedicion('egresos.ventas.view.php', $datosVista);
+cargarVista('/expedicion/views/egresos.ventas.view.php', $datosVista);

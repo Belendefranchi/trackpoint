@@ -12,9 +12,9 @@ $routes = [
 
 
 	/* ########################################### ----------RECEPCIÓN----------- ########################################### */
-	'/recepcion' => 'app/modules/recepcion/controllers/recepcion.controller.php',
+	'/recepcion' => 'app/modules/module.controller.php',
 
-	'/recepcion/ABMs/mercaderias' => 'app/modules/recepcion/controllers/abm.mercaderias.controller.php',
+	'/recepcion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
 
 /* 	'/recepcion/productivos/ingreso_hacienda' => 'app/modules/recepcion/controllers/productivos.hacienda.controller.php',
 	'/recepcion/productivos/ingreso_materiaPrima' => 'app/modules/recepcion/controllers/productivos.materiaPrima.controller.php',
@@ -24,6 +24,8 @@ $routes = [
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
 	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+	'/produccion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
+
 
 	'/produccion/ABMs/procesos' => 'app/modules/produccion/controllers/abm.procesos.controller.php',
 	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',

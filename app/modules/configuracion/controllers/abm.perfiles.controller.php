@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### CREAR #######
 	if (isset($_GET['crear'])) {
 
-    header('Content-Type: application/json');
+    	header('Content-Type: application/json');
 
-    $nombre = $_POST['nombre'];
-    $descripcion = $_POST['descripcion'];
+    	$nombre = $_POST['nombre'];
+    	$descripcion = $_POST['descripcion'];
 
-    // Validación básica
-    if (empty($nombre) || empty($descripcion)) {
+    	// Validación básica
+    	if (empty($nombre) || empty($descripcion)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -53,19 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    header('Content-Type: application/json');
+    	header('Content-Type: application/json');
 
 		$perfil_id = $_POST['perfil_id'];
 		$nombre = $_POST['nombre'];
 		$descripcion = $_POST['descripcion'];
 		$activo = $_POST['activo'];
 
-    // Validación básica
-    if (empty($nombre) || empty($descripcion)) {
+    	// Validación básica
+    	if (empty($nombre) || empty($descripcion)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -98,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		exit;
 	}
-
 
 	// ####### ELIMINAR #######
 	if (isset($_GET['eliminar'])) {
@@ -141,4 +139,4 @@ $datosVista = [
   'perfiles' => $perfiles
 ];
 
-cargarVistaConfiguracion('abm.perfiles.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.perfiles.view.php', $datosVista);

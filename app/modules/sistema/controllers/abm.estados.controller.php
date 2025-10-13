@@ -3,7 +3,7 @@ define('VISTA_INTERNA', true);
 
 session_start();
 
-require_once __DIR__ . '/sistema.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.estados.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -40,4 +40,4 @@ $datosVista = [
   'estados' => $estados
 ];
 
-cargarVistaSistema('abm.estados.view.php', $datosVista);
+cargarVista('/sistema/views/abm.estados.view.php', $datosVista);

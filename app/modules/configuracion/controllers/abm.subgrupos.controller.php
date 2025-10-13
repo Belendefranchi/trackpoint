@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.subgrupos.model.php';
 require_once __DIR__ . '/../models/abm.grupos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$descripcion = $_POST['descripcion'];
 		$grupo_id = $_POST['grupo_id'];
 
-    // Validación básica
-    if (empty($codigo) || empty($descripcion) || empty($grupo_id)) {
+    	// Validación básica
+    	if (empty($codigo) || empty($descripcion) || empty($grupo_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -136,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 }
 
-
 // Obtener datos para pasar a la vista
 $subgrupos = obtenerSubgrupos();
 $grupos = obtenerGruposActivos();
@@ -147,6 +146,6 @@ $datosVista = [
   'grupos' => $grupos
 ];
 
-cargarVistaConfiguracion('abm.subgrupos.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.subgrupos.view.php', $datosVista);
 
 

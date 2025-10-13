@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$password = $_POST['password'];
 		$rol = $_POST['rol'];
 
-    // Validación básica
-    if (empty($username) || empty($nombre_completo) || empty($password) || empty($email) || empty($rol)) {
+    	// Validación básica
+    	if (empty($username) || empty($nombre_completo) || empty($password) || empty($email) || empty($rol)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    header('Content-Type: application/json');
+    	header('Content-Type: application/json');
 
 		$operador_id = $_POST['operador_id'];
 		$username = $_POST['username'];
@@ -120,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	// ####### ELIMINAR #######
-
 	if (isset($_GET['eliminar'])) {
 
 		header('Content-Type: application/json');
@@ -162,6 +161,6 @@ $datosVista = [
   'operadores' => $operadores
 ];
 
-cargarVistaConfiguracion('abm.operadores.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.operadores.view.php', $datosVista);
 
 

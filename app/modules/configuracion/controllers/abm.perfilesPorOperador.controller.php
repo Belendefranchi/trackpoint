@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['operador_seleccionado']);
 }
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.operadores.model.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
 require_once __DIR__ . '/../models/abm.perfilesPorOperador.model.php';
@@ -112,4 +112,4 @@ $datosVista = [
   'perfilesAsignados' => $perfilesAsignados
 ];
 
-cargarVistaConfiguracion('abm.perfilesPorOperador.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.perfilesPorOperador.view.php', $datosVista);

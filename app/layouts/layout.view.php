@@ -36,7 +36,6 @@
           TrackPoint
         </a>
       </div>
-
       <div class="col-6 d-flex justify-content-start align-items-center">
         <ul class="nav nav-underline">
           <!-- RECEPCIÓN -->
@@ -56,7 +55,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -89,7 +87,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -102,7 +99,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -115,20 +111,18 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/planificacion/planConSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Planificación de producción</h6>
+                          <h6 class="card-title text-primary fw-bold">Planificación de la producción</h6>
                           <p class="card-text text-primary fst-italic">Creación y consulta de planes de producción.</p>
                         </div>
                       </a>
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -141,7 +135,7 @@
                     </div>
                   </a>
                 </li>
-                                <li>
+                <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqPrim" class="text-dark text-decoration-none">
@@ -153,8 +147,7 @@
                     </div>
                   </a>
                 </li>
-
-                                <li>
+                <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqSec" class="text-dark text-decoration-none">
@@ -192,7 +185,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -205,7 +197,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -218,11 +209,8 @@
                     </div>
                   </a>
                 </li>
-
               </div>
-
               <div class="d-flex justify-content-center gap-3 p-2">
-                
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -235,7 +223,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -248,7 +235,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -261,7 +247,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -294,7 +279,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -307,7 +291,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -320,7 +303,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -333,11 +315,8 @@
                     </div>
                   </a>
                 </li>
-
               </div>
-
               <div class="d-flex justify-content-center gap-3 p-2">
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -350,7 +329,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -363,7 +341,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -376,7 +353,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -390,9 +366,7 @@
                   </a>
                 </li>
               </div>
-
               <div class="d-flex justify-content-center gap-3 p-2">
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -405,7 +379,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -418,7 +391,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -431,9 +403,7 @@
                     </div>
                   </a>
                 </li>
-
               </div>
-
             </ul>
           </li>
           <!-- SISTEMA -->
@@ -454,7 +424,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
@@ -467,7 +436,6 @@
                     </div>
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">

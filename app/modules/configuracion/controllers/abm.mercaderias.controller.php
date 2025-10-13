@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../models/abm.grupos.model.php';
 require_once __DIR__ . '/../models/abm.subgrupos.model.php';
@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'etiqueta_sec' => $_POST['etiqueta_sec'] ?? null,
 		];
 
-    // Validación básica
-    if (empty($datos['codigo']) || empty($datos['descripcion']) || empty($datos['unidad_medida'])) {
+    	// Validación básica
+    	if (empty($datos['codigo']) || empty($datos['descripcion']) || empty($datos['unidad_medida'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    header('Content-Type: application/json');
+    	header('Content-Type: application/json');
 
 		$datos = [
 			'mercaderia_id' => $_POST['mercaderia_id'],
@@ -189,4 +189,4 @@ $datosVista = [
 	'grupos' => $grupos
 ];
 
-cargarVistaConfiguracion('abm.mercaderias.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.mercaderias.view.php', $datosVista);

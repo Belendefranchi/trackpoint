@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['perfil_seleccionado']);
 }
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.perfiles.model.php';
 require_once __DIR__ . '/../models/abm.permisosPorPerfil.model.php';
 require_once __DIR__ . '/../../sistema/models/abm.permisos.model.php';
@@ -108,4 +108,4 @@ $datosVista = [
   'permisosAsignados' => $permisosAsignados
 ];
 
-cargarVistaConfiguracion('abm.permisosPorPerfil.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.permisosPorPerfil.view.php', $datosVista);

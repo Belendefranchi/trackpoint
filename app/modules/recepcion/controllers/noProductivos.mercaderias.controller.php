@@ -4,9 +4,9 @@ define('VISTA_INTERNA', true);
 // Iniciar sesión siempre al comienzo
 session_start();
 
-require_once __DIR__ . '/recepcion.controller.php';
-require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/noProductivos.mercaderias.model.php';
+require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 
@@ -88,16 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 		
-    $datos = [
+    	$datos = [
 			'proveedor_id' => $_POST['proveedor_id'],
-      'fecha_recepcion'  => $_POST['fecha_recepcion'],
+      		'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'],
 			'fecha_remito' => $_POST['fecha_remito'] ?? null,
 			'mercaderia_id' => $_POST['mercaderia_id'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
 			'operador_id' => $_SESSION['operador_id'],
-    ];
+    	];
 
 		// Validar datos obligatorios
 		if (empty($datos['proveedor_id']) || empty($datos['fecha_recepcion']) || empty($datos['mercaderia_id']) || empty($datos['unidades']) || empty($datos['peso_neto'])) {
@@ -134,12 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$datos = [
 			'item_id' => $_POST['item_id'],
 			'proveedor_id' => $_POST['proveedor_id'],
-      'fecha_recepcion'  => $_POST['fecha_recepcion'],
+      		'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'] ?? '',
 			'fecha_remito' => $_POST['fecha_remito'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
-    ];
+    	];
 
 		if (empty($datos['item_id'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del ítem']);
@@ -211,13 +211,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
-    if (empty($resumen)) {
+    	if (empty($resumen)) {
 			echo json_encode([
 					'success' => false,
 					'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    }
+    	}
 		
 		try {
 			$result = guardarRecepcion($recepcion_id);
@@ -248,13 +248,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
-    if (empty($resumen)) {
+    	if (empty($resumen)) {
 			echo json_encode([
 					'success' => false,
 					'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    }
+    	}
 		
 		try {
 			$result = cancelarRecepcion($recepcion_id);
@@ -285,4 +285,4 @@ $datosVista = [
 ];
 	
 // Llamar a la función común que carga todo en el layout
-cargarVistaRecepcion('noProductivos.mercaderias.view.php', $datosVista);
+cargarVista('/recepcion/views/noProductivos.mercaderias.view.php', $datosVista);

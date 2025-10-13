@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/sistema.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.permisos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
@@ -100,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-
 	// ####### ELIMINAR #######
 	if (isset($_GET['eliminar'])) {
 
@@ -142,4 +140,4 @@ $datosVista = [
 	'permisos' => $permisos
 ];
 
-cargarVistaSistema('abm.permisos.view.php', $datosVista);
+cargarVista('/sistema/views/abm.permisos.view.php', $datosVista);

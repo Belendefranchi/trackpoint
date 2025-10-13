@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['mercaderia_seleccionada']);
 }
 
-require_once __DIR__ . '/produccion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.procesos.model.php';
 require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../models/salida.etqSecSinSeleccion.model.php';
@@ -84,4 +84,4 @@ $datosVista = [
 ];
 
 // Llamar a la función común que carga todo en el layout
-cargarVistaProduccion('salida.etqSecSinSeleccion.view.php', $datosVista);
+cargarVista('/produccion/views/salida.etqSecSinSeleccion.view.php', $datosVista);

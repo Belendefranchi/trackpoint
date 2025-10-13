@@ -1,7 +1,7 @@
 <?php
 define('VISTA_INTERNA', true);
 
-require_once __DIR__ . '/configuracion.controller.php';
+require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/abm.grupos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$codigo = $_POST['codigo'];
 		$descripcion = $_POST['descripcion'];
 
-    // Validación básica
-    if (empty($codigo) || empty($descripcion)) {
+    	// Validación básica
+    	if (empty($codigo) || empty($descripcion)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    header('Content-Type: application/json');
+    	header('Content-Type: application/json');
 
 		$grupo_id = $_POST['grupo_id'];
 		$codigo = $_POST['codigo'];
@@ -141,6 +141,6 @@ $datosVista = [
   'grupos' => $grupos
 ];
 
-cargarVistaConfiguracion('abm.grupos.view.php', $datosVista);
+cargarVista('/configuracion/views/abm.grupos.view.php', $datosVista);
 
 
