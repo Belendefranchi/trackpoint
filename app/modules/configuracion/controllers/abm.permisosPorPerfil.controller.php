@@ -15,7 +15,7 @@ require_once __DIR__ . '/../../sistema/models/abm.permisos.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener operadores y perfiles
-$perfiles = obtenerPerfiles();
+$perfiles = obtenerPerfilesActivos();
 $permisos = obtenerPermisos();
 
 $perfilSeleccionado = $_SESSION['perfil_seleccionado'] ?? null;

@@ -45,7 +45,7 @@
               <div class="d-flex gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/recepcion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
@@ -57,7 +57,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Ingreso de mercaderías</h6>
@@ -77,7 +77,7 @@
               <div class="d-flex gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
@@ -89,7 +89,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ABMs/procesos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Procesos</h6>
@@ -101,7 +101,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/recetas/recetas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Recetas</h6>
@@ -113,7 +113,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/planificacion/planConSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Planificación de la producción</h6>
@@ -123,9 +123,11 @@
                     </div>
                   </a>
                 </li>
+              </div>
+              <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/ingreso/planSinSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Ingreso a producción</h6>
@@ -137,7 +139,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqPrim" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Etiquetas Primarias</h6>
@@ -149,7 +151,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/produccion/salida/etqSec" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Etiquetas Secundarias</h6>
@@ -175,7 +177,7 @@
               <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/destinos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Destinos</h6>
@@ -187,7 +189,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/transportes" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Transportes</h6>
@@ -199,7 +201,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/vehiculos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Vehículos</h6>
@@ -213,7 +215,7 @@
               <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Ventas</h6>
@@ -225,7 +227,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/cierre" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
@@ -237,7 +239,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/despachos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Despachos</h6>
@@ -249,7 +251,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/remitos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Remitos</h6>
@@ -269,7 +271,7 @@
               <div class="d-flex gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/operadores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Operadores</h6>
@@ -281,7 +283,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/perfiles" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Perfiles</h6>
@@ -293,7 +295,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Perfiles Por Operador</h6>
@@ -305,7 +307,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Permisos por Perfil</h6>
@@ -319,7 +321,7 @@
               <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
@@ -331,7 +333,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/grupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Grupos</h6>
@@ -343,7 +345,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/subgrupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Subgrupos</h6>
@@ -355,7 +357,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/traducciones" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Traducciones</h6>
@@ -369,7 +371,7 @@
               <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/personas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Personas</h6>
@@ -381,7 +383,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/ABMs/numeradores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Numeradores</h6>
@@ -393,7 +395,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/configuracion/configPC/dispositivos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Configuración PCs</h6>
@@ -414,7 +416,7 @@
               <div class="d-flex gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/estados" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Estados</h6>
@@ -426,7 +428,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/logs" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Logs</h6>
@@ -438,7 +440,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; background-color: #f8f9fa">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/sistema/ABMs/permisos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Permisos</h6>

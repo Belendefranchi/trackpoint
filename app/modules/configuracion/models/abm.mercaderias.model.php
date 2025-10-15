@@ -6,28 +6,28 @@ function obtenerMercaderias() {
 	try {
 		$conn = getConnection();
 		$stmt = $conn->query("SELECT
-														m.mercaderia_id,
-														m.codigo,
-														m.descripcion,
-														m.unidad_medida,
-														g.codigo AS grupo_codigo,
-														s.codigo AS subgrupo_codigo,
-														m.grupo_id,
-														m.subgrupo_id,
-														m.envase_pri,
-														m.envase_sec,
-														m.marca,
-														m.cantidad_propuesta,
-														m.peso_propuesto,
-														m.peso_min,
-														m.peso_max,
-														m.etiqueta_sec,
-														m.activo
-													FROM configuracion_abm_mercaderias m
-													LEFT JOIN configuracion_abm_subgrupos s
-														ON m.subgrupo_id = s.subgrupo_id
-													LEFT JOIN configuracion_abm_grupos g
-														ON m.grupo_id = g.grupo_id");
+								m.mercaderia_id,
+								m.codigo,
+								m.descripcion,
+								m.unidad_medida,
+								g.codigo AS grupo_codigo,
+								s.codigo AS subgrupo_codigo,
+								m.grupo_id,
+								m.subgrupo_id,
+								m.envase_pri,
+								m.envase_sec,
+								m.marca,
+								m.cantidad_propuesta,
+								m.peso_propuesto,
+								m.peso_min,
+								m.peso_max,
+								m.etiqueta_sec,
+								m.activo
+							FROM configuracion_abm_mercaderias m
+							LEFT JOIN configuracion_abm_subgrupos s
+								ON m.subgrupo_id = s.subgrupo_id
+							LEFT JOIN configuracion_abm_grupos g
+								ON m.grupo_id = g.grupo_id");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
 		// Manejo de errores

@@ -40,14 +40,8 @@ $routes = [
 
 	'/expedicion/egresos/ventas' => 'app/modules/expedicion/controllers/egresos.ventas.controller.php',
 	'/expedicion/egresos/cierre' => 'app/modules/expedicion/controllers/egresos.cierre.controller.php',
-
-	'/expedicion/despachos/nuevo_despacho' => 'app/modules/expedicion/controllers/despachos.nuevo_despacho.controller.php',
-	'/expedicion/despachos/reimpresion_despachos' => 'app/modules/expedicion/controllers/despachos.reimpresion.controller.php',
-	'/expedicion/despachos/eliminacion_despachos' => 'app/modules/expedicion/controllers/despachos.eliminacion.controller.php',
-
-	'/expedicion/remitos/nuevo_remito' => 'app/modules/expedicion/controllers/remitos.nuevo_remito.controller.php',
-	'/expedicion/remitos/reimpresion_remitos' => 'app/modules/expedicion/controllers/remitos.reimpresion.controller.php',
-	'/expedicion/remitos/eliminacion_remitos' => 'app/modules/expedicion/controllers/remitos.eliminacion.controller.php',
+	'/expedicion/egresos/despachos' => 'app/modules/expedicion/controllers/egresos.despachos.controller.php',
+	'/expedicion/egresos/remitos' => 'app/modules/expedicion/controllers/egresos.remitos.controller.php',
 	
 	
 	/* ########################################### ---------CONFIGURACIÓN--------- ########################################### */

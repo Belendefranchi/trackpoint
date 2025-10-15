@@ -2,10 +2,9 @@
 require_once __DIR__ . '/../../core/middleware/auth.middleware.php';
 require_once __DIR__ . '/../../core/middleware/permisos.middleware.php';
 require_once __DIR__ . '/../../core/config/constants.php';
-require_once __DIR__ . '/../layouts/layout.view.php';
 
 verificarPermiso();
-echo __DIR__ . $rutaVistaRelativa;
+require_once __DIR__ . '/../layouts/layout.view.php';
 
 ?>
 
