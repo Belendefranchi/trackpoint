@@ -125,7 +125,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<label for="crearRolOperador" class="form-label text-primary">Rol</label>
 											<select class="form-select" name="rol" id="crearRolOperador">
-												<option value="administrador">Administrador</option>
+												<option value="admin">Administrador</option>
 												<option value="operador">Operador</option>
 											</select>
 										</div>
@@ -178,7 +178,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<label for="editarRolOperador" class="form-label text-primary">Rol</label>
 											<select class="form-select" name="rol" id="editarRolOperador">
-												<option value="administrador">Administrador</option>
+												<option value="admin">Administrador</option>
 												<option value="operador">Operador</option>
 											</select>
 										</div>

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} elseif (strlen($password) < 6) {
 			echo json_encode(['success' => false, 'message' => "Error: La contraseña debe tener al menos 6 caracteres"]);
 			exit;
-		} elseif (!in_array($rol, ['administrador', 'operador'])) {
+		} elseif (!in_array($rol, ['admin', 'operador'])) {
 			echo json_encode(['success' => false, 'message' => "Error: Rol no válido"]);
 			exit;
 		}
