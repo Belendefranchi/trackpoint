@@ -4,13 +4,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 ?>
 
 <script>
-  const subtitulo = 'Ventas';
+	const subtitulo = 'Ventas';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 
 					<div class="d-flex justify-content-between align-items-center pe-2">
-						<h2 class="ms-2 text-primary">Ventas</h2>
+						<h2 class="ms-2 text-primary">Ventas diarias</h2>
 					</div>
 
 
@@ -43,35 +43,45 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div><!-- ######################### -->
 
 										<div class="mb-3 row align-items-center">
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label class="form-label col-md-4 text-primary">Cliente</label>
+													<div class="col-md-8 ps-0 d-flex align-items-center">
+														<div class="input-group">
+															<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
+															<input type="hidden" name="cliente_id" id="cliente_id">
+															<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? null; ?>">
+															<a href="#" class="btn btn-primary"
+																data-bs-toggle="modal" 
+																data-bs-target="#modalSeleccionarCliente">
+																<i class="bi bi-search"></i>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
 
 											<div class="col-md-6">
 												<div class="row align-items-center">
-													<label class="col-md-4 form-label text-primary">Producto</label>
+													<label for="cantidad" class="col-md-4 col-form-label text-primary">Cantidad</label>
+													<div class="col-md-8 ps-0">
+														<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="cantidad" id="cantidad" value="1">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="row align-items-center">
+													<label class="form-label col-md-4 text-primary ps-5"></label>
 													<div class="col-md-8 ps-0 d-flex align-items-center">
-														<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 														<div class="input-group">
-															<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia" value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
+															<input type="hidden" name="mercaderia_id" id="mercaderia_id">
+															<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly>
 															<a href="#" class="btn btn-primary"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalSeleccionarMercaderia">
 																<i class="bi bi-search"></i>
 															</a>
 														</div>
-														<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
-															<i class="bi bi-exclamation-triangle-fill me-2"></i>
-															<span class="mensaje-texto"></span>
-															<!-- Mensajes de error que se cargarán de forma dinámica -->
-														</div>
-													</div>
-												</div>
-											</div>
-
-
-											<div class="col-md-6">
-												<div class="row align-items-center">
-													<label for="unidades" class="col-md-4 col-form-label text-primary">Unidades</label>
-													<div class="col-md-8 ps-0">
-														<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="unidades" id="unidades" value="1">
 													</div>
 												</div>
 											</div>

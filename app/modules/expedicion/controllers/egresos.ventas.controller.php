@@ -14,9 +14,9 @@ require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener procesos y mercaderías
-$mercaderias = obtenerMercaderias();
+$mercaderias = obtenerMercaderiasActivas();
 
-$mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null;
+/* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['seleccionarMercaderia'])) {
 		
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
-		$codigo = $_POST['codigo-mercaderia'] ?? '';
-		$descripcion = $_POST['descripcion-mercaderia'] ?? '';
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
+		$codbar_mercaderia = $_POST['codbar_mercaderia'] ?? '';
 		
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'success' => true,
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
+				'codbar_mercaderia' => $codbar_mercaderia
 			]);
 			exit;
 		}

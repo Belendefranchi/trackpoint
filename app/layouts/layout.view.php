@@ -152,7 +152,7 @@
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/produccion/salida/etqSec" class="text-dark text-decoration-none">
+                      <a href="/trackpoint/public/produccion/salida/etqSecSinSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Etiquetas Secundarias</h6>
                           <p class="card-text text-primary fst-italic">Emisión de etiquetas secundarias.</p>
@@ -218,7 +218,7 @@
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Ventas</h6>
+                          <h6 class="card-title text-primary fw-bold">Ventas diarias</h6>
                           <p class="card-text text-primary fst-italic">Registro de ventas diarias.</p>
                         </div>
                       </a>

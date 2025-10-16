@@ -12,27 +12,23 @@ $routes = [
 
 
 	/* ########################################### ----------RECEPCIÓN----------- ########################################### */
-	'/recepcion' => 'app/modules/module.controller.php',
 
 	'/recepcion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
 
 /* 	'/recepcion/productivos/ingreso_hacienda' => 'app/modules/recepcion/controllers/productivos.hacienda.controller.php',
 	'/recepcion/productivos/ingreso_materiaPrima' => 'app/modules/recepcion/controllers/productivos.materiaPrima.controller.php',
 	'/recepcion/productivos/ingreso_insumos' => 'app/modules/recepcion/controllers/productivos.insumos.controller.php', */
+	
 	'/recepcion/noProductivos/ingreso_mercaderia' => 'app/modules/recepcion/controllers/noProductivos.mercaderias.controller.php',
 
-
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
-	'/produccion' => 'app/modules/produccion/controllers/produccion.controller.php',
+	
 	'/produccion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
-
-
 	'/produccion/ABMs/procesos' => 'app/modules/produccion/controllers/abm.procesos.controller.php',
+
 	'/produccion/salida/etqSecSinSeleccion' => 'app/modules/produccion/controllers/salida.etqSecSinSeleccion.controller.php',
 	
-	
 	/* ########################################### ----------EXPEDICIÓN----------- ########################################### */
-	'/expedicion' => 'app/modules/expedicion/controllers/expedicion.controller.php',
 
 	'/expedicion/ABMs/destinos' => 'app/modules/expedicion/controllers/abm.destinos.controller.php',
 	'/expedicion/ABMs/transportes' => 'app/modules/expedicion/controllers/abm.transportes.controller.php',
@@ -43,9 +39,7 @@ $routes = [
 	'/expedicion/egresos/despachos' => 'app/modules/expedicion/controllers/egresos.despachos.controller.php',
 	'/expedicion/egresos/remitos' => 'app/modules/expedicion/controllers/egresos.remitos.controller.php',
 	
-	
 	/* ########################################### ---------CONFIGURACIÓN--------- ########################################### */
-	'/configuracion' => 'app/modules/configuracion/controllers/configuracion.controller.php',
 	
 	'/configuracion/ABMs/operadores' => 'app/modules/configuracion/controllers/abm.operadores.controller.php',
 	'/configuracion/ABMs/perfiles' => 'app/modules/configuracion/controllers/abm.perfiles.controller.php',
@@ -56,12 +50,8 @@ $routes = [
 	'/configuracion/ABMs/subgrupos' => 'app/modules/configuracion/controllers/abm.subgrupos.controller.php',
 	'/configuracion/ABMs/traducciones' => 'app/modules/configuracion/controllers/abm.traducciones.controller.php',
 
-
-	
-	
 	/* ########################################### ---------SISTEMA--------- ########################################### */
 	
-	'/sistema' => 'app/modules/sistema/controllers/sistema.controller.php',
 	'/sistema/ABMs/permisos' => 'app/modules/sistema/controllers/abm.permisos.controller.php',
 	'/sistema/ABMs/logs' => 'app/modules/sistema/controllers/abm.logs.controller.php',
 	'/sistema/ABMs/estados' => 'app/modules/sistema/controllers/abm.estados.controller.php',

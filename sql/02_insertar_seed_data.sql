@@ -49,34 +49,30 @@ INSERT INTO configuracion_abm_permisos
 	( nombre, descripcion, pantalla, creado_en, creado_por, editado_en, editado_por )
 VALUES
 	--/* CONFIGURACION */
-	( 'Configuración', 'Permiso para acceder al menú Configuración', '/configuracion', GETDATE(), 'admin', NULL, NULL ), /* 1 */
-	( 'ABM Permisos', 'Permiso para acceder a la pantalla de Permisos', '/configuracion/ABMs/permisos', GETDATE(), 'admin', NULL, NULL ), /* 2 */
-	( 'ABM Operadores', 'Permiso para acceder a la pantalla de Operadores', '/configuracion/ABMs/operadores', GETDATE(), 'admin', NULL, NULL ), /* 3 */
-	( 'ABM Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ), /* 4 */
-	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ), /* 5 */
-	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ), /* 6 */
+	( 'ABM Permisos', 'Permiso para acceder a la pantalla de Permisos', '/configuracion/ABMs/permisos', GETDATE(), 'admin', NULL, NULL ), /* 1 */
+	( 'ABM Operadores', 'Permiso para acceder a la pantalla de Operadores', '/configuracion/ABMs/operadores', GETDATE(), 'admin', NULL, NULL ), /* 2 */
+	( 'ABM Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ), /* 3 */
+	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ), /* 4 */
+	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ), /* 5 */
 
 	--/* PRODUCCION */
-	( 'Producción', 'Permiso para acceder al menú Producción', '/produccion', GETDATE(), 'admin', NULL, NULL ), /* 7 */
- 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/produccion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 8 */
-	( 'ABM Procesos', 'Permiso para acceder al menú Procesos', '/produccion/ABMs/procesos', GETDATE(), 'admin', NULL, NULL ), /* 9 */
-	( 'Etiquetas Secundarias Sin Seleccion de Stock', 'Permiso para acceder a la pantalla de Etiquetas Secundarias Sin Seleccion de Stock', '/produccion/salida/etqSecSinSeleccion', GETDATE(), 'admin', NULL, NULL ), /* 10 */
-	
+ 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/produccion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 6 */
+	( 'ABM Procesos', 'Permiso para acceder al menú Procesos', '/produccion/ABMs/procesos', GETDATE(), 'admin', NULL, NULL ), /* 7 */
+	( 'Etiquetas Secundarias Sin Seleccion de Stock', 'Permiso para acceder a la pantalla de Etiquetas Secundarias Sin Seleccion de Stock', '/produccion/salida/etqSecSinSeleccion', GETDATE(), 'admin', NULL, NULL ), /* 9 */
+
 	--/* RECEPCION */
-	( 'Recepción', 'Permiso para acceder al menú Recepción', '/recepcion', GETDATE(), 'admin', NULL, NULL ), /* 11 */
- 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/recepcion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 12 */
-	( 'Mercaderías no Productivas', 'Permiso para acceder a la pantalla de Mercaderías no Productivas', '/recepcion/noProductivos/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 13 */
+ 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/recepcion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 10 */
+	( 'Mercaderías no Productivas', 'Permiso para acceder a la pantalla de Mercaderías no Productivas', '/recepcion/noProductivos/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 11 */
 
 	--/* EXPEDICIÓN */
-	( 'Expedición', 'Permiso para acceder al menú Expedición', '/expedicion', GETDATE(), 'admin', NULL, NULL ), /* 14 */
-	( 'ABM Destinos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/destinos', GETDATE(), 'admin', NULL, NULL ), /* 15 */
-	( 'ABM Transportes', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/transportes', GETDATE(), 'admin', NULL, NULL ), /* 16 */
-	( 'ABM Vehiculos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/vehiculos', GETDATE(), 'admin', NULL, NULL ), /* 17 */
+	( 'ABM Destinos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/destinos', GETDATE(), 'admin', NULL, NULL ), /* 12 */
+	( 'ABM Transportes', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/transportes', GETDATE(), 'admin', NULL, NULL ), /* 13 */
+	( 'ABM Vehiculos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/vehiculos', GETDATE(), 'admin', NULL, NULL ), /* 14 */
 
-	( 'Ventas', 'Permiso para acceder a la pantalla de Ventas', '/expedicion/egresos/ventas', GETDATE(), 'admin', NULL, NULL ) /* 18 */,
-	( 'Cierre', 'Permiso para acceder a la pantalla de Cierre', '/expedicion/egresos/cierre', GETDATE(), 'admin', NULL, NULL ), /* 19 */
-	( 'Despachos', 'Permiso para acceder a la pantalla de Despachos', '/expedicion/egresos/despachos', GETDATE(), 'admin', NULL, NULL ), /* 20 */
-	( 'Remitos', 'Permiso para acceder a la pantalla de Remitos', '/expedicion/egresos/remitos', GETDATE(), 'admin', NULL, NULL ) /* 21 */
+	( 'Ventas', 'Permiso para acceder a la pantalla de Ventas', '/expedicion/egresos/ventas', GETDATE(), 'admin', NULL, NULL ), /* 15 */
+	( 'Cierre', 'Permiso para acceder a la pantalla de Cierre', '/expedicion/egresos/cierre', GETDATE(), 'admin', NULL, NULL ), /* 16 */
+	( 'Despachos', 'Permiso para acceder a la pantalla de Despachos', '/expedicion/egresos/despachos', GETDATE(), 'admin', NULL, NULL ), /* 17 */
+	( 'Remitos', 'Permiso para acceder a la pantalla de Remitos', '/expedicion/egresos/remitos', GETDATE(), 'admin', NULL, NULL ) /* 18 */
 
 	;
 
@@ -86,7 +82,6 @@ INSERT INTO configuracion_abm_permisosPorPerfil
 	( perfil_id, permiso_id )
 VALUES
 	( 1, 1 ),
-	( 1, 2 ),
 	( 2, 1 ),
 	( 2, 3 ),
 	( 2, 4 ),
