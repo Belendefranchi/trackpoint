@@ -19,37 +19,18 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 						<form action="" method="POST" id="form-produccion">
 
-								<!-- Parte superior: información general -->
 								<div class="card mb-3">
 									<div class="card-body">
 
-										<div class="mb-3 row align-items-center"><!-- ######################### -->
-											<div class="col-md-6">
-												<div class="row align-items-center">
-													<label for="fecha_produccion" class="col-md-4 form-label text-primary">Fecha</label>
-													<div class="col-md-8 ps-0">
-														<input type="date" class="form-control text-primary" id="fecha_produccion" name="fecha_produccion">
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="row align-items-center">
-													<label for="turno" class="col-md-4 form-label text-primary">Turno</label>
-													<div class="col-md-8 ps-0">
-														<input type="text" class="form-control text-primary" id="turno" name="turno">
-													</div>
-												</div>
-											</div>
-										</div><!-- ######################### -->
-
 										<div class="mb-3 row align-items-center">
+											<!-- Cliente -->
 											<div class="col-md-6">
 												<div class="row align-items-center">
-													<label class="form-label col-md-4 text-primary">Cliente</label>
-													<div class="col-md-8 ps-0 d-flex align-items-center">
-														<div class="input-group">
+													<label for="cliente_id" class="form-label col-md-2 text-primary">Cliente</label>
+													<div class="col-md-10 ps-0 d-flex align-items-center">
+														<div class="input-group w-75">
 															<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
-															<input type="hidden" name="cliente_id" id="cliente_id">
+															<!-- <input type="hidden" name="cliente_id" id="cliente_id"> -->
 															<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? null; ?>">
 															<a href="#" class="btn btn-primary"
 																data-bs-toggle="modal" 
@@ -57,25 +38,49 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<i class="bi bi-search"></i>
 															</a>
 														</div>
+														<div class="input-group w-25">
+															<div>
+																<input type="checkbox" class="form-check-input ms-3" name="requiere_factura" id="requiere_factura">
+															</div>
+															<label class="form-label ms-3 mb-0">Requiere factura</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Fecha -->
+											<div class="col-md-3">
+												<div class="row align-items-center">
+													<label for="fecha" class="col-md-3 form-label text-primary">Fecha</label>
+													<div class="col-md-9 ps-0">
+														<input type="date" class="form-control text-primary" id="fecha" name="fecha">
+													</div>
+												</div>
+											</div>
+											<!-- Turno -->
+											<div class="col-md-3">
+												<div class="row align-items-center">
+													<label for="turno" class="col-md-3 form-label text-primary">Turno</label>
+													<div class="col-md-9 ps-0">
+														<select class="form-select text-primary" id="turno" name="turno">
+															<option value="Mañana">Mañana</option>
+															<option value="Tarde">Tarde</option>
+															<option value="Noche">Noche</option>
+														</select>
 													</div>
 												</div>
 											</div>
 
+										</div>
+
+										<div class="mb-3 row align-items-center">
+											<!-- Código de barras -->
 											<div class="col-md-6">
 												<div class="row align-items-center">
-													<label for="cantidad" class="col-md-4 col-form-label text-primary">Cantidad</label>
-													<div class="col-md-8 ps-0">
-														<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="cantidad" id="cantidad" value="1">
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="row align-items-center">
-													<label class="form-label col-md-4 text-primary ps-5"></label>
-													<div class="col-md-8 ps-0 d-flex align-items-center">
+													<label for="codbar_mercaderia" class="form-label col-md-2 text-primary">Código de barras</label>
+													<div class="col-md-10 ps-0 d-flex align-items-center">
 														<div class="input-group">
-															<input type="hidden" name="mercaderia_id" id="mercaderia_id">
-															<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly>
+															<!-- <input type="hidden" name="mercaderia_id" id="mercaderia_id"> -->
+															<input type="text" class="form-control text-primary" name="codbar_mercaderia" id="codbar_mercaderia" value="<?php echo $mercaderiaSeleccionada['codbar_mercaderia'] ?? ''; ?>" readonly>
 															<a href="#" class="btn btn-primary"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalSeleccionarMercaderia">
@@ -85,6 +90,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													</div>
 												</div>
 											</div>
+											<!-- Cantidad -->
+											<div class="col-md-3">
+												<div class="row align-items-center">
+													<label for="cantidad" class="col-md-3 col-form-label text-primary">Cantidad</label>
+													<div class="col-md-9 ps-0">
+														<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold" name="cantidad" id="cantidad" value="1">
+													</div>
+												</div>
+											</div>
+											<!-- Botón Agregar -->
+<!-- 											<div class="col-md-3">
+												<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
+													<i class="bi-plus-circle me-2"></i>Agregar
+												</button>
+										</div> -->
+
 										</div>
 
 									</div>
@@ -92,7 +113,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div id="mensaje-error-agregar" class="alert alert-danger rounded d-none m-2 p-2" role="alert">
 											<i class="bi bi-exclamation-triangle-fill me-2"></i>
 											<span class="mensaje-texto"></span>
-											<!-- Mensajes de error que se cargarán de forma dinámica -->
+												<!-- Mensajes de error que se cargarán de forma dinámica -->
 										</div>
 										<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
 											<i class="bi-plus-circle me-2"></i>Agregar
