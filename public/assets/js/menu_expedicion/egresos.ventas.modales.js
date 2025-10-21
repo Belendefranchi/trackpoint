@@ -17,10 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // Limpia los inputs hidden del modal
       modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
       modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
+      modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
     });
 
     const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
     const inputCodigoModal = document.getElementById('codigo_mercaderia');
+    const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
     
 
     // Enviar formulario con AJAX para seleccionar mercadería
@@ -51,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData();
         formData.append('mercaderia_id', mercaderiaId);
         formData.append('codigo_mercaderia', codigo);
+        formData.append('descripcion_mercaderia', descripcion);
+
 
         // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
         $.ajax({
@@ -66,13 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
               console.log('Datos de la mercadería seleccionada - descripción:', {
                 id: response.mercaderia_id,
                 codigo: response.codigo_mercaderia,
+                descripcion: response.descripcion_mercaderia,
               });
 
               // Actualizar los inputs del modal con los datos de la mercadería seleccionada
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputCodigoModal.value = response.codigo_mercaderia;
-
-
+              /* inputDescripcionModal.value = response.descripcion_mercaderia; */
 
               // Cerrar el modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
@@ -127,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         error: function () {
           inputMercaderiaIdBusqueda.value = '';
+          inputDescripcionBusqueda.value = '';
           $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
         }
       });

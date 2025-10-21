@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
-		$codbar_mercaderia = $_POST['codbar_mercaderia'] ?? '';
+		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
+		$codext_mercaderia = $_POST['codext_mercaderia'] ?? '';
 		
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -37,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'success' => true,
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
-				'codbar_mercaderia' => $codbar_mercaderia
+				'descripcion_mercaderia' => $descripcion_mercaderia,
+				'codext_mercaderia' => $codext_mercaderia
 			]);
 			exit;
 		}
