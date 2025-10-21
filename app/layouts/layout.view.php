@@ -49,7 +49,7 @@
                       <a href="/trackpoint/public/recepcion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de mercaderías</p>
                         </div>
                       </a>
                     </div>
@@ -61,7 +61,7 @@
                       <a href="/trackpoint/public/recepcion/noProductivos/ingreso_mercaderia" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Ingreso de mercaderías</h6>
-                          <p class="card-text text-primary fst-italic">Registro de mercaderías recepcionadas al sistema.</p>
+                          <p class="card-text text-primary">Registro de mercaderías recepcionadas al sistema</p>
                         </div>
                       </a>
                     </div>
@@ -81,7 +81,7 @@
                       <a href="/trackpoint/public/produccion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de mercaderías</p>
                         </div>
                       </a>
                     </div>
@@ -93,7 +93,7 @@
                       <a href="/trackpoint/public/produccion/ABMs/procesos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Procesos</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de procesos.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de procesos</p>
                         </div>
                       </a>
                     </div>
@@ -105,7 +105,7 @@
                       <a href="/trackpoint/public/produccion/recetas/recetas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Recetas</h6>
-                          <p class="card-text text-primary fst-italic">Creación y consulta de recetas para producción.</p>
+                          <p class="card-text text-primary">Creación y consulta de recetas para producción</p>
                         </div>
                       </a>
                     </div>
@@ -117,7 +117,7 @@
                       <a href="/trackpoint/public/produccion/planificacion/planConSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Planificación de la producción</h6>
-                          <p class="card-text text-primary fst-italic">Creación y consulta de planes de producción.</p>
+                          <p class="card-text text-primary">Creación y consulta de planes de producción</p>
                         </div>
                       </a>
                     </div>
@@ -131,7 +131,7 @@
                       <a href="/trackpoint/public/produccion/ingreso/planSinSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Ingreso a producción</h6>
-                          <p class="card-text text-primary fst-italic">Ingreso de productos semielaborados a producción.</p>
+                          <p class="card-text text-primary">Ingreso de productos semielaborados a producción</p>
                         </div>
                       </a>
                     </div>
@@ -143,7 +143,7 @@
                       <a href="/trackpoint/public/produccion/salida/etqPrim" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Etiquetas Primarias</h6>
-                          <p class="card-text text-primary fst-italic">Emisión de etiquetas primarias.</p>
+                          <p class="card-text text-primary">Emisión de etiquetas primarias</p>
                         </div>
                       </a>
                     </div>
@@ -155,7 +155,7 @@
                       <a href="/trackpoint/public/produccion/salida/etqSecSinSeleccion" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Etiquetas Secundarias</h6>
-                          <p class="card-text text-primary fst-italic">Emisión de etiquetas secundarias.</p>
+                          <p class="card-text text-primary">Emisión de etiquetas secundarias</p>
                         </div>
                       </a>
                     </div>
@@ -174,14 +174,14 @@
           <li class="nav-item dropdown">
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Expedición</a>
             <ul class="dropdown-menu p-2">
-              <div class="d-flex justify-content-center gap-3 p-2">
+<!--               <div class="d-flex justify-content-center gap-3 p-2">
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
                       <a href="/trackpoint/public/expedicion/ABMs/destinos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Destinos</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de destinos.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de destinos</p>
                         </div>
                       </a>
                     </div>
@@ -193,7 +193,7 @@
                       <a href="/trackpoint/public/expedicion/ABMs/transportes" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Transportes</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de transportes.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de transportes</p>
                         </div>
                       </a>
                     </div>
@@ -205,7 +205,7 @@
                       <a href="/trackpoint/public/expedicion/ABMs/vehiculos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Vehículos</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de vehículos.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de vehículos</p>
                         </div>
                       </a>
                     </div>
@@ -216,22 +216,10 @@
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
+                      <a href="/trackpoint/public/expedicion/egresos/pedidos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Ventas diarias</h6>
-                          <p class="card-text text-primary fst-italic">Registro de ventas diarias.</p>
-                        </div>
-                      </a>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/expedicion/egresos/cierre" class="text-dark text-decoration-none">
-                        <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
-                          <p class="card-text text-primary fst-italic">Cierre de caja diario.</p>
+                          <h6 class="card-title text-primary fw-bold">Pedidos</h6>
+                          <p class="card-text text-primary">Emisión, eliminación y consulta de pedidos</p>
                         </div>
                       </a>
                     </div>
@@ -243,7 +231,7 @@
                       <a href="/trackpoint/public/expedicion/egresos/despachos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Despachos</h6>
-                          <p class="card-text text-primary fst-italic">Emisión, eliminación y consulta de despachos.</p>
+                          <p class="card-text text-primary">Emisión, eliminación y consulta de despachos</p>
                         </div>
                       </a>
                     </div>
@@ -255,7 +243,45 @@
                       <a href="/trackpoint/public/expedicion/egresos/remitos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Remitos</h6>
-                          <p class="card-text text-primary fst-italic">Emisión, eliminación y consulta de remitos.</p>
+                          <p class="card-text text-primary">Emisión, eliminación y consulta de remitos</p>
+                        </div>
+                      </a>
+                    </div>
+                  </a>
+                </li>
+              </div> -->
+              <div class="d-flex justify-content-center gap-3 p-2">
+                <li>
+                  <a class="dropdown-item p-0" href="#">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+                      <a href="/trackpoint/public/expedicion/egresos/presupuestos" class="text-dark text-decoration-none">
+                        <div class="card-body text-center">
+                          <h6 class="card-title text-primary fw-bold">Presupuestos</h6>
+                          <p class="card-text text-primary">Confección de presupuestos</p>
+                        </div>
+                      </a>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-0" href="#">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+                      <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
+                        <div class="card-body text-center">
+                          <h6 class="card-title text-primary fw-bold">Ventas diarias</h6>
+                          <p class="card-text text-primary">Registro de ventas diarias</p>
+                        </div>
+                      </a>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-0" href="#">
+                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+                      <a href="/trackpoint/public/expedicion/egresos/cierre" class="text-dark text-decoration-none">
+                        <div class="card-body text-center">
+                          <h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
+                          <p class="card-text text-primary">Cierre de caja diario</p>
                         </div>
                       </a>
                     </div>
@@ -275,7 +301,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/operadores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Operadores</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de operadores.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de operadores</p>
                         </div>
                       </a>
                     </div>
@@ -287,7 +313,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/perfiles" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Perfiles</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de perfiles.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de perfiles</p>
                         </div>
                       </a>
                     </div>
@@ -299,7 +325,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/perfilesPorOperador" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Perfiles Por Operador</h6>
-                          <p class="card-text text-primary fst-italic">Asignación de perfiles por operador.</p>
+                          <p class="card-text text-primary">Asignación de perfiles por operador</p>
                         </div>
                       </a>
                     </div>
@@ -311,7 +337,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/permisosPorPerfil" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Permisos por Perfil</h6>
-                          <p class="card-text text-primary fst-italic">Asignación de permisos por perfil.</p>
+                          <p class="card-text text-primary">Asignación de permisos por perfil</p>
                         </div>
                       </a>
                     </div>
@@ -325,7 +351,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/mercaderias" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Mercaderías</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de mercaderías.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de mercaderías</p>
                         </div>
                       </a>
                     </div>
@@ -337,7 +363,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/grupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Grupos</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de grupos.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de grupos</p>
                         </div>
                       </a>
                     </div>
@@ -349,7 +375,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/subgrupos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Subgrupos</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de subgrupos.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de subgrupos</p>
                         </div>
                       </a>
                     </div>
@@ -361,7 +387,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/traducciones" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Traducciones</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de traducciones.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de traducciones</p>
                         </div>
                       </a>
                     </div>
@@ -375,7 +401,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/personas" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Personas</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de personas.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de personas</p>
                         </div>
                       </a>
                     </div>
@@ -387,7 +413,7 @@
                       <a href="/trackpoint/public/configuracion/ABMs/numeradores" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Numeradores</h6>
-                          <p class="card-text text-primary fst-italic">Alta, baja, modificación y consulta de numeradores.</p>
+                          <p class="card-text text-primary">Alta, baja, modificación y consulta de numeradores</p>
                         </div>
                       </a>
                     </div>
@@ -399,7 +425,7 @@
                       <a href="/trackpoint/public/configuracion/configPC/dispositivos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">Configuración PCs</h6>
-                          <p class="card-text text-primary fst-italic">Asignación de impresoras y balanzas.</p>
+                          <p class="card-text text-primary">Asignación de impresoras y balanzas</p>
                         </div>
                       </a>
                     </div>
@@ -420,7 +446,7 @@
                       <a href="/trackpoint/public/sistema/ABMs/estados" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Estados</h6>
-                          <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de estados.</p>
+                          <p class="card-text text-primary">Habilitación y deshabilitación de estados</p>
                         </div>
                       </a>
                     </div>
@@ -432,7 +458,7 @@
                       <a href="/trackpoint/public/sistema/ABMs/logs" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Logs</h6>
-                          <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de logs.</p>
+                          <p class="card-text text-primary">Habilitación y deshabilitación de logs</p>
                         </div>
                       </a>
                     </div>
@@ -444,7 +470,7 @@
                       <a href="/trackpoint/public/sistema/ABMs/permisos" class="text-dark text-decoration-none">
                         <div class="card-body text-center">
                           <h6 class="card-title text-primary fw-bold">ABM Permisos</h6>
-                          <p class="card-text text-primary fst-italic">Habilitación y deshabilitación de permisos.</p>
+                          <p class="card-text text-primary">Habilitación y deshabilitación de permisos</p>
                         </div>
                       </a>
                     </div>

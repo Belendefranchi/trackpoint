@@ -16,8 +16,6 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
-/* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -117,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 	}
 
-	}
+}
 
 // Obtener datos para pasar a la vista
 $datosVista = [

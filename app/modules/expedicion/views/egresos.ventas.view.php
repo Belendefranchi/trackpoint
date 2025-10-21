@@ -110,7 +110,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 											<!-- Botón Agregar -->
-											<div class="col-md-2 d-flex justify-content-end">
+											<div class="col-md-2 d-flex justify-content-end py-2">
 												<button type="submit" class="col-md-4 btn btn-sm btn-primary" id="btn-guardar-mercaderia">
 													<i class="bi-plus-circle me-2"></i>Agregar
 												</button>
@@ -205,6 +205,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 								</div>
 							</div>
+							
 						</form>
 					</div>
 				</div>
