@@ -314,3 +314,79 @@ CREATE INDEX idx_produccion_pallet ON produccion_general(pallet_id) WITH (ONLINE
 CREATE INDEX idx_produccion_pedido ON produccion_general(pedido_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_mercaderia_id ON produccion_general(mercaderia_id) WITH (ONLINE = ON);
 CREATE INDEX idx_produccion_proceso_id ON produccion_general(proceso_id) WITH (ONLINE = ON);
+
+
+
+
+/* ############################################################################################## */
+/* -------------------------------------- TABLAS EXPEDICIÓN ------------------------------------- */
+/* ############################################################################################## */
+
+/* ------------------------------------------- ABMS --------------------------------------------- */
+
+
+CREATE TABLE expedicion_abm_transportes (
+    transporte_id INT PRIMARY KEY IDENTITY(1,1),
+    razon_social VARCHAR(100) NOT NULL UNIQUE,
+    telefono VARCHAR(20) NULL,
+    email VARCHAR(100) NULL,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE expedicion_abm_vehiculos (
+    vehiculo_id INT PRIMARY KEY IDENTITY(1,1),
+    transporte_id INT NOT NULL,
+    patente VARCHAR(100) NOT NULL,
+    tipo VARCHAR(20) NOT NULL UNIQUE,
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL,
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE expedicion_egresos_presupuestos_resumen (
+    presupuesto_id INT PRIMARY KEY IDENTITY(1,1),
+    empresa_id INT NOT NULL,
+    sucursal_id INT NULL,
+    rubro_id INT NULL,
+    fecha_presupuesto DATE NOT NULL,
+    fecha_vencimiento DATE NULL,
+    cliente_id INT NOT NULL,
+    direccion_entrega VARCHAR(255) NULL,
+    contacto_nombre VARCHAR(100) NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial del presupuesto
+    creado_en DATETIME DEFAULT GETDATE(),
+    creado_por VARCHAR(20) NULL,
+    editado_en DATETIME NULL,
+    editado_por VARCHAR(20) NULL
+);
+GO
+
+CREATE TABLE expedicion_egresos_presupuestos_detalle (
+    item_id INT PRIMARY KEY IDENTITY(1,1),
+    presupuesto_id INT NOT NULL,
+    mercaderia_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    codigo_externo VARCHAR(50) NULL,
+    precio_costo DECIMAL(10,2) NULL,
+    precio_venta DECIMAL(10,2) NULL,
+    iva_tasa DECIMAL(5,2) NULL,
+    descuento_porcentaje DECIMAL(5,2) NULL,
+
+    -- Datos de auditoría
+    fecha_sistema DATE NOT NULL,
+    fecha_modificacion DATE NOT NULL,
+    operador_id INT NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
+
+    -- Claves foráneas
+    FOREIGN KEY (presupuesto_id) REFERENCES expedicion_egresos_presupuestos_resumen(presupuesto_id),
+    FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
+);

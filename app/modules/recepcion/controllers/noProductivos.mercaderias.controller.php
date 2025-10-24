@@ -13,8 +13,6 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 // Obtener mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
-/* $mercaderiaSeleccionada = $_SESSION['mercaderia_seleccionada'] ?? null; */
-
 // Obtener resumen y detalle de recepción si hay una sesión activa
 $resumen = obtenerResumenRecepcion($_SESSION['operador_id'] ?? null);
 $detalle = obtenerDetalleRecepcion($resumen[0]['recepcion_id'] ?? null);
@@ -34,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
 		} else {
-
 			echo json_encode([
 				'success' => true,
 				'mercaderia_id' => $mercaderia_id,
@@ -62,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$mercaderia = obtenerMercaderiaPorCodigo($codigo_mercaderia);
 
 				if ($mercaderia) {
-
 					echo json_encode([
 						'success' => true,
 						'mercaderia_id' => $mercaderia['mercaderia_id'],
@@ -88,16 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 		
-    	$datos = [
+    $datos = [
 			'proveedor_id' => $_POST['proveedor_id'],
-      		'fecha_recepcion'  => $_POST['fecha_recepcion'],
+      'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'],
 			'fecha_remito' => $_POST['fecha_remito'] ?? null,
 			'mercaderia_id' => $_POST['mercaderia_id'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
 			'operador_id' => $_SESSION['operador_id'],
-    	];
+    ];
 
 		// Validar datos obligatorios
 		if (empty($datos['proveedor_id']) || empty($datos['fecha_recepcion']) || empty($datos['mercaderia_id']) || empty($datos['unidades']) || empty($datos['peso_neto'])) {
@@ -109,8 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = agregarMercaderia($datos);
 
 			if ($result){
-				/* unset($_SESSION['mercaderia_seleccionada']); */
-				registrarEvento("Mercaderías Controller: Mercadería agregada correctamente => " . $datos['mercaderia_id'], "INFO");
+				registrarEvento("Recepción Mercaderías Controller: Mercadería agregada correctamente => " . $datos['mercaderia_id'], "INFO");
 				echo json_encode(['success' => true]);
 				exit;
 			} else {
@@ -134,12 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$datos = [
 			'item_id' => $_POST['item_id'],
 			'proveedor_id' => $_POST['proveedor_id'],
-      		'fecha_recepcion'  => $_POST['fecha_recepcion'],
+      'fecha_recepcion'  => $_POST['fecha_recepcion'],
 			'nro_remito' => $_POST['nro_remito'] ?? '',
 			'fecha_remito' => $_POST['fecha_remito'],
 			'unidades' => $_POST['unidades'],
 			'peso_neto' => $_POST['peso_neto'],
-    	];
+    ];
 
 		if (empty($datos['item_id'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del ítem']);
@@ -211,13 +206,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
-    	if (empty($resumen)) {
+    if (empty($resumen)) {
 			echo json_encode([
 					'success' => false,
 					'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    	}
+    }
 		
 		try {
 			$result = guardarRecepcion($recepcion_id);
@@ -238,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	}
 
-		// ####### CANCELAR RECEPCIÓN #######
+	// ####### CANCELAR RECEPCIÓN #######
 	if (isset($_GET['cancelarRecepcion'])) {
 
 		header('Content-Type: application/json');
@@ -248,13 +243,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$recepcion_id = $resumen[0]['recepcion_id'];
 
 		// Validar si hay mercaderías cargadas
-    	if (empty($resumen)) {
+    if (empty($resumen)) {
 			echo json_encode([
 					'success' => false,
 					'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    	}
+    }
 		
 		try {
 			$result = cancelarRecepcion($recepcion_id);
