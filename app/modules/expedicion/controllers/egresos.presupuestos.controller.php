@@ -234,8 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-	'resumen' => $resumen,
-	'detalle' => $detalle
+/* 	'resumen' => $resumen,
+	'detalle' => $detalle */
 ];
 
 // Llamar a la función común que carga todo en el layout

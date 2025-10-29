@@ -358,6 +358,7 @@ CREATE TABLE expedicion_egresos_presupuestos_resumen (
     rubro_id INT NULL,
     fecha_presupuesto DATE NOT NULL,
     fecha_vencimiento DATE NULL,
+    fecha_sistema DATETIME DEFAULT GETDATE(),
     cliente_id INT NOT NULL,
     direccion_entrega VARCHAR(255) NULL,
     contacto_nombre VARCHAR(100) NULL,

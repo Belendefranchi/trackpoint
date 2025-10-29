@@ -21,62 +21,96 @@ function agregarMercaderia($datos) {
 			$presupuesto_id = $result['presupuesto_id'];
 			registrarEvento("Presupuestos Model: mercadería pendiente en presupuesto.", "INFO");
 		}else {
-			// 2. Crear nueva recepción
-			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (fecha_presupuesto, fecha_sistema, operador_id, estado) VALUES (:fecha_presupuesto, :fecha_sistema, :operador_id, :estado)";
+			// 2. Crear nuevo presupuesto
+			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (
+											empresa_id,
+											sucursal_id,
+											rubro_id,
+											fecha_presupuesto,
+											fecha_vencimiento,
+											fecha_sistema,
+											cliente_id,
+											direccion_entrega,
+											contacto_nombre,
+											operador_id,
+											estado
+										)
+										VALUES (
+											:empresa_id,
+											:sucursal_id,
+											:rubro_id,
+											:fecha_presupuesto,
+											:fecha_vencimiento,
+											:fecha_sistema,
+											:cliente_id,
+											:direccion_entrega,
+											:contacto_nombre,
+											:operador_id,
+											:estado)";
 
 			$stmtResumen = $conn->prepare($sqlResumen);
+			$stmtResumen->bindValue(':empresa_id', $datos['empresa_id']);
+			$stmtResumen->bindValue(':sucursal_id', $datos['sucursal_id']);
+			$stmtResumen->bindValue(':rubro_id', $datos['rubro_id']);
 			$stmtResumen->bindValue(':fecha_presupuesto', $datos['fecha_presupuesto']);
+			$stmtResumen->bindValue(':fecha_vencimiento', $datos['fecha_vencimiento']);
 			$stmtResumen->bindValue(':fecha_sistema', $fechaActual);
+			$stmtResumen->bindValue(':cliente_id', $datos['cliente_id']);
+			$stmtResumen->bindValue(':direccion_entrega', $datos['direccion_entrega']);
+			$stmtResumen->bindValue(':contacto_nombre', $datos['contacto_nombre']);
 			$stmtResumen->bindValue(':operador_id', $datos['operador_id']);
 			$stmtResumen->bindValue(':estado', 'pendiente');
 			$stmtResumen->execute();
 			
 			// 3. Obtener el ID generado
 			$presupuesto_id = $conn->lastInsertId();
-			registrarEvento("Presupuestos Model: nueva recepción creada.", "INFO");
+			registrarEvento("Presupuestos Model: nuevo presupuesto creado.", "INFO");
 		}
 
 		// 4. Insertar en detalle
-		$sqlDetalle = "INSERT INTO recepcion_noProductivos_mercaderias_detalle (
+		$sqlDetalle = "INSERT INTO expedicion_egresos_presupuestos_detalle (
 										presupuesto_id,
-										proveedor_id,
-										fecha_presupuesto,
-										nro_remito,
-										fecha_remito,
 										mercaderia_id,
-										unidades,
-										peso_neto,
+										cantidad,
+										codigo_externo,
+										precio_costo,
+										precio_venta,
+										iva_tasa,
+										descuento_porcentaje,
 										fecha_sistema,
 										fecha_modificacion,
-										operador_id
+										operador_id,
+										estado
 									)
                   VALUES (
 										:presupuesto_id,
-										:proveedor_id,
-										:fecha_presupuesto,
-										:nro_remito,
-										:fecha_remito,
 										:mercaderia_id,
-										:unidades,
-										:peso_neto,
+										:cantidad,
+										:codigo_externo,
+										:precio_costo,
+										:precio_venta,
+										:iva_tasa,
+										:descuento_porcentaje,
 										:fecha_sistema,
 										:fecha_modificacion,
-										:operador_id
+										:operador_id,
+										:estado
 									)";
 
 		$stmtDetalle = $conn->prepare($sqlDetalle);
 		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
-		$stmtDetalle->bindValue(':proveedor_id', $datos['proveedor_id']);
-		$stmtDetalle->bindValue(':fecha_presupuesto', $datos['fecha_presupuesto']);
-		$stmtDetalle->bindValue(':nro_remito', $datos['nro_remito']);
-		$stmtDetalle->bindValue(':fecha_remito', $datos['fecha_remito']);
 		$stmtDetalle->bindValue(':mercaderia_id', $datos['mercaderia_id']);
-		$stmtDetalle->bindValue(':unidades', $datos['unidades']);
-		$stmtDetalle->bindValue(':peso_neto', $datos['peso_neto']);
+		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
+		$stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']);
+		$stmtDetalle->bindValue(':precio_costo', $datos['precio_costo']);
+		$stmtDetalle->bindValue(':precio_venta', $datos['precio_venta']);
+		$stmtDetalle->bindValue(':iva_tasa', $datos['iva_tasa']);
+		$stmtDetalle->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']);
 		$stmtDetalle->bindValue(':fecha_sistema', $fechaActual);
 		$stmtDetalle->bindValue(':fecha_modificacion', $fechaActual);
 		$stmtDetalle->bindValue(':operador_id', $datos['operador_id']);
-		
+		$stmtDetalle->bindValue(':estado', 'pendiente');
+
 		$result = $stmtDetalle->execute();
 
 		if ($result) {
@@ -92,10 +126,10 @@ function agregarMercaderia($datos) {
 	}
 }
 
-function obtenerRecepcionId($operador_id) {
+function obtenerPresupuestoId($operador_id) {
 	try {
 		$conn = getConnection();
-		$sql = "SELECT presupuesto_id FROM recepcion_noProductivos_mercaderias_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
+		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
 		$stmt->execute();
@@ -106,7 +140,7 @@ function obtenerRecepcionId($operador_id) {
 	}
 }
 
-function obtenerResumenRecepcion($operador_id) {
+function obtenerResumenPresupuesto($operador_id) {
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
@@ -117,8 +151,8 @@ function obtenerResumenRecepcion($operador_id) {
 								m.codigo AS codigo_mercaderia,
 								ISNULL(SUM(d.unidades), 0) AS total_unidades,
 								ISNULL(SUM(d.peso_neto), 0) AS total_peso_neto
-						FROM recepcion_noProductivos_mercaderias_resumen r
-						LEFT JOIN recepcion_noProductivos_mercaderias_detalle d
+						FROM expedicion_egresos_presupuestos_resumen r
+						LEFT JOIN expedicion_egresos_presupuestos_detalle d
 								ON r.presupuesto_id = d.presupuesto_id
 						LEFT JOIN configuracion_abm_mercaderias m
 								ON d.mercaderia_id = m.mercaderia_id
@@ -146,22 +180,25 @@ function obtenerResumenRecepcion($operador_id) {
 
 }
 
-function obtenerDetalleRecepcion($presupuesto_id) {
+function obtenerDetallePresupuesto($presupuesto_id) {
 	try{
 		$conn = getConnection();
 		$sql = "SELECT 
 								d.item_id,
 								d.presupuesto_id,
-								d.proveedor_id,
-								d.fecha_presupuesto,
-								d.nro_remito,
-								d.fecha_remito,
+								d.mercaderia_id,
+								d.cantidad,
+								d.codigo_externo,
+								d.precio_costo,
+								d.precio_venta,
+								d.iva_tasa,
+								d.descuento_porcentaje,
+								d.fecha_sistema,
+								d.fecha_modificacion,
 								m.codigo AS codigo_mercaderia,
 								m.descripcion AS descripcion_mercaderia,
-								d.unidades,
-								d.peso_neto,
 								d.estado
-						FROM recepcion_noProductivos_mercaderias_detalle d
+						FROM expedicion_egresos_presupuestos_detalle d
 						JOIN configuracion_abm_mercaderias m
 							ON d.mercaderia_id = m.mercaderia_id
 						WHERE d.presupuesto_id = :presupuesto_id
@@ -178,25 +215,27 @@ function obtenerDetalleRecepcion($presupuesto_id) {
 	}
 }
 
-function editarMercaderiaRecepcion($datos) {
+function editarMercaderiaPresupuesto($datos) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE recepcion_noProductivos_mercaderias_detalle
+		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
 														SET
-															proveedor_id = :proveedor_id,
-															nro_remito = :nro_remito,
-															fecha_remito = :fecha_remito,
-															unidades = :unidades,
-															peso_neto = :peso_neto
+															cantidad = :cantidad,
+															precio_costo = :precio_costo,
+															precio_venta = :precio_venta,
+															iva_tasa = :iva_tasa,
+															descuento_porcentaje = :descuento_porcentaje,
+															fecha_modificacion = :fecha_modificacion
 														WHERE
 															item_id = :item_id");
 
-		$stmt->bindParam(':item_id', $datos['item_id']);		
-		$stmt->bindParam(':proveedor_id', $datos['proveedor_id']);
-		$stmt->bindParam(':nro_remito', $datos['nro_remito']);
-		$stmt->bindParam(':fecha_remito', $datos['fecha_remito']);
-		$stmt->bindValue(':unidades', (float) $datos['unidades'], PDO::PARAM_STR);
-		$stmt->bindValue(':peso_neto',(float) $datos['peso_neto'], PDO::PARAM_STR);
+		$stmt->bindParam(':item_id', $datos['item_id']);
+		$stmt->bindParam(':cantidad', $datos['cantidad']);
+		$stmt->bindParam(':precio_costo', $datos['precio_costo']);
+		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
+		$stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
+		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']);
+		$stmt->bindParam(':fecha_modificacion', $fechaActual);
 		$stmt->execute();
 		$result = $stmt->execute();
 
@@ -212,10 +251,10 @@ function editarMercaderiaRecepcion($datos) {
 		}
 }
 
-function eliminarMercaderiaRecepcion($item_id) {
+function eliminarMercaderiaPresupuesto($item_id) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM recepcion_noProductivos_mercaderias_detalle WHERE item_id = :item_id");
+		$stmt = $conn->prepare("DELETE FROM expedicion_egresos_presupuestos_detalle WHERE item_id = :item_id");
 		$stmt->bindParam(':item_id', $item_id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
@@ -225,7 +264,7 @@ function eliminarMercaderiaRecepcion($item_id) {
 	}
 }
 
-function guardarRecepcion($presupuesto_id) {
+function generarPresupuesto($presupuesto_id) {
 
 	$fechaActual = date('Y-m-d H:i:s');
 	$creado_por_id = $_SESSION['operador_id'];
@@ -233,7 +272,7 @@ function guardarRecepcion($presupuesto_id) {
 
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM recepcion_noProductivos_mercaderias_detalle WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente' AND operador_id = :operador_id");
+		$stmt = $conn->prepare("SELECT * FROM expedicion_egresos_presupuestos_detalle WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente' AND operador_id = :operador_id");
 		$stmt->bindParam(':presupuesto_id', $presupuesto_id);
 		$stmt->bindParam(':operador_id', $creado_por_id);
 		$stmt->execute();
@@ -243,8 +282,10 @@ function guardarRecepcion($presupuesto_id) {
 		if (!$mercaderias) {
 			return ['success' => false, 'message' => 'No hay mercaderías pendientes para guardar'];
 		}
+		
+		/* Aca no se deben guardar los registros en ninguna otra tabla, sino que se debe generar el pdf */
 
-		$sqlInsert = "INSERT INTO produccion_general (
+		/* $sqlInsert = "INSERT INTO produccion_general (
 												codbar_s,
 												codbar_e,
 												estado,
@@ -323,35 +364,35 @@ function guardarRecepcion($presupuesto_id) {
 				':tara_sec' => $mercaderia['tara'] ?? 0,
 				':impreso' => 1
 			]);
-		}
+		} */
 
-		registrarEvento("Presupuestos Model: recepción guardada correctamente.", "INFO");
+		registrarEvento("Presupuestos Model: presupuesto creado correctamente.", "INFO");
 
-		$sqlCerrarResumen = "UPDATE recepcion_noProductivos_mercaderias_resumen SET estado = 'cerrada', fecha_modificacion = :fecha WHERE presupuesto_id = :presupuesto_id";
+		$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado', fecha_modificacion = :fecha_presupuesto WHERE presupuesto_id = :presupuesto_id";
 		$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);
 		$stmtCerrarResumen->execute([
-				':fecha' => $fechaActual,
+				':fecha_presupuesto' => $fechaActual,
 				':presupuesto_id' => $presupuesto_id
 		]);
 
-		$sqlCerrarDetalle = "UPDATE recepcion_noProductivos_mercaderias_detalle SET estado = 'cerrada', fecha_modificacion = :fecha WHERE presupuesto_id = :presupuesto_id";
+		$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado', fecha_modificacion = :fecha_presupuesto WHERE presupuesto_id = :presupuesto_id";
 		$stmtCerrarDetalle = $conn->prepare($sqlCerrarDetalle);
 		$stmtCerrarDetalle->execute([
-				':fecha' => $fechaActual,
+				':fecha_presupuesto' => $fechaActual,
 				':presupuesto_id' => $presupuesto_id
 		]);
 
-    registrarEvento("Presupuestos Model: recepción guardada correctamente => $presupuesto_id", "INFO");
-		return ['success' => true, 'message' => 'Recepción guardada correctamente en producción_general.'];
+    registrarEvento("Presupuestos Model: Presupuesto creado correctamente => $presupuesto_id", "INFO");
+		return ['success' => true, 'message' => 'Presupuesto creado correctamente en producción_general.'];
 
 	} catch (PDOException $e) {
 		// Manejo de errores
-		registrarEvento("Presupuestos Model: Error al guardar la recepción, " . $e->getMessage(), "ERROR");
-		return ['success' => false, 'message' => 'Error al guardar la recepción.'];
+		registrarEvento("Presupuestos Model: Error al guardar el presupuesto, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => 'Error al guardar el presupuesto.'];
 	}
 }
 
-function cancelarRecepcion($presupuesto_id) {
+function cancelarPresupuesto($presupuesto_id) {
 
   $fechaActual = date('Y-m-d H:i:s');
   $creado_por_id = $_SESSION['operador_id'];
@@ -360,7 +401,7 @@ function cancelarRecepcion($presupuesto_id) {
   try {
     $conn = getConnection();
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM recepcion_noProductivos_mercaderias_resumen 
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM expedicion_egresos_presupuestos_resumen 
                             WHERE presupuesto_id = :presupuesto_id 
                               AND estado = 'pendiente' 
                               AND operador_id = :operador_id");
@@ -371,31 +412,31 @@ function cancelarRecepcion($presupuesto_id) {
     $cantidad = $stmt->fetchColumn();
 
     if ($cantidad == 0) {
-      return ['success' => false, 'message' => 'No hay recepción pendiente para cancelar'];
+      return ['success' => false, 'message' => 'No hay presupuesto pendiente para cancelar'];
     }
 
     // Actualizar el estado en la tabla de detalle
-    $stmt = $conn->prepare("UPDATE recepcion_noProductivos_mercaderias_detalle 
-                            SET estado = 'cancelada', fecha_modificacion = :fecha 
+    $stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
+                            SET estado = 'cancelado', fecha_modificacion = :fecha_modificacion
                             WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente'");
-    $stmt->bindValue(':fecha', $fechaActual);
+    $stmt->bindValue(':fecha_modificacion', $fechaActual);
     $stmt->bindValue(':presupuesto_id', $presupuesto_id);
     $stmt->execute();
 
     // Actualizar el estado en la tabla de resumen
-    $stmtResumen = $conn->prepare("UPDATE recepcion_noProductivos_mercaderias_resumen 
-                                  SET estado = 'cancelada', fecha_modificacion = :fecha 
+    $stmtResumen = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
+                                  SET estado = 'cancelado', fecha_modificacion = :fecha_modificacion
                                   WHERE presupuesto_id = :presupuesto_id");
-    $stmtResumen->bindValue(':fecha', $fechaActual);
+    $stmtResumen->bindValue(':fecha_modificacion', $fechaActual);
     $stmtResumen->bindValue(':presupuesto_id', $presupuesto_id);
     $stmtResumen->execute();
 
-    registrarEvento("Presupuestos Model: recepción cancelada correctamente => $presupuesto_id", "INFO");
-    return ['success' => true, 'message' => 'Recepción cancelada correctamente.'];
+    registrarEvento("Presupuestos Model: Presupuesto cancelado correctamente => $presupuesto_id", "INFO");
+    return ['success' => true, 'message' => 'Presupuesto cancelado correctamente.'];
 
   } catch (PDOException $e) {
-    registrarEvento("Presupuestos Model: Error al cancelar la recepción => " . $e->getMessage(), "ERROR");
-    return ['success' => false, 'message' => 'Error al cancelar la recepción.'];
+    registrarEvento("Presupuestos Model: Error al cancelar el presupuesto => " . $e->getMessage(), "ERROR");
+    return ['success' => false, 'message' => 'Error al cancelar el presupuesto.'];
   }
 }
 
