@@ -28,9 +28,8 @@ function agregarMercaderia($datos) {
 											rubro_id,
 											fecha_presupuesto,
 											fecha_vencimiento,
-											fecha_sistema,
 											cliente_id,
-											direccion_entrega,
+											direccion_cliente,
 											contacto_nombre,
 											operador_id,
 											estado
@@ -41,9 +40,8 @@ function agregarMercaderia($datos) {
 											:rubro_id,
 											:fecha_presupuesto,
 											:fecha_vencimiento,
-											:fecha_sistema,
 											:cliente_id,
-											:direccion_entrega,
+											:direccion_cliente,
 											:contacto_nombre,
 											:operador_id,
 											:estado)";
@@ -54,9 +52,8 @@ function agregarMercaderia($datos) {
 			$stmtResumen->bindValue(':rubro_id', $datos['rubro_id']);
 			$stmtResumen->bindValue(':fecha_presupuesto', $datos['fecha_presupuesto']);
 			$stmtResumen->bindValue(':fecha_vencimiento', $datos['fecha_vencimiento']);
-			$stmtResumen->bindValue(':fecha_sistema', $fechaActual);
 			$stmtResumen->bindValue(':cliente_id', $datos['cliente_id']);
-			$stmtResumen->bindValue(':direccion_entrega', $datos['direccion_entrega']);
+			$stmtResumen->bindValue(':direccion_cliente', $datos['direccion_cliente']);
 			$stmtResumen->bindValue(':contacto_nombre', $datos['contacto_nombre']);
 			$stmtResumen->bindValue(':operador_id', $datos['operador_id']);
 			$stmtResumen->bindValue(':estado', 'pendiente');
@@ -72,12 +69,10 @@ function agregarMercaderia($datos) {
 										presupuesto_id,
 										mercaderia_id,
 										cantidad,
-										codigo_externo,
-										precio_costo,
+										/* codigo_externo, */
 										precio_venta,
-										iva_tasa,
-										descuento_porcentaje,
-										fecha_sistema,
+										/* iva_tasa, */
+										/* descuento_porcentaje, */
 										fecha_modificacion,
 										operador_id,
 										estado
@@ -86,12 +81,10 @@ function agregarMercaderia($datos) {
 										:presupuesto_id,
 										:mercaderia_id,
 										:cantidad,
-										:codigo_externo,
-										:precio_costo,
+										/* :codigo_externo, */
 										:precio_venta,
-										:iva_tasa,
-										:descuento_porcentaje,
-										:fecha_sistema,
+										/* :iva_tasa, */
+										/* :descuento_porcentaje, */
 										:fecha_modificacion,
 										:operador_id,
 										:estado
@@ -101,12 +94,10 @@ function agregarMercaderia($datos) {
 		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
 		$stmtDetalle->bindValue(':mercaderia_id', $datos['mercaderia_id']);
 		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
-		$stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']);
-		$stmtDetalle->bindValue(':precio_costo', $datos['precio_costo']);
+		/* $stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']); */
 		$stmtDetalle->bindValue(':precio_venta', $datos['precio_venta']);
-		$stmtDetalle->bindValue(':iva_tasa', $datos['iva_tasa']);
-		$stmtDetalle->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']);
-		$stmtDetalle->bindValue(':fecha_sistema', $fechaActual);
+		/* $stmtDetalle->bindValue(':iva_tasa', $datos['iva_tasa']); */
+		/* $stmtDetalle->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$stmtDetalle->bindValue(':fecha_modificacion', $fechaActual);
 		$stmtDetalle->bindValue(':operador_id', $datos['operador_id']);
 		$stmtDetalle->bindValue(':estado', 'pendiente');
@@ -144,29 +135,33 @@ function obtenerResumenPresupuesto($operador_id) {
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
-								r.presupuesto_id,
-								r.fecha_presupuesto,
-								r.operador_id,
-								r.estado,
-								m.codigo AS codigo_mercaderia,
-								ISNULL(SUM(d.unidades), 0) AS total_unidades,
-								ISNULL(SUM(d.peso_neto), 0) AS total_peso_neto
+							r.presupuesto_id,
+							r.empresa_id,
+							r.sucursal_id,
+							r.rubro_id,
+							r.fecha_presupuesto,
+							r.fecha_vencimiento,
+							r.cliente_id,
+							r.direccion_cliente,
+							r.contacto_nombre,
+							r.estado,
+							SUM(d.cantidad) AS cantidad,
+							SUM(d.cantidad * d.precio_venta) AS total
 						FROM expedicion_egresos_presupuestos_resumen r
 						LEFT JOIN expedicion_egresos_presupuestos_detalle d
-								ON r.presupuesto_id = d.presupuesto_id
-						LEFT JOIN configuracion_abm_mercaderias m
-								ON d.mercaderia_id = m.mercaderia_id
-						WHERE r.operador_id = :operador_id 
+							ON r.presupuesto_id = d.presupuesto_id
+						WHERE r.operador_id = :operador_id
 							AND r.estado = 'pendiente'
-						GROUP BY 
-								r.presupuesto_id,
-								r.fecha_presupuesto,
-								r.operador_id,
-								r.estado,
-								m.codigo
-						ORDER BY 
-								r.presupuesto_id, 
-								m.codigo;
+						GROUP BY
+							r.presupuesto_id,
+							r.empresa_id,
+							r.sucursal_id,
+							r.rubro_id,
+							r.fecha_presupuesto,
+							r.fecha_vencimiento,
+							r.cliente_id, r.direccion_cliente,
+							r.contacto_nombre,
+							r.estado
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
@@ -187,20 +182,18 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 								d.item_id,
 								d.presupuesto_id,
 								d.mercaderia_id,
-								d.cantidad,
+								m.codigo AS codigo_mercaderia,
+								m.descripcion AS descripcion_mercaderia,
 								d.codigo_externo,
+								d.cantidad,
 								d.precio_costo,
 								d.precio_venta,
 								d.iva_tasa,
 								d.descuento_porcentaje,
-								d.fecha_sistema,
-								d.fecha_modificacion,
-								m.codigo AS codigo_mercaderia,
-								m.descripcion AS descripcion_mercaderia,
-								d.estado
+								(d.cantidad * d.precio_venta) AS subtotal
 						FROM expedicion_egresos_presupuestos_detalle d
-						JOIN configuracion_abm_mercaderias m
-							ON d.mercaderia_id = m.mercaderia_id
+						LEFT JOIN configuracion_abm_mercaderias m
+								ON d.mercaderia_id = m.mercaderia_id
 						WHERE d.presupuesto_id = :presupuesto_id
 							AND d.estado = 'pendiente'
 						";

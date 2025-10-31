@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
     const inputCodigoModal = document.getElementById('codigo_mercaderia');
-    const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
     
 
     // Enviar formulario con AJAX para seleccionar mercadería
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
         $.ajax({
-          url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&seleccionarMercaderia',
+          url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia',
           method: 'POST',
           data: formData,
           processData: false,
@@ -76,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
               // Actualizar los inputs del modal con los datos de la mercadería seleccionada
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputCodigoModal.value = response.codigo_mercaderia;
-              /* inputDescripcionModal.value = response.descripcion_mercaderia; */
 
               // Cerrar el modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
@@ -106,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&seleccionarCodigoMercaderia',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
         method: 'POST',
         data: { 'codigo_mercaderia': codigo },
         dataType: 'json',
@@ -116,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Datos de la mercadería seleccionada - código:', {
               id: response.mercaderia_id,
               codigo: response.codigo_mercaderia,
+              descripcion: response.descripcion_mercaderia,
             });
 
             inputMercaderiaIdBusqueda.value = response.mercaderia_id;
@@ -131,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         error: function () {
           inputMercaderiaIdBusqueda.value = '';
-          inputDescripcionBusqueda.value = '';
+          inputCodigoBusqueda.value = '';
           $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
         }
       });
@@ -148,6 +147,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  /* ##################### VACIAR MERCADERÍA ##################### */
+
+  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
+  if (btnVaciarMercaderia) {
+    btnVaciarMercaderia.addEventListener('click', function () {
+      // Limpiar todo el localStorage
+      localStorage.clear();
+
+      // Resetear el formulario
+      document.getElementById('formAgregarMercaderia').reset();
+    });
+  }
 
   /* ##################### AGREGAR MERCADERÍA ##################### */
 
@@ -157,24 +168,35 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
-      
+      const empresaId = document.getElementById('empresa_id').value;
+      const sucursalId = document.getElementById('sucursal_id').value;
+      const rubroId = document.getElementById('rubro_id').value;
+      const fechaPresupuesto = document.getElementById('fecha_presupuesto').value;
+      const fechaVencimiento = document.getElementById('fecha_vencimiento').value;
+      const clienteId = document.getElementById('cliente_id').value;
+      const direccionCliente = document.getElementById('direccion_cliente').value;
       const mercaderiaId = document.getElementById('mercaderia_id').value;
-      const turno = document.getElementById('turno').value;
-      const fechaProduccion = document.getElementById('fecha_produccion').value;
-      const unidades = document.getElementById('unidades').value;
-      /* const operadorId = document.getElementById('operador_id').value; */
+      const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
+      const cantidad = document.getElementById('cantidad').value;
+      const precioVenta = document.getElementById('precio_venta').value;
 
       const formData = new FormData();
+      formData.append('empresa_id', empresaId);
+      formData.append('sucursal_id', sucursalId);
+      formData.append('rubro_id', rubroId);
+      formData.append('fecha_presupuesto', fechaPresupuesto);
+      formData.append('fecha_vencimiento', fechaVencimiento);
+      formData.append('cliente_id', clienteId);
+      formData.append('direccion_cliente', direccionCliente);
       formData.append('mercaderia_id', mercaderiaId);
-      formData.append('turno', turno);
-      formData.append('fecha_produccion', fechaProduccion);
-      formData.append('unidades', unidades);
-      /* formData.append('operador_id', operadorId); */
+      formData.append('codigo_mercaderia', codigoMercaderia);
+      formData.append('cantidad', cantidad);
+      formData.append('precio_venta', precioVenta);
 
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&agregarMercaderia',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -209,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
-			modalEditarMercaderia.querySelector('#editarFechaProduccionMercaderia').value = button.getAttribute('data-fproduccion');
+			modalEditarMercaderia.querySelector('#editarFechaPresupuestoMercaderia').value = button.getAttribute('data-fproduccion');
       modalEditarMercaderia.querySelector('#editarUnidadesMercaderia').value = button.getAttribute('data-unidades');
 		});
 	}
@@ -226,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const formData = new FormData(this);
 
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&editarMercaderia',
+				url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarMercaderia',
 				type: 'POST',
 				data: formData,
 				processData: false,
@@ -293,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&eliminarMercaderia',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -339,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ##################### CERRAR TICKET ##################### */
 
-  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
+/*   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalCerrarTicket'));
     modal.show();
   });
@@ -350,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalCerrarTicket')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&cerrarTicket',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&cerrarTicket',
         type: 'POST',
         dataType: 'json',
         success: function (response) {
@@ -381,12 +403,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-  }
+  } */
 
 
   /* ##################### CANCELAR TICKET ##################### */
 
-  document.getElementById('btnMostrarCancelarTicket').addEventListener('click', function () {
+/*   document.getElementById('btnMostrarCancelarTicket').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalCancelarTicket'));
     modal.show();
   });
@@ -397,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalCancelarTicket')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&cancelarTicket',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&cancelarTicket',
         type: 'POST',
         dataType: 'json',
         success: function (response) {
@@ -431,6 +453,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-  }
+  } */
 
 });

@@ -180,6 +180,11 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
     mercaderia_id INT NOT NULL,
     unidades INT NOT NULL,
     peso_neto DECIMAL(10,2) NOT NULL,
+    peso_bruto DECIMAL(10,2) NULL,
+    tara_pri DECIMAL(10,2) NULL,
+    tara_sec DECIMAL(10,2) NULL,
+    precio_costo DECIMAL(10,2) NULL,
+    iva_tasa DECIMAL(5,2) NULL,
 
     -- Datos de auditoría
     fecha_sistema DATE NOT NULL,
@@ -360,8 +365,9 @@ CREATE TABLE expedicion_egresos_presupuestos_resumen (
     fecha_vencimiento DATE NULL,
     fecha_sistema DATETIME DEFAULT GETDATE(),
     cliente_id INT NOT NULL,
-    direccion_entrega VARCHAR(255) NULL,
+    direccion_cliente VARCHAR(255) NULL,
     contacto_nombre VARCHAR(100) NULL,
+    operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial del presupuesto
     creado_en DATETIME DEFAULT GETDATE(),
     creado_por VARCHAR(20) NULL,
@@ -382,8 +388,8 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
     descuento_porcentaje DECIMAL(5,2) NULL,
 
     -- Datos de auditoría
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NOT NULL,
+    fecha_sistema DATETIME DEFAULT GETDATE(),
+    fecha_modificacion DATE NULL,
     operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
 

@@ -54,25 +54,27 @@ VALUES
 	( 'ABM Perfiles', 'Permiso para acceder a la pantalla de Perfiles', '/configuracion/ABMs/perfiles', GETDATE(), 'admin', NULL, NULL ), /* 3 */
 	( 'Perfiles por Operador', 'Permiso para acceder a la pantalla de Perfiles por Operador', '/configuracion/ABMs/perfilesPorOperador', GETDATE(), 'admin', NULL, NULL ), /* 4 */
 	( 'Permisos por Perfil', 'Permiso para acceder a la pantalla de Permisos por Perfil', '/configuracion/ABMs/permisosPorPerfil', GETDATE(), 'admin', NULL, NULL ), /* 5 */
+ 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/produccion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 6 */
+	( 'ABM Grupos', 'Permiso para acceder al menú Grupos', '/produccion/ABMs/grupos', GETDATE(), 'admin', NULL, NULL ), /* 7 */
+	( 'ABM Subgrupos', 'Permiso para acceder al menú Subgrupos', '/produccion/ABMs/subgrupos', GETDATE(), 'admin', NULL, NULL ), /* 8 */
+	( 'ABM Traducciones', 'Permiso para acceder al menú Traducciones', '/produccion/ABMs/traducciones', GETDATE(), 'admin', NULL, NULL ), /* 9 */
 
 	--/* PRODUCCION */
- 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/produccion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 6 */
-	( 'ABM Procesos', 'Permiso para acceder al menú Procesos', '/produccion/ABMs/procesos', GETDATE(), 'admin', NULL, NULL ), /* 7 */
-	( 'Etiquetas Secundarias Sin Seleccion de Stock', 'Permiso para acceder a la pantalla de Etiquetas Secundarias Sin Seleccion de Stock', '/produccion/salida/etqSecSinSeleccion', GETDATE(), 'admin', NULL, NULL ), /* 9 */
+	( 'ABM Procesos', 'Permiso para acceder al menú Procesos', '/produccion/ABMs/procesos', GETDATE(), 'admin', NULL, NULL ), /* 10 */
+	( 'Etiquetas Secundarias Sin Seleccion de Stock', 'Permiso para acceder a la pantalla de Etiquetas Secundarias Sin Seleccion de Stock', '/produccion/salida/etqSecSinSeleccion', GETDATE(), 'admin', NULL, NULL ), /* 11 */
 
 	--/* RECEPCION */
- 	( 'ABM Mercaderías', 'Permiso para acceder al menú Mercaderías', '/recepcion/ABMs/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 10 */
-	( 'Mercaderías no Productivas', 'Permiso para acceder a la pantalla de Mercaderías no Productivas', '/recepcion/noProductivos/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 11 */
+	( 'Mercaderías no Productivas', 'Permiso para acceder a la pantalla de Mercaderías no Productivas', '/recepcion/noProductivos/mercaderias', GETDATE(), 'admin', NULL, NULL ), /* 12 */
 
 	--/* EXPEDICIÓN */
-	( 'ABM Destinos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/destinos', GETDATE(), 'admin', NULL, NULL ), /* 12 */
-	( 'ABM Transportes', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/transportes', GETDATE(), 'admin', NULL, NULL ), /* 13 */
-	( 'ABM Vehiculos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/vehiculos', GETDATE(), 'admin', NULL, NULL ), /* 14 */
+	( 'ABM Destinos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/destinos', GETDATE(), 'admin', NULL, NULL ), /* 13 */
+	( 'ABM Transportes', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/transportes', GETDATE(), 'admin', NULL, NULL ), /* 14 */
+	( 'ABM Vehiculos', 'Permiso para acceder al menú Expedición', '/expedicion/ABMs/vehiculos', GETDATE(), 'admin', NULL, NULL ), /* 15 */
 
-	( 'Ventas', 'Permiso para acceder a la pantalla de Ventas', '/expedicion/egresos/ventas', GETDATE(), 'admin', NULL, NULL ), /* 15 */
-	( 'Cierre', 'Permiso para acceder a la pantalla de Cierre', '/expedicion/egresos/cierre', GETDATE(), 'admin', NULL, NULL ), /* 16 */
-	( 'Despachos', 'Permiso para acceder a la pantalla de Despachos', '/expedicion/egresos/despachos', GETDATE(), 'admin', NULL, NULL ), /* 17 */
-	( 'Remitos', 'Permiso para acceder a la pantalla de Remitos', '/expedicion/egresos/remitos', GETDATE(), 'admin', NULL, NULL ) /* 18 */
+	( 'Ventas', 'Permiso para acceder a la pantalla de Ventas', '/expedicion/egresos/ventas', GETDATE(), 'admin', NULL, NULL ), /* 16 */
+	( 'Cierre', 'Permiso para acceder a la pantalla de Cierre', '/expedicion/egresos/cierre', GETDATE(), 'admin', NULL, NULL ), /* 17 */
+	( 'Despachos', 'Permiso para acceder a la pantalla de Despachos', '/expedicion/egresos/despachos', GETDATE(), 'admin', NULL, NULL ), /* 18 */
+	( 'Remitos', 'Permiso para acceder a la pantalla de Remitos', '/expedicion/egresos/remitos', GETDATE(), 'admin', NULL, NULL ) /* 19 */
 
 	;
 

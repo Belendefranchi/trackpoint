@@ -90,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'nro_remito' => $_POST['nro_remito'],
 			'fecha_remito' => $_POST['fecha_remito'] ?? null,
 			'mercaderia_id' => $_POST['mercaderia_id'],
-			'unidades' => $_POST['unidades'],
-			'peso_neto' => $_POST['peso_neto'],
+			'unidades' => round((float)$_POST['unidades'], 2),
+			'peso_neto' => round((float)$_POST['peso_neto'], 2),
 			'operador_id' => $_SESSION['operador_id'],
     ];
 

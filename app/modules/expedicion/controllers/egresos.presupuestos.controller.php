@@ -16,6 +16,9 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
+// Obtener resumen y detalle de recepción si hay una sesión activa
+$resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
+$detalle = obtenerDetallePresupuesto($resumen[0]['presupuesto_id'] ?? null);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -25,8 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
 		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
-		$codext_mercaderia = $_POST['codext_mercaderia'] ?? '';
-		$precio_venta = $_POST['precio_venta'] ?? 0;
 		
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
@@ -36,11 +37,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'success' => true,
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
-				'descripcion_mercaderia' => $descripcion_mercaderia,
-				'codext_mercaderia' => $codext_mercaderia,
-				'precio_venta' => $precio_venta
+				'descripcion_mercaderia' => $descripcion_mercaderia
 			]);
 			exit;
+		}
+	}
+
+	// ####### SELECCIONAR X CODIGO #######
+	if (isset($_GET['seleccionarCodigoMercaderia'])) {
+
+		header('Content-Type: application/json');
+
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? null;
+		$codext_mercaderia = $_POST['codext_mercaderia'] ?? null;
+
+		if (empty($codigo_mercaderia)) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el código de la mercaderia']);
+			exit;
+		} else {
+			try {
+				$mercaderia = obtenerMercaderiaPorCodigo($codigo_mercaderia);
+
+				if ($mercaderia) {
+					echo json_encode([
+						'success' => true,
+						'mercaderia_id' => $mercaderia['mercaderia_id'],
+						'codigo_mercaderia' => $mercaderia['codigo'],
+						'descripcion_mercaderia' => $mercaderia['descripcion']
+					]);
+					exit;
+				} else {
+					echo json_encode(['success' => false, 'message' => 'Mercadería no encontrada']);
+					exit;
+				}
+			} catch (Exception $e) {
+				registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			}
 		}
 	}
 
@@ -50,17 +83,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
     $datos = [
-			'mercaderia_id' => $_POST['mercaderia_id'],
-			'cantidad_mercaderia' => $_POST['cantidad'],
-			'codext_mercaderia' => $_POST['codigo_externo'],
-			'precio_venta' => $_POST['precio_venta'],
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
-			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
-			'operador_id' => $_SESSION['operador_id'],
+			'empresa_id' => $_POST['empresa_id'], //resumen
+			'sucursal_id' => $_POST['sucursal_id'], //resumen
+			'rubro_id' => $_POST['rubro_id'], //resumen
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'], //resumen
+			'fecha_vencimiento' => $_POST['fecha_vencimiento'], //resumen
+			'cliente_id' => $_POST['cliente_id'], //resumen
+			'direccion_cliente' => $_POST['direccion_cliente'], //resumen
+			'mercaderia_id' => $_POST['mercaderia_id'], //detalle
+			'codigo_mercaderia' => $_POST['codigo_mercaderia'], //detalle
+			'cantidad' => round((float)$_POST['cantidad']), //detalle
+			'precio_venta' => round((float)$_POST['precio_venta'], 2), //detalle
+			'operador_id' => $_SESSION['operador_id'], //resumen y detalle
     ];
 
 		// Validar datos obligatorios
-		if (empty($datos['mercaderia_id']) || empty($datos['cantidad_mercaderia']) || empty($datos['precio_venta'])) {
+		if (empty($datos['mercaderia_id']) || empty($datos['cantidad']) || empty($datos['precio_venta'])) {
 			echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
 			exit;
 		}
@@ -156,8 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-	// ####### GUARDAR PRESUPUESTO #######
-	if (isset($_GET['guardarPresupuesto'])) {
+	// ####### GENERAR PRESUPUESTO #######
+	if (isset($_GET['generarPresupuesto'])) {
 
 		header('Content-Type: application/json');
 
@@ -234,8 +272,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-/* 	'resumen' => $resumen,
-	'detalle' => $detalle */
+	'resumen' => $resumen,
+	'detalle' => $detalle
 ];
 
 // Llamar a la función común que carga todo en el layout

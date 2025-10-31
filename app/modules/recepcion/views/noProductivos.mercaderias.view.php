@@ -101,14 +101,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-8 ps-0 d-flex align-items-center">
 													<input type="checkbox" name="descripcion_mercaderia_checkbox" id="descripcion_mercaderia_checkbox" class="form-check-input me-2" title="Fijar">
 													<div class="input-group">
-														<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 														<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="descripcion_mercaderia" value="<?php echo $mercaderiaSeleccionada['descripcion_mercaderia'] ?? ''; ?>" readonly>
 														<a href="#" class="btn btn-primary"
-															data-bs-toggle="modal" 
-															data-bs-target="#modalSeleccionarMercaderia">
-															<i class="bi bi-search"></i>
+														data-bs-toggle="modal" 
+														data-bs-target="#modalSeleccionarMercaderia">
+														<i class="bi bi-search"></i>
 														</a>
 													</div>
+													<input type="hidden" name="mercaderia_id" id="mercaderia_id">
 												</div>
 											</div>
 										</div>
@@ -535,7 +535,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	</div>
 
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
-
+	
+  <script src="/trackpoint/public/assets/js/datatables.js"></script>
 	<script src="/trackpoint/public/assets/js/menu_recepcion/menu.recepcion.js"></script>
 	<script src="/trackpoint/public/assets/js/menu_recepcion/noProductivos.mercaderias.modales.js"></script>
 
