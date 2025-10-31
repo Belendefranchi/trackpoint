@@ -385,6 +385,45 @@ function generarPresupuesto($presupuesto_id) {
 	}
 }
 
+function editarPresupuesto($datos) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
+														SET
+															empresa_id = :empresa_id,
+															sucursal_id = :sucursal_id,
+															rubro_id = :rubro_id,
+															fecha_presupuesto = :fecha_presupuesto,
+															fecha_vencimiento = :fecha_vencimiento,
+															cliente_id = :cliente_id,
+															direccion_cliente = :direccion_cliente,
+															fecha_modificacion = :fecha_modificacion
+														WHERE
+															presupuesto_id = :presupuesto_id");
+
+		$stmt->bindParam(':presupuesto_id', $datos['presupuesto_id']);
+		$stmt->bindParam(':empresa_id', $datos['empresa_id']);
+		$stmt->bindParam(':sucursal_id', $datos['sucursal_id']);
+		$stmt->bindParam(':rubro_id', $datos['rubro_id']);
+		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
+		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
+		$stmt->bindParam(':cliente_id', $datos['cliente_id']);
+		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
+		$stmt->bindParam(':fecha_modificacion', $fechaActual);
+		$result = $stmt->execute();
+
+		if ($result) {
+			registrarEvento("Presupuestos Model: presupuesto editado correctamente.", "INFO");
+		}
+		return ['success' => true, 'message' => 'Presupuesto editado correctamente.'];
+
+		} catch (PDOException $e) {
+			// Manejo de errores
+			registrarEvento("Presupuestos Model: Error al editar el presupuesto, " . $e->getMessage(), "ERROR");
+			return false;
+		}
+}
+
 function cancelarPresupuesto($presupuesto_id) {
 
   $fechaActual = date('Y-m-d H:i:s');

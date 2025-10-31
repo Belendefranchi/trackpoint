@@ -216,7 +216,152 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ##################### MODAL DE EDICIÓN ##################### */
+  /* ##################### MODAL DE EDICIÓN PRESUPUESTO ##################### */
+
+	// Interceptar el evento de apertura del modal de edición
+	var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
+	if (modalEditarPresupuesto) {
+		modalEditarPresupuesto.addEventListener('show.bs.modal', function (event) {
+			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
+			const button = event.relatedTarget;
+
+			if (!button) {
+				console.warn('No se detectó el botón que activó el modal.');
+				return;
+			}
+
+			modalEditarPresupuesto.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
+			modalEditarPresupuesto.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
+      modalEditarPresupuesto.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
+      modalEditarPresupuesto.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
+      modalEditarPresupuesto.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
+      modalEditarPresupuesto.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
+      modalEditarPresupuesto.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
+      modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
+		});
+	}
+
+	// Interceptar el envío del formulario con AJAX
+	const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
+	if (formEditarPresupuesto) {
+		formEditarPresupuesto.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			// Limpiar cualquier mensaje de error antes de hacer la solicitud
+			$('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
+
+			const formData = new FormData(this);
+
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarPresupuesto',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					console.log('Respuesta del servidor:', response);
+
+					if (response.success) {
+						console.log('Presupuesto modificado con éxito:', response.message);
+
+						const tabla = $('#miTablaDetalle').DataTable();
+
+						location.reload();
+					} else {
+						console.log('Error al modificar el presupuesto:', response.message);
+						$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', xhr.status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText);
+					$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+				}
+			});
+		});
+	}
+
+	// Limpiar el mensaje de error al cerrar el modal
+	if (modalEditarPresupuesto) {
+		modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
+			var mensajeError = document.getElementById('mensaje-error-editar-presupuesto');
+			if (mensajeError) {
+				mensajeError.classList.add('d-none'); // Ocultar el div
+				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			}
+		});
+	}
+  
+  /* ##################### MODAL DE ELIMINACIÓN PRESUPUESTO ##################### */
+
+  // Interceptar el evento de apertura del modal de eliminación
+  var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
+  if (modalEliminarPresupuesto) {
+    modalEliminarPresupuesto.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+
+      modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
+    });
+  }
+
+  // Interceptar el envío del formulario con AJAX
+  const formEliminarPresupuesto = document.querySelector('#formEliminarPresupuesto');
+  if (formEliminarPresupuesto) {
+    formEliminarPresupuesto.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-eliminar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarPresupuesto',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Presupuesto eliminado con éxito:', response.message);
+
+            const tabla = $('#miTablaDetalle').DataTable();
+
+            location.reload();
+          } else {
+            console.log('Error al eliminar el presupuesto:', response.message);
+            $('#mensaje-error-eliminar-presupuesto').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-eliminar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+
+  // Limpiar el mensaje de error al cerrar el modal
+  if (modalEliminarPresupuesto) {
+    modalEliminarPresupuesto.addEventListener('hidden.bs.modal', function () {
+      var mensajeError = document.getElementById('mensaje-error-eliminar-presupuesto');
+      if (mensajeError) {
+        mensajeError.classList.add('d-none'); // Ocultar el div
+        mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+      }
+    });
+  }
+
+    /* ##################### MODAL DE EDICIÓN MERCADERÍA ##################### */
 
 	// Interceptar el evento de apertura del modal de edición
 	var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
@@ -243,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			e.preventDefault();
 
 			// Limpiar cualquier mensaje de error antes de hacer la solicitud
-			$('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
+			$('#mensaje-error-editar-mercaderia').addClass('d-none').find('.mensaje-texto').text('');
 
 			const formData = new FormData(this);
 
@@ -265,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						location.reload();
 					} else {
 						console.log('Error al modificar la mercadería:', response.message); 
-						$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+						$('#mensaje-error-editar-mercaderia').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
 				error: function (xhr, status, error) {
@@ -273,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					console.log('Código de estado:', xhr.status);
 					console.log('Mensaje de error:', error);
 					console.log('Respuesta del servidor:', xhr.responseText); 
-					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+					$('#mensaje-error-editar-mercaderia').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
 				}
 			});
 		});
@@ -283,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
 	if (modalEditarMercaderia) {
 		modalEditarMercaderia.addEventListener('hidden.bs.modal', function () {
-			var mensajeError = document.getElementById('mensaje-error-editar');
+			var mensajeError = document.getElementById('mensaje-error-editar-mercaderia');
 			if (mensajeError) {
 				mensajeError.classList.add('d-none'); // Ocultar el div
 				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
@@ -291,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
   
-  /* ##################### MODAL DE ELIMINACIÓN ##################### */
+  /* ##################### MODAL DE ELIMINACIÓN MERCADERÍA ##################### */
 
   // Interceptar el evento de apertura del modal de eliminación
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
@@ -310,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
 
       // Limpiar cualquier mensaje de error antes de hacer la solicitud
-      $('#mensaje-error-eliminar').addClass('d-none').find('.mensaje-texto').text('');
+      $('#mensaje-error-eliminar-mercaderia').addClass('d-none').find('.mensaje-texto').text('');
 
       const formData = new FormData(this);
 
@@ -332,15 +477,15 @@ document.addEventListener('DOMContentLoaded', function () {
             location.reload();
           } else {
             console.log('Error al eliminar la mercadería:', response.message);
-            $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+            $('#mensaje-error-eliminar-mercaderia').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function (xhr, status, error) {
           console.log('Error al guardar los datos');
           console.log('Código de estado:', xhr.status);
           console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText); 
-          $('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-eliminar-mercaderia').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
     });
@@ -350,109 +495,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
   if (modalEliminarMercaderia) {
     modalEliminarMercaderia.addEventListener('hidden.bs.modal', function () {
-      var mensajeError = document.getElementById('mensaje-error-eliminar');
+      var mensajeError = document.getElementById('mensaje-error-eliminar-mercaderia');
       if (mensajeError) {
         mensajeError.classList.add('d-none'); // Ocultar el div
         mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
       }
     });
   }
-
-
-  /* ##################### CERRAR TICKET ##################### */
-
-/*   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalCerrarTicket'));
-    modal.show();
-  });
-
-  const btnGuardar = document.getElementById('btnConfirmarGuardar');
-  if (btnGuardar) {
-    btnGuardar.addEventListener('click', function () {
-      bootstrap.Modal.getInstance(document.getElementById('modalCerrarTicket')).hide();
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&cerrarTicket',
-        type: 'POST',
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            console.log(response)
-            $('#modalMensajeLabel').text('Ticket cerrado');
-            $('#textoModalMensaje').text('El ticket fue cerrado correctamente.');
-          } else {
-            $('#modalMensajeLabel').text('Error al cerrar el ticket');
-            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
-          }
-
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensaje'));
-          modalMensaje.show();
-
-          // Esperar a que el modal se cierre para recargar
-          const modalElement = document.getElementById('modalMensaje');
-          modalElement.addEventListener('hidden.bs.modal', function () {
-            location.reload();
-          }, { once: true });
-
-        },
-        error: function () {
-          $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar cerrar el ticket.');
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensaje'));
-          modalMensaje.show();
-        }
-      });
-    });
-  } */
-
-
-  /* ##################### CANCELAR TICKET ##################### */
-
-/*   document.getElementById('btnMostrarCancelarTicket').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalCancelarTicket'));
-    modal.show();
-  });
-
-  const btnCancelar = document.getElementById('btnConfirmarCancelar');
-  if (btnCancelar) {
-    btnCancelar.addEventListener('click', function () {
-      bootstrap.Modal.getInstance(document.getElementById('modalCancelarTicket')).hide();
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&cancelarTicket',
-        type: 'POST',
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            console.log(response)
-            $('#modalMensajeLabel').text('Ticket cancelado');
-            $('#textoModalMensaje').text('El ticket fue cancelado correctamente.');
-          } else {
-            $('#modalMensajeLabel').text('Error al cancelar');
-            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
-          }
-
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensaje'));
-          modalMensaje.show();
-
-          // Esperar a que el modal se cierre para recargar
-          const modalElement = document.getElementById('modalMensaje');
-          modalElement.addEventListener('hidden.bs.modal', function () {
-            location.reload();
-          }, { once: true });
-
-        },
-        error: function (xhr, status, error) {
-          console.log("Estado:", status);
-          console.log("Error:", error);
-          console.log("Respuesta cruda:", xhr.responseText);
-          $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar eliminar la recepción.');
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensaje'));
-          modalMensaje.show();
-        }
-      });
-    });
-  } */
 
 });

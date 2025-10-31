@@ -236,7 +236,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																			<div class="d-flex no-wrap justify-content-center">
 																				<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 																					data-bs-toggle="modal"
-																					data-bs-target="#modalEditarMercaderia"
+																					data-bs-target="#modalEditarPresupuesto"
 																					data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
 																					data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
 																					data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_id']) ?>"
@@ -244,13 +244,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																					data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
 																					data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
 																					data-cliente="<?= htmlspecialchars($filaResumen['cliente_id']) ?>"
-																					data-direccion="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
+																					data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
 																					data-contacto="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
 																					<i class="bi bi-pencil me-2"></i>Editar
 																				</a>
 																				<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 																					data-bs-toggle="modal"
-																					data-bs-target="#modalEliminarMercaderia"
+																					data-bs-target="#modalEliminarPresupuesto"
 																					data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																					<i class="bi bi-trash me-2"></i>Eliminar
 																				</a>
@@ -275,7 +275,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	<td class="border">Código</td>
 																	<td class="border">Descripción</td>
 																	<td class="border">Cantidad</td>
-																	<td class="border">Precio Costo</td>
+																	<td class="border">Precio Compra</td>
 																	<td class="border">Precio Venta</td>
 																	<td class="border">Subtotal</td>
 																	<td class="border text-center no-export">Acciones</td>
@@ -335,8 +335,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				</div>
 
 				<!-- Modal de selección de mercadería -->
-				<div class="modal fade m-5" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
-					<div class="modal-dialog d-flex">
+				<div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
 						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia">
 							<div class="modal-content m-5">
 								<div class="modal-header table-primary text-white">
@@ -400,6 +400,293 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</div>
 							
 						</form>
+					</div>
+				</div>
+
+				<!-- Modal de edición de presupuesto -->
+				<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEditarPresupuesto" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&editarPresupuesto">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEditarPresupuestoLabel">Editar presupuesto</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="presupuesto_id" id="editarPresupuestoId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-editar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarEmpresaPresupuesto" class="form-label text-primary">Empresa</label>
+										<select class="form-select text-primary" name="empresa_id" id="editarEmpresaPresupuesto">
+											<option value="1">Empresa 1</option>
+										</select>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarSucursalPresupuesto" class="form-label text-primary">Sucursal</label>
+										<select class="form-select text-primary" name="sucursal_id" id="editarSucursalPresupuesto">
+											<option value="1">Sucursal 1</option>
+										</select>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarRubroPresupuesto" class="form-label text-primary">Rubro</label>
+										<select class="form-select text-primary" name="rubro_id" id="editarRubroPresupuesto">
+											<option value="1">Rubro 1</option>
+										</select>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarFechaPresupuesto" class="form-label text-primary">Fecha Presupuesto</label>
+										<input type="date" class="form-control" name="fecha_presupuesto" id="editarFechaPresupuesto">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarFechaVencimientoPresupuesto" class="form-label text-primary">Fecha Vencimiento</label>
+										<input type="date" class="form-control" name="fecha_vencimiento" id="editarFechaVencimientoPresupuesto">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarClientePresupuesto" class="form-label text-primary">Cliente</label>
+										<select class="form-select text-primary" name="cliente_id" id="editarClientePresupuesto">
+											<option value="1">Cliente 1</option>
+										</select>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarDireccionClientePresupuesto" class="form-label text-primary">Dirección Cliente</label>
+										<select class="form-select text-primary" name="direccion_cliente" id="editarDireccionClientePresupuesto">
+											<option value="1">Dirección 1</option>
+										</select>
+									</div>
+
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de eliminación de presupuesto -->
+				<div class="modal fade" id="modalEliminarPresupuesto" tabindex="-1" aria-labelledby="modalEliminarPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEliminarPresupuesto" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&eliminarPresupuesto">
+							<div class="modal-content shadow">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEliminarPresupuestoLabel">Eliminar presupuesto</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="item_id" id="eliminarItemId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-eliminar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<p>¿Está seguro que desea eliminar la mercadería?</p>
+										<p>Esta acción no se puede deshacer.</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-danger m-2" name="eliminar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+									<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de edición de mercadería -->
+				<div class="modal fade" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&editarMercaderia">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="item_id" id="editarItemId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-editar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarProveedorMercaderia" class="form-label text-primary">Proveedor</label>
+										<input type="text" class="form-control" name="proveedor_id" id="editarProveedorMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarFechaRecepcionMercaderia" class="form-label text-primary">Fecha Recepción</label>
+										<input type="date" class="form-control" name="fecha_recepcion" id="editarFechaRecepcionMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarNroRemitoMercaderia" class="form-label text-primary">Nro. Remito</label>
+										<input type="text" class="form-control" name="nro_remito" id="editarNroRemitoMercaderia">
+									</div>
+
+									<div class="mb-3">
+										<label for="editarFechaRemitoMercaderia" class="form-label text-primary">Fecha Remito</label>
+										<input type="date" class="form-control" name="fecha_remito" id="editarFechaRemitoMercaderia">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarUnidadesMercaderia" class="form-label text-primary">Unidades</label>
+										<input type="number" class="form-control" name="unidades" id="editarUnidadesMercaderia">
+									</div>
+									
+									<div class="mb-3">
+										<label for="editarPesoNetoMercaderia" class="form-label text-primary">Peso Neto</label>
+										<input type="number" class="form-control" name="peso_neto" id="editarPesoNetoMercaderia">
+									</div>
+
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
+										<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de eliminación de mercadería -->
+				<div class="modal fade" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&eliminarMercaderia">
+							<div class="modal-content shadow">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="item_id" id="eliminarItemId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-eliminar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<p>¿Está seguro que desea eliminar la mercadería?</p>
+										<p>Esta acción no se puede deshacer.</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-danger m-2" name="eliminar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
+									<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de confirmación de presupuesto -->
+				<div class="modal fade" id="modalGenerarPresupuesto" tabindex="-1" aria-labelledby="modalGenerarPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Confirmar generación de presupuesto</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<?php if (empty($detalle)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal de cancelación de presupuesto -->
+				<div class="modal fade" id="modalCancelarPresupuesto" tabindex="-1" aria-labelledby="modalCancelarPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalCancelarPresupuestoLabel">Cancelar presupuesto</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<?php if (empty($detalle)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro de que querés cancelar la recepción?</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarCancelar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal mensaje resultado -->
+				<div class="modal fade" id="modalMensajePresupuesto" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content border-0 shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<div class="modal-body text-center">
+								<div class="mb-3">
+									<p class="text-muted text-center" id="textoModalMensaje"></p>
+								</div>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							</div>
+						</div>
 					</div>
 				</div>
 
