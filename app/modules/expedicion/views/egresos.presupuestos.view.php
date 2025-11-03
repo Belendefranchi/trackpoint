@@ -61,7 +61,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<div class="row p-2 d-flex align-items-center justify-content-center">
 												<label for="presupuesto_id" class="col-md-6 form-label text-primary">Presupuesto Nº</label>
 												<div class="col-md-6 ps-0">
-													<input type="text" class="form-control text-primary" id="presupuesto_id" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
+													<?php if (empty($resumen[0]['presupuesto_id'])): ?>
+														<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="Seleccione un presupuesto" disabled>
+													<?php else: ?>
+														<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
+													<?php endif; ?>
 												</div>
 											</div>
 											<!-- Fecha Emisión -->
@@ -248,7 +252,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																					data-contacto="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
 																					<i class="bi bi-pencil me-2"></i>Editar
 																				</a>
-																				<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+																				<a href="#" id="btnMostrarEliminarPresupuesto" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 																					data-bs-toggle="modal"
 																					data-bs-target="#modalEliminarPresupuesto"
 																					data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
@@ -322,10 +326,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 									<div class="card-footer bg-light d-flex justify-content-end">
 										<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal" id="btnMostrarConfirmacion">
-											<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
-										</button>
-										<button type="button" class="btn btn-sm btn-danger mx-1 my-3" name="cancelar_modal" id="btnMostrarCancelarRecepcion">
-											<i class="bi bi-x-circle me-2"></i>Cancelar
+											<i class="bi bi-check-circle pt-1 me-2"></i>Generar
 										</button>
 								</div>
 							</div>
@@ -446,12 +447,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<div class="mb-3">
 										<label for="editarFechaPresupuesto" class="form-label text-primary">Fecha Presupuesto</label>
-										<input type="date" class="form-control" name="fecha_presupuesto" id="editarFechaPresupuesto">
+										<input type="date" class="form-control text-primary" name="fecha_presupuesto" id="editarFechaPresupuesto">
 									</div>
 									
 									<div class="mb-3">
 										<label for="editarFechaVencimientoPresupuesto" class="form-label text-primary">Fecha Vencimiento</label>
-										<input type="date" class="form-control" name="fecha_vencimiento" id="editarFechaVencimientoPresupuesto">
+										<input type="date" class="form-control text-primary" name="fecha_vencimiento" id="editarFechaVencimientoPresupuesto">
 									</div>
 									
 									<div class="mb-3">
@@ -479,7 +480,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				</div>
 
 				<!-- Modal de eliminación de presupuesto -->
-				<div class="modal fade" id="modalEliminarPresupuesto" tabindex="-1" aria-labelledby="modalEliminarPresupuestoLabel" aria-hidden="true">
+				<div class="modal fade m-5" id="modalEliminarPresupuesto" tabindex="-1" aria-labelledby="modalEliminarPresupuestoLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<form method="POST" id="formEliminarPresupuesto" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&eliminarPresupuesto">
 							<div class="modal-content shadow">
@@ -487,26 +488,37 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<h5 class="modal-title" id="modalEliminarPresupuestoLabel">Eliminar presupuesto</h5>
 									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 								</div>
-								<div class="modal-body">
-									<input type="hidden" name="item_id" id="eliminarItemId">
-
-									<div class="mb-3">
-										<div id="mensaje-error-eliminar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
-											<i class="bi bi-exclamation-triangle-fill me-2"></i>
-											<span class="mensaje-texto"></span>
-												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+								<?php if (empty($resumen)): ?>
+									<div class="modal-body text-center">
+										<div class="mb-3">
+											<p class="text-muted text-center">Aún no hay presupuestos pendientes</p>
 										</div>
 									</div>
-
-									<div class="mb-3">
-										<p>¿Está seguro que desea eliminar la mercadería?</p>
-										<p>Esta acción no se puede deshacer.</p>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 									</div>
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="submit" class="btn btn-sm btn-danger m-2" name="eliminar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
-									<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-								</div>
+								<?php else: ?>
+									<div class="modal-body text-center">
+										<input type="hidden" name="presupuesto_id" id="eliminarPresupuestoId">
+
+										<div class="mb-3">
+											<div id="mensaje-error-eliminar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
+												<i class="bi bi-exclamation-triangle-fill me-2"></i>
+												<span class="mensaje-texto"></span>
+													<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<p>¿Estás seguro de que querés eliminar el presupuesto?</p>
+											<p>Esta acción no se puede deshacer</p>
+										</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-success" id="btnConfirmarEliminar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+									</div>
+								<?php endif; ?>
 							</div>
 						</form>
 					</div>
@@ -606,7 +618,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
-				<!-- Modal de confirmación de presupuesto -->
+				<!-- Modal de generación de presupuesto -->
 				<div class="modal fade" id="modalGenerarPresupuesto" tabindex="-1" aria-labelledby="modalGenerarPresupuestoLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content shadow">
@@ -617,7 +629,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<?php if (empty($detalle)): ?>
 								<div class="modal-body text-center">
 									<div class="mb-3">
-										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+										<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
 									</div>
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
@@ -631,38 +643,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">
 									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
-									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-								</div>
-							<?php endif; ?>
-						</div>
-					</div>
-				</div>
-
-				<!-- Modal de cancelación de presupuesto -->
-				<div class="modal fade" id="modalCancelarPresupuesto" tabindex="-1" aria-labelledby="modalCancelarPresupuestoLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content shadow">
-							<div class="modal-header table-primary text-white">
-								<h5 class="modal-title" id="modalCancelarPresupuestoLabel">Cancelar presupuesto</h5>
-								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-							</div>
-							<?php if (empty($detalle)): ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-									</div>
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-								</div>
-							<?php else: ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<p class="text-muted text-center">¿Estás seguro de que querés cancelar la recepción?</p>
-									</div>
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarCancelar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
 									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 								</div>
 							<?php endif; ?>

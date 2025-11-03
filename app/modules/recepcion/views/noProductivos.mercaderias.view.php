@@ -499,6 +499,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="modal-body text-center">
 									<div class="mb-3">
 										<p class="text-muted text-center">¿Estás seguro de que querés cancelar la recepción?</p>
+										<p>Esta acción no se puede deshacer</p>
 									</div>
 								</div>
 								<div class="modal-footer d-flex justify-content-center p-2">

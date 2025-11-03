@@ -274,14 +274,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-	// ####### CANCELAR PRESUPUESTO #######
-	if (isset($_GET['cancelarPresupuesto'])) {
+	// ####### ELIMINAR PRESUPUESTO #######
+	if (isset($_GET['eliminarPresupuesto'])) {
 
 		header('Content-Type: application/json');
 
 		$operador_id = $_SESSION['operador_id'];
 		$resumen = obtenerResumenPresupuesto($operador_id);
-		$presupuesto_id = $resumen[0]['presupuesto_id'];
+		$presupuesto_id = $_POST['presupuesto_id'];
 
 		// Validar si hay mercaderías cargadas
     if (empty($resumen)) {
@@ -293,15 +293,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 		
 		try {
-			$result = cancelarPresupuesto($presupuesto_id);
+			$result = eliminarPresupuesto($presupuesto_id);
 
 			if ($result['success']) {
-				registrarEvento("Presupuestos Controller: Presupuesto cancelado correctamente => " . $resumen[0]['presupuesto_id'], "INFO");
+				registrarEvento("Presupuestos Controller: Presupuesto eliminado correctamente => " . $presupuesto_id, "INFO");
 				echo json_encode(['success' => true, 'message' => $result['message']]);
 				exit;
 			} else {
-				registrarEvento("Presupuestos Controller: Error al cancelar el presupuesto => " . $resumen[0]['presupuesto_id'], "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo cancelar el presupuesto']);
+				registrarEvento("Presupuestos Controller: Error al eliminar el presupuesto => " . $presupuesto_id, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar el presupuesto']);
 				exit;
 			}
 		} catch (Exception $e) {
