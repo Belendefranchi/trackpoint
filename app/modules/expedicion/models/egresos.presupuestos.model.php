@@ -254,23 +254,24 @@ function editarMercaderiaPresupuesto($datos) {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
 														SET
+															codigo_mercaderia = :codigo_mercaderia,
+															descripcion_mercaderia = :descripcion_mercaderia,
 															cantidad = :cantidad,
-															precio_costo = :precio_costo,
 															precio_venta = :precio_venta,
-															iva_tasa = :iva_tasa,
-															descuento_porcentaje = :descuento_porcentaje,
+															/* iva_tasa = :iva_tasa,
+															descuento_porcentaje = :descuento_porcentaje, */
 															fecha_modificacion = :fecha_modificacion
 														WHERE
 															item_id = :item_id");
 
 		$stmt->bindParam(':item_id', $datos['item_id']);
+		$stmt->bindParam(':codigo_mercaderia', $datos['codigo_mercaderia']);
+		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindParam(':cantidad', $datos['cantidad']);
-		$stmt->bindParam(':precio_costo', $datos['precio_costo']);
 		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
-		$stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
-		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']);
+/* 		$stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
+		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$stmt->bindParam(':fecha_modificacion', $fechaActual);
-		$stmt->execute();
 		$result = $stmt->execute();
 
 		if ($result) {

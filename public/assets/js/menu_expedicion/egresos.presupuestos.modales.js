@@ -330,14 +330,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
 			const button = event.relatedTarget;
 
+      console.log({
+        id: button.getAttribute('data-id'),
+        codigom: button.getAttribute('data-codigom'),
+        descripcionm: button.getAttribute('data-descripcionm'),
+        cantidad: button.getAttribute('data-cantidad'),
+        preciov: button.getAttribute('data-preciov')
+      });
+
 			if (!button) {
 				console.warn('No se detectó el botón que activó el modal.');
 				return;
 			}
 
 			modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
-			modalEditarMercaderia.querySelector('#editarFechaPresupuestoMercaderia').value = button.getAttribute('data-fproduccion');
-      modalEditarMercaderia.querySelector('#editarUnidadesMercaderia').value = button.getAttribute('data-unidades');
+			modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
+      modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
+      modalEditarMercaderia.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
+      modalEditarMercaderia.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov');
 		});
 	}
 

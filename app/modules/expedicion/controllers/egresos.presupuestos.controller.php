@@ -90,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'fecha_vencimiento' => $_POST['fecha_vencimiento'], //resumen
 			'cliente_id' => $_POST['cliente_id'], //resumen
 			'direccion_cliente' => $_POST['direccion_cliente'], //resumen
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', //resumen
 			'mercaderia_id' => $_POST['mercaderia_id'], //detalle
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'], //detalle
 			'cantidad' => round((float)$_POST['cantidad']), //detalle
@@ -130,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$datos = [
 			'item_id' => $_POST['item_id'],
+			'mercaderia_id' => $_POST['mercaderia_id'],
 			'cantidad_mercaderia' => $_POST['cantidad'],
 			'precio_venta' => $_POST['precio_venta'],
     ];
@@ -208,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
 			'cliente_id' => $_POST['cliente_id'] ?? null,
 			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? null,
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
     ];
 
 		if (empty($datos['presupuesto_id'])) {

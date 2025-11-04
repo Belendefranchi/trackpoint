@@ -101,6 +101,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													</a>
 												</div>
 												<input type="hidden" name="cliente_id" id="cliente_id">
+												<input type="hidden" name="contacto_nombre" id="contacto_nombre">
 												</div>
 											</div>
 										</div>
@@ -550,33 +551,34 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<div class="mb-3">
-										<label for="editarProveedorMercaderia" class="form-label text-primary">Proveedor</label>
-										<input type="text" class="form-control" name="proveedor_id" id="editarProveedorMercaderia">
+										<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
+										<select class="form-select text-primary" name="mercaderia_id" id="editarMercaderiaId">
+												<?php if (empty($mercaderias)): ?>
+													<option value="">No hay mercaderías disponibles</option>
+												<?php else: ?>
+													<?php foreach ($mercaderias as $mercaderiaSeleccionada): ?>
+														<option value="<?= htmlspecialchars($mercaderiaSeleccionada['mercaderia_id']) ?>"><?= htmlspecialchars($mercaderiaSeleccionada['codigo']) ?></option>
+													<?php endforeach; ?>
+												<?php endif; ?>
+											</select>
 									</div>
 
 									<div class="mb-3">
-										<label for="editarFechaRecepcionMercaderia" class="form-label text-primary">Fecha Recepción</label>
-										<input type="date" class="form-control" name="fecha_recepcion" id="editarFechaRecepcionMercaderia">
+										<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
+										<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
+										<select class="form-select text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
+											<option value=""></option>
+										</select>
 									</div>
 
 									<div class="mb-3">
-										<label for="editarNroRemitoMercaderia" class="form-label text-primary">Nro. Remito</label>
-										<input type="text" class="form-control" name="nro_remito" id="editarNroRemitoMercaderia">
-									</div>
-
-									<div class="mb-3">
-										<label for="editarFechaRemitoMercaderia" class="form-label text-primary">Fecha Remito</label>
-										<input type="date" class="form-control" name="fecha_remito" id="editarFechaRemitoMercaderia">
+										<label for="editarFechaRecepcionMercaderia" class="form-label text-primary">Cantidad</label>
+										<input type="number" class="form-control" name="cantidad" id="editarCantidadMercaderia">
 									</div>
 									
 									<div class="mb-3">
-										<label for="editarUnidadesMercaderia" class="form-label text-primary">Unidades</label>
-										<input type="number" class="form-control" name="unidades" id="editarUnidadesMercaderia">
-									</div>
-									
-									<div class="mb-3">
-										<label for="editarPesoNetoMercaderia" class="form-label text-primary">Peso Neto</label>
-										<input type="number" class="form-control" name="peso_neto" id="editarPesoNetoMercaderia">
+										<label for="editarPrecioMercaderia" class="form-label text-primary">Precio Venta</label>
+										<input type="number" class="form-control" name="precio_venta" id="editarPrecioMercaderia">
 									</div>
 
 									<div class="modal-footer d-flex justify-content-center p-2">
