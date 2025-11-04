@@ -194,6 +194,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
+	// ####### EDITAR PRESUPUESTO #######
+	if (isset($_GET['editarPresupuesto'])) {
+
+		header('Content-Type: application/json');
+
+		$datos = [
+			'presupuesto_id' => $_POST['presupuesto_id'],
+			'empresa_id' => $_POST['empresa_id'],
+			'sucursal_id' => $_POST['sucursal_id'] ?? null,
+			'rubro_id' => $_POST['rubro_id'] ?? null,
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
+			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
+			'cliente_id' => $_POST['cliente_id'] ?? null,
+			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? null,
+    ];
+
+		if (empty($datos['presupuesto_id'])) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del presupuesto']);
+			exit;
+		}
+		
+		try {
+		// Lógica para editar el presupuesto
+		$result = editarPresupuesto($datos);
+
+		if ($result) {
+			registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
+			echo json_encode(['success' => true]);
+			exit;
+		}	else {
+				// Respuesta de error
+				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
+
 	// ####### GENERAR PRESUPUESTO #######
 	if (isset($_GET['generarPresupuesto'])) {
 
@@ -229,49 +273,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 		}
 
-	}
-
-		// ####### EDITAR PRESUPUESTO #######
-	if (isset($_GET['editarPresupuesto'])) {
-
-		header('Content-Type: application/json');
-
-		$datos = [
-			'presupuesto_id' => $_POST['presupuesto_id'],
-			'empresa_id' => $_POST['empresa_id'],
-			'sucursal_id' => $_POST['sucursal_id'],
-			'rubro_id' => $_POST['rubro_id'],
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
-			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
-			'cliente_id' => $_POST['cliente_id'],
-			'direccion_cliente' => $_POST['direccion_cliente'],
-    ];
-
-		if (empty($datos['presupuesto_id'])) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del presupuesto']);
-			exit;
-		}
-		
-		try {
-		// Lógica para editar el presupuesto
-		$result = editarPresupuesto($datos);
-
-		if ($result) {
-			registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
-			echo json_encode(['success' => true]);
-			exit;
-		}	else {
-				// Respuesta de error
-				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
-				exit;
-			}
-		} catch (Exception $e) {
-			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
-			exit;
-		}
-		exit;
 	}
 
 	// ####### ELIMINAR PRESUPUESTO #######

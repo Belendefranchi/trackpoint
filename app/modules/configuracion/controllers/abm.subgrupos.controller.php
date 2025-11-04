@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$grupo_id = $_POST['grupo_id'];
 
     	// Validación básica
-    	if (empty($codigo) || empty($descripcion) || empty($grupo_id)) {
+    if (empty($codigo) || empty($descripcion) || empty($grupo_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}

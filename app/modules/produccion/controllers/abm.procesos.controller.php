@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$codigo = $_POST['codigo'];
 		$descripcion = $_POST['descripcion'];
 
-    	// Validación básica
-    	if (empty($codigo) || empty($descripcion)) {
+    // Validación básica
+    if (empty($codigo) || empty($descripcion)) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    	header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
 		$proceso_id = $_POST['proceso_id'];
 		$codigo = $_POST['codigo'];

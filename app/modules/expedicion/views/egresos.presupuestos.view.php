@@ -93,7 +93,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="col-md-10 ps-0">
 													<div class="input-group">
 														<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
-														<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? null; ?>">
+														<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
 														<a href="#" class="btn btn-primary"
 														data-bs-toggle="modal" 
 														data-bs-target="#modalSeleccionarCliente">
@@ -249,7 +249,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																					data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
 																					data-cliente="<?= htmlspecialchars($filaResumen['cliente_id']) ?>"
 																					data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
-																					data-contacto="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																					data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
 																					<i class="bi bi-pencil me-2"></i>Editar
 																				</a>
 																				<a href="#" id="btnMostrarEliminarPresupuesto" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
@@ -465,8 +465,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="mb-3">
 										<label for="editarDireccionClientePresupuesto" class="form-label text-primary">Dirección Cliente</label>
 										<select class="form-select text-primary" name="direccion_cliente" id="editarDireccionClientePresupuesto">
-											<option value="1">Dirección 1</option>
+											<option value="direccion1">Dirección 1</option>
 										</select>
+									</div>
+
+									<div class="mb-3">
+										<label for="editarContactoClientePresupuesto" class="form-label text-primary">Contacto Cliente</label>
+										<input type="text" class="form-control text-primary" name="contacto_nombre" id="editarContactoClientePresupuesto">
 									</div>
 
 									<div class="modal-footer d-flex justify-content-center p-2">
@@ -673,6 +678,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 			</main>
 		</div>
 	</div>
+
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+		const hoy = new Date().toISOString().split('T')[0];
+		document.getElementById('fecha_presupuesto').value = hoy;
+		document.getElementById('fecha_vencimiento').value = hoy;
+	});
+	</script>
 
 	<?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 

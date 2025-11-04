@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// ####### EDITAR #######
 	if (isset($_GET['editar'])) {
 
-    	header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
 		$datos = [
 			'mercaderia_id' => $_POST['mercaderia_id'],

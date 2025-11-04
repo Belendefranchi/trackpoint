@@ -203,13 +203,25 @@ document.addEventListener('DOMContentLoaded', function () {
         contentType: false,
         dataType: 'json',
         success: function (response) {
+          console.log('Respuesta del servidor:', response);
           if (response.success) {
+            if (response.presupuesto_id) {
+              document.getElementById('presupuesto_id').value = response.presupuesto_id;
+            }
+
+            console.log('Respuesta del servidor:', response);
+            console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
+
             location.reload();
           } else {
             $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
           $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
@@ -225,6 +237,19 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
 			const button = event.relatedTarget;
 
+      console.log({
+        id: button.getAttribute('data-id'),
+        empresa: button.getAttribute('data-empresa'),
+        sucursal: button.getAttribute('data-sucursal'),
+        rubro: button.getAttribute('data-rubro'),
+        fechap: button.getAttribute('data-fechap'),
+        fechav: button.getAttribute('data-fechav'),
+        cliente: button.getAttribute('data-cliente'),
+        direccionc: button.getAttribute('data-direccionc'),
+        contactoc: button.getAttribute('data-contactoc')
+      });
+
+
 			if (!button) {
 				console.warn('No se detectó el botón que activó el modal.');
 				return;
@@ -238,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarPresupuesto.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
       modalEditarPresupuesto.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
       modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
+      modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
 		});
 	}
 
@@ -275,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 				error: function (xhr, status, error) {
 					console.log('Error al guardar los datos');
-					console.log('Código de estado:', xhr.status);
+					console.log('Código de estado:', status);
 					console.log('Mensaje de error:', error);
 					console.log('Respuesta del servidor:', xhr.responseText);
 					$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
@@ -416,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         error: function (xhr, status, error) {
           console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
+          console.log('Código de estado:', status);
           console.log('Mensaje de error:', error);
           console.log('Respuesta del servidor:', xhr.responseText);
           $('#mensaje-error-eliminar-mercaderia').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
@@ -473,9 +499,13 @@ document.addEventListener('DOMContentLoaded', function () {
           }, { once: true });
 
         },
-        error: function () {
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
           $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar guardar el presupuesto.');
+          $('#textoModalMensaje').text('Hubo un problema al intentar guardar los datos.');
           const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
           modalMensaje.show();
         }

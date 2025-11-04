@@ -220,6 +220,7 @@ function editarPresupuesto($datos) {
 															fecha_vencimiento = :fecha_vencimiento,
 															cliente_id = :cliente_id,
 															direccion_cliente = :direccion_cliente,
+															contacto_nombre = :contacto_nombre,
 															fecha_modificacion = :fecha_modificacion
 														WHERE
 															presupuesto_id = :presupuesto_id");
@@ -232,6 +233,7 @@ function editarPresupuesto($datos) {
 		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
 		$stmt->bindParam(':cliente_id', $datos['cliente_id']);
 		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
+		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
 		$stmt->bindParam(':fecha_modificacion', $fechaActual);
 		$result = $stmt->execute();
 
