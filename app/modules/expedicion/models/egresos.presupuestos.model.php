@@ -269,7 +269,7 @@ function editarMercaderiaPresupuesto($datos) {
 		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindParam(':cantidad', $datos['cantidad']);
 		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
-/* 		$stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
+	/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
 		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$stmt->bindParam(':fecha_modificacion', $fechaActual);
 		$result = $stmt->execute();

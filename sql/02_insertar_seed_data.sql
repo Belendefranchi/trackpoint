@@ -121,6 +121,39 @@ VALUES
 	( 'M003', 'Descripción de la mercadería 3', 'Kg', 1, 1, 'Envase', NULL, 'Marca', 30, 300, 3.00, 4.00, 'Etiqueta', NULL, GETDATE(), 'admin', NULL, NULL, 1 );
 
 
+-- Insertar grupos de ejemplo
+INSERT INTO configuracion_abm_grupos (
+	codigo,
+	descripcion,
+	creado_en,
+	creado_por,
+	editado_en,
+	editado_por,
+	activo
+	)
+VALUES
+	( 'G001', 'Descripción del grupo 1', GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'G002', 'Descripción del grupo 2', GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'G003', 'Descripción del grupo 3', GETDATE(), 'admin', NULL, NULL, 1 );
+
+
+-- Insertar subgrupos de ejemplo
+INSERT INTO configuracion_abm_subgrupos (
+	codigo,
+	descripcion,
+	grupo_id,
+	creado_en,
+	creado_por,
+	editado_en,
+	editado_por,
+	activo
+	)
+VALUES
+	( 'SG001', 'Descripción del subgrupo 1', 1, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'SG002', 'Descripción del subgrupo 2', 2, GETDATE(), 'admin', NULL, NULL, 1 ),
+	( 'SG003', 'Descripción del subgrupo 3', 3, GETDATE(), 'admin', NULL, NULL, 1 );
+
+
 -- Insertar procesos de ejemplo
 INSERT INTO produccion_abm_procesos (
 	codigo,

@@ -324,32 +324,117 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ##################### MODAL DE EDICIÓN MERCADERÍA ##################### */
 
 	// Interceptar el evento de apertura del modal de edición
-	var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
-	if (modalEditarMercaderia) {
-		modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
-			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
-			const button = event.relatedTarget;
+  var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
+  if (modalEditarMercaderia) {
+    modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
 
-      console.log({
-        id: button.getAttribute('data-id'),
-        codigom: button.getAttribute('data-codigom'),
-        descripcionm: button.getAttribute('data-descripcionm'),
-        cantidad: button.getAttribute('data-cantidad'),
-        preciov: button.getAttribute('data-preciov')
-      });
-
-			if (!button) {
-				console.warn('No se detectó el botón que activó el modal.');
-				return;
-			}
-
-			modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
-			modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
+      modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
+      modalEditarMercaderia.querySelector('#editarMercaderiaId').value = button.getAttribute('data-idm');
+      modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
       modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
       modalEditarMercaderia.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
       modalEditarMercaderia.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov');
-		});
-	}
+
+      var codigoSelect = document.getElementById('editarCodigoMercaderia');
+      var descripcionInput = document.getElementById('editarDescripcionMercaderia');
+      var descripcionIdSeleccionado = button.getAttribute('data-descripcionm');
+
+      if (codigoSelect && descripcionInput) {
+        
+        // Forzar carga de descripciones al abrir el modal
+        if (codigoSelect.value) {
+          $.ajax({
+            url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerMercaderia',
+            method: 'POST',
+            dataType: 'json',
+            data: { 'mercaderia_id': codigoSelect.value },
+            success: function (response) {
+              let $descripcion = $(descripcionInput);
+              $descripcion.empty(); // Limpiar opciones previas
+
+              if (response.success) {
+                $descripcion.append($('<input>', {
+                  type: 'text',
+                  class: 'form-control text-primary',
+                  value: response.data.descripcion_mercaderia,
+                }));
+
+
+                // Seleccionar la descripcion asignada a la mercadería
+                if (descripcionIdSeleccionado) {
+                  $descripcion.val(descripcionIdSeleccionado);
+                }
+              } else {
+                $descripcion.append('<input value="">No hay descripciones disponibles</input>');
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error('Error al obtener descripciones:', error);
+              $(descripcionInput).empty().append('<input value="">Error al cargar descripciones</input>');
+            }
+          });
+        }
+
+        // Cargar descripcion al cambiar el codigo
+        codigoSelect.addEventListener("change", function () {
+          
+          // Disparar la carga de la descripcion en base al codigo ya asignado
+          var codigoId = codigoSelect.value;
+
+          if (codigoId) {
+            $.ajax({
+              url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerMercaderia',
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                mercaderia_id: codigoId
+              },
+              success: function (response) {
+                console.log('Respuesta del servidor:', response);
+
+                let $descripcion = $(descripcionInput);
+                $descripcion.empty(); // Limpio el select
+
+                if (response.success) {
+                  // Cargo la opción por defecto
+                  $descripcion.append('<input value=""></input>');
+
+                  // Recorro y agrego las descripciones
+                  $.each(response.data, function (i, descripcion) {
+                    $descripcion.append(
+                      $('<input>', {
+                        type: 'text',
+                        class: 'form-control text-primary',
+                        value: descripcion.descripcion_mercaderia
+                      })
+                    );
+                  });
+
+                  // Recién acá selecciono el valor que ya tenía la mercadería
+                  if (descripcionIdSeleccionado) {
+                    $descripcion.val(descripcionIdSeleccionado);
+                  }
+
+                } else {
+                  $descripcion.append('<input value="">No hay descripciones disponibles</input>');
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error('Error al obtener descripciones:', error);
+                console.error('Respuesta del servidor:', xhr.responseText);
+                $(descripcionInput).empty().append('<input value="">Error al cargar descripciones</input>');
+              }
+            });
+          } else {
+            // Si se deselecciona el grupo, limpio también el subgrupo
+            $(descripcionInput).empty().append('<input value=""></input>');
+            descripcionInput.value = "";
+          }
+        });
+      }
+    });
+  }
 
 	// Interceptar el envío del formulario con AJAX
 	const formEditar = document.querySelector('#formEditarMercaderia');

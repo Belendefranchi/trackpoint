@@ -381,6 +381,8 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
     item_id INT PRIMARY KEY IDENTITY(1,1),
     presupuesto_id INT NOT NULL,
     mercaderia_id INT NOT NULL,
+    codigo_mercaderia VARCHAR(50) NULL,
+    descripcion_mercaderia VARCHAR(255) NULL,
     cantidad INT NOT NULL,
     codigo_externo VARCHAR(50) NULL,
     precio_costo DECIMAL(10,2) NULL,

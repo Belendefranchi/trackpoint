@@ -132,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$datos = [
 			'item_id' => $_POST['item_id'],
 			'mercaderia_id' => $_POST['mercaderia_id'],
+			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad_mercaderia' => $_POST['cantidad'],
 			'precio_venta' => $_POST['precio_venta'],
     ];
@@ -142,17 +143,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		
 		try {
-		// Lógica para editar la mercadería
-		$result = editarMercaderiaPresupuesto($datos);
+			
+			// Lógica para editar la mercadería
+			$result = editarMercaderiaPresupuesto($datos);
 
-		if ($result) {
-			registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
-			echo json_encode(['success' => true]);
-			exit;
-		}	else {
+			if ($result) {
+				registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			}	else {
 				// Respuesta de error
 				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+		exit;
+	}
+
+	// ####### OBTENER MERCADERÍA POR ID #######
+	if (isset($_GET['obtenerMercaderiaPorId'])) {
+
+		header('Content-Type: application/json');
+
+		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
+
+		if (empty($mercaderia_id)) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID de la mercadería']);
+			exit;
+		}
+
+		try {
+			// Lógica para obtener la mercadería
+			$mercaderia = obtenerMercaderiaPorId($mercaderia_id);
+
+			if ($mercaderia) {
+				registrarEvento("Presupuestos Controller: Mercadería obtenida correctamente => " . $mercaderia['id'], "INFO");
+				echo json_encode([
+					'success' => true,
+					'mercaderia_id' => $mercaderia['mercaderia_id'],
+					'codigo_mercaderia' => $mercaderia['codigo'],
+					'descripcion_mercaderia' => $mercaderia['descripcion'],
+					'precio_venta' => $mercaderia['precio_venta']
+				]);
+				exit;
+			} else {
+				echo json_encode(['success' => false, 'message' => 'Error: No se encontró la mercadería']);
 				exit;
 			}
 		} catch (Exception $e) {

@@ -302,6 +302,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																					data-bs-toggle="modal"
 																					data-bs-target="#modalEditarMercaderia"
 																					data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
+																					data-idm="<?= htmlspecialchars($filaDetalle['mercaderia_id']) ?>"
 																					data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
 																					data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
 																					data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
@@ -533,7 +534,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				<!-- Modal de edición de mercadería -->
 				<div class="modal fade" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
-						<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&editarMercaderia">
+						<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarMercaderia">
 							<div class="modal-content m-5">
 								<div class="modal-header table-primary text-white">
 									<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
@@ -565,10 +566,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<div class="mb-3">
 										<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
-										<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
-										<select class="form-select text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
-											<option value=""></option>
-										</select>
+										<div id="editarDescripcionMercaderiaContenedor">
+											<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
+										</div>
 									</div>
 
 									<div class="mb-3">

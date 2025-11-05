@@ -154,7 +154,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php if (empty($grupos)): ?>
 																<option value="">No hay grupos disponibles</option>
 															<?php else: ?>
-																<option value=""></option>
+																<!-- <option value=""></option> -->
 																<?php foreach ($grupos as $grupo): ?>
 																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
 																<?php endforeach; ?>
@@ -164,7 +164,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="col-md-6">
 														<label for="crearSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
 														<select class="form-select" name="subgrupo_id" id="crearSubgrupoMercaderia">
-															<option value=""></option>
+															<!-- <option value=""></option> -->
 														</select>
 													</div>
 												</div>
@@ -287,7 +287,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php if (empty($grupos)): ?>
 																<option value="">No hay grupos disponibles</option>
 															<?php else: ?>
-																<option value=""></option>
+																<!-- <option value=""></option> -->
 																<?php foreach ($grupos as $grupo): ?>
 																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
 																<?php endforeach; ?>
@@ -297,7 +297,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="col-md-6">
 														<label for="editarSubgrupoMercaderia" class="form-label text-primary">Sub Grupo</label>
 														<select class="form-select" name="subgrupo_id" id="editarSubgrupoMercaderia">
-															<option value=""></option>
+															<!-- <option value=""></option> -->
 														</select>
 													</div>
 												</div>
