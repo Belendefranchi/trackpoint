@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', //resumen
 			'mercaderia_id' => $_POST['mercaderia_id'], //detalle
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'], //detalle
+			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'], //detalle
 			'cantidad' => round((float)$_POST['cantidad']), //detalle
 			'precio_venta' => round((float)$_POST['precio_venta'], 2), //detalle
 			'operador_id' => $_SESSION['operador_id'], //resumen y detalle
@@ -132,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$datos = [
 			'item_id' => $_POST['item_id'],
 			'mercaderia_id' => $_POST['mercaderia_id'],
+			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad_mercaderia' => $_POST['cantidad'],
 			'precio_venta' => $_POST['precio_venta'],

@@ -380,7 +380,7 @@ GO
 CREATE TABLE expedicion_egresos_presupuestos_detalle (
     item_id INT PRIMARY KEY IDENTITY(1,1),
     presupuesto_id INT NOT NULL,
-    mercaderia_id INT NOT NULL,
+    mercaderia_id INT NULL,
     codigo_mercaderia VARCHAR(50) NULL,
     descripcion_mercaderia VARCHAR(255) NULL,
     cantidad INT NOT NULL,
@@ -398,5 +398,5 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
 
     -- Claves foráneas
     FOREIGN KEY (presupuesto_id) REFERENCES expedicion_egresos_presupuestos_resumen(presupuesto_id),
-    FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
+    /* FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id) */
 );

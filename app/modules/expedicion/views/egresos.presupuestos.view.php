@@ -143,6 +143,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															</a>
 														</div>
 														<input type="hidden" name="mercaderia_id" id="mercaderia_id">
+														<input type="hidden" name="descripcion_mercaderia" id="descripcion_mercaderia">
 														<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
 															<i class="bi bi-exclamation-triangle-fill me-2"></i>
 															<span class="mensaje-texto"></span>
@@ -542,6 +543,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<div class="modal-body">
 									<input type="hidden" name="item_id" id="editarItemId">
+									<input type="hidden" name="mercaderia_id" id="editarMercaderiaId">
 
 									<div class="mb-3">
 										<div id="mensaje-error-editar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
@@ -553,21 +555,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<div class="mb-3">
 										<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
-										<select class="form-select text-primary" name="mercaderia_id" id="editarMercaderiaId">
-												<?php if (empty($mercaderias)): ?>
-													<option value="">No hay mercaderías disponibles</option>
-												<?php else: ?>
-													<?php foreach ($mercaderias as $mercaderiaSeleccionada): ?>
-														<option value="<?= htmlspecialchars($mercaderiaSeleccionada['mercaderia_id']) ?>"><?= htmlspecialchars($mercaderiaSeleccionada['codigo']) ?></option>
-													<?php endforeach; ?>
-												<?php endif; ?>
-											</select>
+										<div id="editarDescripcionMercaderiaContenedor">
+											<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="editarCodigoMercaderia">
+										</div>
 									</div>
 
 									<div class="mb-3">
 										<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
 										<div id="editarDescripcionMercaderiaContenedor">
-											<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia" disabled>
+											<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia">
 										</div>
 									</div>
 

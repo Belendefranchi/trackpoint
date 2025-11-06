@@ -67,7 +67,9 @@ function agregarMercaderia($datos) {
 		// 4. Insertar en detalle
 		$sqlDetalle = "INSERT INTO expedicion_egresos_presupuestos_detalle (
 										presupuesto_id,
-										mercaderia_id,
+										/* mercaderia_id, */
+										codigo_mercaderia,
+										descripcion_mercaderia,
 										cantidad,
 										/* codigo_externo, */
 										precio_venta,
@@ -79,7 +81,9 @@ function agregarMercaderia($datos) {
 									)
                   VALUES (
 										:presupuesto_id,
-										:mercaderia_id,
+										/* :mercaderia_id, */
+										:codigo_mercaderia,
+										:descripcion_mercaderia,
 										:cantidad,
 										/* :codigo_externo, */
 										:precio_venta,
@@ -92,7 +96,9 @@ function agregarMercaderia($datos) {
 
 		$stmtDetalle = $conn->prepare($sqlDetalle);
 		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
-		$stmtDetalle->bindValue(':mercaderia_id', $datos['mercaderia_id']);
+		/* $stmtDetalle->bindValue(':mercaderia_id', $datos['mercaderia_id']); */
+		$stmtDetalle->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
+		$stmtDetalle->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
 		/* $stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']); */
 		$stmtDetalle->bindValue(':precio_venta', $datos['precio_venta']);
@@ -179,23 +185,23 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 	try{
 		$conn = getConnection();
 		$sql = "SELECT 
-								d.item_id,
-								d.presupuesto_id,
-								d.mercaderia_id,
-								m.codigo AS codigo_mercaderia,
-								m.descripcion AS descripcion_mercaderia,
-								d.codigo_externo,
-								d.cantidad,
-								d.precio_costo,
-								d.precio_venta,
-								d.iva_tasa,
-								d.descuento_porcentaje,
-								(d.cantidad * d.precio_venta) AS subtotal
-						FROM expedicion_egresos_presupuestos_detalle d
-						LEFT JOIN configuracion_abm_mercaderias m
-								ON d.mercaderia_id = m.mercaderia_id
-						WHERE d.presupuesto_id = :presupuesto_id
-							AND d.estado = 'pendiente'
+								item_id,
+								presupuesto_id,
+								mercaderia_id,
+								codigo_mercaderia,
+								descripcion_mercaderia,
+								codigo_externo,
+								cantidad,
+								precio_costo,
+								precio_venta,
+								iva_tasa,
+								descuento_porcentaje,
+								(cantidad * precio_venta) AS subtotal
+						FROM expedicion_egresos_presupuestos_detalle
+ 						/* LEFT JOIN configuracion_abm_mercaderias m
+								ON d.mercaderia_id = m.mercaderia_id */
+						WHERE presupuesto_id = :presupuesto_id
+							AND estado = 'pendiente'
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':presupuesto_id', $presupuesto_id);

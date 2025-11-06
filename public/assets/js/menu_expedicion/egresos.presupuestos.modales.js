@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
     const inputCodigoModal = document.getElementById('codigo_mercaderia');
+    const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
     
 
     // Enviar formulario con AJAX para seleccionar mercadería
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
               // Actualizar los inputs del modal con los datos de la mercadería seleccionada
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputCodigoModal.value = response.codigo_mercaderia;
+              inputDescripcionModal.value = response.descripcion_mercaderia;
 
               // Cerrar el modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
@@ -177,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const direccionCliente = document.getElementById('direccion_cliente').value;
       const mercaderiaId = document.getElementById('mercaderia_id').value;
       const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
+      const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
       const cantidad = document.getElementById('cantidad').value;
       const precioVenta = document.getElementById('precio_venta').value;
 
@@ -190,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
       formData.append('direccion_cliente', direccionCliente);
       formData.append('mercaderia_id', mercaderiaId);
       formData.append('codigo_mercaderia', codigoMercaderia);
+      formData.append('descripcion_mercaderia', descripcionMercaderia);
       formData.append('cantidad', cantidad);
       formData.append('precio_venta', precioVenta);
 
@@ -343,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (codigoSelect && descripcionInput) {
         
         // Forzar carga de descripciones al abrir el modal
-        if (codigoSelect.value) {
+/*         if (codigoSelect.value) {
           $.ajax({
             url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerMercaderia',
             method: 'POST',
@@ -374,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {
               $(descripcionInput).empty().append('<input value="">Error al cargar descripciones</input>');
             }
           });
-        }
+        } */
 
         // Cargar descripcion al cambiar el codigo
         codigoSelect.addEventListener("change", function () {
