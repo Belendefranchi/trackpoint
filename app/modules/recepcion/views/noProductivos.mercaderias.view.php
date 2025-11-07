@@ -9,11 +9,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 					<div class="d-flex justify-content-between align-items-center">
-						<h2 class="ms-2 text-primary">Ingreso de mercaderías no productivas</h2>
+						<h2 class="text-primary">Ingreso de mercaderías no productivas</h2>
 					</div>
 
 					<!-- ############################################################################# -->
-					<div class="container-fluid mt-4">
+					<div class="container-fluid mt-4 p-0">
 
 						<!-- FORM AGREGAR -->
 						<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/recepcion/noProductivos/ingreso_mercaderia&agregarMercaderia">

@@ -8,120 +8,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </script>
 
 				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
-
-					<div class="d-flex justify-content-between pe-2">
-						<h2 class="ms-2 text-primary">Presupuestos</h2>
+					<div class="d-flex justify-content-between align-items-center">
+						<h2 class="text-primary">Presupuestos</h2>
+						<a href="#" class="btn btn-sm btn-primary"
+							data-bs-toggle="modal" 
+							data-bs-target="#modalCrearPresupuesto">
+							<i class="bi-plus-circle me-2"></i>Nuevo Presupuesto
+						</a>
 					</div>
 
 
 					<!-- ############################################################################# -->
-					<div class="container-fluid mt-4">
+					<div class="container-fluid mt-4 p-0">
 
 						<!-- FORM AGREGAR -->
 						<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia">
 							
-							<!-- Datos obligatorios -->
-							<div class="card mb-3">
-								<div class="card-header bg-light text-primary">
-									<strong>Datos obligatorios</strong>
-								</div>
-								<div class="card-body">
-									<div class="mb-3 row align-items-center">
-										<div class="col-md-6">
-											<!-- Empresa -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="empresa_id" class="col-md-6 form-label text-primary">Empresa</label>
-												<div class="col-md-6 ps-0">
-													<select class="form-select text-primary" id="empresa_id" name="empresa_id">
-														<option value="1">Empresa 1</option>
-													</select>
-												</div>
-											</div>
-											<!-- Sucursal Empresa -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="sucursal_id" class="col-md-6 form-label text-primary">Sucursal</label>
-												<div class="col-md-6 ps-0">
-													<select class="form-select text-primary" id="sucursal_id" name="sucursal_id">
-														<option value="1">Sucursal 1</option>
-													</select>
-												</div>
-											</div>
-											<!-- Rubro -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="rubro_id" class="col-md-6 form-label text-primary">Rubro</label>
-												<div class="col-md-6 ps-0">
-													<select class="form-select text-primary" id="rubro_id" name="rubro_id">
-														<option value="1">Rubro 1</option>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<!-- Nro. Presupuesto -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="presupuesto_id" class="col-md-6 form-label text-primary">Presupuesto Nº</label>
-												<div class="col-md-6 ps-0">
-													<?php if (empty($resumen[0]['presupuesto_id'])): ?>
-														<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="Seleccione un presupuesto" disabled>
-													<?php else: ?>
-														<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
-													<?php endif; ?>
-												</div>
-											</div>
-											<!-- Fecha Emisión -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="fecha_presupuesto" class="col-md-6 form-label text-primary">Fecha Presupuesto</label>
-												<div class="col-md-6 ps-0">
-													<input type="date" class="form-control text-primary" id="fecha_presupuesto" name="fecha_presupuesto">
-												</div>
-											</div>
-											<!-- Fecha Vencimiento -->
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="fecha_vencimiento" class="col-md-6 form-label text-primary">Fecha Vencimiento</label>
-												<div class="col-md-6 ps-0">
-													<input type="date" class="form-control text-primary" id="fecha_vencimiento" name="fecha_vencimiento">
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="mb-3 row align-items-center">
-										<!-- Cliente -->
-										<div class="col-md-6">
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="cliente_id" class="col-md-2 form-label text-primary">Cliente</label>
-												<div class="col-md-10 ps-0">
-													<div class="input-group">
-														<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
-														<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
-														<a href="#" class="btn btn-primary"
-														data-bs-toggle="modal" 
-														data-bs-target="#modalSeleccionarCliente">
-														<i class="bi bi-search"></i>
-													</a>
-												</div>
-												<input type="hidden" name="cliente_id" id="cliente_id">
-												<input type="hidden" name="contacto_nombre" id="contacto_nombre">
-												</div>
-											</div>
-										</div>
-										<!-- Dirección Cliente -->
-										<div class="col-md-6">
-											<div class="row p-2 d-flex align-items-center justify-content-center">
-												<label for="direccion_cliente" class="col-md-2 form-label text-primary">Dirección</label>
-												<div class="col-md-10 ps-0">
-													<select class="form-select text-primary" id="direccion_cliente" name="direccion_cliente">
-														<option value="direccion1">Dirección 1</option>
-														<option value="direccion2">Dirección 2</option>
-														<option value="direccion3">Dirección 3</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
 							<!-- Selección de productos o servicios -->
 							<div class="card mb-3">
 								<div class="card-header bg-light text-primary">
@@ -186,156 +88,298 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 						<!-- FORM GENERAR -->
 						<form method="POST" id="formGenerarPresupuesto" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
-							<div class="">
-								<div class="card mb-3">
-									<div class="card-header bg-light">
-										<ul class="nav nav-underline" id="presupuestoTabs" role="tablist">
-											<li class="nav-item" role="presentation">
-												<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
-											</li>
-										</ul>
-									</div>
-									<div class="card-body p-2">
-										<div class="tab-content p-3 border border-top-0 rounded-bottom" id="presupuestoTabsContent">
+							
+							<div class="card mb-3">
+								<div class="card-header bg-light">
+									<ul class="nav nav-underline" id="presupuestoTabs" role="tablist">
+										<li class="nav-item" role="presentation">
+											<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
+										</li>
+									</ul>
+								</div>
+								<div class="card-body p-2">
+									<div class="tab-content p-3 border border-top-0 rounded-bottom" id="presupuestoTabsContent">
 
-											<div class="tab-pane fade show active" id="resumen" role="tabpanel">
-												<div id="resumen-presupuesto">
-													<?php if (empty($resumen)): ?>
-														<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-													<?php else: ?>
-														<table id="miTablaResumen" class="display" style="width:100%">
-															<thead class="table-primary">
-																<tr class="text-light">
-																	<!-- <td class="border text-center">Seleccionar</td> -->
-																	<td class="border">Presupuesto Nº</td>
-																	<td class="border">Empresa</td>
-																	<td class="border">Sucursal</td>
-																	<td class="border">Rubro</td>
-																	<td class="border">Fecha Presupuesto</td>
-																	<td class="border">Fecha Vencimiento</td>
-																	<td class="border">Cliente</td>
-																	<td class="border">Dirección Cliente</td>
-																	<td class="border">Contacto Cliente</td>
-																	<td class="border">Cantidad</td>
-																	<td class="border">Total</td>
-																	<td class="border text-center no-export">Acciones</td>
+										<div class="tab-pane fade show active" id="resumen" role="tabpanel">
+											<div id="resumen-presupuesto">
+												<?php if (empty($resumen)): ?>
+													<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+												<?php else: ?>
+													<table id="miTablaResumen" class="display" style="width:100%">
+														<thead class="table-primary">
+															<tr class="text-light">
+																<td class="border text-center">Seleccionar</td>
+																<td class="border">Presupuesto Nº</td>
+																<td class="border">Empresa</td>
+																<td class="border">Sucursal</td>
+																<td class="border">Rubro</td>
+																<td class="border">Fecha Presupuesto</td>
+																<td class="border">Fecha Vencimiento</td>
+																<td class="border">Cliente</td>
+																<td class="border">Dirección Cliente</td>
+																<td class="border">Contacto Cliente</td>
+																<td class="border">Cantidad</td>
+																<td class="border">Total</td>
+																<td class="border text-center no-export">Acciones</td>
+															</tr>
+														</thead>
+														<tbody>
+															<?php foreach ($resumen as $filaResumen): ?>
+																<tr class="text-start">
+																	<td class="border text-primary text-center">
+																		<input type="radio" name="seleccion_presupuesto"
+																			class="form-check-input seleccionar-presupuesto"
+																			data-presupuestoid="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
+																			data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
+																			data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_id']) ?>"
+																			data-rubro="<?= htmlspecialchars($filaResumen['rubro_id']) ?>"
+																			data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
+																			data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
+																			data-cliente="<?= htmlspecialchars($filaResumen['cliente_id']) ?>"
+																			data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
+																			data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																	</td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['presupuesto_id']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['empresa_id']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['sucursal_id']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['rubro_id']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['fecha_presupuesto']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['fecha_vencimiento']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['cliente_id']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['direccion_cliente']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['contacto_nombre']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['cantidad']; ?></td>
+																	<td class="border text-primary text-center"><?php echo $filaResumen['total']; ?></td>
+																	<td class="border text-primary text-center">
+																		<div class="d-flex no-wrap justify-content-center">
+																			<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+																				data-bs-toggle="modal"
+																				data-bs-target="#modalEditarPresupuesto"
+																				data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
+																				data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
+																				data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_id']) ?>"
+																				data-rubro="<?= htmlspecialchars($filaResumen['rubro_id']) ?>"
+																				data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
+																				data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
+																				data-cliente="<?= htmlspecialchars($filaResumen['cliente_id']) ?>"
+																				data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
+																				data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																				<i class="bi bi-pencil me-2"></i>Editar
+																			</a>
+																			<a href="#" id="btnMostrarEliminarPresupuesto" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+																				data-bs-toggle="modal"
+																				data-bs-target="#modalEliminarPresupuesto"
+																				data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
+																				<i class="bi bi-trash me-2"></i>Eliminar
+																			</a>
+																		</div>
+																	</td>
 																</tr>
-															</thead>
-															<tbody>
-																<?php foreach ($resumen as $filaResumen): ?>
-																	<tr class="text-start">
-																		<td class="border text-primary text-center"><?php echo $filaResumen['presupuesto_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['empresa_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['sucursal_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['rubro_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['fecha_presupuesto']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['fecha_vencimiento']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['cliente_id']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['direccion_cliente']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['contacto_nombre']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['cantidad']; ?></td>
-																		<td class="border text-primary text-center"><?php echo $filaResumen['total']; ?></td>
-																		<td class="border text-primary text-center">
-																			<div class="d-flex no-wrap justify-content-center">
-																				<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-																					data-bs-toggle="modal"
-																					data-bs-target="#modalEditarPresupuesto"
-																					data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
-																					data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
-																					data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_id']) ?>"
-																					data-rubro="<?= htmlspecialchars($filaResumen['rubro_id']) ?>"
-																					data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
-																					data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
-																					data-cliente="<?= htmlspecialchars($filaResumen['cliente_id']) ?>"
-																					data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
-																					data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
-																					<i class="bi bi-pencil me-2"></i>Editar
-																				</a>
-																				<a href="#" id="btnMostrarEliminarPresupuesto" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																					data-bs-toggle="modal"
-																					data-bs-target="#modalEliminarPresupuesto"
-																					data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
-																					<i class="bi bi-trash me-2"></i>Eliminar
-																				</a>
-																			</div>
-																		</td>
-																	</tr>
-																<?php endforeach; ?>
-															</tbody>
-														</table>
-													<?php endif; ?>
-												</div>
+															<?php endforeach; ?>
+														</tbody>
+													</table>
+												<?php endif; ?>
 											</div>
-											<div class="tab-pane fade show" id="detalle" role="tabpanel">
-												<div id="detalle-presupuesto">
-													<?php if (empty($detalle)): ?>
-														<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-													<?php else: ?>
-														<table id="miTablaDetalle" class="display" style="width:100%">
-															<thead class="table-primary">
-																<tr class="text-light">
-																	<td class="border text-center">Presupuesto Nº</td>
-																	<td class="border">Código</td>
-																	<td class="border">Descripción</td>
-																	<td class="border">Cantidad</td>
-																	<td class="border">Precio Compra</td>
-																	<td class="border">Precio Venta</td>
-																	<td class="border">Subtotal</td>
-																	<td class="border text-center no-export">Acciones</td>
+										</div>
+										<div class="tab-pane fade show" id="detalle" role="tabpanel">
+											<div id="detalle-presupuesto">
+												<?php if (empty($detalle)): ?>
+													<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+												<?php else: ?>
+													<table id="miTablaDetalle" class="display" style="width:100%">
+														<thead class="table-primary">
+															<tr class="text-light">
+																<td class="border text-center">Presupuesto Nº</td>
+																<td class="border">Código</td>
+																<td class="border">Descripción</td>
+																<td class="border">Cantidad</td>
+																<td class="border">Precio Compra</td>
+																<td class="border">Precio Venta</td>
+																<td class="border">Subtotal</td>
+																<td class="border text-center no-export">Acciones</td>
+															</tr>
+														</thead>
+														<tbody>
+															<?php foreach ($detalle as $filaDetalle): ?>
+																<tr class="text-start">
+																	<td class="border text-primary text-center"><?php echo $filaDetalle['presupuesto_id']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['codigo_mercaderia']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['descripcion_mercaderia']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['cantidad']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['precio_costo']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['precio_venta']; ?></td>
+																	<td class="border text-primary"><?php echo $filaDetalle['subtotal']; ?></td>
+																	<td class="border text-primary text-center">
+																		<div class="d-flex no-wrap justify-content-center">
+																			<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+																				data-bs-toggle="modal"
+																				data-bs-target="#modalEditarMercaderia"
+																				data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
+																				data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
+																				data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
+																				data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
+																				data-preciov="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>">
+																				<i class="bi bi-pencil me-2"></i>Editar
+																			</a>
+																			<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+																				data-bs-toggle="modal"
+																				data-bs-target="#modalEliminarMercaderia"
+																				data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>">
+																				<i class="bi bi-trash me-2"></i>Eliminar
+																			</a>
+																		</div>
+																	</td>
 																</tr>
-															</thead>
-															<tbody>
-																<?php foreach ($detalle as $filaDetalle): ?>
-																	<tr class="text-start">
-																		<td class="border text-primary text-center"><?php echo $filaDetalle['presupuesto_id']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['codigo_mercaderia']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['descripcion_mercaderia']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['cantidad']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['precio_costo']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['precio_venta']; ?></td>
-																		<td class="border text-primary"><?php echo $filaDetalle['subtotal']; ?></td>
-																		<td class="border text-primary text-center">
-																			<div class="d-flex no-wrap justify-content-center">
-																				<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-																					data-bs-toggle="modal"
-																					data-bs-target="#modalEditarMercaderia"
-																					data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
-																					data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
-																					data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
-																					data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
-																					data-preciov="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>">
-																					<i class="bi bi-pencil me-2"></i>Editar
-																				</a>
-																				<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-																					data-bs-toggle="modal"
-																					data-bs-target="#modalEliminarMercaderia"
-																					data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>">
-																					<i class="bi bi-trash me-2"></i>Eliminar
-																				</a>
-																			</div>
-																		</td>
-																	</tr>
-																<?php endforeach; ?>
-															</tbody>
-														</table>
-													<?php endif; ?>
-												</div>
+															<?php endforeach; ?>
+														</tbody>
+													</table>
+												<?php endif; ?>
 											</div>
 										</div>
 									</div>
-									<div class="card-footer bg-light d-flex justify-content-end">
-										<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal" id="btnMostrarConfirmacion">
-											<i class="bi bi-check-circle pt-1 me-2"></i>Generar
-										</button>
 								</div>
+								<div class="card-footer bg-light d-flex justify-content-end">
+									<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal" id="btnMostrarConfirmacion">
+										<i class="bi bi-check-circle pt-1 me-2"></i>Generar
+									</button>
 							</div>
 						</form>
 
 					</div>
 				</div>
+
+				<!-- Modal de creación de presupuesto -->
+				<div class="modal fade" id="modalCrearPresupuesto" tabindex="-1" aria-labelledby="modalCrearPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formCrearPresupuesto" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crearPresupuesto">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalCrearPresupuestoLabel">Crear nuevo presupuesto</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									
+									<div class="mb-3">
+										<div id="mensaje-error-crear" class="alert alert-danger rounded d-none p-2" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<!-- Datos obligatorios -->
+									<div class="card mb-3">
+										<div class="card-header bg-light text-primary">
+											<strong>Datos obligatorios</strong>
+										</div>
+										<div class="card-body">
+											<div class="mb-3 align-items-center">
+												<!-- <div class="col-md-6"> -->
+													<!-- Empresa -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="empresa_id" class="col-md-6 form-label text-primary">Empresa</label>
+														<div class="col-md-6 ps-0">
+															<select class="form-select text-primary" id="empresa_id" name="empresa_id">
+																<option value="1">Empresa 1</option>
+															</select>
+														</div>
+													</div>
+													<!-- Sucursal Empresa -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="sucursal_id" class="col-md-6 form-label text-primary">Sucursal</label>
+														<div class="col-md-6 ps-0">
+															<select class="form-select text-primary" id="sucursal_id" name="sucursal_id">
+																<option value="1">Sucursal 1</option>
+															</select>
+														</div>
+													</div>
+													<!-- Rubro -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="rubro_id" class="col-md-6 form-label text-primary">Rubro</label>
+														<div class="col-md-6 ps-0">
+															<select class="form-select text-primary" id="rubro_id" name="rubro_id">
+																<option value="1">Rubro 1</option>
+															</select>
+														</div>
+													</div>
+												<!-- </div>
+												<div class="col-md-6"> -->
+													<!-- Nro. Presupuesto -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="presupuesto_id" class="col-md-6 form-label text-primary">Presupuesto Nº</label>
+														<div class="col-md-6 ps-0">
+															<?php if (empty($resumen[0]['presupuesto_id'])): ?>
+																<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="Seleccione un presupuesto" disabled>
+															<?php else: ?>
+																<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
+															<?php endif; ?>
+														</div>
+													</div>
+													<!-- Fecha Emisión -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="fecha_presupuesto" class="col-md-6 form-label text-primary">Fecha Presupuesto</label>
+														<div class="col-md-6 ps-0">
+															<input type="date" class="form-control text-primary" id="fecha_presupuesto" name="fecha_presupuesto">
+														</div>
+													</div>
+													<!-- Fecha Vencimiento -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="fecha_vencimiento" class="col-md-6 form-label text-primary">Fecha Vencimiento</label>
+														<div class="col-md-6 ps-0">
+															<input type="date" class="form-control text-primary" id="fecha_vencimiento" name="fecha_vencimiento">
+														</div>
+													</div>
+												<!-- </div> -->
+											</div>
+
+											<div class="mb-3 align-items-center">
+												<!-- Cliente -->
+												<!-- <div class="col-md-6"> -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="cliente_id" class="col-md-3 form-label text-primary">Cliente</label>
+														<div class="col-md-9 ps-0">
+															<div class="input-group">
+																<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
+																<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
+																<a href="#" class="btn btn-primary"
+																data-bs-toggle="modal" 
+																data-bs-target="#modalSeleccionarCliente">
+																<i class="bi bi-search"></i>
+															</a>
+														</div>
+														<input type="hidden" name="cliente_id" id="cliente_id">
+														<input type="hidden" name="contacto_nombre" id="contacto_nombre">
+														</div>
+													</div>
+												<!-- </div> -->
+												<!-- Dirección Cliente -->
+												<!-- <div class="col-md-6"> -->
+													<div class="row p-2 d-flex align-items-center justify-content-center">
+														<label for="direccion_cliente" class="col-md-3 form-label text-primary">Dirección</label>
+														<div class="col-md-9 ps-0">
+															<select class="form-select text-primary" id="direccion_cliente" name="direccion_cliente">
+																<option value="direccion1">Dirección 1</option>
+																<option value="direccion2">Dirección 2</option>
+																<option value="direccion3">Dirección 3</option>
+															</select>
+														</div>
+													</div>
+												<!-- </div> -->
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="crear_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
 
 				<!-- Modal de selección de mercadería -->
 				<div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">

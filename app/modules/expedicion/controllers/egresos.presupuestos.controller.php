@@ -22,6 +22,43 @@ $mercaderias = obtenerMercaderiasActivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+	// ####### CREAR PRESUPUESTO #######
+	if (isset($_GET['crearPresupuesto'])) {
+
+		header('Content-Type: application/json');
+
+    $datos = [
+			'empresa_id' => $_POST['empresa_id'],
+			'sucursal_id' => $_POST['sucursal_id'],
+			'rubro_id' => $_POST['rubro_id'],
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
+			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
+			'cliente_id' => $_POST['cliente_id'],
+			'direccion_cliente' => $_POST['direccion_cliente'],
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'operador_id' => $_SESSION['operador_id'],
+    ];
+
+		try {
+			$result = crearPresupuesto($datos);
+
+			if ($result) {
+				registrarEvento("Presupuestos Controller: Presupuesto creado correctamente => " . $result, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Presupuestos Controller: Error al crear el presupuesto", "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el presupuesto']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
+		}
+	}
+	
 	// ####### SELECCIONAR MERCADERÍA #######
 	if (isset($_GET['seleccionarMercaderia'])) {
 		
@@ -83,19 +120,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
     $datos = [
-			'empresa_id' => $_POST['empresa_id'], //resumen
-			'sucursal_id' => $_POST['sucursal_id'], //resumen
-			'rubro_id' => $_POST['rubro_id'], //resumen
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'], //resumen
-			'fecha_vencimiento' => $_POST['fecha_vencimiento'], //resumen
-			'cliente_id' => $_POST['cliente_id'], //resumen
-			'direccion_cliente' => $_POST['direccion_cliente'], //resumen
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', //resumen
-			'codigo_mercaderia' => $_POST['codigo_mercaderia'], //detalle
-			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'], //detalle
-			'cantidad' => round((float)$_POST['cantidad']), //detalle
-			'precio_venta' => round((float)$_POST['precio_venta'], 2), //detalle
-			'operador_id' => $_SESSION['operador_id'], //resumen y detalle
+			'empresa_id' => $_POST['empresa_id'],
+			'sucursal_id' => $_POST['sucursal_id'],
+			'rubro_id' => $_POST['rubro_id'],
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
+			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
+			'cliente_id' => $_POST['cliente_id'],
+			'direccion_cliente' => $_POST['direccion_cliente'],
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
+			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
+			'cantidad' => round((float)$_POST['cantidad']),
+			'precio_venta' => round((float)$_POST['precio_venta'], 2),
+			'operador_id' => $_SESSION['operador_id'],
     ];
 
 		// Validar datos obligatorios

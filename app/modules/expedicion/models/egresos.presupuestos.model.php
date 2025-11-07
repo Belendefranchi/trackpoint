@@ -90,6 +90,61 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 	}
 }
 
+function crearPresupuesto($datos) {
+
+	try {
+		$conn = getConnection();
+		$sql = "INSERT INTO expedicion_egresos_presupuestos_resumen (
+														empresa_id,
+														sucursal_id,
+														rubro_id,
+														fecha_presupuesto,
+														fecha_vencimiento,
+														cliente_id,
+														direccion_cliente,
+														contacto_nombre,
+														operador_id,
+														estado
+													)
+													VALUES (
+														:empresa_id,
+														:sucursal_id,
+														:rubro_id,
+														:fecha_presupuesto,
+														:fecha_vencimiento,
+														:cliente_id,
+														:direccion_cliente,
+														:contacto_nombre,
+														:operador_id,
+														:estado)";
+														
+		$stmt = $conn->prepare($sql);
+		$stmt->bindParam(':empresa_id', $datos['empresa_id']);
+		$stmt->bindParam(':sucursal_id', $datos['sucursal_id']);
+		$stmt->bindParam(':rubro_id', $datos['rubro_id']);
+		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
+		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
+		$stmt->bindParam(':cliente_id', $datos['cliente_id']);
+		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
+		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
+		$stmt->bindParam(':operador_id', $datos['operador_id']);
+		$stmt->bindValue(':estado', 'pendiente');
+		$result = $stmt->execute();
+		if ($result) {
+			registrarEvento("Presupuestos Model: presupuesto creado correctamente.", "INFO");
+			$presupuesto_id = $conn->lastInsertId();
+			return ['success' => true, 'presupuesto_id' => $presupuesto_id];
+		} else {
+			return ['success' => false, 'message' => 'Error al crear el presupuesto.'];
+		}
+
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Presupuestos Model: Error al crear el presupuesto, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function editarPresupuesto($datos) {
 	try {
 		$conn = getConnection();
