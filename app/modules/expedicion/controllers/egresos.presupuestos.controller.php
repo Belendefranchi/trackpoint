@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = crearPresupuesto($datos);
 
 			if ($result) {
-				registrarEvento("Presupuestos Controller: Presupuesto creado correctamente => " . $result, "INFO");
+				registrarEvento("Presupuestos Controller: Presupuesto creado correctamente => " . $result['presupuesto_id'], "INFO");
 				echo json_encode(['success' => true]);
 				exit;
 			} else {

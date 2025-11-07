@@ -23,7 +23,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 						<!-- FORM AGREGAR -->
 						<form method="POST" id="formAgregarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia">
-							
 							<!-- Selección de productos o servicios -->
 							<div class="card mb-3">
 								<div class="card-header bg-light text-primary">
@@ -88,7 +87,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 						<!-- FORM GENERAR -->
 						<form method="POST" id="formGenerarPresupuesto" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
-							
 							<div class="card mb-3">
 								<div class="card-header bg-light">
 									<ul class="nav nav-underline" id="presupuestoTabs" role="tablist">
@@ -277,73 +275,68 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</div>
 										<div class="card-body">
 											<div class="mb-3 align-items-center">
-												<!-- <div class="col-md-6"> -->
 													<!-- Empresa -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="empresa_id" class="col-md-6 form-label text-primary">Empresa</label>
-														<div class="col-md-6 ps-0">
-															<select class="form-select text-primary" id="empresa_id" name="empresa_id">
+														<label for="crearEmpresaPresupuesto" class="col-md-5 form-label text-primary">Empresa</label>
+														<div class="col-md-7 ps-0">
+															<select class="form-select text-primary" id="crearEmpresaPresupuesto" name="empresa_id">
 																<option value="1">Empresa 1</option>
 															</select>
 														</div>
 													</div>
 													<!-- Sucursal Empresa -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="sucursal_id" class="col-md-6 form-label text-primary">Sucursal</label>
-														<div class="col-md-6 ps-0">
-															<select class="form-select text-primary" id="sucursal_id" name="sucursal_id">
+														<label for="crearSucursalPresupuesto" class="col-md-5 form-label text-primary">Sucursal</label>
+														<div class="col-md-7 ps-0">
+															<select class="form-select text-primary" id="crearSucursalPresupuesto" name="sucursal_id">
 																<option value="1">Sucursal 1</option>
 															</select>
 														</div>
 													</div>
 													<!-- Rubro -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="rubro_id" class="col-md-6 form-label text-primary">Rubro</label>
-														<div class="col-md-6 ps-0">
-															<select class="form-select text-primary" id="rubro_id" name="rubro_id">
+														<label for="crearRubroPresupuesto" class="col-md-5 form-label text-primary">Rubro</label>
+														<div class="col-md-7 ps-0">
+															<select class="form-select text-primary" id="crearRubroPresupuesto" name="rubro_id">
 																<option value="1">Rubro 1</option>
 															</select>
 														</div>
 													</div>
-												<!-- </div>
-												<div class="col-md-6"> -->
 													<!-- Nro. Presupuesto -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="presupuesto_id" class="col-md-6 form-label text-primary">Presupuesto Nº</label>
-														<div class="col-md-6 ps-0">
+														<label for="crearPresupuestoId" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
+														<div class="col-md-7 ps-0">
 															<?php if (empty($resumen[0]['presupuesto_id'])): ?>
-																<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="Seleccione un presupuesto" disabled>
+																<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId" name="presupuesto_id" value="Seleccione un presupuesto" disabled>
 															<?php else: ?>
-																<input type="text" class="form-control text-primary text-end" id="presupuesto_id" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
+																<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId" name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
 															<?php endif; ?>
 														</div>
 													</div>
 													<!-- Fecha Emisión -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="fecha_presupuesto" class="col-md-6 form-label text-primary">Fecha Presupuesto</label>
-														<div class="col-md-6 ps-0">
-															<input type="date" class="form-control text-primary" id="fecha_presupuesto" name="fecha_presupuesto">
+														<label for="crearFechaPresupuesto" class="col-md-5 form-label text-primary">Fecha Presupuesto</label>
+														<div class="col-md-7 ps-0">
+															<input type="date" class="form-control text-primary" id="crearFechaPresupuesto" name="fecha_presupuesto">
 														</div>
 													</div>
 													<!-- Fecha Vencimiento -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="fecha_vencimiento" class="col-md-6 form-label text-primary">Fecha Vencimiento</label>
-														<div class="col-md-6 ps-0">
-															<input type="date" class="form-control text-primary" id="fecha_vencimiento" name="fecha_vencimiento">
+														<label for="crearFechaVencimientoPresupuesto" class="col-md-5 form-label text-primary">Fecha Vencimiento</label>
+														<div class="col-md-7 ps-0">
+															<input type="date" class="form-control text-primary" id="crearFechaVencimientoPresupuesto" name="fecha_vencimiento">
 														</div>
 													</div>
-												<!-- </div> -->
 											</div>
 
 											<div class="mb-3 align-items-center">
 												<!-- Cliente -->
-												<!-- <div class="col-md-6"> -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="cliente_id" class="col-md-3 form-label text-primary">Cliente</label>
+														<label for="crearClientePresupuesto" class="col-md-3 form-label text-primary">Cliente</label>
 														<div class="col-md-9 ps-0">
 															<div class="input-group">
 																<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
-																<input type="text" class="form-control text-primary" name="cliente_id" id="cliente_id" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
+																<input type="text" class="form-control text-primary" name="cliente_id" id="crearClientePresupuesto" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
 																<a href="#" class="btn btn-primary"
 																data-bs-toggle="modal" 
 																data-bs-target="#modalSeleccionarCliente">
@@ -354,20 +347,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<input type="hidden" name="contacto_nombre" id="contacto_nombre">
 														</div>
 													</div>
-												<!-- </div> -->
 												<!-- Dirección Cliente -->
-												<!-- <div class="col-md-6"> -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
-														<label for="direccion_cliente" class="col-md-3 form-label text-primary">Dirección</label>
+														<label for="crearDireccionCliente" class="col-md-3 form-label text-primary">Dirección</label>
 														<div class="col-md-9 ps-0">
-															<select class="form-select text-primary" id="direccion_cliente" name="direccion_cliente">
+															<select class="form-select text-primary" id="crearDireccionCliente" name="direccion_cliente">
 																<option value="direccion1">Dirección 1</option>
 																<option value="direccion2">Dirección 2</option>
 																<option value="direccion3">Dirección 3</option>
 															</select>
 														</div>
 													</div>
-												<!-- </div> -->
 											</div>
 										</div>
 									</div>
@@ -380,6 +370,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</div>
 						</form>
 					</div>
+				</div>
 
 				<!-- Modal de selección de mercadería -->
 				<div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
@@ -729,8 +720,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	<script>
 		window.addEventListener('DOMContentLoaded', function () {
 		const hoy = new Date().toISOString().split('T')[0];
-		document.getElementById('fecha_presupuesto').value = hoy;
-		document.getElementById('fecha_vencimiento').value = hoy;
+		document.getElementById('crearFechaPresupuesto').value = hoy;
+		document.getElementById('crearFechaVencimientoPresupuesto').value = hoy;
 	});
 	</script>
 

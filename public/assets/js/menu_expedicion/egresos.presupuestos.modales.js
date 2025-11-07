@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ##################### MODAL BUSQUEDA POR DESCRIPCIÓN ##################### */
+  /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
+  var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
+  var mensajeErrorCrear = document.getElementById('mensaje-error-crear');
 
+  
+  /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
@@ -96,12 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /* ##################### INPUT BÚSQUEDA POR CÓDIGO ##################### */
-
+  /* ###################### INPUT BÚSQUEDA POR CÓDIGO ###################### */
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
-  
 
   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
@@ -149,8 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /* ##################### VACIAR MERCADERÍA ##################### */
 
+  /* ###################### VACIAR MERCADERÍA ###################### */
   const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
   if (btnVaciarMercaderia) {
     btnVaciarMercaderia.addEventListener('click', function () {
@@ -162,8 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ##################### AGREGAR MERCADERÍA ##################### */
 
+  /* ###################### AGREGAR MERCADERÍA ###################### */
   const formAgregar = document.querySelector('#formAgregarMercaderia');
   if (formAgregar) {
     formAgregar.addEventListener('submit', function (e) {
@@ -230,8 +232,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ##################### MODAL DE EDICIÓN MERCADERÍA ##################### */
 
+  /* ###################### MODAL DE EDICIÓN MERCADERÍA ###################### */
 	// Interceptar el evento de apertura del modal de edición
   var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
   if (modalEditarMercaderia) {
@@ -301,7 +303,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
 	// Interceptar el envío del formulario con AJAX
 	const formEditar = document.querySelector('#formEditarMercaderia');
 	if (formEditar) {
@@ -313,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			const formData = new FormData(this);
       console.log('Datos del formulario de edición mercadería:', Array.from(formData.entries()));
-      
+
 			$.ajax({
 				url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarMercaderia',
 				type: 'POST',
@@ -345,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	}
-
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
 	if (modalEditarMercaderia) {
@@ -358,8 +358,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
   
-  /* ##################### MODAL DE ELIMINACIÓN MERCADERÍA ##################### */
 
+  /* ###################### MODAL DE ELIMINACIÓN MERCADERÍA ###################### */
   // Interceptar el evento de apertura del modal de eliminación
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
   if (modalEliminarMercaderia) {
@@ -369,7 +369,6 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEliminarMercaderia.querySelector('#eliminarItemId').value = button.getAttribute('data-id');
     });
   }
-
   // Interceptar el envío del formulario con AJAX
   const formEliminarMercaderia = document.querySelector('#formEliminarMercaderia');
   if (formEliminarMercaderia) {
@@ -412,7 +411,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-
   // Limpiar el mensaje de error al cerrar el modal
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
   if (modalEliminarMercaderia) {
@@ -425,13 +423,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ##################### GUARDAR PRESUPUESTO ##################### */
 
+  /* ###################### GUARDAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
     modal.show();
   });
-
   const btnGuardar = document.getElementById('btnConfirmarGuardar');
   if (btnGuardar) {
     btnGuardar.addEventListener('click', function () {
@@ -475,8 +472,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-    /* ##################### MODAL DE EDICIÓN PRESUPUESTO ##################### */
 
+    /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
 	// Interceptar el evento de apertura del modal de edición
 	var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
 	if (modalEditarPresupuesto) {
@@ -513,7 +510,6 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
 		});
 	}
-
 	// Interceptar el envío del formulario con AJAX
 	const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
 	if (formEditarPresupuesto) {
@@ -556,7 +552,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	}
-
 	// Limpiar el mensaje de error al cerrar el modal
 	if (modalEditarPresupuesto) {
 		modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
@@ -567,15 +562,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	}
-  
 
-  /* ##################### CANCELAR PRESUPUESTO ##################### */
 
+  /* ###################### CANCELAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
     modal.show();
   });
-
   // Interceptar el evento de apertura del modal de eliminación
   var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
   if (modalEliminarPresupuesto) {
@@ -585,7 +578,6 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
     });
   }
-
   const btnCancelar = document.getElementById('btnConfirmarEliminar');
   if (btnCancelar) {
     btnCancelar.addEventListener('click', function () {
