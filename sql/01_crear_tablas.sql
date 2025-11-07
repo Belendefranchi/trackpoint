@@ -93,7 +93,7 @@ CREATE TABLE configuracion_abm_mercaderias (
     peso_max DECIMAL(10,2) NULL,
     etiqueta_sec VARCHAR(100) NULL,
     codigo_externo VARCHAR(50) NULL,
-    precio_costo DECIMAL(10,2) NULL,
+    precio_compra DECIMAL(10,2) NULL,
     precio_venta DECIMAL(10,2) NULL,
     iva_tasa DECIMAL(5,2) NULL,
     descuento_porcentaje DECIMAL(5,2) NULL,
@@ -161,8 +161,8 @@ CREATE INDEX idx_config_operadores_username ON configuracion_abm_operadores(user
 CREATE TABLE recepcion_noProductivos_mercaderias_resumen (
     recepcion_id INT IDENTITY(1,1) PRIMARY KEY,
     fecha_recepcion DATE NOT NULL,
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NULL,
+    fecha_sistema DATETIME NOT NULL,
+    fecha_modificacion DATETIME NULL,
     operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente' -- Estado inicial de la recepción
 );
@@ -187,8 +187,8 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
     iva_tasa DECIMAL(5,2) NULL,
 
     -- Datos de auditoría
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NOT NULL,
+    fecha_sistema DATETIME NOT NULL,
+    fecha_modificacion DATETIME NOT NULL,
     operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
 
@@ -256,8 +256,8 @@ CREATE TABLE produccion_general (
     fecha_remito DATE NULL,
 
     -- Datos del sistema
-    fecha_sistema DATE NOT NULL,
-    fecha_modificacion DATE NULL,
+    fecha_sistema DATETIME DEFAULT GETDATE(),
+    fecha_modificacion DATETIME NULL,
 
     -- Referencias de usuario (ID + nombre al momento)
     creado_por_id INT NOT NULL,
@@ -364,7 +364,7 @@ CREATE TABLE expedicion_egresos_presupuestos_resumen (
     fecha_presupuesto DATE NOT NULL,
     fecha_vencimiento DATE NULL,
     fecha_sistema DATETIME DEFAULT GETDATE(),
-    fecha_modificacion DATE NULL,
+    fecha_modificacion DATETIME NULL,
     cliente_id INT NULL,
     direccion_cliente VARCHAR(255) NULL,
     contacto_nombre VARCHAR(100) NULL,
@@ -380,7 +380,6 @@ GO
 CREATE TABLE expedicion_egresos_presupuestos_detalle (
     item_id INT PRIMARY KEY IDENTITY(1,1),
     presupuesto_id INT NOT NULL,
-    mercaderia_id INT NULL,
     codigo_mercaderia VARCHAR(50) NULL,
     descripcion_mercaderia VARCHAR(255) NULL,
     cantidad INT NOT NULL,
@@ -392,7 +391,7 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
 
     -- Datos de auditoría
     fecha_sistema DATETIME DEFAULT GETDATE(),
-    fecha_modificacion DATE NULL,
+    fecha_modificacion DATETIME NULL,
     operador_id INT NOT NULL,
     estado VARCHAR(20) NOT NULL DEFAULT 'pendiente', -- Estado inicial de la mercadería
 

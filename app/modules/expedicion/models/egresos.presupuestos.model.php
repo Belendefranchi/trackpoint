@@ -2,127 +2,6 @@
 require_once __DIR__ . '/../../../../core/config/db.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
-function agregarMercaderia($datos) {
-
-	$fechaActual = date('Y-m-d H:i:s');
-	$datos['fecha_presupuesto'] = trim($datos['fecha_presupuesto']) === '' ? null : $datos['fecha_presupuesto'];
-	
-	try {
-		$conn = getConnection();
-		// 1. Buscar si ya existe un presupuesto abierto
-		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
-		$stmt = $conn->prepare($sql);
-		$stmt->bindValue(':operador_id', $datos['operador_id']);
-		$stmt->execute();
-
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($result){
-			$presupuesto_id = $result['presupuesto_id'];
-			registrarEvento("Presupuestos Model: mercadería pendiente en presupuesto.", "INFO");
-		}else {
-			// 2. Crear nuevo presupuesto
-			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (
-											empresa_id,
-											sucursal_id,
-											rubro_id,
-											fecha_presupuesto,
-											fecha_vencimiento,
-											cliente_id,
-											direccion_cliente,
-											contacto_nombre,
-											operador_id,
-											estado
-										)
-										VALUES (
-											:empresa_id,
-											:sucursal_id,
-											:rubro_id,
-											:fecha_presupuesto,
-											:fecha_vencimiento,
-											:cliente_id,
-											:direccion_cliente,
-											:contacto_nombre,
-											:operador_id,
-											:estado)";
-
-			$stmtResumen = $conn->prepare($sqlResumen);
-			$stmtResumen->bindValue(':empresa_id', $datos['empresa_id']);
-			$stmtResumen->bindValue(':sucursal_id', $datos['sucursal_id']);
-			$stmtResumen->bindValue(':rubro_id', $datos['rubro_id']);
-			$stmtResumen->bindValue(':fecha_presupuesto', $datos['fecha_presupuesto']);
-			$stmtResumen->bindValue(':fecha_vencimiento', $datos['fecha_vencimiento']);
-			$stmtResumen->bindValue(':cliente_id', $datos['cliente_id']);
-			$stmtResumen->bindValue(':direccion_cliente', $datos['direccion_cliente']);
-			$stmtResumen->bindValue(':contacto_nombre', $datos['contacto_nombre']);
-			$stmtResumen->bindValue(':operador_id', $datos['operador_id']);
-			$stmtResumen->bindValue(':estado', 'pendiente');
-			$stmtResumen->execute();
-			
-			// 3. Obtener el ID generado
-			$presupuesto_id = $conn->lastInsertId();
-			registrarEvento("Presupuestos Model: nuevo presupuesto creado.", "INFO");
-		}
-
-		// 4. Insertar en detalle
-		$sqlDetalle = "INSERT INTO expedicion_egresos_presupuestos_detalle (
-										presupuesto_id,
-										/* mercaderia_id, */
-										codigo_mercaderia,
-										descripcion_mercaderia,
-										cantidad,
-										/* codigo_externo, */
-										precio_venta,
-										/* iva_tasa, */
-										/* descuento_porcentaje, */
-										fecha_modificacion,
-										operador_id,
-										estado
-									)
-                  VALUES (
-										:presupuesto_id,
-										/* :mercaderia_id, */
-										:codigo_mercaderia,
-										:descripcion_mercaderia,
-										:cantidad,
-										/* :codigo_externo, */
-										:precio_venta,
-										/* :iva_tasa, */
-										/* :descuento_porcentaje, */
-										:fecha_modificacion,
-										:operador_id,
-										:estado
-									)";
-
-		$stmtDetalle = $conn->prepare($sqlDetalle);
-		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
-		/* $stmtDetalle->bindValue(':mercaderia_id', $datos['mercaderia_id']); */
-		$stmtDetalle->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
-		$stmtDetalle->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
-		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
-		/* $stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']); */
-		$stmtDetalle->bindValue(':precio_venta', $datos['precio_venta']);
-		/* $stmtDetalle->bindValue(':iva_tasa', $datos['iva_tasa']); */
-		/* $stmtDetalle->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']); */
-		$stmtDetalle->bindValue(':fecha_modificacion', $fechaActual);
-		$stmtDetalle->bindValue(':operador_id', $datos['operador_id']);
-		$stmtDetalle->bindValue(':estado', 'pendiente');
-
-		$result = $stmtDetalle->execute();
-
-		if ($result) {
-			registrarEvento("Presupuestos Model: mercadería agregada correctamente.", "INFO");
-			return ['success' => true, 'presupuesto_id' => $presupuesto_id];
-		} else {
-			return ['success' => false, 'message' => 'Error al insertar en detalle'];
-		}
-
-	} catch (PDOException $e) {
-		registrarEvento("Presupuestos Model: Error al buscar pendientes, " . $e->getMessage(), "ERROR");
-		return ['success' => false, 'message' => $e->getMessage()];
-	}
-}
-
 function obtenerPresupuestoId($operador_id) {
 	try {
 		$conn = getConnection();
@@ -187,7 +66,6 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 		$sql = "SELECT 
 								item_id,
 								presupuesto_id,
-								mercaderia_id,
 								codigo_mercaderia,
 								descripcion_mercaderia,
 								codigo_externo,
@@ -198,8 +76,6 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 								descuento_porcentaje,
 								(cantidad * precio_venta) AS subtotal
 						FROM expedicion_egresos_presupuestos_detalle
- 						/* LEFT JOIN configuracion_abm_mercaderias m
-								ON d.mercaderia_id = m.mercaderia_id */
 						WHERE presupuesto_id = :presupuesto_id
 							AND estado = 'pendiente'
 						";
@@ -253,56 +129,6 @@ function editarPresupuesto($datos) {
 			registrarEvento("Presupuestos Model: Error al editar el presupuesto, " . $e->getMessage(), "ERROR");
 			return false;
 		}
-}
-
-function editarMercaderiaPresupuesto($datos) {
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
-														SET
-															codigo_mercaderia = :codigo_mercaderia,
-															descripcion_mercaderia = :descripcion_mercaderia,
-															cantidad = :cantidad,
-															precio_venta = :precio_venta,
-															/* iva_tasa = :iva_tasa,
-															descuento_porcentaje = :descuento_porcentaje, */
-															fecha_modificacion = :fecha_modificacion
-														WHERE
-															item_id = :item_id");
-
-		$stmt->bindParam(':item_id', $datos['item_id']);
-		$stmt->bindParam(':codigo_mercaderia', $datos['codigo_mercaderia']);
-		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
-		$stmt->bindParam(':cantidad', $datos['cantidad']);
-		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
-	/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
-		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
-		$stmt->bindParam(':fecha_modificacion', $fechaActual);
-		$result = $stmt->execute();
-
-		if ($result) {
-			registrarEvento("Presupuestos Model: mercadería editada correctamente.", "INFO");
-		}
-		return ['success' => true, 'message' => 'Mercadería editada correctamente.'];
-
-		} catch (PDOException $e) {
-			// Manejo de errores
-			registrarEvento("Presupuestos Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
-			return false;
-		}
-}
-
-function eliminarMercaderiaPresupuesto($item_id) {
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM expedicion_egresos_presupuestos_detalle WHERE item_id = :item_id");
-		$stmt->bindParam(':item_id', $item_id);
-		return $stmt->execute();
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Presupuestos Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
-		return false;
-	}
 }
 
 function generarPresupuesto($presupuesto_id) {
@@ -481,4 +307,169 @@ function eliminarPresupuesto($presupuesto_id) {
   }
 }
 
+function agregarMercaderia($datos) {
 
+	$datos['fecha_presupuesto'] = trim($datos['fecha_presupuesto']) === '' ? null : $datos['fecha_presupuesto'];
+	
+	try {
+		$conn = getConnection();
+		// 1. Buscar si ya existe un presupuesto abierto
+		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':operador_id', $datos['operador_id']);
+		$stmt->execute();
+
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($result){
+			$presupuesto_id = $result['presupuesto_id'];
+			registrarEvento("Presupuestos Model: mercadería pendiente en presupuesto.", "INFO");
+		}else {
+			// 2. Crear nuevo presupuesto
+			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (
+											empresa_id,
+											sucursal_id,
+											rubro_id,
+											fecha_presupuesto,
+											fecha_vencimiento,
+											cliente_id,
+											direccion_cliente,
+											contacto_nombre,
+											operador_id,
+											estado
+										)
+										VALUES (
+											:empresa_id,
+											:sucursal_id,
+											:rubro_id,
+											:fecha_presupuesto,
+											:fecha_vencimiento,
+											:cliente_id,
+											:direccion_cliente,
+											:contacto_nombre,
+											:operador_id,
+											:estado)";
+
+			$stmtResumen = $conn->prepare($sqlResumen);
+			$stmtResumen->bindValue(':empresa_id', $datos['empresa_id']);
+			$stmtResumen->bindValue(':sucursal_id', $datos['sucursal_id']);
+			$stmtResumen->bindValue(':rubro_id', $datos['rubro_id']);
+			$stmtResumen->bindValue(':fecha_presupuesto', $datos['fecha_presupuesto']);
+			$stmtResumen->bindValue(':fecha_vencimiento', $datos['fecha_vencimiento']);
+			$stmtResumen->bindValue(':cliente_id', $datos['cliente_id']);
+			$stmtResumen->bindValue(':direccion_cliente', $datos['direccion_cliente']);
+			$stmtResumen->bindValue(':contacto_nombre', $datos['contacto_nombre']);
+			$stmtResumen->bindValue(':operador_id', $datos['operador_id']);
+			$stmtResumen->bindValue(':estado', 'pendiente');
+			$stmtResumen->execute();
+			
+			// 3. Obtener el ID generado
+			$presupuesto_id = $conn->lastInsertId();
+			registrarEvento("Presupuestos Model: nuevo presupuesto creado.", "INFO");
+		}
+
+		// 4. Insertar en detalle
+		$sqlDetalle = "INSERT INTO expedicion_egresos_presupuestos_detalle (
+										presupuesto_id,
+										codigo_mercaderia,
+										descripcion_mercaderia,
+										cantidad,
+										/* codigo_externo, */
+										precio_venta,
+										/* iva_tasa, */
+										/* descuento_porcentaje, */
+										operador_id,
+										estado
+									)
+                  VALUES (
+										:presupuesto_id,
+										:codigo_mercaderia,
+										:descripcion_mercaderia,
+										:cantidad,
+										/* :codigo_externo, */
+										:precio_venta,
+										/* :iva_tasa, */
+										/* :descuento_porcentaje, */
+										:operador_id,
+										:estado
+									)";
+
+		$stmtDetalle = $conn->prepare($sqlDetalle);
+		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
+		$stmtDetalle->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
+		$stmtDetalle->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
+		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
+		/* $stmtDetalle->bindValue(':codigo_externo', $datos['codigo_externo']); */
+		$stmtDetalle->bindValue(':precio_venta', $datos['precio_venta']);
+		/* $stmtDetalle->bindValue(':iva_tasa', $datos['iva_tasa']); */
+		/* $stmtDetalle->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']); */
+		$stmtDetalle->bindValue(':operador_id', $datos['operador_id']);
+		$stmtDetalle->bindValue(':estado', 'pendiente');
+
+		$result = $stmtDetalle->execute();
+
+		if ($result) {
+			registrarEvento("Presupuestos Model: mercadería agregada correctamente.", "INFO");
+			return ['success' => true, 'presupuesto_id' => $presupuesto_id];
+		} else {
+			return ['success' => false, 'message' => 'Error al insertar en detalle'];
+		}
+
+	} catch (PDOException $e) {
+		registrarEvento("Presupuestos Model: Error al buscar pendientes, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => $e->getMessage()];
+	}
+}
+
+function editarMercaderiaPresupuesto($datos) {
+
+	$fechaActual = date('Y-m-d H:i:s');
+
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
+														SET
+															codigo_mercaderia = :codigo_mercaderia,
+															descripcion_mercaderia = :descripcion_mercaderia,
+															cantidad = :cantidad,
+															precio_venta = :precio_venta,
+															/* iva_tasa = :iva_tasa,
+															descuento_porcentaje = :descuento_porcentaje, */
+															fecha_modificacion = :fecha_modificacion
+														WHERE
+															item_id = :item_id");
+
+		$stmt->bindParam(':item_id', $datos['item_id']);
+		$stmt->bindParam(':codigo_mercaderia', $datos['codigo_mercaderia']);
+		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
+		$stmt->bindParam(':cantidad', $datos['cantidad']);
+		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
+	/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
+		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
+		$stmt->bindParam(':fecha_modificacion', $fechaActual);
+		$result = $stmt->execute();
+
+		if ($result) {
+			registrarEvento("Presupuestos Model: mercadería editada correctamente.", "INFO");
+		}
+		return ['success' => true, 'message' => 'Mercadería editada correctamente.'];
+
+		} catch (PDOException $e) {
+			// Manejo de errores
+			registrarEvento("Presupuestos Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
+			return false;
+		}
+}
+
+function eliminarMercaderiaPresupuesto($item_id) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("DELETE FROM expedicion_egresos_presupuestos_detalle WHERE item_id = :item_id");
+		$stmt->bindParam(':item_id', $item_id);
+		return $stmt->execute();
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Presupuestos Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}

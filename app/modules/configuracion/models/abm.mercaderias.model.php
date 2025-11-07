@@ -50,6 +50,20 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 	}
 }
 
+function obtenerMercaderiaPorCodigo($codigo) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto, precio_venta FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
+		$stmt->bindParam(':codigo', $codigo);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Mercaderías Model: Error al obtener la mercadería por código, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function obtenerMercaderiasActivas() {
 	try {
 		$conn = getConnection();
@@ -82,20 +96,6 @@ function obtenerMercaderiasActivas() {
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Mercaderías Model: Error al obtener las mercaderías activas, " . $e->getMessage(), "ERROR");
-		return false;
-	}
-}
-
-function obtenerMercaderiaPorCodigo($codigo) {
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
-		$stmt->bindParam(':codigo', $codigo);
-		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Mercaderías Model: Error al obtener la mercadería por código, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

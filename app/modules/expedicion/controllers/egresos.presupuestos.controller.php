@@ -13,12 +13,12 @@ require_once __DIR__ . '/../models/egresos.presupuestos.model.php';
 require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
-// Obtener procesos y mercaderías
-$mercaderias = obtenerMercaderiasActivas();
-
 // Obtener resumen y detalle de recepción si hay una sesión activa
 $resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
 $detalle = obtenerDetallePresupuesto($resumen[0]['presupuesto_id'] ?? null);
+
+// Obtener procesos y mercaderías
+$mercaderias = obtenerMercaderiasActivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'cliente_id' => $_POST['cliente_id'], //resumen
 			'direccion_cliente' => $_POST['direccion_cliente'], //resumen
 			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', //resumen
-			'mercaderia_id' => $_POST['mercaderia_id'], //detalle
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'], //detalle
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'], //detalle
 			'cantidad' => round((float)$_POST['cantidad']), //detalle
@@ -100,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
 		// Validar datos obligatorios
-		if (empty($datos['mercaderia_id']) || empty($datos['cantidad']) || empty($datos['precio_venta'])) {
+		if (empty($datos['codigo_mercaderia']) || empty($datos['cantidad']) || empty($datos['precio_venta'])) {
 			echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
 			exit;
 		}
@@ -109,11 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$result = agregarMercaderia($datos);
 
 			if ($result){
-				registrarEvento("Presupuestos Controller: Mercadería agregada correctamente => " . $datos['mercaderia_id'], "INFO");
+				registrarEvento("Presupuestos Controller: Mercadería agregada correctamente => " . $datos['codigo_mercaderia'], "INFO");
 				echo json_encode(['success' => true]);
 				exit;
 			} else {
-				registrarEvento("Presupuestos Controller: Error al agregar la mercadería => " . $datos['mercaderia_id'], "ERROR");
+				registrarEvento("Presupuestos Controller: Error al agregar la mercadería => " . $datos['codigo_mercaderia'], "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo agregar la mercadería']);
 				exit;
 			}
@@ -132,10 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$datos = [
 			'item_id' => $_POST['item_id'],
-			'mercaderia_id' => $_POST['mercaderia_id'],
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
-			'cantidad_mercaderia' => $_POST['cantidad'],
+			'cantidad' => $_POST['cantidad'],
 			'precio_venta' => $_POST['precio_venta'],
     ];
 
@@ -167,27 +165,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		exit;
 	}
 
-	// ####### OBTENER MERCADERÍA POR ID #######
-	if (isset($_GET['obtenerMercaderiaPorId'])) {
+	// ####### OBTENER MERCADERÍA POR CÓDIGO #######
+	if (isset($_GET['obtenerMercaderiaPorCodigo'])) {
 
 		header('Content-Type: application/json');
 
-		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
+		$item_id = $_POST['item_id'] ?? null;
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? null;
 
-		if (empty($mercaderia_id)) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID de la mercadería']);
+		if (empty($codigo_mercaderia)) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el código de la mercadería']);
 			exit;
 		}
 
 		try {
 			// Lógica para obtener la mercadería
-			$mercaderia = obtenerMercaderiaPorId($mercaderia_id);
+			$mercaderia = obtenerMercaderiaPorCodigo($codigo_mercaderia);
 
 			if ($mercaderia) {
-				registrarEvento("Presupuestos Controller: Mercadería obtenida correctamente => " . $mercaderia['id'], "INFO");
+				registrarEvento("Presupuestos Controller: Mercadería obtenida correctamente => " . $mercaderia['codigo'], "INFO");
 				echo json_encode([
 					'success' => true,
-					'mercaderia_id' => $mercaderia['mercaderia_id'],
 					'codigo_mercaderia' => $mercaderia['codigo'],
 					'descripcion_mercaderia' => $mercaderia['descripcion'],
 					'precio_venta' => $mercaderia['precio_venta']

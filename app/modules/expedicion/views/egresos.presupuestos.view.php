@@ -303,7 +303,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																					data-bs-toggle="modal"
 																					data-bs-target="#modalEditarMercaderia"
 																					data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
-																					data-idm="<?= htmlspecialchars($filaDetalle['mercaderia_id']) ?>"
 																					data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
 																					data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
 																					data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
@@ -543,7 +542,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<div class="modal-body">
 									<input type="hidden" name="item_id" id="editarItemId">
-									<input type="hidden" name="mercaderia_id" id="editarMercaderiaId">
 
 									<div class="mb-3">
 										<div id="mensaje-error-editar-mercaderia" class="alert alert-danger rounded d-none" role="alert">
@@ -555,9 +553,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<div class="mb-3">
 										<label for="editarCodigoMercaderia" class="form-label text-primary">Código</label>
-										<div id="editarDescripcionMercaderiaContenedor">
-											<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="editarCodigoMercaderia">
-										</div>
+										<select class="form-select" name="codigo_mercaderia" id="editarCodigoMercaderia">
+											<?php if (empty($mercaderias)): ?>
+												<option value="">No hay mercaderías disponibles</option>
+											<?php else: ?>
+												<!-- <option value=""></option> -->
+												<?php foreach ($mercaderias as $mercaderia): ?>
+													<option value="<?= htmlspecialchars($mercaderia['codigo']) ?>"><?= htmlspecialchars($mercaderia['codigo']) ?></option>
+												<?php endforeach; ?>
+											<?php endif; ?>
+										</select>
 									</div>
 
 									<div class="mb-3">
@@ -568,7 +573,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<div class="mb-3">
-										<label for="editarFechaRecepcionMercaderia" class="form-label text-primary">Cantidad</label>
+										<label for="editarCantidadMercaderia" class="form-label text-primary">Cantidad</label>
 										<input type="number" class="form-control" name="cantidad" id="editarCantidadMercaderia">
 									</div>
 									
