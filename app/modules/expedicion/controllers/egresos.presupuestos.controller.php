@@ -23,7 +23,7 @@ $mercaderias = obtenerMercaderiasActivas();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### CREAR PRESUPUESTO #######
-	if (isset($_GET['crearPresupuesto'])) {
+	if (isset($_GET['crear'])) {
 
 		header('Content-Type: application/json');
 

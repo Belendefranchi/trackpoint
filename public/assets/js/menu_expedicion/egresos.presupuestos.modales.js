@@ -2,8 +2,270 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
   var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
-  var mensajeErrorCrear = document.getElementById('mensaje-error-crear');
+  if (modalCrearPresupuesto) {
+    modalCrearPresupuesto.addEventListener('show.bs.modal', function (event) {
+      console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
+      const button = event.relatedTarget;
 
+    });
+  }
+  // Interceptar el envío del formulario con AJAX
+  const formCrear = document.querySelector('#formCrearPresupuesto');
+  if (formCrear) {
+    formCrear.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crear',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Presupuesto creado con éxito:', response.message);
+
+            const tabla = $('#miTablaResumen').DataTable();
+            localStorage.setItem('paginaPresupuestos', tabla.page());
+
+            location.reload();
+          } else {
+            console.log('Error al crear el presupuesto:', response.message);
+            $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText); 
+          $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+  
+  // Limpiar el mensaje de error al cerrar el modal
+  modalCrearPresupuesto.addEventListener('hidden.bs.modal', function () {
+    var mensajeError = document.getElementById('mensaje-error-crear');
+    if (mensajeError) {
+      mensajeError.classList.add('d-none'); // Ocultar el div
+      mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+    }
+  });
+
+
+
+
+
+
+
+    /* ###################### GUARDAR PRESUPUESTO ###################### */
+  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
+    modal.show();
+  });
+  const btnGuardar = document.getElementById('btnConfirmarGuardar');
+  if (btnGuardar) {
+    btnGuardar.addEventListener('click', function () {
+      bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto',
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            console.log(response)
+            $('#modalMensajeLabel').text('Presupuesto generado');
+            $('#textoModalMensaje').text('El presupuesto fue generado correctamente.');
+          } else {
+            $('#modalMensajeLabel').text('Error al generar');
+            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+          }
+
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+
+          // Esperar a que el modal se cierre para recargar
+          const modalElement = document.getElementById('modalMensajePresupuesto');
+          modalElement.addEventListener('hidden.bs.modal', function () {
+            location.reload();
+          }, { once: true });
+
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#modalMensajeLabel').text('Error inesperado');
+          $('#textoModalMensaje').text('Hubo un problema al intentar guardar los datos.');
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+        }
+      });
+    });
+  }
+
+
+  /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
+	// Interceptar el evento de apertura del modal de edición
+	var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
+	if (modalEditarPresupuesto) {
+		modalEditarPresupuesto.addEventListener('show.bs.modal', function (event) {
+			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
+			const button = event.relatedTarget;
+
+      console.log({
+        id: button.getAttribute('data-id'),
+        empresa: button.getAttribute('data-empresa'),
+        sucursal: button.getAttribute('data-sucursal'),
+        rubro: button.getAttribute('data-rubro'),
+        fechap: button.getAttribute('data-fechap'),
+        fechav: button.getAttribute('data-fechav'),
+        cliente: button.getAttribute('data-cliente'),
+        direccionc: button.getAttribute('data-direccionc'),
+        contactoc: button.getAttribute('data-contactoc')
+      });
+
+
+			if (!button) {
+				console.warn('No se detectó el botón que activó el modal.');
+				return;
+			}
+
+			modalEditarPresupuesto.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
+			modalEditarPresupuesto.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
+      modalEditarPresupuesto.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
+      modalEditarPresupuesto.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
+      modalEditarPresupuesto.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
+      modalEditarPresupuesto.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
+      modalEditarPresupuesto.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
+      modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
+      modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
+		});
+	}
+	// Interceptar el envío del formulario con AJAX
+	const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
+	if (formEditarPresupuesto) {
+		formEditarPresupuesto.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			// Limpiar cualquier mensaje de error antes de hacer la solicitud
+			$('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
+
+			const formData = new FormData(this);
+
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarPresupuesto',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					console.log('Respuesta del servidor:', response);
+
+					if (response.success) {
+						console.log('Presupuesto modificado con éxito:', response.message);
+
+						const tabla = $('#miTablaResumen').DataTable();
+            localStorage.setItem('paginaPresupuestos', tabla.page());
+
+
+						location.reload();
+					} else {
+						console.log('Error al modificar el presupuesto:', response.message);
+						$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText);
+					$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+				}
+			});
+		});
+	}
+	// Limpiar el mensaje de error al cerrar el modal
+	if (modalEditarPresupuesto) {
+		modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
+			var mensajeError = document.getElementById('mensaje-error-editar-presupuesto');
+			if (mensajeError) {
+				mensajeError.classList.add('d-none'); // Ocultar el div
+				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			}
+		});
+	}
+
+
+  /* ###################### CANCELAR PRESUPUESTO ###################### */
+  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
+    modal.show();
+  });
+  // Interceptar el evento de apertura del modal de eliminación
+  var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
+  if (modalEliminarPresupuesto) {
+    modalEliminarPresupuesto.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      
+      modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
+    });
+  }
+  const btnCancelar = document.getElementById('btnConfirmarEliminar');
+  if (btnCancelar) {
+    btnCancelar.addEventListener('click', function () {
+      bootstrap.Modal.getInstance(document.getElementById('modalEliminarPresupuesto')).hide();
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarPresupuesto',
+        type: 'POST',
+        data: { 'presupuesto_id': document.getElementById('eliminarPresupuestoId').value },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            console.log(response)
+            $('#modalMensajeLabel').text('Presupuesto cancelado');
+            $('#textoModalMensaje').text('El presupuesto fue cancelado correctamente.');
+          } else {
+            $('#modalMensajeLabel').text('Error al cancelar');
+            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+          }
+
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+
+          // Esperar a que el modal se cierre para recargar
+          const modalElement = document.getElementById('modalMensajePresupuesto');
+          modalElement.addEventListener('hidden.bs.modal', function () {
+            location.reload();
+          }, { once: true });
+
+        },
+        error: function (xhr, status, error) {
+          console.log("Estado:", status);
+          console.log("Error:", error);
+          console.log("Respuesta cruda:", xhr.responseText);
+          $('#modalMensajeLabel').text('Error inesperado');
+          $('#textoModalMensaje').text('Hubo un problema al intentar eliminar el presupuesto.');
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+        }
+      });
+    });
+  }
   
   /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
@@ -420,204 +682,6 @@ document.addEventListener('DOMContentLoaded', function () {
         mensajeError.classList.add('d-none'); // Ocultar el div
         mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
       }
-    });
-  }
-
-
-  /* ###################### GUARDAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
-    modal.show();
-  });
-  const btnGuardar = document.getElementById('btnConfirmarGuardar');
-  if (btnGuardar) {
-    btnGuardar.addEventListener('click', function () {
-      bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto',
-        type: 'POST',
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            console.log(response)
-            $('#modalMensajeLabel').text('Presupuesto generado');
-            $('#textoModalMensaje').text('El presupuesto fue generado correctamente.');
-          } else {
-            $('#modalMensajeLabel').text('Error al generar');
-            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
-          }
-
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
-          modalMensaje.show();
-
-          // Esperar a que el modal se cierre para recargar
-          const modalElement = document.getElementById('modalMensajePresupuesto');
-          modalElement.addEventListener('hidden.bs.modal', function () {
-            location.reload();
-          }, { once: true });
-
-        },
-        error: function (xhr, status, error) {
-          console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
-          console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText);
-          $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar guardar los datos.');
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
-          modalMensaje.show();
-        }
-      });
-    });
-  }
-
-
-    /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
-	// Interceptar el evento de apertura del modal de edición
-	var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
-	if (modalEditarPresupuesto) {
-		modalEditarPresupuesto.addEventListener('show.bs.modal', function (event) {
-			console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
-			const button = event.relatedTarget;
-
-      console.log({
-        id: button.getAttribute('data-id'),
-        empresa: button.getAttribute('data-empresa'),
-        sucursal: button.getAttribute('data-sucursal'),
-        rubro: button.getAttribute('data-rubro'),
-        fechap: button.getAttribute('data-fechap'),
-        fechav: button.getAttribute('data-fechav'),
-        cliente: button.getAttribute('data-cliente'),
-        direccionc: button.getAttribute('data-direccionc'),
-        contactoc: button.getAttribute('data-contactoc')
-      });
-
-
-			if (!button) {
-				console.warn('No se detectó el botón que activó el modal.');
-				return;
-			}
-
-			modalEditarPresupuesto.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
-			modalEditarPresupuesto.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
-      modalEditarPresupuesto.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
-      modalEditarPresupuesto.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
-      modalEditarPresupuesto.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
-      modalEditarPresupuesto.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
-      modalEditarPresupuesto.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
-      modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
-      modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
-		});
-	}
-	// Interceptar el envío del formulario con AJAX
-	const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
-	if (formEditarPresupuesto) {
-		formEditarPresupuesto.addEventListener('submit', function (e) {
-			e.preventDefault();
-
-			// Limpiar cualquier mensaje de error antes de hacer la solicitud
-			$('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
-
-			const formData = new FormData(this);
-
-			$.ajax({
-				url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarPresupuesto',
-				type: 'POST',
-				data: formData,
-				processData: false,
-				contentType: false,
-				dataType: 'json',
-				success: function (response) {
-					console.log('Respuesta del servidor:', response);
-
-					if (response.success) {
-						console.log('Presupuesto modificado con éxito:', response.message);
-
-						const tabla = $('#miTablaResumen').DataTable();
-
-						location.reload();
-					} else {
-						console.log('Error al modificar el presupuesto:', response.message);
-						$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text(response.message);
-					}
-				},
-				error: function (xhr, status, error) {
-					console.log('Error al guardar los datos');
-					console.log('Código de estado:', status);
-					console.log('Mensaje de error:', error);
-					console.log('Respuesta del servidor:', xhr.responseText);
-					$('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
-				}
-			});
-		});
-	}
-	// Limpiar el mensaje de error al cerrar el modal
-	if (modalEditarPresupuesto) {
-		modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
-			var mensajeError = document.getElementById('mensaje-error-editar-presupuesto');
-			if (mensajeError) {
-				mensajeError.classList.add('d-none'); // Ocultar el div
-				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
-			}
-		});
-	}
-
-
-  /* ###################### CANCELAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
-    modal.show();
-  });
-  // Interceptar el evento de apertura del modal de eliminación
-  var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
-  if (modalEliminarPresupuesto) {
-    modalEliminarPresupuesto.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
-      
-      modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
-    });
-  }
-  const btnCancelar = document.getElementById('btnConfirmarEliminar');
-  if (btnCancelar) {
-    btnCancelar.addEventListener('click', function () {
-      bootstrap.Modal.getInstance(document.getElementById('modalEliminarPresupuesto')).hide();
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarPresupuesto',
-        type: 'POST',
-        data: { 'presupuesto_id': document.getElementById('eliminarPresupuestoId').value },
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            console.log(response)
-            $('#modalMensajeLabel').text('Presupuesto cancelado');
-            $('#textoModalMensaje').text('El presupuesto fue cancelado correctamente.');
-          } else {
-            $('#modalMensajeLabel').text('Error al cancelar');
-            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
-          }
-
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
-          modalMensaje.show();
-
-          // Esperar a que el modal se cierre para recargar
-          const modalElement = document.getElementById('modalMensajePresupuesto');
-          modalElement.addEventListener('hidden.bs.modal', function () {
-            location.reload();
-          }, { once: true });
-
-        },
-        error: function (xhr, status, error) {
-          console.log("Estado:", status);
-          console.log("Error:", error);
-          console.log("Respuesta cruda:", xhr.responseText);
-          $('#modalMensajeLabel').text('Error inesperado');
-          $('#textoModalMensaje').text('Hubo un problema al intentar eliminar el presupuesto.');
-          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
-          modalMensaje.show();
-        }
-      });
     });
   }
 

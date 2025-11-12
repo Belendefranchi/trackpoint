@@ -2,7 +2,7 @@ const fechaHoy = new Date().toISOString().slice(0, 10);
 
 $(document).ready(function () {
 
-	const configuracionDataTable = {
+	const configuracionDataTableAcotada = {
 		dom: 'ftp',
 		pageLength: 10,
 		language: {
@@ -18,11 +18,7 @@ $(document).ready(function () {
 		}
 	};
 
-	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTable);
-	const tablaResumen = $('#miTablaResumen').DataTable(configuracionDataTable);
-	const tablaDetalle = $('#miTablaDetalle').DataTable(configuracionDataTable);
-
-	const tabla = $('#miTabla').DataTable({
+	const configuracionDataTableCompleta = {
 		stateSave: true,
 		stateLoadParams: function (settings, data) {
 			// Solo restaurar la página si hay un estado guardado
@@ -197,29 +193,9 @@ $(document).ready(function () {
 				"sSortDescending": ": activar para ordenar la columna de manera descendente"
 			}
 		}
-	});
+	}
 
-	tabla.on('page.dt', function () {
-		localStorage.setItem('pagina_' + subtitulo, tabla.page());
-	});
-
-	const tablaEnModal = $('#miTablaEnModal').DataTable({
-		dom: 'ftp',
-		pageLength: 10,
-		language: {
-			"sZeroRecords": "No se encontraron resultados",
-			"sSearch": "Buscar:",
-			"sEmptyTable": "No hay datos disponibles en la tabla",
-			"oPaginate": {
-				"sFirst": "Primero",
-				"sPrevious": "Anterior",
-				"sNext": "Siguiente",
-				"sLast": "Último"
-			},
-		}
-	});
-
-	const tablaConCheckbox = $('#miTablaConCheckbox').DataTable({
+	const configuracionDataTableCheckbox = {
 		stateSave: true,
 		stateLoadParams: function (settings, data) {
 			// Solo restaurar la página si hay un estado guardado
@@ -411,6 +387,26 @@ $(document).ready(function () {
 				"sSortDescending": ": activar para ordenar la columna de manera descendente"
 			}
 		}
+	}
+
+	const tabla = $('#miTabla').DataTable(configuracionDataTableCompleta);
+	const tablaResumen = $('#miTablaResumen').DataTable(configuracionDataTableCompleta);
+	const tablaDetalle = $('#miTablaDetalle').DataTable(configuracionDataTableCompleta);
+	const tablaEnModal = $('#miTablaEnModal').DataTable(configuracionDataTableAcotada);
+	const tablaEnModalMercaderia = $('#miTablaEnModalMercaderia').DataTable(configuracionDataTableAcotada);
+	const tablaConCheckbox = $('#miTablaConCheckbox').DataTable(configuracionDataTableCheckbox);
+
+	tabla.on('page.dt', function () {
+		localStorage.setItem('pagina_' + subtitulo, tabla.page());
 	});
+
+	tablaResumen.on('page.dt', function () {
+		localStorage.setItem('pagina_' + subtitulo, tablaResumen.page());
+	});
+
+	tablaDetalle.on('page.dt', function () {
+		localStorage.setItem('pagina_' + subtitulo, tablaDetalle.page());
+	});
+
 
 });

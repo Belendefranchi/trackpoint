@@ -334,18 +334,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<div class="row p-2 d-flex align-items-center justify-content-center">
 														<label for="crearClientePresupuesto" class="col-md-3 form-label text-primary">Cliente</label>
 														<div class="col-md-9 ps-0">
-															<div class="input-group">
-																<?php $clienteSeleccionado = $_SESSION['cliente_seleccionado'] ?? null; ?>
-																<input type="text" class="form-control text-primary" name="cliente_id" id="crearClientePresupuesto" value="<?php echo $clienteSeleccionado['cliente_id'] ?? 1; ?>">
-																<a href="#" class="btn btn-primary"
-																data-bs-toggle="modal" 
-																data-bs-target="#modalSeleccionarCliente">
-																<i class="bi bi-search"></i>
-															</a>
+															<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_id">
+																<option value="1">Cliente 1</option>
+																<option value="2">Cliente 2</option>
+															</select>
 														</div>
 														<input type="hidden" name="cliente_id" id="cliente_id">
 														<input type="hidden" name="contacto_nombre" id="contacto_nombre">
-														</div>
 													</div>
 												<!-- Dirección Cliente -->
 													<div class="row p-2 d-flex align-items-center justify-content-center">
