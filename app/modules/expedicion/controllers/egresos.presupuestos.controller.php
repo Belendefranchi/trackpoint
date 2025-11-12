@@ -120,14 +120,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
     $datos = [
-			'empresa_id' => $_POST['empresa_id'],
+/* 			'empresa_id' => $_POST['empresa_id'],
 			'sucursal_id' => $_POST['sucursal_id'],
 			'rubro_id' => $_POST['rubro_id'],
 			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
 			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
 			'cliente_id' => $_POST['cliente_id'],
 			'direccion_cliente' => $_POST['direccion_cliente'],
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', */
+			/* 'presupuesto_id' => $_POST['presupuesto_id'], */
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad' => round((float)$_POST['cantidad']),

@@ -70,6 +70,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 										</div>
+										<input type="hidden" name="presupuesto_id" id="presupuesto_id">
 										<!-- Botón Agregar -->
 										<div class="col-md-2 d-flex justify-content-end">
 											<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">

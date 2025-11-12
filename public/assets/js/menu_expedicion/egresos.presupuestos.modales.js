@@ -63,12 +63,68 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+  /* ###################### SELECCIÓN DE PRESUPUESTO ###################### */
+
+    // --- VARIABLES GLOBALES ---
+    let presupuestoSeleccionado = null;
+
+    // --- SELECCIONAR PRESUPUESTO ---
+    document.querySelectorAll('.seleccionar-presupuesto').forEach(radio => {
+        radio.addEventListener('change', function() {
+            presupuestoSeleccionado = this.dataset.presupuestoid;
+
+            // Crear o actualizar input hidden en el formAgregarMercaderia
+            let inputHidden = document.getElementById('presupuesto_id');
+            if (!inputHidden) {
+                inputHidden = document.createElement('input');
+                inputHidden.type = 'hidden';
+                inputHidden.name = 'presupuesto_id';
+                inputHidden.id = 'presupuesto_id';
+                document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
+            }
+            inputHidden.value = presupuestoSeleccionado;
+
+            // Activar botón "Agregar" del formulario superior
+            document.getElementById('btn-guardar-mercaderia').disabled = false;
+
+            // Activar la pestaña Detalle automáticamente
+            const detalleTab = document.querySelector('#detalle-tab');
+            if (detalleTab) {
+                const tab = new bootstrap.Tab(detalleTab);
+                tab.show();
+            }
+
+            console.log('Presupuesto seleccionado:', presupuestoSeleccionado);
+        });
+    });
+
+    // --- PREVENIR ENVÍO SIN PRESUPUESTO SELECCIONADO ---
+    document.getElementById('formAgregarMercaderia').addEventListener('submit', function(e) {
+        if (!presupuestoSeleccionado) {
+            e.preventDefault();
+            alert('Primero seleccioná un presupuesto en la tabla inferior antes de agregar mercaderías.');
+            return;
+        }
+
+        // Opcional: mostrar en consola los datos que van al servidor
+        const formData = new FormData(this);
+        console.log('Datos enviados:', Object.fromEntries(formData));
+    });
+
+    // --- BOTÓN "VACIAR" ---
+    document.getElementById('btn-vaciar-mercaderia').addEventListener('click', function() {
+        document.getElementById('codigo_mercaderia').value = '';
+        document.getElementById('mercaderia_id').value = '';
+        document.getElementById('descripcion_mercaderia').value = '';
+        document.getElementById('cantidad').value = 1;
+        document.getElementById('precio_venta').value = 1;
+    });
+
+    // --- DESHABILITAR "AGREGAR" HASTA QUE HAYA UN PRESUPUESTO SELECCIONADO ---
+    document.getElementById('btn-guardar-mercaderia').disabled = true;
 
 
-
-
-
-    /* ###################### GUARDAR PRESUPUESTO ###################### */
+  /* ###################### GUARDAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
     modal.show();
@@ -434,26 +490,26 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
-      const empresaId = document.getElementById('empresa_id').value;
+/*       const empresaId = document.getElementById('empresa_id').value;
       const sucursalId = document.getElementById('sucursal_id').value;
       const rubroId = document.getElementById('rubro_id').value;
       const fechaPresupuesto = document.getElementById('fecha_presupuesto').value;
       const fechaVencimiento = document.getElementById('fecha_vencimiento').value;
       const clienteId = document.getElementById('cliente_id').value;
-      const direccionCliente = document.getElementById('direccion_cliente').value;
+      const direccionCliente = document.getElementById('direccion_cliente').value; */
       const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
       const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
       const cantidad = document.getElementById('cantidad').value;
       const precioVenta = document.getElementById('precio_venta').value;
 
       const formData = new FormData();
-      formData.append('empresa_id', empresaId);
+/*       formData.append('empresa_id', empresaId);
       formData.append('sucursal_id', sucursalId);
       formData.append('rubro_id', rubroId);
       formData.append('fecha_presupuesto', fechaPresupuesto);
       formData.append('fecha_vencimiento', fechaVencimiento);
       formData.append('cliente_id', clienteId);
-      formData.append('direccion_cliente', direccionCliente);
+      formData.append('direccion_cliente', direccionCliente); */
       formData.append('codigo_mercaderia', codigoMercaderia);
       formData.append('descripcion_mercaderia', descripcionMercaderia);
       formData.append('cantidad', cantidad);

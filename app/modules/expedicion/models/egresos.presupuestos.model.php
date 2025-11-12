@@ -286,12 +286,12 @@ function generarPresupuesto($presupuesto_id) {
 
 function agregarMercaderia($datos) {
 
-	$datos['fecha_presupuesto'] = trim($datos['fecha_presupuesto']) === '' ? null : $datos['fecha_presupuesto'];
+/* 	$datos['fecha_presupuesto'] = trim($datos['fecha_presupuesto']) === '' ? null : $datos['fecha_presupuesto']; */
 	
 	try {
 		$conn = getConnection();
 		// 1. Buscar si ya existe un presupuesto abierto
-		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
+/* 		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE operador_id = :operador_id AND estado = 'pendiente'";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $datos['operador_id']);
 		$stmt->execute();
@@ -301,9 +301,9 @@ function agregarMercaderia($datos) {
 		if($result){
 			$presupuesto_id = $result['presupuesto_id'];
 			registrarEvento("Presupuestos Model: mercadería pendiente en presupuesto.", "INFO");
-		}else {
+		}else { */
 			// 2. Crear nuevo presupuesto
-			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (
+/* 			$sqlResumen = "INSERT INTO expedicion_egresos_presupuestos_resumen (
 											empresa_id,
 											sucursal_id,
 											rubro_id,
@@ -338,16 +338,16 @@ function agregarMercaderia($datos) {
 			$stmtResumen->bindValue(':contacto_nombre', $datos['contacto_nombre']);
 			$stmtResumen->bindValue(':operador_id', $datos['operador_id']);
 			$stmtResumen->bindValue(':estado', 'pendiente');
-			$stmtResumen->execute();
+			$stmtResumen->execute(); */
 			
 			// 3. Obtener el ID generado
-			$presupuesto_id = $conn->lastInsertId();
+/* 			$presupuesto_id = $conn->lastInsertId();
 			registrarEvento("Presupuestos Model: nuevo presupuesto creado.", "INFO");
-		}
+		} */
 
 		// 4. Insertar en detalle
 		$sqlDetalle = "INSERT INTO expedicion_egresos_presupuestos_detalle (
-										presupuesto_id,
+										/* presupuesto_id, */
 										codigo_mercaderia,
 										descripcion_mercaderia,
 										cantidad,
@@ -359,7 +359,7 @@ function agregarMercaderia($datos) {
 										estado
 									)
                   VALUES (
-										:presupuesto_id,
+										/* :presupuesto_id, */
 										:codigo_mercaderia,
 										:descripcion_mercaderia,
 										:cantidad,
@@ -372,7 +372,7 @@ function agregarMercaderia($datos) {
 									)";
 
 		$stmtDetalle = $conn->prepare($sqlDetalle);
-		$stmtDetalle->bindValue(':presupuesto_id', $presupuesto_id);
+		/* $stmtDetalle->bindValue(':presupuesto_id', $datos['presupuesto_id']); */
 		$stmtDetalle->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
 		$stmtDetalle->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmtDetalle->bindValue(':cantidad', $datos['cantidad']);
