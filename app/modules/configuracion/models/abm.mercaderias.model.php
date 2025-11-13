@@ -4,7 +4,9 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 function obtenerMercaderias() {
 	try {
+
 		$conn = getConnection();
+
 		$stmt = $conn->query("SELECT
 								m.mercaderia_id,
 								m.codigo,
@@ -17,10 +19,13 @@ function obtenerMercaderias() {
 								m.envase_pri,
 								m.envase_sec,
 								m.marca,
+								m.codigo_externo,
 								m.cantidad_propuesta,
 								m.peso_propuesto,
 								m.peso_min,
 								m.peso_max,
+								m.precio_compra,
+								m.precio_venta,
 								m.etiqueta_sec,
 								m.activo
 							FROM configuracion_abm_mercaderias m
@@ -53,7 +58,7 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 function obtenerMercaderiaPorCodigo($codigo) {
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto, precio_venta FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
+		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto, precio_compra, precio_venta FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
 		$stmt->bindParam(':codigo', $codigo);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -79,10 +84,13 @@ function obtenerMercaderiasActivas() {
 														m.envase_pri,
 														m.envase_sec,
 														m.marca,
+														m.codigo_externo,
 														m.cantidad_propuesta,
 														m.peso_propuesto,
 														m.peso_min,
 														m.peso_max,
+														m.precio_compra,
+														m.precio_venta,
 														m.etiqueta_sec,
 														m.activo
 													FROM configuracion_abm_mercaderias m
@@ -128,10 +136,13 @@ function crearMercaderia($datos) {
 																envase_pri,
 																envase_sec,
 																marca,
+																codigo_externo,
 																cantidad_propuesta,
 																peso_propuesto,
 																peso_min,
 																peso_max,
+																precio_compra,
+																precio_venta,
 																creado_por,
 																etiqueta_sec)
 															VALUES (
@@ -143,10 +154,13 @@ function crearMercaderia($datos) {
 																:envase_pri,
 																:envase_sec,
 																:marca,
+																:codigo_externo,
 																:cantidad_propuesta,
 																:peso_propuesto,
 																:peso_min,
 																:peso_max,
+																:precio_compra,
+																:precio_venta,
 																:creado_por,
 																:etiqueta_sec)");
 
@@ -158,10 +172,13 @@ function crearMercaderia($datos) {
 		$stmt->bindParam(':envase_pri', $datos['envase_pri']);
 		$stmt->bindParam(':envase_sec', $datos['envase_sec']);
 		$stmt->bindParam(':marca', $datos['marca']);
+		$stmt->bindParam(':codigo_externo', $datos['codigo_externo']);
 		$stmt->bindParam(':cantidad_propuesta', $datos['cantidad_propuesta']);
 		$stmt->bindParam(':peso_propuesto', $datos['peso_propuesto']);
 		$stmt->bindParam(':peso_min', $datos['peso_min']);
 		$stmt->bindParam(':peso_max', $datos['peso_max']);
+		$stmt->bindParam(':precio_compra', $datos['precio_compra']);
+		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
 		$stmt->bindParam(':etiqueta_sec', $datos['etiqueta_sec']);
 		$stmt->bindParam(':creado_por', $creado_por);
 
@@ -175,19 +192,6 @@ function crearMercaderia($datos) {
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Mercaderías Model: Error al crear la mercadería, " . $e->getMessage(), "ERROR");
-		return false;
-	}
-}
-
-function eliminarMercaderia($mercaderia_id) {
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id");
-		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
-		return $stmt->execute();
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Mercaderías Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }
@@ -206,10 +210,13 @@ function editarMercaderia($datos) {
 																envase_pri = :envase_pri,
 																envase_sec = :envase_sec,
 																marca = :marca,
+																codigo_externo = :codigo_externo,
 																cantidad_propuesta = :cantidad_propuesta,
 																peso_propuesto = :peso_propuesto,
 																peso_min = :peso_min,
 																peso_max = :peso_max,
+																precio_compra = :precio_compra,
+																precio_venta = :precio_venta,
 																editado_por = :editado_por,
 																activo = :activo,
 																etiqueta_sec = :etiqueta_sec
@@ -224,10 +231,13 @@ function editarMercaderia($datos) {
 		$stmt->bindParam(':envase_pri', $datos['envase_pri']);
 		$stmt->bindParam(':envase_sec', $datos['envase_sec']);
 		$stmt->bindParam(':marca', $datos['marca']);
+		$stmt->bindParam(':codigo_externo', $datos['codigo_externo']);
 		$stmt->bindParam(':cantidad_propuesta', $datos['cantidad_propuesta']);
 		$stmt->bindParam(':peso_propuesto', $datos['peso_propuesto']);
 		$stmt->bindParam(':peso_min', $datos['peso_min']);
 		$stmt->bindParam(':peso_max', $datos['peso_max']);
+		$stmt->bindParam(':precio_compra', $datos['precio_compra']);
+		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
 		$stmt->bindParam(':etiqueta_sec', $datos['etiqueta_sec']);
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $datos['activo']);
@@ -242,6 +252,19 @@ function editarMercaderia($datos) {
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Mercaderías Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function eliminarMercaderia($mercaderia_id) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id");
+		$stmt->bindParam(':mercaderia_id', $mercaderia_id);
+		return $stmt->execute();
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Mercaderías Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

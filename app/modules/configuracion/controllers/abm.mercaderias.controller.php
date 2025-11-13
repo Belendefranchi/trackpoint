@@ -21,21 +21,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$datos = [
 			'codigo' => $_POST['codigo'],
 			'descripcion' => $_POST['descripcion'],
-			'unidad_medida' => $_POST['unidad_medida'] ?? null,
+			'unidad_medida' => $_POST['unidad_medida'],
 			'grupo_id' => $_POST['grupo_id'] ?? null,
 			'subgrupo_id' => $_POST['subgrupo_id'] ?? null,
 			'envase_pri' => $_POST['envase_pri'] ?? null,
 			'envase_sec' => $_POST['envase_sec'] ?? null,
 			'marca' => $_POST['marca'] ?? null,
-			'cantidad_propuesta' => floatval($_POST['cantidad_propuesta']),
-			'peso_propuesto' => floatval($_POST['peso_propuesto']),
-			'peso_min' => floatval($_POST['peso_min']),
-			'peso_max' => floatval($_POST['peso_max']),
+			'codigo_externo' => $_POST['codigo_externo'] ?? null,
+			'cantidad_propuesta' => floatval($_POST['cantidad_propuesta']) ?? null,
+			'peso_propuesto' => floatval($_POST['peso_propuesto']) ?? null,
+			'peso_min' => floatval($_POST['peso_min']) ?? null,
+			'peso_max' => floatval($_POST['peso_max']) ?? null,
+			'precio_compra' => floatval($_POST['precio_compra']) ?? null,
+			'precio_venta' => floatval($_POST['precio_venta']) ?? null,
 			'etiqueta_sec' => $_POST['etiqueta_sec'] ?? null,
 		];
 
-    	// Validación básica
-    	if (empty($datos['codigo']) || empty($datos['descripcion']) || empty($datos['unidad_medida'])) {
+    // Validación básica
+    if (empty($datos['codigo']) || empty($datos['descripcion']) || empty($datos['unidad_medida'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: Por favor ingrese todos los datos']);
 			exit;
 		}
@@ -84,10 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'envase_pri' => $_POST['envase_pri'] ?? null,
 			'envase_sec' => $_POST['envase_sec'] ?? null,
 			'marca' => $_POST['marca'] ?? null,
-			'cantidad_propuesta' => floatval($_POST['cantidad_propuesta']),
-			'peso_propuesto' => floatval($_POST['peso_propuesto']),
-			'peso_min' => floatval($_POST['peso_min']),
-			'peso_max' => floatval($_POST['peso_max']),
+			'codigo_externo' => $_POST['codigo_externo'] ?? null,
+			'cantidad_propuesta' => floatval($_POST['cantidad_propuesta']) ?? null,
+			'peso_propuesto' => floatval($_POST['peso_propuesto']) ?? null,
+			'peso_min' => floatval($_POST['peso_min']) ?? null,
+			'peso_max' => floatval($_POST['peso_max']) ?? null,
+			'precio_compra' => floatval($_POST['precio_compra']) ?? null,
+			'precio_venta' => floatval($_POST['precio_venta']) ?? null,
 			'etiqueta_sec' => $_POST['etiqueta_sec'] ?? null,
 			'activo' => $_POST['activo'],
 		];
@@ -133,26 +139,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$mercaderia_id = $_POST['mercaderia_id'];
-		$codigo = $_POST['codigo'];
+		/* $codigo = $_POST['codigo']; */
 
 		try {
 			// Llamar a la función que actualiza los datos
-			$result = eliminarMercaderia($mercaderia_id, $codigo);
+			$result = eliminarMercaderia($mercaderia_id);
 
 			if ($result) {
 				// Respuesta de éxito
-				registrarEvento("Mercaderías Controller: Mercadería eliminada correctamente => " . $codigo, "INFO");
+				registrarEvento("Mercaderías Controller: Mercadería eliminada correctamente => " . $mercaderia_id, "INFO");
 				echo json_encode(['success' => true]);
 				exit;
 
 			} else {
 					// Respuesta de error
-					registrarEvento("Mercaderías Controller: Error al eliminar la mercadería => " . $codigo, "ERROR");
+					registrarEvento("Mercaderías Controller: Error al eliminar la mercadería => " . $mercaderia_id, "ERROR");
 					echo json_encode(['success' => false, 'message' => 'Error: No se pudo eliminar la mercadería']);
 					exit;
 			}
 		} catch (Exception $e) {
-			registrarEvento("Mercaderías Controller: Error al procesar los datos => " . $codigo, "ERROR");
+			registrarEvento("Mercaderías Controller: Error al procesar los datos => " . $mercaderia_id, "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}

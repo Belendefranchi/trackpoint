@@ -132,10 +132,13 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarMercaderia.querySelector('#editarEnvasePriMercaderia').value = button.getAttribute('data-envasepri');
       modalEditarMercaderia.querySelector('#editarEnvaseSecMercaderia').value = button.getAttribute('data-envasesec');
       modalEditarMercaderia.querySelector('#editarMarcaMercaderia').value = button.getAttribute('data-marca');
+      modalEditarMercaderia.querySelector('#editarCodigoExternoMercaderia').value = button.getAttribute('data-codext');
       modalEditarMercaderia.querySelector('#editarCantidadPropuestaMercaderia').value = button.getAttribute('data-cantidadprop');
       modalEditarMercaderia.querySelector('#editarPesoPropuestoMercaderia').value = button.getAttribute('data-pesoprop');
       modalEditarMercaderia.querySelector('#editarPesoMinMercaderia').value = button.getAttribute('data-pesomin');
       modalEditarMercaderia.querySelector('#editarPesoMaxMercaderia').value = button.getAttribute('data-pesomax');
+      modalEditarMercaderia.querySelector('#editarPrecioCompraMercaderia').value = button.getAttribute('data-precioc');
+      modalEditarMercaderia.querySelector('#editarPrecioVentaMercaderia').value = button.getAttribute('data-preciov');
       modalEditarMercaderia.querySelector('#editarEtiquetaSecMercaderia').value = button.getAttribute('data-etiquetasec');
       modalEditarMercaderia.querySelector('#editarActivoMercaderia').value = button.getAttribute('data-activo');
 
@@ -300,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var button = event.relatedTarget;
 
       modalEliminarMercaderia.querySelector('#eliminarMercaderiaId').value = button.getAttribute('data-id');
-      modalEliminarMercaderia.querySelector('#eliminarCodigoMercaderia').value = button.getAttribute('data-codigo');
+/*       modalEliminarMercaderia.querySelector('#eliminarCodigoMercaderia').value = button.getAttribute('data-codigom'); */
     });
 
     // Interceptar el envío del formulario con AJAX
