@@ -93,7 +93,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarMercaderia"
-												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>">
+												data-ide="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+												data-codigoe="<?= htmlspecialchars($mercaderia['codigo']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
 											</a>
 										</div>
@@ -107,7 +108,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&crear">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearMercaderiaLabel">Nueva Mercadería</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -250,7 +251,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&editar">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -335,7 +336,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
-														<label for="editarEnvasePriMercaderia" class="form-label text-primary">Envase</label>
+														<label for="editarEnvasePriMercaderia" class="form-label text-primary">Envase Primario</label>
 														<input type="text" class="form-control" name="envase_pri" id="editarEnvasePriMercaderia">
 													</div>
 													<div class="col-md-6">
@@ -405,7 +406,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 									<div class="modal-body">
 										<input type="hidden" name="mercaderia_id" id="eliminarMercaderiaId">
-										<!-- <input type="hidden" name="codigo" id="eliminarCodigoMercadería"> -->
+										<input type="hidden" name="codigo" id="eliminarCodigoMercaderia">
 
 										<div class="mb-3">
 											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
@@ -438,7 +439,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
   <!-- Script DataTables y modales -->
   <script src="/trackpoint/public/assets/js/datatables.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/abm.mercaderias.modales.js"></script>
 
 </body>

@@ -44,7 +44,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary text-center">
 										<div class="d-flex no-wrap">
 											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
-												data-bs-toggle="modal" data-bs-target="#modalEditarGrupo"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEditarGrupo"
 												data-id="<?= htmlspecialchars($grupo['grupo_id']) ?>"
 												data-codigo="<?= htmlspecialchars($grupo['codigo']) ?>"
 												data-descripcion="<?= htmlspecialchars($grupo['descripcion']) ?>"
@@ -52,7 +53,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
 											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
-												data-bs-toggle="modal" data-bs-target="#modalEliminarGrupo"
+												data-bs-toggle="modal"
+												data-bs-target="#modalEliminarGrupo"
 												data-id="<?= htmlspecialchars($grupo['grupo_id']) ?>"
 												data-codigo="<?= htmlspecialchars($grupo['codigo']) ?>">
 												<i class="bi bi-trash me-2"></i>Eliminar
@@ -68,7 +70,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalCrearGrupo" tabindex="-1" aria-labelledby="modalCrearGrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<form method="POST" id="formCrearGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&crear">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalCrearGrupoLabel">Nuevo grupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -107,7 +109,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalEditarGrupo" tabindex="-1" aria-labelledby="modalEditarGrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<form method="POST" id="formEditarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&editar">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEditarGrupoLabel">Editar grupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -154,7 +156,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="modal fade m-5" id="modalEliminarGrupo" tabindex="-1" aria-labelledby="modalEliminarGrupoLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<form method="POST" id="formEliminarGrupo" action="/trackpoint/public/index.php?route=/configuracion/ABMs/grupos&eliminar">
-								<div class="modal-content m-5">
+								<div class="modal-content shadow">
 									<div class="modal-header table-primary text-white">
 										<h5 class="modal-title" id="modalEliminarGrupoLabel">Eliminar grupo</h5>
 										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -194,7 +196,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
   <!-- Script DataTables y modales -->
   <script src="/trackpoint/public/assets/js/datatables.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/abm.grupos.modales.js"></script>
 
 </body>

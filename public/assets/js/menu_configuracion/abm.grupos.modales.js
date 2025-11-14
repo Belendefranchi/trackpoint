@@ -185,12 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (response.success) {
 						console.log('Grupo eliminado con éxito:', response.message);
 
-						const tabla = $('#miTabla').DataTable();
-						localStorage.setItem('paginaGrupos', tabla.page());
-
 						location.reload();
 					} else {
-						console.log('Error al crear el grupo:', response.message);
+						console.log('Error al eliminar el grupo:', response.message);
 						$('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},

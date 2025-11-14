@@ -61,19 +61,6 @@ function crearGrupo($codigo, $descripcion) {
 	}
 }
 
-function eliminarGrupo($grupo_id) {
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM configuracion_abm_grupos WHERE grupo_id = :grupo_id");
-		$stmt->bindParam(':grupo_id', $grupo_id);
-		return $stmt->execute();
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Grupos Model: Error al eliminar el grupo, " . $e->getMessage(), "ERROR");
-		return false;
-	}
-}
-
 function editarGrupo($grupo_id, $codigo, $descripcion, $activo) {
 	session_start();
 	$editado_por = $_SESSION['username'];
@@ -95,6 +82,19 @@ function editarGrupo($grupo_id, $codigo, $descripcion, $activo) {
 	} catch (PDOException $e) {
 		// Manejo de errores
 		registrarEvento("Grupos Model: Error al editar el grupo, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function eliminarGrupo($grupo_id) {
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("DELETE FROM configuracion_abm_grupos WHERE grupo_id = :grupo_id");
+		$stmt->bindParam(':grupo_id', $grupo_id);
+		return $stmt->execute();
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Grupos Model: Error al eliminar el grupo, " . $e->getMessage(), "ERROR");
 		return false;
 	}
 }

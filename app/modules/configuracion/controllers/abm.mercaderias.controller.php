@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$mercaderia_id = $_POST['mercaderia_id'];
-		/* $codigo = $_POST['codigo']; */
+		$codigo = $_POST['codigo'];
 
 		try {
 			// Llamar a la función que actualiza los datos
