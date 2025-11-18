@@ -36,7 +36,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border">Precio Compra</td>
 								<td class="border">Precio Venta</td>
 								<td class="border">Etiqueta</td>
-<!-- 								<td class="border">Fecha de creación</td>
+								<!-- <td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
 								<td class="border">Editado por</td> -->
@@ -67,7 +67,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex no-wrap">
-											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarMercaderia"
 												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
@@ -90,7 +90,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
-											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarMercaderia"
 												data-ide="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
@@ -105,7 +105,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</table>
 
 					<!-- Modal de creación -->
-					<div class="modal fade m-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
+					<div class="modal fade mt-5" id="modalCrearMercaderia" tabindex="-1" aria-labelledby="modalCrearMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formCrearMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&crear">
 								<div class="modal-content shadow">
@@ -248,7 +248,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 
 					<!-- Modal de edición -->
-					<div class="modal fade m-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
+					<div class="modal fade mt-5" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<form method="POST" id="formEditarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&editar">
 								<div class="modal-content shadow">
@@ -384,6 +384,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<input type="number" class="form-control" name="precio_venta" id="editarPrecioVentaMercaderia">
 													</div>
 												</div>
+											</div>
 										</div>
 										<div class="modal-footer d-flex justify-content-center p-2">
 											<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
@@ -396,7 +397,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 
 					<!-- Modal de eliminación -->
-					<div class="modal fade m-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
+					<div class="modal fade mt-5" id="modalEliminarMercaderia" tabindex="-1" aria-labelledby="modalEliminarMercaderiaLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<form method="POST" id="formEliminarMercaderia" action="/trackpoint/public/index.php?route=/configuracion/ABMs/mercaderias&eliminar">
 								<div class="modal-content shadow">
