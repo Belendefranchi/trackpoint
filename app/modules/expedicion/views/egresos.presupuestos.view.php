@@ -368,75 +368,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
-				<!-- Modal de selección de mercadería -->
-				<div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia">
-							<div class="modal-content m-5">
-								<div class="modal-header table-primary text-white">
-									<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
-									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-								</div>
-								<div class="modal-body">
-
-									<div class="mb-3">
-										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none p-2" role="alert">
-											<i class="bi bi-exclamation-triangle-fill me-2"></i>
-											<span class="mensaje-texto"></span>
-											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
-										</div>
-									</div>
-
-									<div class="mb-3">
-										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
-											<thead class="table-primary">
-												<tr class="text-light">
-													<td class="border text-center">ID</td>
-													<td class="border">Código</td>
-													<td class="border">Descripción</td>
-													<td class="border"><i class="bi-check-circle me-2"></i></td>
-												</tr>
-											</thead>
-											<tbody>
-												<?php if (empty($mercaderias)): ?>
-													<tr>
-														<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
-													</tr>
-												<?php else: ?>
-													<?php foreach ($mercaderias as $mercaderia): ?>
-														<tr class="text-start">
-															<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
-															<td class="border text-primary">
-																<input type="radio" name="seleccion_mercaderia"
-																	class="form-check-input seleccionar-mercaderia"
-																	data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
-																	data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
-																	data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
-															</td>
-														</tr>
-													<?php endforeach; ?>
-												<?php endif; ?>
-											</tbody>
-										</table>
-									</div>
-
-									<!-- Campos ocultos para enviar en el form -->
-									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
-									<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
-									<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
-									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-								</div>
-							</div>
-							
-						</form>
-					</div>
-				</div>
-
 				<!-- Modal de edición de presupuesto -->
 				<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
@@ -562,6 +493,107 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
+				<!-- Modal de generación de presupuesto -->
+				<div class="modal fade" id="modalGenerarPresupuesto" tabindex="-1" aria-labelledby="modalGenerarPresupuestoLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Confirmar generación de presupuesto</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<?php if (empty($detalle)): ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								</div>
+							<?php else: ?>
+								<div class="modal-body text-center">
+									<div class="mb-3">
+										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
+									</div>
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
+									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal de selección de mercadería -->
+				<div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formSeleccionarMercaderia" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+
+									<div class="mb-3">
+										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none p-2" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
+											<thead class="table-primary">
+												<tr class="text-light">
+													<td class="border text-center">ID</td>
+													<td class="border">Código</td>
+													<td class="border">Descripción</td>
+													<td class="border"><i class="bi-check-circle me-2"></i></td>
+												</tr>
+											</thead>
+											<tbody>
+												<?php if (empty($mercaderias)): ?>
+													<tr>
+														<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
+													</tr>
+												<?php else: ?>
+													<?php foreach ($mercaderias as $mercaderia): ?>
+														<tr class="text-start">
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+															<td class="border text-primary">
+																<input type="radio" name="seleccion_mercaderia"
+																	class="form-check-input seleccionar-mercaderia"
+																	data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+																	data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
+																	data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
+															</td>
+														</tr>
+													<?php endforeach; ?>
+												<?php endif; ?>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Campos ocultos para enviar en el form -->
+									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+									<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
+									<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" ><i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+
 				<!-- Modal de edición de mercadería -->
 				<div class="modal fade" id="modalEditarMercaderia" tabindex="-1" aria-labelledby="modalEditarMercaderiaLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
@@ -654,38 +686,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 							</div>
 						</form>
-					</div>
-				</div>
-
-				<!-- Modal de generación de presupuesto -->
-				<div class="modal fade" id="modalGenerarPresupuesto" tabindex="-1" aria-labelledby="modalGenerarPresupuestoLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content shadow">
-							<div class="modal-header table-primary text-white">
-								<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Confirmar generación de presupuesto</h5>
-								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-							</div>
-							<?php if (empty($detalle)): ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
-									</div>
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-								</div>
-							<?php else: ?>
-								<div class="modal-body text-center">
-									<div class="mb-3">
-										<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
-									</div>
-								</div>
-								<div class="modal-footer d-flex justify-content-center p-2">
-									<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
-									<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-								</div>
-							<?php endif; ?>
-						</div>
 					</div>
 				</div>
 
