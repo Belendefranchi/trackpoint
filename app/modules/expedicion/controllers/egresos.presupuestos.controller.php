@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
+	// ####### OBTENER DETALLE PRESUPUESTO #######
 	if (isset ($_GET['obtenerDetallePresupuesto'])) {
 
 		header('Content-Type: application/json');
@@ -72,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		try {
 			$detalle = obtenerDetallePresupuesto($presupuesto_id);
 
-			echo json_encode([
-				'success' => true,
-				'detalle' => $detalle
-			]);
+        echo json_encode([
+            'success' => true,
+            'detalle' => $detalle
+        ]);
 			exit;
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
@@ -83,6 +84,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}
 	}
+
+	// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
+	if (isset($_GET['actualizarDetalle'])) {
+
+    header('Content-Type: application/json');
+
+    $presupuesto_id = $_POST['presupuesto_id'] ?? null;
+
+    if (empty($presupuesto_id)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'No se recibió el ID del presupuesto'
+        ]);
+        exit;
+    }
+
+    try {
+        // 1) Obtener el detalle desde el modelo
+        $detalle = obtenerDetallePresupuesto($presupuesto_id);
+
+        // 2) Guardarlo en sesión
+        $_SESSION['detalle_presupuesto'] = $detalle;
+
+        // 3) Renderizar el fragmento HTML usando la vista
+        ob_start();
+        include __DIR__ . "/../views/egresos.presupuestos.detalle.view.php";
+        $html = ob_get_clean();
+
+        echo json_encode([
+            'success' => true,
+            'html' => $html
+        ]);
+        exit;
+
+    } catch (Exception $e) {
+        registrarEvento("Error al obtener detalle: " . $e->getMessage(), "ERROR");
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ]);
+        exit;
+    }
+}
 
 	// ####### EDITAR PRESUPUESTO #######
 	if (isset($_GET['editarPresupuesto'])) {

@@ -71,49 +71,98 @@ document.addEventListener('DOMContentLoaded', function () {
   // --- SELECCIONAR PRESUPUESTO ---
   document.querySelectorAll('.seleccionar-presupuesto').forEach(radio => {
     radio.addEventListener('change', function() {
-        presupuestoSeleccionado = this.dataset.presupuestoid;
+      presupuestoSeleccionado = this.dataset.presupuestoid;
 
-        // Crear o actualizar input hidden en el formAgregarMercaderia
-        let inputHidden = document.getElementById('presupuesto_id');
-        if (!inputHidden) {
-            inputHidden = document.createElement('input');
-            inputHidden.type = 'hidden';
-            inputHidden.name = 'presupuesto_id';
-            inputHidden.id = 'presupuesto_id';
-            document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
-        }
-        inputHidden.value = presupuestoSeleccionado;
+      // Crear o actualizar input hidden en el formAgregarMercaderia
+      let inputHidden = document.getElementById('presupuesto_id');
+      if (!inputHidden) {
+          inputHidden = document.createElement('input');
+          inputHidden.type = 'hidden';
+          inputHidden.name = 'presupuesto_id';
+          inputHidden.id = 'presupuesto_id';
+          document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
+      }
+      inputHidden.value = presupuestoSeleccionado;
 
-        // Activar botón "Agregar" del formulario superior
-        document.getElementById('btn-guardar-mercaderia').disabled = false;
+      // Activar botón "Agregar" del formulario superior
+      document.getElementById('btn-guardar-mercaderia').disabled = false;
+    });
+  });
 
-        // Activar la pestaña Detalle automáticamente
-        const detalleTab = document.querySelector('#detalle-tab');
-        if (detalleTab) {
-          
-          $.ajax({
-            url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerDetallePresupuesto',
-            method: 'POST',
-            data: { 'presupuesto_id': presupuestoSeleccionado },
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function (response) {
+
+  $(document).ready(function () {
+
+    // Detectar apertura de la pestaña DETALLE
+    $('a[data-bs-toggle="tab"][href="#detalle"]').on('shown.bs.tab', function () {
+
+      let seleccionado = document.querySelector('input[name="seleccion_presupuesto"]:checked');
+      let presupuesto_id = seleccionado?.getAttribute('data-presupuestoid') ?? null;
+
+      console.log (presupuesto_id);
+      if (!presupuesto_id) {
+          console.warn("No hay presupuesto seleccionado");
+          return;
+      }
+
+      $.ajax({
+          url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
+          type: "POST",
+          data: { presupuesto_id },
+          dataType: "json",
+
+          success: function (response) {
               if (response.success) {
-                console.log('Presupuesto seleccionado:', presupuestoSeleccionado);
-                const tab = new bootstrap.Tab(detalleTab);
-                tab.show();
+                  $("#detalle-presupuesto").html(response.html);
+
+                  // Re-inicializar DataTable
+                  $("#miTablaDetalle").DataTable();
               } else {
-                mensajeErrorSeleccionar.classList.remove('d-none');
-                mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
+                  console.error(response.message);
               }
-            },
-            error: function () {
-              mensajeErrorSeleccionar.classList.remove('d-none');
-              mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
-            }
-          });
+          },
+
+          error: function () {
+              alert("Error al obtener el detalle del presupuesto");
+          }
+      });
+    });
+  });
+
+
+
+
+
+  // Obtener detalle del presupuesto seleccionado
+  document.getElementById('detalle-tab').addEventListener('click', function () {
+
+    if (!presupuestoSeleccionado) {
+    mensajeErrorSeleccionar.classList.remove('d-none');
+    mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+        'Debe seleccionar un presupuesto primero.';
+    return;
+    }
+
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerDetallePresupuesto',
+      method: 'POST',
+      data: { 'presupuesto_id': presupuestoSeleccionado },
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          console.log('Presupuesto seleccionado:', presupuestoSeleccionado);
+        } else {
+          mensajeErrorSeleccionar.classList.remove('d-none');
+          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
         }
+      },
+      error: function (xhr, status, error) {
+        mensajeErrorSeleccionar.classList.remove('d-none');
+        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
+        console.log('Error al guardar los datos');
+        console.log('Código de estado:', status);
+        console.log('Mensaje de error:', error);
+        console.log('Respuesta del servidor:', xhr.responseText);
+      }
     });
   });
 
@@ -144,6 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+  
 
   /* ###################### GUARDAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
@@ -511,13 +562,6 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
 
-/*       const empresaId = document.getElementById('empresa_id').value;
-      const sucursalId = document.getElementById('sucursal_id').value;
-      const rubroId = document.getElementById('rubro_id').value;
-      const fechaPresupuesto = document.getElementById('fecha_presupuesto').value;
-      const fechaVencimiento = document.getElementById('fecha_vencimiento').value;
-      const clienteId = document.getElementById('cliente_id').value;
-      const direccionCliente = document.getElementById('direccion_cliente').value; */
       const presupuestoId  = document.getElementById('presupuesto_id').value;
       const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
       const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
@@ -525,13 +569,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const precioVenta = document.getElementById('precio_venta').value;
 
       const formData = new FormData();
-/*       formData.append('empresa_id', empresaId);
-      formData.append('sucursal_id', sucursalId);
-      formData.append('rubro_id', rubroId);
-      formData.append('fecha_presupuesto', fechaPresupuesto);
-      formData.append('fecha_vencimiento', fechaVencimiento);
-      formData.append('cliente_id', clienteId);
-      formData.append('direccion_cliente', direccionCliente); */
+
       formData.append('presupuesto_id', presupuestoId);
       formData.append('codigo_mercaderia', codigoMercaderia);
       formData.append('descripcion_mercaderia', descripcionMercaderia);
