@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
+		$_SESSION['presupuesto_id'] = $presupuesto_id;
 
 		if (empty($presupuesto_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del presupuesto']);
@@ -152,25 +153,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		
 		try {
-		// Lógica para editar el presupuesto
-		$result = editarPresupuesto($datos);
+			// Lógica para editar el presupuesto
+			$result = editarPresupuesto($datos);
 
-		if ($result) {
-			registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
-			echo json_encode(['success' => true]);
-			exit;
-		}	else {
-				// Respuesta de error
-				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+			if ($result) {
+				registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
+				echo json_encode(['success' => true]);
 				exit;
-			}
+			}	else {
+					// Respuesta de error
+					registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
+					echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+					exit;
+				}
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
-		exit;
 	}
 
 	// ####### ELIMINAR PRESUPUESTO #######
@@ -388,7 +388,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
-		exit;
 	}
 
 	// ####### OBTENER MERCADERÍA POR CÓDIGO #######
@@ -426,7 +425,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
-		exit;
 	}
 
 	// ####### ELIMINAR MERCADERÍA #######
@@ -459,7 +457,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
 			exit;
 		}
-		exit;
 	}
 
 }

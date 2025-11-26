@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../controllers/egresos.presupuestos.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
+
 ?>
 
 <script>
@@ -89,15 +90,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<!-- FORM GENERAR -->
 						<form method="POST" id="formGenerarPresupuesto" action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
 							<div class="card mb-3">
-								<div class="card-header bg-light">
-									<ul class="nav nav-underline" id="presupuestoTabs" role="tablist">
-										<li class="nav-item" role="presentation">
-											<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
-										</li>
-									</ul>
+								<div class="card-header bg-light d-flex align-items-center">
+									<div class="">
+										<ul class="nav nav-underline" id="presupuestoTabs" role="tablist">
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-primary active" id="resumen-tab" data-bs-toggle="tab" data-bs-target="#resumen" type="button" role="tab" aria-current="page" href="#resumen">Resumen</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link text-primary" id="detalle-tab" data-bs-toggle="tab" data-bs-target="#detalle" type="button" role="tab" aria-current="page" href="#detalle">Detalle</a>
+											</li>
+										</ul>
+									</div>
+									<div class="ms-auto">
+										<div class="text-primary">
+											<strong id="presupuestoActivo"></strong>
+										</div>
+									</div>
 								</div>
 								<div class="card-body p-2">
 									<div class="tab-content p-3 border border-top-0 rounded-bottom" id="presupuestoTabsContent">
