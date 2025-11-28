@@ -118,8 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
-
   $(document).ready(function () {
 
     // Detectar apertura de la pestaña DETALLE
@@ -157,10 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
-
-
-
 
   // Obtener detalle del presupuesto seleccionado
   document.getElementById('detalle-tab').addEventListener('click', function () {
@@ -220,10 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- DESHABILITAR "AGREGAR" HASTA QUE HAYA UN PRESUPUESTO SELECCIONADO ---
   document.getElementById('btn-guardar-mercaderia').disabled = true;
-
-
-
-
 
 
   /* ###################### GUARDAR PRESUPUESTO ###################### */
@@ -427,17 +417,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+  modalSeleccionar.addEventListener('show.bs.modal', function () {
+    if (!presupuestoSeleccionado) {
+      mensajeErrorSeleccionar.classList.remove('d-none');
+      mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+        'Debe seleccionar un presupuesto primero.';
+    }
+  });
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
   if (modalSeleccionar) {
-    // Listener para vaciar seleccion cuando se cierra el modal
+
+    // Listener para vaciar selección cuando se cierra el modal
     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
       // Limpia el mensaje de error
       if (mensajeErrorSeleccionar) {
         mensajeErrorSeleccionar.classList.add('d-none');
         mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
       }
-
       // Limpia los inputs hidden del modal
       modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
       modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
