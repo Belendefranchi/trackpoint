@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
           if (response.success) {
             console.log('Presupuesto creado con éxito:', response.message);
 
-            const tabla = $('#miTablaResumen').DataTable();
-            localStorage.setItem('paginaPresupuestos', tabla.page());
+            /* const tabla = $('#miTablaResumen').DataTable();
+            localStorage.setItem('paginaPresupuestos', tabla.page()); */
 
             location.reload();
           } else {
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#detalle-presupuesto").html(response.html);
 
             // Re-inicializar DataTable
-            $("#miTablaDetalle").DataTable();
+            /* $("#miTablaDetalle").DataTable(); */
           } else {
             console.error(response.message);
           }
@@ -326,8 +326,8 @@ document.addEventListener('DOMContentLoaded', function () {
           if (response.success) {
             console.log('Presupuesto modificado con éxito:', response.message);
 
-            const tabla = $('#miTablaResumen').DataTable();
-            localStorage.setItem('paginaPresupuestos', tabla.page());
+            /* const tabla = $('#miTablaResumen').DataTable();
+            localStorage.setItem('paginaPresupuestos', tabla.page()); */
 
 
             location.reload();
@@ -799,7 +799,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (response.success) {
             console.log('Mercadería eliminada con éxito:', response.message);
 
-            const tabla = $('#miTablaDetalle').DataTable();
+            /* const tabla = $('#miTablaDetalle').DataTable(); */
 
             location.reload();
           } else {

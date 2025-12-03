@@ -6,6 +6,10 @@
 /*  --bs-body-bg: #D3EBF9; */ 
 }
 
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
 h2{
   font-size: 1.8rem !important;
 }
@@ -266,6 +270,21 @@ button.buttons-colvis::after {
   transition: background-color 0.3s, color 0.3s; /* Transición suave */
   transform: scale(1.02); /* Efecto de zoom */
 }
+
+.fila-card {
+    border-radius: 12px;
+    background: #f1f3f5;
+}
+
+.fila-card:hover {
+    background: #c8e2f7;
+    transition: 0.15s;
+}
+
+.row.fw-bold {
+    border-radius: 10px;
+}
+
 
 
 
