@@ -3,6 +3,21 @@ window.addEventListener('load', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+  
+  console.log("Modal encontrado:", document.getElementById('modalEditarMercaderia'));
+  document.querySelectorAll('[data-bs-target="#modalEditarMercaderia"]').forEach(boton => {
+      boton.addEventListener('click', function () {
+          console.log("CLICK REAL EDITAR SOBRE:", this);
+      });
+  });
+
+  document.querySelectorAll('[data-bs-target="#modalEliminarMercaderia"]').forEach(boton => {
+    boton.addEventListener('click', function () {
+        console.log("CLICK REAL ELIMINAR SOBRE:", this);
+    });
+  });
+
+
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
   var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
@@ -645,6 +660,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (modalEditarMercaderia) {
     modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
       var button = event.relatedTarget;
+      console.log("relatedTarget:", event.relatedTarget);
 
       modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
       modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
@@ -734,7 +750,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (response.success) {
             console.log('Egresos Ventas modificado con éxito:', response.message);
 
-            const tabla = $('#miTablaDetalle').DataTable();
+            /* const tabla = $('#miTablaDetalle').DataTable(); */
 
             location.reload();
           } else {
