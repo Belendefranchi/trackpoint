@@ -56,50 +56,50 @@
 
 	<!-- ENCABEZADO -->
 	<div class="container-fluid mb-2">
-		<div class="row bg-primary text-white fw-bold py-2 rounded">
-			<div class="col text-center">Presupuesto Nº</div>
+		<div class="row p-2 bg-primary text-white fw-bold rounded-4">
+			<div class="col-1">Presupuesto Nº</div>
 			<div class="col">Código</div>
-			<div class="col">Descripción</div>
-			<div class="col">Cantidad</div>
-			<div class="col">Precio Compra</div>
-			<div class="col">Precio Venta</div>
+			<div class="col-4">Descripción</div>
+			<div class="col-1">Cantidad</div>
+			<div class="col-1">Precio Compra</div>
+			<div class="col-1">Precio Venta</div>
 			<div class="col">Subtotal</div>
-			<div class="col text-center">Acciones</div>
+			<div class="col-1 text-center">Acciones</div>
 		</div>
 	</div>
 
 	<!-- FILAS -->
-	<div class="container-fluid">
+	<div class="container-fluid p-0">
 		<?php foreach ($detalle as $filaDetalle): ?>
 
-			<div class="card tabla-card mb-2 shadow-sm">
+			<div class="card tabla-card mb-2 shadow-sm rounded-4">
 				<div class="card-body py-2">
-					<div class="row align-items-center">
+					<div class="row text-primary align-items-center">
 
-						<div class="col text-center text-primary fw-semibold"><?= $filaDetalle['presupuesto_id']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['codigo_mercaderia']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['descripcion_mercaderia']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['cantidad']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['precio_costo']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['precio_venta']; ?></div>
-						<div class="col text-primary"><?= $filaDetalle['subtotal']; ?></div>
+						<div class="col-1 text-center"><?= $filaDetalle['presupuesto_id']; ?></div>
+						<div class="col"><?= $filaDetalle['codigo_mercaderia']; ?></div>
+						<div class="col-4"><?= $filaDetalle['descripcion_mercaderia']; ?></div>
+						<div class="col-1"><?= $filaDetalle['cantidad']; ?></div>
+						<div class="col-1">$ <?= $filaDetalle['precio_costo']; ?></div>
+						<div class="col-1">$ <?= $filaDetalle['precio_venta']; ?></div>
+						<div class="col">$ <?= $filaDetalle['subtotal']; ?></div>
 
 						<!-- ACCIONES -->
-						<div class="col text-center">
+						<div class="col-1 text-center">
 							<div class="d-flex justify-content-center">
 
-								<a href="" class="btn btn-sm btn-warning mx-1 d-flex align-items-center" data-bs-toggle="modal"
+								<a href="" class="btn btn-sm btn-warning mx-1 d-flex rounded-5" data-bs-toggle="modal"
 									data-bs-target="#modalEditarMercaderia" data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
 									data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
 									data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
 									data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
 									data-preciov="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>">
-									<i class="bi bi-pencil me-1"></i>Editar
+									<i class="bi bi-pencil"></i>
 								</a>
 
-								<a href="" class="btn btn-sm btn-danger mx-1 d-flex align-items-center" data-bs-toggle="modal"
+								<a href="" class="btn btn-sm btn-danger mx-1 d-flex rounded-5" data-bs-toggle="modal"
 									data-bs-target="#modalEliminarMercaderia" data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>">
-									<i class="bi bi-trash me-1"></i>Eliminar
+									<i class="bi bi-trash"></i>
 								</a>
 
 							</div>

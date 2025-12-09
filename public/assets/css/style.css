@@ -271,19 +271,16 @@ button.buttons-colvis::after {
   transform: scale(1.02); /* Efecto de zoom */
 }
 
-.fila-card {
-    border-radius: 12px;
-    background: #f1f3f5;
-}
-
-.fila-card:hover {
+.tabla-card:hover {
     background: #c8e2f7;
     transition: 0.15s;
 }
 
-.row.fw-bold {
-    border-radius: 10px;
+.tabla-card.selected-row {
+    background-color: #DEE2E6; /* azul muy claro */
+    border: 1px solid #adadad; /* azul Bootstrap */
 }
+
 
 
 

@@ -1,22 +1,21 @@
 window.addEventListener('load', function () {
-    localStorage.removeItem('presupuestoSeleccionado');
+  localStorage.removeItem('presupuestoSeleccionado');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  
+
   console.log("Modal encontrado:", document.getElementById('modalEditarMercaderia'));
   document.querySelectorAll('[data-bs-target="#modalEditarMercaderia"]').forEach(boton => {
-      boton.addEventListener('click', function () {
-          console.log("CLICK REAL EDITAR SOBRE:", this);
-      });
+    boton.addEventListener('click', function () {
+      console.log("CLICK REAL EDITAR SOBRE:", this);
+    });
   });
 
   document.querySelectorAll('[data-bs-target="#modalEliminarMercaderia"]').forEach(boton => {
     boton.addEventListener('click', function () {
-        console.log("CLICK REAL ELIMINAR SOBRE:", this);
+      console.log("CLICK REAL ELIMINAR SOBRE:", this);
     });
   });
-
 
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
@@ -88,7 +87,60 @@ document.addEventListener('DOMContentLoaded', function () {
   let presupuestoSeleccionado = null;
 
   // --- SELECCIONAR PRESUPUESTO ---
-  document.querySelectorAll('.seleccionar-presupuesto').forEach(radio => {
+
+    document.querySelectorAll('.tabla-card').forEach(card => {
+
+    card.addEventListener('click', function (event) {
+
+      // Evitar que clic en botones dispare selección
+      if (event.target.closest('a')) {
+        return;
+      }
+
+      // Seleccionar radio
+      const radio = this.querySelector('.seleccionar-presupuesto');
+      if (radio) {
+        radio.checked = true;
+      }
+
+      presupuestoSeleccionado = this.dataset.presupuestoid;
+      // Guardarlo en localStorage
+      localStorage.setItem('presupuestoSeleccionado', presupuestoSeleccionado);
+
+      // Consservar el radio seleccionado
+      let id = localStorage.getItem('presupuestoSeleccionado');
+      if (!id) return;
+
+      // Actualizar etiqueta arriba
+      actualizarEtiquetaPresupuesto();
+
+      // Crear o actualizar input hidden en el formAgregarMercaderia
+      let inputHidden = document.getElementById('presupuesto_id');
+      if (!inputHidden) {
+        inputHidden = document.createElement('input');
+        inputHidden.type = 'hidden';
+        inputHidden.name = 'presupuesto_id';
+        inputHidden.id = 'presupuesto_id';
+        document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
+      }
+      inputHidden.value = presupuestoSeleccionado;
+
+      // Activar botón "Agregar" del formulario superior
+      document.getElementById('btn-guardar-mercaderia').disabled = false;
+
+      // Quitar selección previa
+      document.querySelectorAll('.tabla-card.selected-row')
+        .forEach(c => c.classList.remove('selected-row'));
+
+      // Agregar visual a la tarjeta clickeada
+      this.classList.add('selected-row');
+      
+    });
+
+  });
+
+  
+/*   document.querySelectorAll('.seleccionar-presupuesto').forEach(radio => {
     radio.addEventListener('change', function () {
       presupuestoSeleccionado = this.dataset.presupuestoid;
       // Guardarlo en localStorage
@@ -121,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Activar botón "Agregar" del formulario superior
       document.getElementById('btn-guardar-mercaderia').disabled = false;
     });
-  });
+  }); */
 
   function actualizarEtiquetaPresupuesto() {
     let id = localStorage.getItem('presupuestoSeleccionado');

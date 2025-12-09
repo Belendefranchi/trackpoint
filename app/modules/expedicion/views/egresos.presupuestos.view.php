@@ -120,7 +120,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
 								<?php else: ?>
 
-<!-- 									<table id="miTablaResumen" class="display" style="width:100%">
+									<!-- <table id="miTablaResumen" class="display" style="width:100%">
 										<thead class="table-primary">
 											<tr class="text-light">
 												<td class="border text-center">Seleccionar</td>
@@ -158,8 +158,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<td class="border text-primary text-center"><?php echo $filaResumen['cantidad']; ?></td>
 													<td class="border text-primary text-center"><?php echo $filaResumen['total']; ?></td>
 													<td class="border text-primary text-center">
-														<div class="d-flex no-wrap justify-content-center">
-															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap" data-bs-toggle="modal"
+														<div class="d-flex flex-nowrap justify-content-center">
+															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap" data-bs-toggle="modal"
 																data-bs-target="#modalEditarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
 																data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
@@ -173,7 +173,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
 															<a href="#" id="btnMostrarEliminarPresupuesto"
-																class="btn btn-sm btn-danger mx-1 d-flex no-wrap" data-bs-toggle="modal"
+																class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap" data-bs-toggle="modal"
 																data-bs-target="#modalEliminarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-trash me-2"></i>Eliminar
@@ -188,7 +188,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 									<!-- ENCABEZADO -->
 									<div class="container-fluid">
-										<div class="row p-2 text-primary fw-bold rounded mb-2">
+										<div class="row p-2 bg-primary text-white fw-bold rounded-4 mb-2">
 											<div class="col"></div>
 											<div class="col">Presupuesto Nº</div>
 											<div class="col">Empresa</div>
@@ -201,14 +201,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<div class="col">Contacto</div>
 											<div class="col">Cantidad</div>
 											<div class="col">Total</div>
-											<div class="col"></div>
+											<div class="col text-center">Acciones</div>
 										</div>
 									</div>
 
 									<!-- FILAS -->
-									<div class="container-fluid">
+									<div class="container-fluid p-0">
 										<?php foreach ($resumen as $filaResumen): ?>
-											<div class="card fila-card mb-2 shadow-sm border-0 rounded-5">
+											<div class="card tabla-card mb-2 shadow-sm rounded-4">
 												<div class="card-body py-2">
 													<div class="row text-primary align-items-center">
 
@@ -233,9 +233,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<div class="col"><?= $filaResumen['total'] ?></div>
 
 														<!-- Acciones -->
-														<div class="col text-center">
-															<a href="#" class="btn btn-sm btn-warning mx-1 rounded-5" data-bs-toggle="modal"
-																data-bs-target="#modalEditarPresupuesto"
+														<div class="col d-flex flex-nowrap justify-content-center">
+															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap rounded-5"
+																data-bs-toggle="modal" data-bs-target="#modalEditarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
 																data-empresa="<?= htmlspecialchars($filaResumen['empresa_id']) ?>"
 																data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_id']) ?>"
@@ -247,8 +247,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
 																<i class="bi bi-pencil"></i>
 															</a>
-
-															<a href="#" class="btn btn-sm btn-danger mx-1 rounded-5" data-bs-toggle="modal"
+															<a href="#" id="btnMostrarEliminarPresupuesto"
+																class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap rounded-5" data-bs-toggle="modal"
 																data-bs-target="#modalEliminarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-trash"></i>
@@ -259,7 +259,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</div>
 											</div>
 										<?php endforeach; ?>
-
 									</div>
 
 								<?php endif; ?>
@@ -693,7 +692,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="mb-3">
 						<label for="editarDescripcionMercaderia" class="form-label text-primary">Descripción</label>
 						<div id="editarDescripcionMercaderiaContenedor">
-							<input type="text" class="form-control text-primary" name="descripcion_mercaderia" id="editarDescripcionMercaderia">
+							<input type="text" class="form-control text-primary" name="descripcion_mercaderia"
+								id="editarDescripcionMercaderia">
 						</div>
 					</div>
 
