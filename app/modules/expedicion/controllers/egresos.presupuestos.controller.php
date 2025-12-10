@@ -4,6 +4,9 @@ define('VISTA_INTERNA', true);
 // Iniciar sesión siempre al comienzo
 session_start();
 
+unset($_SESSION['presupuesto_id']);
+unset($_SESSION['detalle_presupuesto']);
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['mercaderia_seleccionada']);
 }
@@ -51,34 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el presupuesto']);
 				exit;
 			}
-		} catch (Exception $e) {
-			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-			exit;
-		}
-	}
-
-	// ####### OBTENER DETALLE PRESUPUESTO #######
-	if (isset ($_GET['obtenerDetallePresupuesto'])) {
-
-		header('Content-Type: application/json');
-
-		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
-		$_SESSION['presupuesto_id'] = $presupuesto_id;
-
-		if (empty($presupuesto_id)) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del presupuesto']);
-			exit;
-		}
-
-		try {
-			$detalle = obtenerDetallePresupuesto($presupuesto_id);
-
-        echo json_encode([
-            'success' => true,
-            'detalle' => $detalle
-        ]);
-			exit;
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);

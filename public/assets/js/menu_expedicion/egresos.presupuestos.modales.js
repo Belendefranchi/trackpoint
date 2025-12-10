@@ -4,20 +4,6 @@ window.addEventListener('load', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  console.log("Modal encontrado:", document.getElementById('modalEditarMercaderia'));
-  document.querySelectorAll('[data-bs-target="#modalEditarMercaderia"]').forEach(boton => {
-    boton.addEventListener('click', function () {
-      console.log("CLICK REAL EDITAR SOBRE:", this);
-    });
-  });
-
-  document.querySelectorAll('[data-bs-target="#modalEliminarMercaderia"]').forEach(boton => {
-    boton.addEventListener('click', function () {
-      console.log("CLICK REAL ELIMINAR SOBRE:", this);
-    });
-  });
-
-
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
   var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
   if (modalCrearPresupuesto) {
@@ -87,93 +73,62 @@ document.addEventListener('DOMContentLoaded', function () {
   let presupuestoSeleccionado = null;
 
   // --- SELECCIONAR PRESUPUESTO ---
-
-    document.querySelectorAll('.tabla-card').forEach(card => {
-
+  document.querySelectorAll('.tabla-card').forEach(card => {
     card.addEventListener('click', function (event) {
 
-      // Evitar que clic en botones dispare selección
-      if (event.target.closest('a')) {
+      // Evitar que clic en <a> o <button> o inputs dispare selección
+      if (event.target.closest('a, button, input, label')) {
         return;
       }
 
-      // Seleccionar radio
+      // Seleccionar radio si existe
       const radio = this.querySelector('.seleccionar-presupuesto');
       if (radio) {
         radio.checked = true;
       }
 
-      presupuestoSeleccionado = this.dataset.presupuestoid;
-      // Guardarlo en localStorage
-      localStorage.setItem('presupuestoSeleccionado', presupuestoSeleccionado);
+      presupuestoSeleccionado = radio?.dataset?.presupuestoid;
 
-      // Consservar el radio seleccionado
-      let id = localStorage.getItem('presupuestoSeleccionado');
-      if (!id) return;
+      if (!presupuestoSeleccionado) {
+        console.warn('No se encontró data-presupuestoid en la tarjeta clickeada.');
+        return;
+      }
 
-      // Actualizar etiqueta arriba
-      actualizarEtiquetaPresupuesto();
+      // Guardarlo en localStorage (siempre como string)
+      localStorage.setItem('presupuestoSeleccionado', String(presupuestoSeleccionado));
 
       // Crear o actualizar input hidden en el formAgregarMercaderia
-      let inputHidden = document.getElementById('presupuesto_id');
-      if (!inputHidden) {
-        inputHidden = document.createElement('input');
-        inputHidden.type = 'hidden';
-        inputHidden.name = 'presupuesto_id';
-        inputHidden.id = 'presupuesto_id';
-        document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
+      const form = document.getElementById('formAgregarMercaderia');
+      if (form) {
+        let inputHidden = document.getElementById('presupuesto_id');
+        if (!inputHidden) {
+          inputHidden = document.createElement('input');
+          inputHidden.type = 'hidden';
+          inputHidden.name = 'presupuesto_id';
+          inputHidden.id = 'presupuesto_id';
+          form.appendChild(inputHidden);
+        }
+        inputHidden.value = presupuestoSeleccionado;
+      } else {
+        console.warn('No se encontró #formAgregarMercaderia en el DOM.');
       }
-      inputHidden.value = presupuestoSeleccionado;
 
-      // Activar botón "Agregar" del formulario superior
-      document.getElementById('btn-guardar-mercaderia').disabled = false;
+      // Activar botón "Agregar" del formulario superior (si existe)
+      const btnGuardar = document.getElementById('btn-guardar-mercaderia');
+      if (btnGuardar) {
+        btnGuardar.disabled = false;
+      }
 
-      // Quitar selección previa
+      // Quitar selección previa y añadir clase visual
       document.querySelectorAll('.tabla-card.selected-row')
         .forEach(c => c.classList.remove('selected-row'));
 
-      // Agregar visual a la tarjeta clickeada
       this.classList.add('selected-row');
-      
-    });
 
-  });
-
-  
-/*   document.querySelectorAll('.seleccionar-presupuesto').forEach(radio => {
-    radio.addEventListener('change', function () {
-      presupuestoSeleccionado = this.dataset.presupuestoid;
-      // Guardarlo en localStorage
-      localStorage.setItem('presupuestoSeleccionado', presupuestoSeleccionado);
-
-      // Consservar el radio seleccionado
-      let id = localStorage.getItem('presupuestoSeleccionado');
-      if (!id) return;
-
-      let radio = document.querySelector(
-        `input.seleccionar-presupuesto[data-presupuestoid="${id}"]`
-      );
-
-      if (radio) radio.checked = true;
-
-      // Actualizar etiqueta arriba
+      // Actualizar la etiqueta superior (UI)
       actualizarEtiquetaPresupuesto();
-
-      // Crear o actualizar input hidden en el formAgregarMercaderia
-      let inputHidden = document.getElementById('presupuesto_id');
-      if (!inputHidden) {
-        inputHidden = document.createElement('input');
-        inputHidden.type = 'hidden';
-        inputHidden.name = 'presupuesto_id';
-        inputHidden.id = 'presupuesto_id';
-        document.getElementById('formAgregarMercaderia').appendChild(inputHidden);
-      }
-      inputHidden.value = presupuestoSeleccionado;
-
-      // Activar botón "Agregar" del formulario superior
-      document.getElementById('btn-guardar-mercaderia').disabled = false;
     });
-  }); */
+  });
 
   function actualizarEtiquetaPresupuesto() {
     let id = localStorage.getItem('presupuestoSeleccionado');
@@ -185,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // --- CARGAR DETALLE DEL PRESUPUESTO SELECCIONADO ---
   $(document).ready(function () {
 
     // Detectar apertura de la pestaña DETALLE
@@ -220,40 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("Error al obtener el detalle del presupuesto");
         }
       });
-    });
-  });
-
-  // Obtener detalle del presupuesto seleccionado
-  document.getElementById('detalle-tab').addEventListener('click', function () {
-
-    if (!presupuestoSeleccionado) {
-      mensajeErrorSeleccionar.classList.remove('d-none');
-      mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
-        'Debe seleccionar un presupuesto primero.';
-      return;
-    }
-
-    $.ajax({
-      url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerDetallePresupuesto',
-      method: 'POST',
-      data: { 'presupuesto_id': presupuestoSeleccionado },
-      dataType: 'json',
-      success: function (response) {
-        if (response.success) {
-          console.log('Presupuesto seleccionado:', presupuestoSeleccionado);
-        } else {
-          mensajeErrorSeleccionar.classList.remove('d-none');
-          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
-        }
-      },
-      error: function (xhr, status, error) {
-        mensajeErrorSeleccionar.classList.remove('d-none');
-        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
-        console.log('Error al guardar los datos');
-        console.log('Código de estado:', status);
-        console.log('Mensaje de error:', error);
-        console.log('Respuesta del servidor:', xhr.responseText);
-      }
     });
   });
 
@@ -689,7 +611,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Respuesta del servidor:', response);
             console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
 
-            location.reload();
+            window.location.href = '/trackpoint/app/modules/expedicion/views/egresos.presupuestos.detalle.view.php';
+
+            /* location.reload(); */
           } else {
             $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
@@ -821,7 +745,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   // Limpiar el mensaje de error al cerrar el modal
-  var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
   if (modalEditarMercaderia) {
     modalEditarMercaderia.addEventListener('hidden.bs.modal', function () {
       var mensajeError = document.getElementById('mensaje-error-editar-mercaderia');
@@ -886,7 +809,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   // Limpiar el mensaje de error al cerrar el modal
-  var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
   if (modalEliminarMercaderia) {
     modalEliminarMercaderia.addEventListener('hidden.bs.modal', function () {
       var mensajeError = document.getElementById('mensaje-error-eliminar-mercaderia');
