@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
   var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
-  if (modalCrearPresupuesto) {
+/*   if (modalCrearPresupuesto) {
     modalCrearPresupuesto.addEventListener('show.bs.modal', function (event) {
       console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
       const button = event.relatedTarget;
 
     });
-  }
+  } */
   // Interceptar el envío del formulario con AJAX
   const formCrear = document.querySelector('#formCrearPresupuesto');
   if (formCrear) {
@@ -140,6 +140,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  function recargarDetalle(presupuesto_id) {
+    $.ajax({
+      url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
+      type: "POST",
+      data: { presupuesto_id },
+      dataType: "json",
+
+      success: function (response) {
+        if (response.success) {
+          $("#detalle-presupuesto").html(response.html);
+
+        } else {
+          console.error(response.message);
+        }
+      },
+
+      error: function () {
+        alert("Error al obtener el detalle del presupuesto");
+      }
+    });
+  }
+
   // --- CARGAR DETALLE DEL PRESUPUESTO SELECCIONADO ---
   $(document).ready(function () {
 
@@ -154,28 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.warn("No hay presupuesto seleccionado");
         return;
       }
-
-      $.ajax({
-        url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
-        type: "POST",
-        data: { presupuesto_id },
-        dataType: "json",
-
-        success: function (response) {
-          if (response.success) {
-            $("#detalle-presupuesto").html(response.html);
-
-            // Re-inicializar DataTable
-            /* $("#miTablaDetalle").DataTable(); */
-          } else {
-            console.error(response.message);
-          }
-        },
-
-        error: function () {
-          alert("Error al obtener el detalle del presupuesto");
-        }
-      });
+      recargarDetalle(presupuesto_id);
     });
   });
 
@@ -257,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
   // Interceptar el evento de apertura del modal de edición
   var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
-  if (modalEditarPresupuesto) {
+/*  if (modalEditarPresupuesto) {
     modalEditarPresupuesto.addEventListener('show.bs.modal', function (event) {
       console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
       const button = event.relatedTarget;
@@ -290,7 +291,8 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
       modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
     });
-  }
+  } */
+
   // Interceptar el envío del formulario con AJAX
   const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
   if (formEditarPresupuesto) {
@@ -317,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             /* const tabla = $('#miTablaResumen').DataTable();
             localStorage.setItem('paginaPresupuestos', tabla.page()); */
-
 
             location.reload();
           } else {
@@ -347,23 +348,24 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /* ###################### CANCELAR PRESUPUESTO ###################### */
+  /* ###################### ELIMINAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
     modal.show();
   });
   // Interceptar el evento de apertura del modal de eliminación
-  var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
+/*   var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
   if (modalEliminarPresupuesto) {
     modalEliminarPresupuesto.addEventListener('show.bs.modal', function (event) {
       var button = event.relatedTarget;
 
       modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
     });
-  }
-  const btnCancelar = document.getElementById('btnConfirmarEliminar');
-  if (btnCancelar) {
-    btnCancelar.addEventListener('click', function () {
+  } */
+
+  const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+  if (btnConfirmarEliminar) {
+    btnConfirmarEliminar.addEventListener('click', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalEliminarPresupuesto')).hide();
 
       $.ajax({
@@ -404,15 +406,142 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+
+  /* ###################### INPUT BÚSQUEDA POR CÓDIGO ###################### */
+  const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
+  const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
+  const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
+  const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+
+  function buscarMercaderiaPorCodigo(codigo) {
+    if (codigo.length >= 2) {
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
+        method: 'POST',
+        data: { 'codigo_mercaderia': codigo },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+
+            console.log('Datos de la mercadería seleccionada - código:', {
+              id: response.mercaderia_id,
+              codigo: response.codigo_mercaderia,
+              descripcion: response.descripcion_mercaderia,
+            });
+
+            inputMercaderiaIdBusqueda.value = response.mercaderia_id;
+            inputCodigoBusqueda.value = response.codigo_mercaderia;
+            inputDescripcionBusqueda.value = response.descripcion_mercaderia;
+
+            mensajeBusqueda.classList.add('d-none');
+
+          } else {
+            inputMercaderiaIdBusqueda.value = '';
+            $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function () {
+          inputMercaderiaIdBusqueda.value = '';
+          inputCodigoBusqueda.value = '';
+          inputDescripcionBusqueda.value = '';
+          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
+        }
+      });
+    } else {
+      inputMercaderiaIdBusqueda.value = '';
+      mensajeBusqueda.classList.add('d-none');
+    }
+  }
+
+  inputCodigoBusqueda.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      buscarMercaderiaPorCodigo(this.value.trim());
+    }
+  });
+
+
+  /* ###################### VACIAR MERCADERÍA ###################### */
+  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
+  if (btnVaciarMercaderia) {
+    btnVaciarMercaderia.addEventListener('click', function () {
+      // Limpiar todo el localStorage
+      localStorage.clear();
+
+      // Resetear el formulario
+      document.getElementById('formAgregarMercaderia').reset();
+    });
+  }
+
+
+  /* ###################### AGREGAR MERCADERÍA ###################### */
+  const formAgregar = document.querySelector('#formAgregarMercaderia');
+  if (formAgregar) {
+    formAgregar.addEventListener('submit', function (e) {
+      e.preventDefault();
+      $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const presupuestoId = document.getElementById('presupuesto_id').value;
+      const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
+      const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
+      const cantidad = document.getElementById('cantidad').value;
+      const precioVenta = document.getElementById('precio_venta').value;
+
+      const formData = new FormData();
+
+      formData.append('presupuesto_id', presupuestoId);
+      formData.append('codigo_mercaderia', codigoMercaderia);
+      formData.append('descripcion_mercaderia', descripcionMercaderia);
+      formData.append('cantidad', cantidad);
+      formData.append('precio_venta', precioVenta);
+
+      console.log('Datos del formulario:', Array.from(formData.entries()));
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+          if (response.success) {
+            if (response.presupuesto_id) {
+              document.getElementById('presupuesto_id').value = response.presupuesto_id;
+            }
+
+            console.log('Respuesta del servidor:', response);
+            console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
+
+            recargarDetalle(presupuestoId);
+
+          } else {
+            $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+  
+
   /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
-  modalSeleccionar.addEventListener('show.bs.modal', function () {
+/*   modalSeleccionar.addEventListener('show.bs.modal', function () {
     if (!presupuestoSeleccionado) {
       mensajeErrorSeleccionar.classList.remove('d-none');
       mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
         'Debe seleccionar un presupuesto primero.';
     }
-  });
+  }); */
+
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
   if (modalSeleccionar) {
@@ -506,135 +635,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /* ###################### INPUT BÚSQUEDA POR CÓDIGO ###################### */
-  const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
-  const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
-  const mensajeBusqueda = document.getElementById('mensaje-busqueda');
-
-  function buscarMercaderiaPorCodigo(codigo) {
-    if (codigo.length >= 2) {
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
-        method: 'POST',
-        data: { 'codigo_mercaderia': codigo },
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-
-            console.log('Datos de la mercadería seleccionada - código:', {
-              id: response.mercaderia_id,
-              codigo: response.codigo_mercaderia,
-              descripcion: response.descripcion_mercaderia,
-            });
-
-            inputMercaderiaIdBusqueda.value = response.mercaderia_id;
-            inputCodigoBusqueda.value = response.codigo_mercaderia;
-
-            mensajeBusqueda.classList.add('d-none');
-
-
-          } else {
-            inputMercaderiaIdBusqueda.value = '';
-            $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
-          }
-        },
-        error: function () {
-          inputMercaderiaIdBusqueda.value = '';
-          inputCodigoBusqueda.value = '';
-          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
-        }
-      });
-    } else {
-      inputMercaderiaIdBusqueda.value = '';
-      mensajeBusqueda.classList.add('d-none');
-    }
-  }
-
-  inputCodigoBusqueda.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      buscarMercaderiaPorCodigo(this.value.trim());
-    }
-  });
-
-
-  /* ###################### VACIAR MERCADERÍA ###################### */
-  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
-  if (btnVaciarMercaderia) {
-    btnVaciarMercaderia.addEventListener('click', function () {
-      // Limpiar todo el localStorage
-      localStorage.clear();
-
-      // Resetear el formulario
-      document.getElementById('formAgregarMercaderia').reset();
-    });
-  }
-
-
-  /* ###################### AGREGAR MERCADERÍA ###################### */
-  const formAgregar = document.querySelector('#formAgregarMercaderia');
-  if (formAgregar) {
-    formAgregar.addEventListener('submit', function (e) {
-      e.preventDefault();
-      $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
-
-      const presupuestoId = document.getElementById('presupuesto_id').value;
-      const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
-      const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
-      const cantidad = document.getElementById('cantidad').value;
-      const precioVenta = document.getElementById('precio_venta').value;
-
-      const formData = new FormData();
-
-      formData.append('presupuesto_id', presupuestoId);
-      formData.append('codigo_mercaderia', codigoMercaderia);
-      formData.append('descripcion_mercaderia', descripcionMercaderia);
-      formData.append('cantidad', cantidad);
-      formData.append('precio_venta', precioVenta);
-
-      console.log('Datos del formulario:', Array.from(formData.entries()));
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: function (response) {
-          console.log('Respuesta del servidor:', response);
-          if (response.success) {
-            if (response.presupuesto_id) {
-              document.getElementById('presupuesto_id').value = response.presupuesto_id;
-            }
-
-            console.log('Respuesta del servidor:', response);
-            console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
-
-            window.location.href = '/trackpoint/app/modules/expedicion/views/egresos.presupuestos.detalle.view.php';
-
-            /* location.reload(); */
-          } else {
-            $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
-          }
-        },
-        error: function (xhr, status, error) {
-          console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
-          console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText);
-          $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
-        }
-      });
-    });
-  }
-
-
   /* ###################### MODAL DE EDICIÓN MERCADERÍA ###################### */
   // Interceptar el evento de apertura del modal de edición
   var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
   if (modalEditarMercaderia) {
-    modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
+    /*     modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
       var button = event.relatedTarget;
       console.log("relatedTarget:", event.relatedTarget);
 
@@ -642,9 +647,9 @@ document.addEventListener('DOMContentLoaded', function () {
       modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
       modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
       modalEditarMercaderia.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
-      modalEditarMercaderia.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov');
+      modalEditarMercaderia.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov'); */
 
-      var itemId = button.getAttribute('data-id');
+      const itemId = document.querySelector('#editarItemId').value;
       var codigoSelect = document.getElementById('editarCodigoMercaderia');
       var descripcionInput = document.getElementById('editarDescripcionMercaderiaContenedor');
 
@@ -699,7 +704,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
       }
-    });
+    /* }); */
   }
   // Interceptar el envío del formulario con AJAX
   const formEditar = document.querySelector('#formEditarMercaderia');
@@ -728,7 +733,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             /* const tabla = $('#miTablaDetalle').DataTable(); */
 
-            location.reload();
+          recargarDetalle(presupuesto_id);
+
           } else {
             console.log('Error al modificar la mercadería:', response.message);
             $('#mensaje-error-editar-mercaderia').removeClass('d-none').find('.mensaje-texto').text(response.message);
@@ -759,13 +765,13 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ###################### MODAL DE ELIMINACIÓN MERCADERÍA ###################### */
   // Interceptar el evento de apertura del modal de eliminación
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
-  if (modalEliminarMercaderia) {
+/*   if (modalEliminarMercaderia) {
     modalEliminarMercaderia.addEventListener('show.bs.modal', function (event) {
       var button = event.relatedTarget;
 
       modalEliminarMercaderia.querySelector('#eliminarItemId').value = button.getAttribute('data-id');
     });
-  }
+  } */
   // Interceptar el envío del formulario con AJAX
   const formEliminarMercaderia = document.querySelector('#formEliminarMercaderia');
   if (formEliminarMercaderia) {
@@ -792,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             /* const tabla = $('#miTablaDetalle').DataTable(); */
 
-            location.reload();
+            recargarDetalle(presupuesto_id);
           } else {
             console.log('Error al eliminar la mercadería:', response.message);
             $('#mensaje-error-eliminar-mercaderia').removeClass('d-none').find('.mensaje-texto').text(response.message);

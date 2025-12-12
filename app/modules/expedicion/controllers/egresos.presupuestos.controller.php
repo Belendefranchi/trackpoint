@@ -24,44 +24,7 @@ $mercaderias = obtenerMercaderiasActivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	// ####### CREAR PRESUPUESTO #######
-	if (isset($_GET['crearPresupuesto'])) {
-
-		header('Content-Type: application/json');
-
-    $datos = [
-			'empresa_id' => $_POST['empresa_id'],
-			'sucursal_id' => $_POST['sucursal_id'],
-			'rubro_id' => $_POST['rubro_id'],
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
-			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
-			'cliente_id' => $_POST['cliente_id'],
-			'direccion_cliente' => $_POST['direccion_cliente'],
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
-			'operador_id' => $_SESSION['operador_id'],
-    ];
-
-		try {
-			$result = crearPresupuesto($datos);
-
-			if ($result) {
-				registrarEvento("Presupuestos Controller: Presupuesto creado correctamente => " . $result['presupuesto_id'], "INFO");
-				echo json_encode(['success' => true]);
-				exit;
-			} else {
-				// Respuesta de error
-				registrarEvento("Presupuestos Controller: Error al crear el presupuesto", "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el presupuesto']);
-				exit;
-			}
-		} catch (Exception $e) {
-			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-			exit;
-		}
-	}
-
-	// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
+		// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
 	if (isset($_GET['actualizarDetalle'])) {
 
     header('Content-Type: application/json');
@@ -103,7 +66,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-}
+	}
+
+	// ####### CREAR PRESUPUESTO #######
+	if (isset($_GET['crearPresupuesto'])) {
+
+		header('Content-Type: application/json');
+
+    $datos = [
+			'empresa_id' => $_POST['empresa_id'],
+			'sucursal_id' => $_POST['sucursal_id'],
+			'rubro_id' => $_POST['rubro_id'],
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
+			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
+			'cliente_id' => $_POST['cliente_id'],
+			'direccion_cliente' => $_POST['direccion_cliente'],
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'operador_id' => $_SESSION['operador_id'],
+    ];
+
+		try {
+			$result = crearPresupuesto($datos);
+
+			if ($result) {
+				registrarEvento("Presupuestos Controller: Presupuesto creado correctamente => " . $result['presupuesto_id'], "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				// Respuesta de error
+				registrarEvento("Presupuestos Controller: Error al crear el presupuesto", "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el presupuesto']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
+		}
+	}
 
 	// ####### EDITAR PRESUPUESTO #######
 	if (isset($_GET['editarPresupuesto'])) {
@@ -249,7 +249,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? null;
-		$codext_mercaderia = $_POST['codext_mercaderia'] ?? null;
 
 		if (empty($codigo_mercaderia)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el código de la mercaderia']);
@@ -283,14 +282,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 		
     $datos = [
- 			/* 'empresa_id' => $_POST['empresa_id'],
-			'sucursal_id' => $_POST['sucursal_id'],
-			'rubro_id' => $_POST['rubro_id'],
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
-			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
-			'cliente_id' => $_POST['cliente_id'],
-			'direccion_cliente' => $_POST['direccion_cliente'],
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '', */
 			'presupuesto_id' => $_POST['presupuesto_id'],
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],

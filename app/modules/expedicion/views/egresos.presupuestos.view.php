@@ -43,8 +43,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<i class="bi bi-search"></i>
 										</a>
 									</div>
-									<input type="hidden" name="mercaderia_id" id="mercaderia_id">
-									<input type="hidden" name="descripcion_mercaderia" id="descripcion_mercaderia">
+									<input type="text" name="mercaderia_id" id="mercaderia_id">
+									<input type="text" name="descripcion_mercaderia" id="descripcion_mercaderia">
 									<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
 										<i class="bi bi-exclamation-triangle-fill me-2"></i>
 										<span class="mensaje-texto"></span>
@@ -650,6 +650,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <!-- <script src="/trackpoint/public/assets/js/datatables.js"></script> -->
 <script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
 <script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.js"></script>
+<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales2.js"></script>
+
 
 </body>
 
