@@ -26,15 +26,15 @@ document.addEventListener('show.bs.modal', function (event) {
 			if (!button) return;
 
 			// Cargar los datos del presupuesto en el modal
-      document.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
-      document.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
-      document.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
-      document.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
-      document.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
-      document.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
-      document.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
-      document.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
-      document.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
+			document.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
+			document.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
+			document.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
+			document.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
+			document.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
+			document.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
+			document.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
+			document.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
+			document.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
 			break;
 
 		/* -----------------------------------------
@@ -42,7 +42,7 @@ document.addEventListener('show.bs.modal', function (event) {
 		----------------------------------------- */
 		case 'modalEliminarPresupuesto':
 			if (!button) return;
-      
+
 			document.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
 			break;
 
@@ -63,13 +63,17 @@ document.addEventListener('show.bs.modal', function (event) {
 			// Limpia errores, reinicia el buscador
 			$('#mensaje-error-seleccionar').addClass('d-none');
 
-			var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+			const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+    	const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado');
+
 			if (!presupuestoSeleccionado) {
+				console.warn('No hay presupuesto seleccionado');
 				mensajeErrorSeleccionar.classList.remove('d-none');
 				mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
 					'Debe seleccionar un presupuesto primero.';
+			} else {
+				console.log('Presupuesto seleccionado ID:', presupuestoSeleccionado);
 			}
-
 			break;
 
 		/* -----------------------------------------
@@ -78,11 +82,11 @@ document.addEventListener('show.bs.modal', function (event) {
 		case 'modalEditarMercaderia':
 			if (!button) return;
 
-      document.querySelector('#editarItemId').value = button.getAttribute('data-id');
-      document.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
-      document.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
-      document.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
-      document.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov');
+			document.querySelector('#editarItemId').value = button.getAttribute('data-id');
+			document.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
+			document.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
+			document.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
+			document.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov');
 			break;
 
 		/* -----------------------------------------

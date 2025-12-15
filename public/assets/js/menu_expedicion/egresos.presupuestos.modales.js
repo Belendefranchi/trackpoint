@@ -2,6 +2,9 @@ window.addEventListener('load', function () {
   localStorage.removeItem('presupuestoSeleccionado');
 });
 
+// --- VARIABLES GLOBALES ---
+let presupuestoSeleccionado = null;
+
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
@@ -68,9 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### SELECCIÓN DE PRESUPUESTO ###################### */
-
-  // --- VARIABLES GLOBALES ---
-  let presupuestoSeleccionado = null;
 
   // --- SELECCIONAR PRESUPUESTO ---
   document.querySelectorAll('.tabla-card').forEach(card => {
@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
-  function buscarMercaderiaPorCodigo(codigo) {
+/*   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
       $.ajax({
         url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
@@ -451,13 +451,100 @@ document.addEventListener('DOMContentLoaded', function () {
       inputMercaderiaIdBusqueda.value = '';
       mensajeBusqueda.classList.add('d-none');
     }
-  }
+  } */
 
-  inputCodigoBusqueda.addEventListener('keydown', function (e) {
+/*   function buscarMercaderiaPorCodigo(codigo, opciones = {}) {
+
+    const {
+      inputId = inputMercaderiaIdBusqueda,
+      inputCodigo = inputCodigoBusqueda,
+      inputDescripcion = inputDescripcionBusqueda,
+      mensaje = mensajeBusqueda
+    } = opciones;
+
+    if (codigo.length >= 2) {
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
+        method: 'POST',
+        data: { codigo_mercaderia: codigo },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+
+            console.log('Mercadería encontrada:', response);
+
+            inputId.value = response.mercaderia_id ?? '';
+            inputCodigo.value = response.codigo_mercaderia ?? '';
+            inputDescripcion.value = response.descripcion_mercaderia ?? '';
+
+            if (mensaje) {
+              mensaje.classList.add('d-none');
+            }
+
+          } else {
+            inputId.value = '';
+            if (mensaje) {
+              mensaje.classList.remove('d-none');
+              mensaje.querySelector('.mensaje-texto').textContent = response.message;
+            }
+          }
+        },
+        error: function () {
+          inputId.value = '';
+          inputCodigo.value = '';
+          inputDescripcion.value = '';
+          mensaje.classList.remove('d-none');
+          mensaje.querySelector('.mensaje-texto').textContent =
+            'Error de conexión al buscar la mercadería.';
+        }
+      });
+    } else {
+      inputId.value = '';
+      mensaje.classList.add('d-none');
+    }
+  } */
+
+/*   inputCodigoBusqueda.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       buscarMercaderiaPorCodigo(this.value.trim());
     }
+  }); */
+
+  function buscarMercaderiaPorCodigo(codigo) {
+    return $.ajax({
+      url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
+      method: 'POST',
+      data: { codigo_mercaderia: codigo },
+      dataType: 'json'
+    });
+  }
+
+  inputCodigoBusqueda.addEventListener('keyup', function () {
+    const codigo = this.value.trim();
+
+    if (codigo.length < 2) return;
+
+    buscarMercaderiaPorCodigo(codigo)
+      .done(function (response) {
+        if (response.success) {
+          inputMercaderiaIdBusqueda.value = response.mercaderia_id;
+          inputCodigoBusqueda.value = response.codigo_mercaderia;
+          inputDescripcionBusqueda.value = response.descripcion_mercaderia;
+          mensajeBusqueda.classList.add('d-none');
+        } else {
+          inputMercaderiaIdBusqueda.value = '';
+          $('#mensaje-busqueda').removeClass('d-none')
+            .find('.mensaje-texto').text(response.message);
+        }
+      })
+      .fail(function () {
+        inputMercaderiaIdBusqueda.value = '';
+        inputCodigoBusqueda.value = '';
+        inputDescripcionBusqueda.value = '';
+        $('#mensaje-busqueda').removeClass('d-none')
+          .find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
+      });
   });
 
 
@@ -656,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (codigoSelect && descripcionInput) {
 
         // Cargar descripcion al cambiar el codigo
-        codigoSelect.addEventListener("change", function () {
+/*         codigoSelect.addEventListener("change", function () {
 
           // Disparar la carga de la descripcion en base al codigo ya asignado
           var codigo = codigoSelect.value;
@@ -702,6 +789,49 @@ document.addEventListener('DOMContentLoaded', function () {
             $(descripcionInput).empty().append('<input value=""></input>');
             descripcionInput.value = "";
           }
+
+          if (!codigo) {
+            descripcionInput.value = '';
+            return;
+          }
+
+          buscarMercaderiaPorCodigo(codigo, {
+            inputId: document.getElementById('editarMercaderiaId'),
+            inputCodigo: codigoSelect,
+            inputDescripcion: descripcionInput,
+            mensaje: null // en el modal no mostramos mensaje
+          });
+        }); */
+      
+        codigoSelect.addEventListener('change', function () {
+          const codigo = this.value;
+
+          if (!codigo) {
+            descripcionInput.value = '';
+            return;
+          }
+
+          buscarMercaderiaPorCodigo(codigo)
+            .done(function (response) {
+              let $descripcion = $(descripcionInput);
+              $descripcion.empty();
+              if (response.success) {
+                // Cargo la opción por defecto
+                  $descripcion.append($('<input>', {
+                    type: 'text',
+                    class: 'form-control text-primary',
+                    name: 'descripcion_mercaderia',
+                    id: 'editarDescripcionMercaderia',
+                    value: response.descripcion_mercaderia
+                  }));
+              } else {
+                descripcionInput.value = '';
+              }
+            })
+            .fail(function () {
+              descripcionInput.value = '';
+              console.error('Error al buscar la mercadería');
+            });
         });
       }
     /* }); */
