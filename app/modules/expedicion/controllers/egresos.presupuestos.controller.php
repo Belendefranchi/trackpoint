@@ -19,53 +19,57 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 // Obtener resumen y detalle de recepción si hay una sesión activa
 $resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
 
+$ultimoPresupuestoId = obtenerUltimoPresupuestoId();
+
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-		// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
+	// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
 	if (isset($_GET['actualizarDetalle'])) {
 
-    header('Content-Type: application/json');
+		header('Content-Type: application/json');
 
-    $presupuesto_id = $_POST['presupuesto_id'] ?? null;
+		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
 
-    if (empty($presupuesto_id)) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'No se recibió el ID del presupuesto'
-        ]);
-        exit;
-    }
+		if (empty($presupuesto_id)) {
+			echo json_encode([
+				'success' => false,
+				'message' => 'No se recibió el ID del presupuesto'
+			]);
+			exit;
+		}
 
-    try {
-        // 1) Obtener el detalle desde el modelo
-        $detalle = obtenerDetallePresupuesto($presupuesto_id);
+		try {
+			// 1) Obtener el detalle desde el modelo
+			$detalle = obtenerDetallePresupuesto($presupuesto_id);
 
-        // 2) Guardarlo en sesión
-        $_SESSION['detalle_presupuesto'] = $detalle;
+			// 2) Guardarlo en sesión
+			$_SESSION['detalle_presupuesto'] = $detalle;
 
-        // 3) Renderizar el fragmento HTML usando la vista
-        ob_start();
-        include __DIR__ . "/../views/egresos.presupuestos.detalle.view.php";
-        $html = ob_get_clean();
+			// 3) Renderizar el fragmento HTML usando la vista
+			ob_start();
+			include __DIR__ . "/../views/egresos.presupuestos.detalle.view.php";
+			$html = ob_get_clean();
 
-        echo json_encode([
-            'success' => true,
-            'html' => $html
-        ]);
-        exit;
+			echo json_encode([
+				'success' => true,
+				'html' => $html,
+				'detalle' => $detalle
+			]);
 
-    } catch (Exception $e) {
-        registrarEvento("Error al obtener detalle: " . $e->getMessage(), "ERROR");
+			exit;
 
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error: ' . $e->getMessage()
-        ]);
-        exit;
-    }
+		} catch (Exception $e) {
+			registrarEvento("Error al obtener detalle: " . $e->getMessage(), "ERROR");
+
+			echo json_encode([
+				'success' => false,
+				'message' => 'Error: ' . $e->getMessage()
+			]);
+			exit;
+		}
 	}
 
 	// ####### CREAR PRESUPUESTO #######
@@ -73,17 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-    $datos = [
-			'empresa_id' => $_POST['empresa_id'],
-			'sucursal_id' => $_POST['sucursal_id'],
-			'rubro_id' => $_POST['rubro_id'],
+		$datos = [
+			'empresa_nombre' => $_POST['empresa_nombre'],
+			'sucursal_nombre' => $_POST['sucursal_nombre'],
+			'rubro_nombre' => $_POST['rubro_nombre'],
 			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
 			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
-			'cliente_id' => $_POST['cliente_id'],
+			'cliente_nombre' => $_POST['cliente_nombre'],
 			'direccion_cliente' => $_POST['direccion_cliente'],
 			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
 			'operador_id' => $_SESSION['operador_id'],
-    ];
+		];
 
 		try {
 			$result = crearPresupuesto($datos);
@@ -112,21 +116,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$datos = [
 			'presupuesto_id' => $_POST['presupuesto_id'],
-			'empresa_id' => $_POST['empresa_id'],
-			'sucursal_id' => $_POST['sucursal_id'] ?? null,
-			'rubro_id' => $_POST['rubro_id'] ?? null,
+			'empresa_nombre' => $_POST['empresa_nombre'],
+			'sucursal_nombre' => $_POST['sucursal_nombre'] ?? null,
+			'rubro_nombre' => $_POST['rubro_nombre'] ?? null,
 			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
 			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
-			'cliente_id' => $_POST['cliente_id'] ?? null,
+			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
 			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
 			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
-    ];
+		];
 
 		if (empty($datos['presupuesto_id'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del presupuesto']);
 			exit;
 		}
-		
+
 		try {
 			// Lógica para editar el presupuesto
 			$result = editarPresupuesto($datos);
@@ -135,12 +139,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
 				echo json_encode(['success' => true]);
 				exit;
-			}	else {
-					// Respuesta de error
-					registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
-					echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
-					exit;
-				}
+			} else {
+				// Respuesta de error
+				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
+				exit;
+			}
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
@@ -158,14 +162,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$presupuesto_id = $_POST['presupuesto_id'];
 
 		// Validar si hay mercaderías cargadas
-    if (empty($resumen)) {
+		if (empty($resumen)) {
 			echo json_encode([
-					'success' => false,
-					'message' => 'Aún no se ingresaron mercaderías'
+				'success' => false,
+				'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    }
-		
+		}
+
 		try {
 			$result = eliminarPresupuesto($presupuesto_id);
 
@@ -189,21 +193,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$operador_id = $_SESSION['operador_id'];
-		$resumen = obtenerResumenPresupuesto($operador_id);
-		$presupuesto_id = $resumen[0]['presupuesto_id'];
+		$datos = [
+			'presupuesto_id' => $_POST['presupuesto_id'],
+			'empresa_nombre' => $_POST['empresa_nombre'],
+			'sucursal_nombre' => $_POST['sucursal_nombre'] ?? null,
+			'rubro_nombre' => $_POST['rubro_nombre'] ?? null,
+			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
+			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
+			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
+			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
+			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+		];
+
 
 		// Validar si hay mercaderías cargadas
-    if (empty($resumen)) {
+		if (empty($datos['presupuesto_id'])) {
 			echo json_encode([
-					'success' => false,
-					'message' => 'Aún no se ingresaron mercaderías'
+				'success' => false,
+				'message' => 'Aún no se ingresaron mercaderías'
 			]);
 			exit;
-    }
-		
+		}
+
 		try {
-			$result = guardarPresupuesto($presupuesto_id);
+			$result = generarPresupuesto($presupuesto_id);
 
 			if ($result['success']) {
 				registrarEvento("Presupuestos Controller: Presupuesto guardado correctamente => " . $resumen[0]['presupuesto_id'], "INFO");
@@ -220,15 +233,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 	}
-	
+
 	// ####### SELECCIONAR MERCADERÍA #######
 	if (isset($_GET['seleccionarMercaderia'])) {
-		
+
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
 		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
 		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
-		
+
 		if (empty($mercaderia_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
 			exit;
@@ -280,15 +293,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_GET['agregarMercaderia'])) {
 
 		header('Content-Type: application/json');
-		
-    $datos = [
+
+		$datos = [
 			'presupuesto_id' => $_POST['presupuesto_id'],
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
-			'cantidad' => round((float)$_POST['cantidad']),
-			'precio_venta' => round((float)$_POST['precio_venta'], 2),
+			'cantidad' => round((float) $_POST['cantidad']),
+			'precio_venta' => round((float) $_POST['precio_venta'], 2),
 			'operador_id' => $_SESSION['operador_id'],
-    ];
+		];
 
 		// Validar datos obligatorios
 		if (empty($datos['codigo_mercaderia']) || empty($datos['cantidad']) || empty($datos['precio_venta'])) {
@@ -299,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		try {
 			$result = agregarMercaderia($datos);
 
-			if ($result){
+			if ($result) {
 				registrarEvento("Presupuestos Controller: Mercadería agregada correctamente => " . $datos['codigo_mercaderia'], "INFO");
 				echo json_encode(['success' => true]);
 				exit;
@@ -313,7 +326,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
-		
+
 	}
 
 	// ####### EDITAR MERCADERÍA #######
@@ -327,15 +340,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad' => $_POST['cantidad'],
 			'precio_venta' => $_POST['precio_venta'],
-    ];
+		];
 
 		if (empty($datos['item_id'])) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID del ítem']);
 			exit;
 		}
-		
+
 		try {
-			
+
 			// Lógica para editar la mercadería
 			$result = editarMercaderiaPresupuesto($datos);
 
@@ -343,7 +356,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				registrarEvento("Presupuestos Controller: Ítem modificado correctamente", "INFO");
 				echo json_encode(['success' => true]);
 				exit;
-			}	else {
+			} else {
 				// Respuesta de error
 				registrarEvento("Presupuestos Controller: Error al modificar el ítem", "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: No se pudo modificar el ítem']);
@@ -430,7 +443,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
-	'resumen' => $resumen
+	'resumen' => $resumen,
+	'ultimoPresupuestoId' => $ultimoPresupuestoId
 ];
 
 // Llamar a la función común que carga todo en el layout

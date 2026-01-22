@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crear',
+        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crearPresupuesto',
         type: 'POST',
         data: formData,
         processData: false,
@@ -141,6 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function recargarDetalle(presupuesto_id) {
+	  console.count('recargarDetalle llamado');
+
     $.ajax({
       url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
       type: "POST",
@@ -211,9 +213,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
     modal.show();
   });
-  const btnGuardar = document.getElementById('btnConfirmarGuardar');
-  if (btnGuardar) {
-    btnGuardar.addEventListener('click', function () {
+  const btnGenerar = document.getElementById('btnConfirmarGenerar');
+  if (btnGenerar) {
+    btnGenerar.addEventListener('click', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
 
       $.ajax({
@@ -256,49 +258,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
-  // Interceptar el evento de apertura del modal de edición
-  var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
-/*  if (modalEditarPresupuesto) {
-    modalEditarPresupuesto.addEventListener('show.bs.modal', function (event) {
-      console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
-      const button = event.relatedTarget;
-
-      console.log({
-        id: button.getAttribute('data-id'),
-        empresa: button.getAttribute('data-empresa'),
-        sucursal: button.getAttribute('data-sucursal'),
-        rubro: button.getAttribute('data-rubro'),
-        fechap: button.getAttribute('data-fechap'),
-        fechav: button.getAttribute('data-fechav'),
-        cliente: button.getAttribute('data-cliente'),
-        direccionc: button.getAttribute('data-direccionc'),
-        contactoc: button.getAttribute('data-contactoc')
-      });
-
-
-      if (!button) {
-        console.warn('No se detectó el botón que activó el modal.');
-        return;
-      }
-
-      modalEditarPresupuesto.querySelector('#editarPresupuestoId').value = button.getAttribute('data-id');
-      modalEditarPresupuesto.querySelector('#editarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
-      modalEditarPresupuesto.querySelector('#editarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
-      modalEditarPresupuesto.querySelector('#editarRubroPresupuesto').value = button.getAttribute('data-rubro');
-      modalEditarPresupuesto.querySelector('#editarFechaPresupuesto').value = button.getAttribute('data-fechap');
-      modalEditarPresupuesto.querySelector('#editarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
-      modalEditarPresupuesto.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
-      modalEditarPresupuesto.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
-      modalEditarPresupuesto.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
-    });
-  } */
 
   // Interceptar el envío del formulario con AJAX
   const formEditarPresupuesto = document.querySelector('#formEditarPresupuesto');
   if (formEditarPresupuesto) {
     formEditarPresupuesto.addEventListener('submit', function (e) {
       e.preventDefault();
-
+      
       // Limpiar cualquier mensaje de error antes de hacer la solicitud
       $('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
 
@@ -315,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Respuesta del servidor:', response);
 
           if (response.success) {
-            console.log('Presupuesto modificado con éxito:', response.message);
+            console.log('Presupuesto modificado con éxito');
 
             /* const tabla = $('#miTablaResumen').DataTable();
             localStorage.setItem('paginaPresupuestos', tabla.page()); */
@@ -336,7 +302,9 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
+
   // Limpiar el mensaje de error al cerrar el modal
+  var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
   if (modalEditarPresupuesto) {
     modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
       var mensajeError = document.getElementById('mensaje-error-editar-presupuesto');
@@ -726,82 +694,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Interceptar el evento de apertura del modal de edición
   var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
   if (modalEditarMercaderia) {
-    /*     modalEditarMercaderia.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
-      console.log("relatedTarget:", event.relatedTarget);
-
-      modalEditarMercaderia.querySelector('#editarItemId').value = button.getAttribute('data-id');
-      modalEditarMercaderia.querySelector('#editarCodigoMercaderia').value = button.getAttribute('data-codigom');
-      modalEditarMercaderia.querySelector('#editarDescripcionMercaderia').value = button.getAttribute('data-descripcionm');
-      modalEditarMercaderia.querySelector('#editarCantidadMercaderia').value = button.getAttribute('data-cantidad');
-      modalEditarMercaderia.querySelector('#editarPrecioMercaderia').value = button.getAttribute('data-preciov'); */
 
       const itemId = document.querySelector('#editarItemId').value;
       var codigoSelect = document.getElementById('editarCodigoMercaderia');
       var descripcionInput = document.getElementById('editarDescripcionMercaderiaContenedor');
 
       if (codigoSelect && descripcionInput) {
-
-        // Cargar descripcion al cambiar el codigo
-/*         codigoSelect.addEventListener("change", function () {
-
-          // Disparar la carga de la descripcion en base al codigo ya asignado
-          var codigo = codigoSelect.value;
-
-          if (codigo) {
-            $.ajax({
-              url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&obtenerMercaderiaPorCodigo',
-              type: 'POST',
-              dataType: 'json',
-              data: {
-                itemId: itemId,
-                codigo_mercaderia: codigo
-              },
-              success: function (response) {
-                console.log(itemId, codigo);
-                console.log('Respuesta del servidor:', response);
-
-                let $descripcion = $(descripcionInput);
-                $descripcion.empty();
-
-                if (response.success) {
-                  // Cargo la opción por defecto
-                  $descripcion.append($('<input>', {
-                    type: 'text',
-                    class: 'form-control text-primary',
-                    name: 'descripcion_mercaderia',
-                    id: 'editarDescripcionMercaderia',
-                    value: response.descripcion_mercaderia
-                  }));
-
-                } else {
-                  $descripcion.append('<input value="">No hay descripciones disponibles</input>');
-                }
-              },
-              error: function (xhr, status, error) {
-                console.error('Error al obtener descripciones:', error);
-                console.error('Respuesta del servidor:', xhr.responseText);
-                $(descripcionInput).empty().append('<input value="">Error al cargar descripciones</input>');
-              }
-            });
-          } else {
-            // Si se deselecciona el grupo, limpio también el subgrupo
-            $(descripcionInput).empty().append('<input value=""></input>');
-            descripcionInput.value = "";
-          }
-
-          if (!codigo) {
-            descripcionInput.value = '';
-            return;
-          }
-
-          buscarMercaderiaPorCodigo(codigo, {
-            inputId: document.getElementById('editarMercaderiaId'),
-            inputCodigo: codigoSelect,
-            inputDescripcion: descripcionInput,
-            mensaje: null // en el modal no mostramos mensaje
-          });
-        }); */
       
         codigoSelect.addEventListener('change', function () {
           const codigo = this.value;
@@ -834,12 +732,30 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
       }
-    /* }); */
   }
+
+  document.addEventListener('click', function (e) {
+
+	const btnEditar = e.target.closest('.btn-editar-mercaderia');
+	if (!btnEditar) return;
+
+	console.count('click editar mercaderia');
+
+	const modal = document.getElementById('modalEditarMercaderia');
+
+	modal.querySelector('[name="item_id"]').value = btnEditar.dataset.id;
+	modal.querySelector('[name="codigo_mercaderia"]').value = btnEditar.dataset.codigom;
+	modal.querySelector('[name="descripcion_mercaderia"]').value = btnEditar.dataset.descripcionm;
+	modal.querySelector('[name="cantidad"]').value = btnEditar.dataset.cantidad;
+	modal.querySelector('[name="precio_venta"]').value = btnEditar.dataset.preciov;
+
+});
+
   // Interceptar el envío del formulario con AJAX
   const formEditar = document.querySelector('#formEditarMercaderia');
   if (formEditar) {
     formEditar.addEventListener('submit', function (e) {
+      console.count('submit editar mercaderia');
       e.preventDefault();
 
       // Limpiar cualquier mensaje de error antes de hacer la solicitud
@@ -859,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Respuesta del servidor:', response);
 
           if (response.success) {
-            console.log('Egresos Ventas modificado con éxito:', response.message);
+            console.log('Mercadería modificada con éxito');
 
             /* const tabla = $('#miTablaDetalle').DataTable(); */
 
@@ -895,13 +811,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ###################### MODAL DE ELIMINACIÓN MERCADERÍA ###################### */
   // Interceptar el evento de apertura del modal de eliminación
   var modalEliminarMercaderia = document.getElementById('modalEliminarMercaderia');
-/*   if (modalEliminarMercaderia) {
-    modalEliminarMercaderia.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
 
-      modalEliminarMercaderia.querySelector('#eliminarItemId').value = button.getAttribute('data-id');
-    });
-  } */
   // Interceptar el envío del formulario con AJAX
   const formEliminarMercaderia = document.querySelector('#formEliminarMercaderia');
   if (formEliminarMercaderia) {

@@ -1,4 +1,3 @@
--- 1. Ejecutar trigger operadores
 CREATE TRIGGER trg_Update_operadores
 ON configuracion_abm_operadores
 AFTER UPDATE
@@ -13,7 +12,6 @@ BEGIN
 END;
 GO
 
--- 2. Ejecutar trigger perfiles
 CREATE TRIGGER trg_Update_perfiles
 ON configuracion_abm_perfiles
 AFTER UPDATE
@@ -28,8 +26,6 @@ BEGIN
 END;
 GO
 
-
--- 3. Ejecutar trigger permisos
 CREATE TRIGGER trg_Update_permisos
 ON configuracion_abm_permisos
 AFTER UPDATE
@@ -44,7 +40,6 @@ BEGIN
 END;
 GO
 
--- 4. Ejecutar trigger mercaderias
 CREATE TRIGGER trg_Update_mercaderias
 ON configuracion_abm_mercaderias
 AFTER UPDATE
@@ -98,5 +93,34 @@ BEGIN
     SET fecha_modificacion = GETDATE()
     FROM produccion_general p
     INNER JOIN inserted i ON p.codbar_id = i.codbar_id;
+END;
+GO
+
+CREATE TRIGGER trg_Update_presupuestos_resumen
+ON expedicion_egresos_presupuestos_resumen
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE expedicion_egresos_presupuestos_resumen
+	SET editado_en = GETDATE(),
+		fecha_modificacion = GETDATE()
+	FROM expedicion_egresos_presupuestos_resumen p
+	INNER JOIN inserted i ON p.presupuesto_id = i.presupuesto_id;
+END;
+GO
+
+CREATE TRIGGER trg_Update_presupuestos_detalle
+ON expedicion_egresos_presupuestos_detalle
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE expedicion_egresos_presupuestos_detalle
+	SET fecha_modificacion = GETDATE()
+	FROM expedicion_egresos_presupuestos_detalle p
+	INNER JOIN inserted i ON p.presupuesto_id = i.presupuesto_id;
 END;
 GO

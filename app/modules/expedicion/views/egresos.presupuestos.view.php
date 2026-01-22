@@ -15,6 +15,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 			<i class="bi-plus-circle me-2"></i>Nuevo Presupuesto
 		</a>
 	</div>
+	<div class="d-flex justify-content-end align-items-center">
+		<a href="/trackpoint/public/index.php?route=/expedicion/egresos/verPresupuesto" class="btn btn-sm btn-primary">
+			<i class="bi-plus-circle me-2"></i>Ver Presupuesto
+		</a>
+	</div>
 
 
 	<!-- ############################################################################# -->
@@ -43,8 +48,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<i class="bi bi-search"></i>
 										</a>
 									</div>
-									<input type="text" name="mercaderia_id" id="mercaderia_id">
-									<input type="text" name="descripcion_mercaderia" id="descripcion_mercaderia">
+									<input type="hidden" name="mercaderia_id" id="mercaderia_id">
+									<input type="hidden" name="descripcion_mercaderia" id="descripcion_mercaderia">
 									<div id="mensaje-busqueda" class="alert alert-danger rounded d-none mt-2 p-2" role="alert">
 										<i class="bi bi-exclamation-triangle-fill me-2"></i>
 										<span class="mensaje-texto"></span>
@@ -126,12 +131,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 					</div>
 				</div>
-				<div class="card-footer bg-light d-flex justify-content-end">
+<!-- 				<div class="card-footer bg-light d-flex justify-content-end">
 					<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal"
 						id="btnMostrarConfirmacion">
 						<i class="bi bi-check-circle pt-1 me-2"></i>Generar
 					</button>
-				</div>
+				</div> -->
 		</form>
 
 	</div>
@@ -169,8 +174,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearEmpresaPresupuesto" class="col-md-5 form-label text-primary">Empresa</label>
 									<div class="col-md-7 ps-0">
-										<select class="form-select text-primary" id="crearEmpresaPresupuesto" name="empresa_id">
-											<option value="1">Empresa 1</option>
+										<select class="form-select text-primary" id="crearEmpresaPresupuesto" name="empresa_nombre">
+											<option value="Punto Seguro">Punto Seguro</option>
+											<option value="Punto Conectado">Punto Conectado</option>
 										</select>
 									</div>
 								</div>
@@ -178,8 +184,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearSucursalPresupuesto" class="col-md-5 form-label text-primary">Sucursal</label>
 									<div class="col-md-7 ps-0">
-										<select class="form-select text-primary" id="crearSucursalPresupuesto" name="sucursal_id">
-											<option value="1">Sucursal 1</option>
+										<select class="form-select text-primary" id="crearSucursalPresupuesto" name="sucursal_nombre">
+											<option value="Los Polvorines">Los Polvorines</option>
+											<option value="Azul">Azul</option>
 										</select>
 									</div>
 								</div>
@@ -187,8 +194,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearRubroPresupuesto" class="col-md-5 form-label text-primary">Rubro</label>
 									<div class="col-md-7 ps-0">
-										<select class="form-select text-primary" id="crearRubroPresupuesto" name="rubro_id">
-											<option value="1">Rubro 1</option>
+										<select class="form-select text-primary" id="crearRubroPresupuesto" name="rubro_nombre">
+											<option value="rubro">Rubro 1</option>
 										</select>
 									</div>
 								</div>
@@ -196,13 +203,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearPresupuestoId" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
 									<div class="col-md-7 ps-0">
-										<?php if (empty($resumen[0]['presupuesto_id'])): ?>
-											<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId"
-												name="presupuesto_id" value="Seleccione un presupuesto" disabled>
-										<?php else: ?>
-											<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId"
-												name="presupuesto_id" value="<?php echo $resumen[0]['presupuesto_id']; ?>" disabled>
-										<?php endif; ?>
+										<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId" name="presupuesto_id" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>" disabled>
 									</div>
 								</div>
 								<!-- Fecha Emisión -->
@@ -229,9 +230,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearClientePresupuesto" class="col-md-3 form-label text-primary">Cliente</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_id">
-											<option value="1">Cliente 1</option>
-											<option value="2">Cliente 2</option>
+										<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_nombre">
+											<option value="cliente1">Cliente 1</option>
+											<option value="cliente2">Cliente 2</option>
 										</select>
 									</div>
 									<input type="hidden" name="cliente_id" id="cliente_id">
@@ -288,22 +289,26 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 					<div class="mb-3">
 						<label for="editarEmpresaPresupuesto" class="form-label text-primary">Empresa</label>
-						<select class="form-select text-primary" name="empresa_id" id="editarEmpresaPresupuesto">
-							<option value="1">Empresa 1</option>
+						<select class="form-select text-primary" name="empresa_nombre" id="editarEmpresaPresupuesto">
+							<option value="Punto Seguro">Punto Seguro</option>
+							<option value="Punto Conectado">Punto Conectado</option>
+
 						</select>
 					</div>
 
 					<div class="mb-3">
 						<label for="editarSucursalPresupuesto" class="form-label text-primary">Sucursal</label>
-						<select class="form-select text-primary" name="sucursal_id" id="editarSucursalPresupuesto">
-							<option value="1">Sucursal 1</option>
+						<select class="form-select text-primary" name="sucursal_nombre" id="editarSucursalPresupuesto">
+							<option value="Los Polvorines">Los Polvorines</option>
+							<option value="Azul">Azul</option>
+
 						</select>
 					</div>
 
 					<div class="mb-3">
 						<label for="editarRubroPresupuesto" class="form-label text-primary">Rubro</label>
-						<select class="form-select text-primary" name="rubro_id" id="editarRubroPresupuesto">
-							<option value="1">Rubro 1</option>
+						<select class="form-select text-primary" name="rubro_nombre" id="editarRubroPresupuesto">
+							<option value="rubro">Rubro 1</option>
 						</select>
 					</div>
 
@@ -320,8 +325,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 					<div class="mb-3">
 						<label for="editarClientePresupuesto" class="form-label text-primary">Cliente</label>
-						<select class="form-select text-primary" name="cliente_id" id="editarClientePresupuesto">
-							<option value="1">Cliente 1</option>
+						<select class="form-select text-primary" name="cliente_nombre" id="editarClientePresupuesto">
+							<option value="cliente1">Cliente 1</option>
 						</select>
 					</div>
 
@@ -388,10 +393,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 					</div>
 					<div class="modal-footer d-flex justify-content-center p-2">
-						<button type="button" class="btn btn-sm btn-success" id="btnConfirmarEliminar"><i
-								class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
-						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i
-								class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+						<button type="button" class="btn btn-sm btn-success" id="btnConfirmarEliminar">
+							<i class="bi bi-check-circle pt-1 me-2"></i>Confirmar
+						</button>
+						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+							<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
+						</button>
 					</div>
 				<?php endif; ?>
 			</div>
@@ -408,7 +415,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Confirmar generación de presupuesto</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 			</div>
-			<?php if (empty($detalle)): ?>
+			<?php if (empty($resumen)): ?>
 				<div class="modal-body text-center">
 					<div class="mb-3">
 						<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
@@ -420,14 +427,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 			<?php else: ?>
 				<div class="modal-body text-center">
 					<div class="mb-3">
-						<p class="text-muted text-center">¿Estás seguro de que querés guardar la recepción?</p>
+						<p class="text-muted text-center">¿Estás seguro de que querés generar el presupuesto?</p>
 					</div>
 				</div>
 				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGuardar"><i
-							class="bi bi-check-circle pt-1 me-2"></i>Confirmar</button>
-					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i
-							class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+					<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGenerar">
+						<i class="bi bi-check-circle pt-1 me-2"></i>Confirmar
+					</button>
+					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
+					</button>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -650,7 +659,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <!-- <script src="/trackpoint/public/assets/js/datatables.js"></script> -->
 <script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
 <script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.js"></script>
-<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales2.js"></script>
+<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.edicion.js"></script>
+<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.eliminacion.js"></script>
+
 
 
 </body>

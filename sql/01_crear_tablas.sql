@@ -358,14 +358,14 @@ GO
 
 CREATE TABLE expedicion_egresos_presupuestos_resumen (
     presupuesto_id INT PRIMARY KEY IDENTITY(1,1),
-    empresa_id INT NOT NULL,
-    sucursal_id INT NULL,
-    rubro_id INT NULL,
+    empresa_nombre VARCHAR(100) NOT NULL,
+    sucursal_nombre VARCHAR(100) NULL,
+    rubro_nombre VARCHAR(100) NULL,
     fecha_presupuesto DATE NOT NULL,
     fecha_vencimiento DATE NULL,
     fecha_sistema DATETIME DEFAULT GETDATE(),
     fecha_modificacion DATETIME NULL,
-    cliente_id INT NULL,
+    cliente_nombre VARCHAR(100) NULL,
     direccion_cliente VARCHAR(255) NULL,
     contacto_nombre VARCHAR(100) NULL,
     operador_id INT NOT NULL,

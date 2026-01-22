@@ -16,17 +16,30 @@ function obtenerPresupuestoId($operador_id) {
 	}
 }
 
+function obtenerUltimoPresupuestoId() {
+	try {
+		$conn = getConnection();
+		$sql = "SELECT MAX(presupuesto_id) AS ultimo_id FROM expedicion_egresos_presupuestos_resumen";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchColumn();
+	} catch (PDOException $e) {
+		registrarEvento("Presupuestos Model: Error al obtener último ID de presupuesto, " . $e->getMessage(), "ERROR");
+		return null;
+	}
+}
+
 function obtenerResumenPresupuesto($operador_id) {
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
 							r.presupuesto_id,
-							r.empresa_id,
-							r.sucursal_id,
-							r.rubro_id,
+							r.empresa_nombre,
+							r.sucursal_nombre,
+							r.rubro_nombre,
 							r.fecha_presupuesto,
 							r.fecha_vencimiento,
-							r.cliente_id,
+							r.cliente_nombre,
 							r.direccion_cliente,
 							r.contacto_nombre,
 							r.estado,
@@ -39,12 +52,12 @@ function obtenerResumenPresupuesto($operador_id) {
 							AND r.estado = 'pendiente'
 						GROUP BY
 							r.presupuesto_id,
-							r.empresa_id,
-							r.sucursal_id,
-							r.rubro_id,
+							r.empresa_nombre,
+							r.sucursal_nombre,
+							r.rubro_nombre,
 							r.fecha_presupuesto,
 							r.fecha_vencimiento,
-							r.cliente_id, r.direccion_cliente,
+							r.cliente_nombre, r.direccion_cliente,
 							r.contacto_nombre,
 							r.estado
 						";
@@ -91,42 +104,48 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 }
 
 function crearPresupuesto($datos) {
+  
+	$creado_por = $_SESSION['username'];
+	
 	try {
 		$conn = getConnection();
 		$sql = "INSERT INTO expedicion_egresos_presupuestos_resumen (
-							empresa_id,
-							sucursal_id,
-							rubro_id,
+							empresa_nombre,
+							sucursal_nombre,
+							rubro_nombre,
 							fecha_presupuesto,
 							fecha_vencimiento,
-							cliente_id,
+							cliente_nombre,
 							direccion_cliente,
 							contacto_nombre,
 							operador_id,
+							creado_por,
 							estado
 						)
 						VALUES (
-							:empresa_id,
-							:sucursal_id,
-							:rubro_id,
+							:empresa_nombre,
+							:sucursal_nombre,
+							:rubro_nombre,
 							:fecha_presupuesto,
 							:fecha_vencimiento,
-							:cliente_id,
+							:cliente_nombre,
 							:direccion_cliente,
 							:contacto_nombre,
 							:operador_id,
+							:creado_por,
 							:estado)";
 
 		$stmt = $conn->prepare($sql);
-		$stmt->bindParam(':empresa_id', $datos['empresa_id']);
-		$stmt->bindParam(':sucursal_id', $datos['sucursal_id']);
-		$stmt->bindParam(':rubro_id', $datos['rubro_id']);
+		$stmt->bindParam(':empresa_nombre', $datos['empresa_nombre']);
+		$stmt->bindParam(':sucursal_nombre', $datos['sucursal_nombre']);
+		$stmt->bindParam(':rubro_nombre', $datos['rubro_nombre']);
 		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
 		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
-		$stmt->bindParam(':cliente_id', $datos['cliente_id']);
+		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
 		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
 		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
 		$stmt->bindParam(':operador_id', $datos['operador_id']);
+		$stmt->bindParam(':creado_por', $creado_por);
 		$stmt->bindValue(':estado', 'pendiente');
 
 		$result = $stmt->execute();
@@ -147,32 +166,36 @@ function crearPresupuesto($datos) {
 }
 
 function editarPresupuesto($datos) {
+	
+  $editado_por = $_SESSION['username'];
+	
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
 														SET
-															empresa_id = :empresa_id,
-															sucursal_id = :sucursal_id,
-															rubro_id = :rubro_id,
+															empresa_nombre = :empresa_nombre,
+															sucursal_nombre = :sucursal_nombre,
+															rubro_nombre = :rubro_nombre,
 															fecha_presupuesto = :fecha_presupuesto,
 															fecha_vencimiento = :fecha_vencimiento,
-															cliente_id = :cliente_id,
+															cliente_nombre = :cliente_nombre,
 															direccion_cliente = :direccion_cliente,
 															contacto_nombre = :contacto_nombre,
-															fecha_modificacion = :fecha_modificacion
+															editado_por = :editado_por
 														WHERE
 															presupuesto_id = :presupuesto_id");
 
 		$stmt->bindParam(':presupuesto_id', $datos['presupuesto_id']);
-		$stmt->bindParam(':empresa_id', $datos['empresa_id']);
-		$stmt->bindParam(':sucursal_id', $datos['sucursal_id']);
-		$stmt->bindParam(':rubro_id', $datos['rubro_id']);
+		$stmt->bindParam(':empresa_nombre', $datos['empresa_nombre']);
+		$stmt->bindParam(':sucursal_nombre', $datos['sucursal_nombre']);
+		$stmt->bindParam(':rubro_nombre', $datos['rubro_nombre']);
 		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
 		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
-		$stmt->bindParam(':cliente_id', $datos['cliente_id']);
+		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
 		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
 		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
-		$stmt->bindParam(':fecha_modificacion', $fechaActual);
+		$stmt->bindParam(':editado_por', $editado_por);
+
 		$result = $stmt->execute();
 
 		if ($result) {
@@ -212,17 +235,15 @@ function eliminarPresupuesto($presupuesto_id) {
 
     // Actualizar el estado en la tabla de detalle
     $stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
-                            SET estado = 'cancelado', fecha_modificacion = :fecha_modificacion
+                            SET estado = 'cancelado'
                             WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente'");
-    $stmt->bindValue(':fecha_modificacion', $fechaActual);
     $stmt->bindValue(':presupuesto_id', $presupuesto_id);
     $stmt->execute();
 
     // Actualizar el estado en la tabla de resumen
     $stmtResumen = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
-                                  SET estado = 'cancelado', fecha_modificacion = :fecha_modificacion
+                                  SET estado = 'cancelado'
                                   WHERE presupuesto_id = :presupuesto_id");
-    $stmtResumen->bindValue(':fecha_modificacion', $fechaActual);
     $stmtResumen->bindValue(':presupuesto_id', $presupuesto_id);
     $stmtResumen->execute();
 
@@ -243,9 +264,9 @@ function generarPresupuesto($presupuesto_id) {
 
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM expedicion_egresos_presupuestos_detalle WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente' AND operador_id = :operador_id");
+		$stmt = $conn->prepare("SELECT * FROM expedicion_egresos_presupuestos_detalle WHERE presupuesto_id = :presupuesto_id --AND estado = 'pendiente' AND operador_id = :operador_id");
 		$stmt->bindParam(':presupuesto_id', $presupuesto_id);
-		$stmt->bindParam(':operador_id', $creado_por_id);
+		/* $stmt->bindParam(':operador_id', $creado_por_id); */
 		$stmt->execute();
 
 		$mercaderias = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -341,9 +362,6 @@ function agregarMercaderia($datos) {
 }
 
 function editarMercaderiaPresupuesto($datos) {
-
-	$fechaActual = date('Y-m-d H:i:s');
-
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
@@ -351,10 +369,9 @@ function editarMercaderiaPresupuesto($datos) {
 															codigo_mercaderia = :codigo_mercaderia,
 															descripcion_mercaderia = :descripcion_mercaderia,
 															cantidad = :cantidad,
-															precio_venta = :precio_venta,
+															precio_venta = :precio_venta
 															/* iva_tasa = :iva_tasa,
 															descuento_porcentaje = :descuento_porcentaje, */
-															fecha_modificacion = :fecha_modificacion
 														WHERE
 															item_id = :item_id");
 
@@ -365,7 +382,6 @@ function editarMercaderiaPresupuesto($datos) {
 		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
 	/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
 		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
-		$stmt->bindParam(':fecha_modificacion', $fechaActual);
 		$result = $stmt->execute();
 
 		if ($result) {

@@ -39,6 +39,8 @@ $routes = [
 	'/expedicion/egresos/remitos' => 'app/modules/expedicion/controllers/egresos.remitos.controller.php',
 
 	'/expedicion/egresos/presupuestos' => 'app/modules/expedicion/controllers/egresos.presupuestos.controller.php',
+	'/expedicion/egresos/verPresupuesto' => 'app/modules/expedicion/views/egresos.presupuestos.plantilla.view.php',
+
 	'/expedicion/egresos/ventas' => 'app/modules/expedicion/controllers/egresos.ventas.controller.php',
 	'/expedicion/egresos/cierre' => 'app/modules/expedicion/controllers/egresos.cierre.controller.php',
 	

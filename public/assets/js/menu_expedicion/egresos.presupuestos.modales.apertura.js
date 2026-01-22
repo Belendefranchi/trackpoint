@@ -51,9 +51,8 @@ document.addEventListener('show.bs.modal', function (event) {
 		----------------------------------------- */
 		case 'modalGenerarPresupuesto':
 			if (!button) return;
-			const presuIdGenerar = button.getAttribute('data-id');
 
-			document.querySelector('#generarPresupuestoId').value = presuIdGenerar;
+			document.querySelector('#generarPresupuestoId').value = button.getAttribute('data-id');
 			break;
 
 		/* -----------------------------------------
@@ -64,7 +63,7 @@ document.addEventListener('show.bs.modal', function (event) {
 			$('#mensaje-error-seleccionar').addClass('d-none');
 
 			const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
-    	const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado');
+			const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado');
 
 			if (!presupuestoSeleccionado) {
 				console.warn('No hay presupuesto seleccionado');
