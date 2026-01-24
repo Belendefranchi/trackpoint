@@ -8,14 +8,7 @@ let presupuestoSeleccionado = null;
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### MODAL DE CREACIÓN DE PRESUPUESTOS ###################### */
-  var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
-/*   if (modalCrearPresupuesto) {
-    modalCrearPresupuesto.addEventListener('show.bs.modal', function (event) {
-      console.log('Modal abrir - event.relatedTarget:', event.relatedTarget);
-      const button = event.relatedTarget;
 
-    });
-  } */
   // Interceptar el envío del formulario con AJAX
   const formCrear = document.querySelector('#formCrearPresupuesto');
   if (formCrear) {
@@ -61,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Limpiar el mensaje de error al cerrar el modal
+  var modalCrearPresupuesto = document.getElementById('modalCrearPresupuesto');
   modalCrearPresupuesto.addEventListener('hidden.bs.modal', function () {
     var mensajeError = document.getElementById('mensaje-error-crear');
     if (mensajeError) {
@@ -208,19 +202,21 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('btn-guardar-mercaderia').disabled = true;
 
 
-  /* ###################### GUARDAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarConfirmacion').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalGuardarPresupuesto'));
+  /* ###################### GENERAR PRESUPUESTO ###################### */
+  document.getElementById('btnMostrarGenerarPresupuesto').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalGenerarPresupuesto'));
     modal.show();
   });
-  const btnGenerar = document.getElementById('btnConfirmarGenerar');
-  if (btnGenerar) {
-    btnGenerar.addEventListener('click', function () {
-      bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
 
+  const btnConfirmarGenerar = document.getElementById('btnConfirmarGenerar');
+  if (btnConfirmarGenerar) {
+    btnConfirmarGenerar.addEventListener('click', function () {
+      bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
+      
       $.ajax({
         url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto',
         type: 'POST',
+        data: { 'presupuesto_id': document.getElementById('generarPresupuestoId').value },
         dataType: 'json',
         success: function (response) {
           if (response.success) {
@@ -317,19 +313,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### ELIMINAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
+  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function (){
     const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
     modal.show();
   });
-  // Interceptar el evento de apertura del modal de eliminación
-/*   var modalEliminarPresupuesto = document.getElementById('modalEliminarPresupuesto');
-  if (modalEliminarPresupuesto) {
-    modalEliminarPresupuesto.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
-
-      modalEliminarPresupuesto.querySelector('#eliminarPresupuestoId').value = button.getAttribute('data-id');
-    });
-  } */
 
   const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
   if (btnConfirmarEliminar) {
@@ -362,9 +349,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         },
         error: function (xhr, status, error) {
-          console.log("Estado:", status);
-          console.log("Error:", error);
-          console.log("Respuesta cruda:", xhr.responseText);
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
           $('#modalMensajeLabel').text('Error inesperado');
           $('#textoModalMensaje').text('Hubo un problema al intentar eliminar el presupuesto.');
           const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));

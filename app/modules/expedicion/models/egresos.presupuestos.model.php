@@ -280,17 +280,15 @@ function generarPresupuesto($presupuesto_id) {
 
 		registrarEvento("Presupuestos Model: presupuesto creado correctamente.", "INFO");
 
-		$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado', fecha_modificacion = :fecha_presupuesto WHERE presupuesto_id = :presupuesto_id";
+		$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
 		$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);
 		$stmtCerrarResumen->execute([
-				':fecha_presupuesto' => $fechaActual,
 				':presupuesto_id' => $presupuesto_id
 		]);
 
-		$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado', fecha_modificacion = :fecha_presupuesto WHERE presupuesto_id = :presupuesto_id";
+		$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
 		$stmtCerrarDetalle = $conn->prepare($sqlCerrarDetalle);
 		$stmtCerrarDetalle->execute([
-				':fecha_presupuesto' => $fechaActual,
 				':presupuesto_id' => $presupuesto_id
 		]);
 

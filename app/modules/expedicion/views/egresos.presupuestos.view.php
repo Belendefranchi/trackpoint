@@ -410,36 +410,51 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <div class="modal fade" id="modalGenerarPresupuesto" tabindex="-1" aria-labelledby="modalGenerarPresupuestoLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content shadow">
-			<div class="modal-header table-primary text-white">
-				<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Confirmar generación de presupuesto</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+		<form method="POST" id="formGenerarPresupuesto"
+			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
+			<div class="modal-content shadow">
+				<div class="modal-header table-primary text-white">
+					<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Generar presupuesto</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+				</div>
+				<?php if (empty($resumen)): ?>
+					<div class="modal-body text-center">
+						
+
+						<div class="mb-3">
+							<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center p-2">
+						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					</div>
+				<?php else: ?>
+					<div class="modal-body text-center">
+						<input type="hidden" name="presupuesto_id" id="generarPresupuestoId">
+
+						<div class="mb-3">
+							<div id="mensaje-error-generar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
+								<i class="bi bi-exclamation-triangle-fill me-2"></i>
+								<span class="mensaje-texto"></span>
+								<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<p>¿Estás seguro de que querés generar el presupuesto?</p>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center p-2">
+						<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGenerar">
+							<i class="bi bi-check-circle pt-1 me-2"></i>Confirmar
+						</button>
+						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+							<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
+						</button>
+					</div>
+				<?php endif; ?>
 			</div>
-			<?php if (empty($resumen)): ?>
-				<div class="modal-body text-center">
-					<div class="mb-3">
-						<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
-					</div>
-				</div>
-				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				</div>
-			<?php else: ?>
-				<div class="modal-body text-center">
-					<div class="mb-3">
-						<p class="text-muted text-center">¿Estás seguro de que querés generar el presupuesto?</p>
-					</div>
-				</div>
-				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="button" class="btn btn-sm btn-success" id="btnConfirmarGenerar">
-						<i class="bi bi-check-circle pt-1 me-2"></i>Confirmar
-					</button>
-					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
-					</button>
-				</div>
-			<?php endif; ?>
-		</div>
+		</form>
 	</div>
 </div>
 
@@ -659,8 +674,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <!-- <script src="/trackpoint/public/assets/js/datatables.js"></script> -->
 <script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
 <script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.js"></script>
-<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.edicion.js"></script>
-<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.eliminacion.js"></script>
+<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.apertura.js"></script>
+<!-- <script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.eliminacion.js"></script> -->
 
 
 

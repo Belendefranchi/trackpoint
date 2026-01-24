@@ -193,21 +193,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$datos = [
-			'presupuesto_id' => $_POST['presupuesto_id'],
-			'empresa_nombre' => $_POST['empresa_nombre'],
-			'sucursal_nombre' => $_POST['sucursal_nombre'] ?? null,
-			'rubro_nombre' => $_POST['rubro_nombre'] ?? null,
-			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
-			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
-			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
-			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
-		];
-
+		$presupuesto_id = $_POST['presupuesto_id'];
 
 		// Validar si hay mercaderías cargadas
-		if (empty($datos['presupuesto_id'])) {
+		if (empty($presupuesto_id)) {
 			echo json_encode([
 				'success' => false,
 				'message' => 'Aún no se ingresaron mercaderías'
