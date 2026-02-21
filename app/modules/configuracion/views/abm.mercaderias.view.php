@@ -61,8 +61,18 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_propuesto']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_compra']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_venta']) ?></td>
+									<td class="border text-primary text-between">
+										<dl class="row">
+											<dt class="col-sm-3">$</dt><dd class="col-sm-9"><?= number_format($mercaderia['precio_compra'], 2, ',', '.') ?></dd>
+										</dl>
+									</td>
+									<td class="border text-primary text-between">
+										<dl class="row">
+											<dt class="col-sm-3">$</dt>
+											<dd class="col-sm-9"><?= number_format($mercaderia['precio_venta'], 2, ',', '.') ?></dd>
+										</dl>
+									</td>
+
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">

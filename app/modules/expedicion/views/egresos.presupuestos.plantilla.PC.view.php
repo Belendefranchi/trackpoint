@@ -99,7 +99,7 @@
 			<!-- DETALLE -->
 			<div>
 
-				<table style="font-size:12px;" class="tabla-detalle">
+				<table style="font-size:12px; border-collapse: collapse;" class="tabla-detalle">
 					<thead>
 						<tr style="color: white;">
 							<td style="width:  5%; background-color: #51AEE5; text-align:center;">#</td>
