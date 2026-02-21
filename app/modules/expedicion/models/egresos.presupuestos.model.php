@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../../../core/config/db.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
-function obtenerPresupuestoId($operador_id) {
+function obtenerPresupuestoId($operador_id){
 	try {
 		$conn = getConnection();
 		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
@@ -16,7 +16,8 @@ function obtenerPresupuestoId($operador_id) {
 	}
 }
 
-function obtenerUltimoPresupuestoId() {
+function obtenerUltimoPresupuestoId()
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT MAX(presupuesto_id) AS ultimo_id FROM expedicion_egresos_presupuestos_resumen";
@@ -29,7 +30,7 @@ function obtenerUltimoPresupuestoId() {
 	}
 }
 
-function obtenerResumenPresupuesto($operador_id) {
+function obtenerResumenPresupuesto($operador_id){
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
@@ -40,8 +41,8 @@ function obtenerResumenPresupuesto($operador_id) {
 							r.fecha_presupuesto,
 							r.fecha_vencimiento,
 							r.cliente_nombre,
-							r.direccion_cliente,
-							r.contacto_nombre,
+							r.cliente_direccion,
+							r.cliente_contacto,
 							r.estado,
 							SUM(d.cantidad) AS cantidad,
 							SUM(d.cantidad * d.precio_venta) AS total
@@ -57,8 +58,9 @@ function obtenerResumenPresupuesto($operador_id) {
 							r.rubro_nombre,
 							r.fecha_presupuesto,
 							r.fecha_vencimiento,
-							r.cliente_nombre, r.direccion_cliente,
-							r.contacto_nombre,
+							r.cliente_nombre,
+							r.cliente_direccion,
+							r.cliente_contacto,
 							r.estado
 						";
 		$stmt = $conn->prepare($sql);
@@ -73,8 +75,52 @@ function obtenerResumenPresupuesto($operador_id) {
 
 }
 
-function obtenerDetallePresupuesto($presupuesto_id) {
-	try{
+function obtenerResumenPresupuestoPorId($presupuesto_id){
+	try {
+		$conn = getConnection();
+		$sql = "SELECT 
+							r.presupuesto_id,
+							r.empresa_nombre,
+							r.sucursal_nombre,
+							r.rubro_nombre,
+							r.fecha_presupuesto,
+							r.fecha_vencimiento,
+							r.cliente_nombre,
+							r.cliente_direccion,
+							r.cliente_contacto,
+							r.estado,
+							SUM(d.cantidad) AS cantidad,
+							SUM(d.cantidad * d.precio_venta) AS total
+						FROM expedicion_egresos_presupuestos_resumen r
+						LEFT JOIN expedicion_egresos_presupuestos_detalle d
+							ON r.presupuesto_id = d.presupuesto_id
+						WHERE r.presupuesto_id = :presupuesto_id
+						GROUP BY
+							r.presupuesto_id,
+							r.empresa_nombre,
+							r.sucursal_nombre,
+							r.rubro_nombre,
+							r.fecha_presupuesto,
+							r.fecha_vencimiento,
+							r.cliente_nombre,
+							r.cliente_direccion,
+							r.cliente_contacto,
+							r.estado
+						";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento("Presupuestos Model: Error al buscar resumen, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => $e->getMessage()];
+	}
+
+}
+
+function obtenerDetallePresupuesto($presupuesto_id){
+	try {
 		$conn = getConnection();
 		$sql = "SELECT 
 								item_id,
@@ -90,7 +136,7 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 								(cantidad * precio_venta) AS subtotal
 						FROM expedicion_egresos_presupuestos_detalle
 						WHERE presupuesto_id = :presupuesto_id
-							AND estado = 'pendiente'
+							--AND estado = 'pendiente'
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
@@ -103,10 +149,10 @@ function obtenerDetallePresupuesto($presupuesto_id) {
 	}
 }
 
-function crearPresupuesto($datos) {
-  
+function crearPresupuesto($datos){
+
 	$creado_por = $_SESSION['username'];
-	
+
 	try {
 		$conn = getConnection();
 		$sql = "INSERT INTO expedicion_egresos_presupuestos_resumen (
@@ -116,8 +162,8 @@ function crearPresupuesto($datos) {
 							fecha_presupuesto,
 							fecha_vencimiento,
 							cliente_nombre,
-							direccion_cliente,
-							contacto_nombre,
+							cliente_direccion,
+							cliente_contacto,
 							operador_id,
 							creado_por,
 							estado
@@ -129,8 +175,8 @@ function crearPresupuesto($datos) {
 							:fecha_presupuesto,
 							:fecha_vencimiento,
 							:cliente_nombre,
-							:direccion_cliente,
-							:contacto_nombre,
+							:cliente_direccion,
+							:cliente_contacto,
 							:operador_id,
 							:creado_por,
 							:estado)";
@@ -142,14 +188,14 @@ function crearPresupuesto($datos) {
 		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
 		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
 		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
-		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
-		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
+		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
+		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
 		$stmt->bindParam(':operador_id', $datos['operador_id']);
 		$stmt->bindParam(':creado_por', $creado_por);
 		$stmt->bindValue(':estado', 'pendiente');
 
 		$result = $stmt->execute();
-		
+
 		if ($result) {
 			registrarEvento("Presupuestos Model: presupuesto creado correctamente.", "INFO");
 			$presupuesto_id = $conn->lastInsertId();
@@ -165,10 +211,10 @@ function crearPresupuesto($datos) {
 	}
 }
 
-function editarPresupuesto($datos) {
-	
-  $editado_por = $_SESSION['username'];
-	
+function editarPresupuesto($datos){
+
+	$editado_por = $_SESSION['username'];
+
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
@@ -179,8 +225,8 @@ function editarPresupuesto($datos) {
 															fecha_presupuesto = :fecha_presupuesto,
 															fecha_vencimiento = :fecha_vencimiento,
 															cliente_nombre = :cliente_nombre,
-															direccion_cliente = :direccion_cliente,
-															contacto_nombre = :contacto_nombre,
+															cliente_direccion = :cliente_direccion,
+															cliente_contacto = :cliente_contacto,
 															editado_por = :editado_por
 														WHERE
 															presupuesto_id = :presupuesto_id");
@@ -192,8 +238,8 @@ function editarPresupuesto($datos) {
 		$stmt->bindParam(':fecha_presupuesto', $datos['fecha_presupuesto']);
 		$stmt->bindParam(':fecha_vencimiento', $datos['fecha_vencimiento']);
 		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
-		$stmt->bindParam(':direccion_cliente', $datos['direccion_cliente']);
-		$stmt->bindParam(':contacto_nombre', $datos['contacto_nombre']);
+		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
+		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
 		$stmt->bindParam(':editado_por', $editado_por);
 
 		$result = $stmt->execute();
@@ -203,60 +249,14 @@ function editarPresupuesto($datos) {
 		}
 		return ['success' => true, 'message' => 'Presupuesto editado correctamente.'];
 
-		} catch (PDOException $e) {
-			// Manejo de errores
-			registrarEvento("Presupuestos Model: Error al editar el presupuesto, " . $e->getMessage(), "ERROR");
-			return false;
-		}
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Presupuestos Model: Error al editar el presupuesto, " . $e->getMessage(), "ERROR");
+		return false;
+	}
 }
 
-function eliminarPresupuesto($presupuesto_id) {
-
-  $fechaActual = date('Y-m-d H:i:s');
-  $creado_por_id = $_SESSION['operador_id'];
-  $creado_por_username = $_SESSION['username'];
-
-  try {
-    $conn = getConnection();
-
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM expedicion_egresos_presupuestos_resumen 
-                            WHERE presupuesto_id = :presupuesto_id 
-                              AND estado = 'pendiente' 
-                              AND operador_id = :operador_id");
-    $stmt->bindValue(':presupuesto_id', $presupuesto_id);
-    $stmt->bindValue(':operador_id', $creado_por_id);
-    $stmt->execute();
-
-    $cantidad = $stmt->fetchColumn();
-
-    if ($cantidad == 0) {
-      return ['success' => false, 'message' => 'No hay presupuesto pendiente para cancelar'];
-    }
-
-    // Actualizar el estado en la tabla de detalle
-    $stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
-                            SET estado = 'cancelado'
-                            WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente'");
-    $stmt->bindValue(':presupuesto_id', $presupuesto_id);
-    $stmt->execute();
-
-    // Actualizar el estado en la tabla de resumen
-    $stmtResumen = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
-                                  SET estado = 'cancelado'
-                                  WHERE presupuesto_id = :presupuesto_id");
-    $stmtResumen->bindValue(':presupuesto_id', $presupuesto_id);
-    $stmtResumen->execute();
-
-    registrarEvento("Presupuestos Model: Presupuesto cancelado correctamente => $presupuesto_id", "INFO");
-    return ['success' => true, 'message' => 'Presupuesto cancelado correctamente.'];
-
-  } catch (PDOException $e) {
-    registrarEvento("Presupuestos Model: Error al cancelar el presupuesto => " . $e->getMessage(), "ERROR");
-    return ['success' => false, 'message' => 'Error al cancelar el presupuesto.'];
-  }
-}
-
-function generarPresupuesto($presupuesto_id) {
+function eliminarPresupuesto($presupuesto_id){
 
 	$fechaActual = date('Y-m-d H:i:s');
 	$creado_por_id = $_SESSION['operador_id'];
@@ -264,36 +264,83 @@ function generarPresupuesto($presupuesto_id) {
 
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("SELECT * FROM expedicion_egresos_presupuestos_detalle WHERE presupuesto_id = :presupuesto_id --AND estado = 'pendiente' AND operador_id = :operador_id");
-		$stmt->bindParam(':presupuesto_id', $presupuesto_id);
-		/* $stmt->bindParam(':operador_id', $creado_por_id); */
+
+		$stmt = $conn->prepare("SELECT COUNT(*) FROM expedicion_egresos_presupuestos_resumen 
+                            WHERE presupuesto_id = :presupuesto_id 
+                              AND estado = 'pendiente' 
+                              AND operador_id = :operador_id");
+		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
+		$stmt->bindValue(':operador_id', $creado_por_id);
 		$stmt->execute();
 
-		$mercaderias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$cantidad = $stmt->fetchColumn();
 
-		if (!$mercaderias) {
-			return ['success' => false, 'message' => 'No hay mercaderías pendientes para guardar'];
+		if ($cantidad == 0) {
+			return ['success' => false, 'message' => 'No hay presupuesto pendiente para cancelar'];
 		}
-		
-		/* Aca no se deben guardar los registros en ninguna otra tabla, sino que se debe generar el pdf */
 
+		// Actualizar el estado en la tabla de detalle
+		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
+                            SET estado = 'cancelado'
+                            WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente'");
+		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
+		$stmt->execute();
 
-		registrarEvento("Presupuestos Model: presupuesto creado correctamente.", "INFO");
+		// Actualizar el estado en la tabla de resumen
+		$stmtResumen = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
+                                  SET estado = 'cancelado'
+                                  WHERE presupuesto_id = :presupuesto_id");
+		$stmtResumen->bindValue(':presupuesto_id', $presupuesto_id);
+		$stmtResumen->execute();
 
-		$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
-		$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);
-		$stmtCerrarResumen->execute([
+		registrarEvento("Presupuestos Model: Presupuesto cancelado correctamente => $presupuesto_id", "INFO");
+		return ['success' => true, 'message' => 'Presupuesto cancelado correctamente.'];
+
+	} catch (PDOException $e) {
+		registrarEvento("Presupuestos Model: Error al cancelar el presupuesto => " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => 'Error al cancelar el presupuesto.'];
+	}
+}
+
+function generarPresupuesto($presupuesto_id){
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("
+				SELECT TOP 1 1 
+				FROM expedicion_egresos_presupuestos_detalle 
+				WHERE presupuesto_id = :presupuesto_id
+			");
+		$stmt->execute([':presupuesto_id' => $presupuesto_id]);
+
+		if (!$stmt->fetch()) {
+			return [
+				'success' => false,
+				'message' => 'El presupuesto no tiene mercaderías asignadas'
+			];
+		} else {
+			registrarEvento("Presupuestos Model: Mercaderías encontradas para el presupuesto.", "INFO");
+
+			$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
+			$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);
+			$stmtCerrarResumen->execute([
 				':presupuesto_id' => $presupuesto_id
-		]);
+			]);
 
-		$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
-		$stmtCerrarDetalle = $conn->prepare($sqlCerrarDetalle);
-		$stmtCerrarDetalle->execute([
+			$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
+			$stmtCerrarDetalle = $conn->prepare($sqlCerrarDetalle);
+			$stmtCerrarDetalle->execute([
 				':presupuesto_id' => $presupuesto_id
-		]);
+			]);
 
-    registrarEvento("Presupuestos Model: Presupuesto creado correctamente => $presupuesto_id", "INFO");
-		return ['success' => true, 'message' => 'Presupuesto creado correctamente en producción_general.'];
+			registrarEvento("Presupuestos Model: Presupuesto creado correctamente => " . $presupuesto_id, "INFO");
+
+			return [
+				'success' => true,
+				'message' => 'Presupuesto creado correctamente.',
+				'presupuesto_id' => $presupuesto_id
+			];
+
+		}
 
 	} catch (PDOException $e) {
 		// Manejo de errores
@@ -302,8 +349,7 @@ function generarPresupuesto($presupuesto_id) {
 	}
 }
 
-function agregarMercaderia($datos) {
-	
+function agregarMercaderia($datos){
 	try {
 		$conn = getConnection();
 
@@ -359,7 +405,7 @@ function agregarMercaderia($datos) {
 	}
 }
 
-function editarMercaderiaPresupuesto($datos) {
+function editarMercaderiaPresupuesto($datos){
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
@@ -378,8 +424,8 @@ function editarMercaderiaPresupuesto($datos) {
 		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindParam(':cantidad', $datos['cantidad']);
 		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
-	/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
-		$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
+		/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
+			$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$result = $stmt->execute();
 
 		if ($result) {
@@ -387,14 +433,14 @@ function editarMercaderiaPresupuesto($datos) {
 		}
 		return ['success' => true, 'message' => 'Mercadería editada correctamente.'];
 
-		} catch (PDOException $e) {
-			// Manejo de errores
-			registrarEvento("Presupuestos Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
-			return false;
-		}
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Presupuestos Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
+		return false;
+	}
 }
 
-function eliminarMercaderiaPresupuesto($item_id) {
+function eliminarMercaderiaPresupuesto($item_id){
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("DELETE FROM expedicion_egresos_presupuestos_detalle WHERE item_id = :item_id");

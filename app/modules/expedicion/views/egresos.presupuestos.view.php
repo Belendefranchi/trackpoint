@@ -37,8 +37,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<div class="mb-3 row align-items-center">
 						<!-- Código de barras -->
 						<div class="col-md-6">
-							<div class="row p-2 d-flex align-items-center justify-content-center">
-								<label for="codigo_mercaderia" class="col-md-2 form-label text-primary">Producto</label>
+							<div class="row d-flex align-items-center justify-content-center">
+								<label for="codigo_mercaderia" class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
 								<div class="col-md-10 ps-0">
 									<div class="input-group">
 										<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia"
@@ -60,8 +60,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 						<!-- Cantidad -->
 						<div class="col-md-2">
-							<div class="row p-2 d-flex align-items-center justify-content-start">
-								<label for="cantidad" class="col-md-5 col-form-label text-primary">Cantidad</label>
+							<div class="row d-flex align-items-center justify-content-center">
+								<label for="cantidad" class="col-md-5 p-0 col-form-label text-primary text-center">Cantidad</label>
 								<div class="col-md-7">
 									<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold text-primary"
 										name="cantidad" id="cantidad" value="1">
@@ -69,8 +69,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</div>
 						</div>
 						<div class="col-md-2">
-							<div class="row p-2 d-flex align-items-center justify-content-start">
-								<label for="precio_venta" class="col-md-5 col-form-label text-primary">Precio Venta</label>
+							<div class="row d-flex align-items-center justify-content-center">
+								<label for="precio_venta" class="col-md-5 p-0 col-form-label text-primary text-center">Precio Venta</label>
 								<div class="col-md-7">
 									<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold text-primary"
 										name="precio_venta" id="precio_venta" value="1">
@@ -236,16 +236,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										</select>
 									</div>
 									<input type="hidden" name="cliente_id" id="cliente_id">
-									<input type="hidden" name="contacto_nombre" id="contacto_nombre">
+									<!-- <input type="hidden" name="contacto_cliente" id="contacto_cliente"> -->
 								</div>
 								<!-- Dirección Cliente -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearDireccionCliente" class="col-md-3 form-label text-primary">Dirección</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearDireccionCliente" name="direccion_cliente">
+										<select class="form-select text-primary" id="crearDireccionClientePresupuesto" name="cliente_direccion">
 											<option value="direccion1">Dirección 1</option>
 											<option value="direccion2">Dirección 2</option>
 											<option value="direccion3">Dirección 3</option>
+										</select>
+									</div>
+								</div>
+								<!-- Contacto Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearContactoCliente" class="col-md-3 form-label text-primary">Contacto</label>
+									<div class="col-md-9 ps-0">
+										<select class="form-select text-primary" id="crearContactoClientePresupuesto" name="cliente_contacto">
+											<option value="contacto1">Contacto 1</option>
+											<option value="contacto2">Contacto 2</option>
+											<option value="contacto3">Contacto 3</option>
 										</select>
 									</div>
 								</div>
@@ -327,20 +338,26 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<label for="editarClientePresupuesto" class="form-label text-primary">Cliente</label>
 						<select class="form-select text-primary" name="cliente_nombre" id="editarClientePresupuesto">
 							<option value="cliente1">Cliente 1</option>
+							<option value="cliente2">Cliente 2</option>
 						</select>
 					</div>
 
 					<div class="mb-3">
 						<label for="editarDireccionClientePresupuesto" class="form-label text-primary">Dirección Cliente</label>
-						<select class="form-select text-primary" name="direccion_cliente" id="editarDireccionClientePresupuesto">
+						<select class="form-select text-primary" name="cliente_direccion" id="editarDireccionClientePresupuesto">
 							<option value="direccion1">Dirección 1</option>
+							<option value="direccion2">Dirección 2</option>
+							<option value="direccion3">Dirección 3</option>
 						</select>
 					</div>
 
 					<div class="mb-3">
 						<label for="editarContactoClientePresupuesto" class="form-label text-primary">Contacto Cliente</label>
-						<input type="text" class="form-control text-primary" name="contacto_nombre"
-							id="editarContactoClientePresupuesto">
+						<select class="form-select text-primary" id="editarContactoClientePresupuesto" name="cliente_contacto">
+							<option value="contacto1">Contacto 1</option>
+							<option value="contacto2">Contacto 2</option>
+							<option value="contacto3">Contacto 3</option>
+						</select>
 					</div>
 
 					<div class="modal-footer d-flex justify-content-center p-2">
@@ -660,14 +677,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </main>
 </div>
 </div>
-
-<script>
-	window.addEventListener('DOMContentLoaded', function () {
-		const hoy = new Date().toISOString().split('T')[0];
-		document.getElementById('crearFechaPresupuesto').value = hoy;
-		document.getElementById('crearFechaVencimientoPresupuesto').value = hoy;
-	});
-</script>
 
 <?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 

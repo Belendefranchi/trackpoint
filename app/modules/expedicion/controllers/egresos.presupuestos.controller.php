@@ -24,6 +24,35 @@ $ultimoPresupuestoId = obtenerUltimoPresupuestoId();
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
+// Vista previa del presupuesto
+if (isset($_GET['previewPresupuesto'])) {
+
+	$presupuesto_id = $_GET['id'] ?? null;
+	
+	if (!$presupuesto_id) {
+		echo 'Presupuesto inválido';
+		exit;
+		}
+		
+	// 1. Volver a consultar a la base
+	$resumenPresupuesto = obtenerResumenPresupuestoPorId($presupuesto_id);
+	$mercaderias = obtenerDetallePresupuesto($presupuesto_id);
+
+	if (!$presupuesto_id) {
+		echo 'Presupuesto no encontrado';
+		exit;
+	}
+
+	// 2. Cargar vista
+
+/* 	if (isset($_GET['previewPresupuesto'])) {
+		die('ENTRO A PREVIEW');
+	} */
+
+	require __DIR__ . '/../views/egresos.presupuestos.plantilla.PC.view.php';
+	exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
@@ -84,8 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
 			'fecha_vencimiento' => $_POST['fecha_vencimiento'],
 			'cliente_nombre' => $_POST['cliente_nombre'],
-			'direccion_cliente' => $_POST['direccion_cliente'],
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'cliente_direccion' => $_POST['cliente_direccion'],
+			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
 			'operador_id' => $_SESSION['operador_id'],
 		];
 
@@ -122,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'fecha_presupuesto' => $_POST['fecha_presupuesto'],
 			'fecha_vencimiento' => ($_POST['fecha_vencimiento'] === '1900-01-01') ? null : $_POST['fecha_vencimiento'],
 			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
-			'direccion_cliente' => $_POST['direccion_cliente'] ?? null,
-			'contacto_nombre' => $_POST['contacto_nombre'] ?? '',
+			'cliente_direccion' => $_POST['cliente_direccion'] ?? null,
+			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
 		];
 
 		if (empty($datos['presupuesto_id'])) {
@@ -193,32 +222,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		header('Content-Type: application/json');
 
-		$presupuesto_id = $_POST['presupuesto_id'];
-
-		// Validar si hay mercaderías cargadas
-		if (empty($presupuesto_id)) {
+		if (empty($_POST['presupuesto_id'])) {
 			echo json_encode([
 				'success' => false,
-				'message' => 'Aún no se ingresaron mercaderías'
+				'message' => 'No se recibió el ID del presupuesto'
 			]);
 			exit;
 		}
 
+		$presupuesto_id = $_POST['presupuesto_id'];
+
 		try {
+
 			$result = generarPresupuesto($presupuesto_id);
 
 			if ($result['success']) {
-				registrarEvento("Presupuestos Controller: Presupuesto guardado correctamente => " . $resumen[0]['presupuesto_id'], "INFO");
-				echo json_encode(['success' => true, 'message' => $result['message']]);
+				registrarEvento("Presupuestos Controller: Presupuesto guardado correctamente => " . $presupuesto_id, "INFO");
+				echo json_encode([
+					'success' => true,
+					'message' => $result['message'],
+					'presupuesto_id' => $presupuesto_id
+				]);
 				exit;
 			} else {
-				registrarEvento("Presupuestos Controller: Error al guardar el presupuesto => " . $resumen[0]['presupuesto_id'], "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo guardar el presupuesto']);
+				registrarEvento("Presupuestos Controller: Error al guardar el presupuesto => " . $presupuesto_id, "ERROR");
+				echo json_encode([
+					'success' => false,
+					'message' => $result['message']
+				]);
 				exit;
 			}
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			echo json_encode([
+				'success' => false,
+				'message' => 'Error: ' . $e->getMessage()
+			]);
+			exit;
 		}
 
 	}

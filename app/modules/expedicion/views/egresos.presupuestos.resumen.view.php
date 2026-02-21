@@ -36,7 +36,7 @@
 													<td class="border text-primary text-center"><?php echo $filaResumen['fecha_vencimiento']; ?></td>
 													<td class="border text-primary text-center"><?php echo $filaResumen['cliente_nombre']; ?></td>
 													<td class="border text-primary text-center"><?php echo $filaResumen['direccion_cliente']; ?></td>
-													<td class="border text-primary text-center"><?php echo $filaResumen['contacto_nombre']; ?></td>
+													<td class="border text-primary text-center"><?php echo $filaResumen['contacto_cliente']; ?></td>
 													<td class="border text-primary text-center"><?php echo $filaResumen['cantidad']; ?></td>
 													<td class="border text-primary text-center"><?php echo $filaResumen['total']; ?></td>
 													<td class="border text-primary text-center">
@@ -51,7 +51,7 @@
 																data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
 																data-cliente="<?= htmlspecialchars($filaResumen['cliente_nombre']) ?>"
 																data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
-																data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																data-contactoc="<?= htmlspecialchars($filaResumen['contacto_cliente']) ?>">
 																<i class="bi bi-pencil me-2"></i>Editar
 															</a>
 															<a href="#" id="btnMostrarEliminarPresupuesto"
@@ -111,8 +111,8 @@
 														<div class="col"><?= $filaResumen['fecha_presupuesto'] ?></div>
 														<div class="col"><?= $filaResumen['fecha_vencimiento'] ?></div>
 														<div class="col"><?= $filaResumen['cliente_nombre'] ?></div>
-														<div class="col"><?= $filaResumen['direccion_cliente'] ?></div>
-														<div class="col"><?= $filaResumen['contacto_nombre'] ?></div>
+														<div class="col"><?= $filaResumen['cliente_direccion'] ?></div>
+														<div class="col"><?= $filaResumen['cliente_contacto'] ?></div>
 														<div class="col"><?= $filaResumen['cantidad'] ?></div>
 														<div class="col"><?= $filaResumen['total'] ?></div>
 
@@ -128,8 +128,8 @@
 																data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
 																data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
 																data-cliente="<?= htmlspecialchars($filaResumen['cliente_nombre']) ?>"
-																data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
-																data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																data-direccionc="<?= htmlspecialchars($filaResumen['cliente_direccion']) ?>"
+																data-contactoc="<?= htmlspecialchars($filaResumen['cliente_contacto']) ?>">
 																<i class="bi bi-pencil"></i>
 															</a>
 															<a href="#" id="btnMostrarEliminarPresupuesto"
@@ -143,15 +143,7 @@
 																class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5"
 																data-bs-toggle="modal"
 																data-bs-target="#modalGenerarPresupuesto"
-																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
-																data-empresa="<?= htmlspecialchars($filaResumen['empresa_nombre']) ?>"
-																data-sucursal="<?= htmlspecialchars($filaResumen['sucursal_nombre']) ?>"
-																data-rubro="<?= htmlspecialchars($filaResumen['rubro_nombre']) ?>"
-																data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
-																data-fechav="<?= htmlspecialchars($filaResumen['fecha_vencimiento']) ?>"
-																data-cliente="<?= htmlspecialchars($filaResumen['cliente_nombre']) ?>"
-																data-direccionc="<?= htmlspecialchars($filaResumen['direccion_cliente']) ?>"
-																data-contactoc="<?= htmlspecialchars($filaResumen['contacto_nombre']) ?>">
+																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-filetype-pdf"></i>
 															</a>
 														</div>

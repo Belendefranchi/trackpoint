@@ -16,6 +16,18 @@ document.addEventListener('show.bs.modal', function (event) {
 			// Limpia campos, errores, estados previos
 			document.querySelector('#formCrearPresupuesto').reset();
 			$('#mensaje-error-crear').addClass('d-none');
+			const hoy = new Date();
+
+			// fecha hoy
+			const fechaHoy = hoy.toISOString().split('T')[0];
+
+			// fecha vencimiento +10 días
+			const vencimiento = new Date(hoy);
+			vencimiento.setDate(vencimiento.getDate() + 10);
+			const fechaVencimiento = vencimiento.toISOString().split('T')[0];
+
+			modal.querySelector('#crearFechaPresupuesto').value = fechaHoy;
+			modal.querySelector('#crearFechaVencimientoPresupuesto').value = fechaVencimiento;
 
 			break;
 
@@ -53,6 +65,14 @@ document.addEventListener('show.bs.modal', function (event) {
 			if (!button) return;
 
 			document.querySelector('#generarPresupuestoId').value = button.getAttribute('data-id');
+			document.querySelector('#generarEmpresaPresupuesto').value = button.getAttribute('data-empresa');
+			document.querySelector('#generarSucursalPresupuesto').value = button.getAttribute('data-sucursal');
+			document.querySelector('#generarRubroPresupuesto').value = button.getAttribute('data-rubro');
+			document.querySelector('#generarFechaPresupuesto').value = button.getAttribute('data-fechap');
+			document.querySelector('#generarFechaVencimientoPresupuesto').value = button.getAttribute('data-fechav');
+			document.querySelector('#generarClientePresupuesto').value = button.getAttribute('data-cliente');
+			document.querySelector('#generarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
+			document.querySelector('#generarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
 			break;
 
 		/* -----------------------------------------

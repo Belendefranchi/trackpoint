@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function recargarDetalle(presupuesto_id) {
-	  console.count('recargarDetalle llamado');
+    console.count('recargarDetalle llamado');
 
     $.ajax({
       url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (btnConfirmarGenerar) {
     btnConfirmarGenerar.addEventListener('click', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
-      
+
       $.ajax({
         url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto',
         type: 'POST',
@@ -234,6 +234,12 @@ document.addEventListener('DOMContentLoaded', function () {
           // Esperar a que el modal se cierre para recargar
           const modalElement = document.getElementById('modalMensajePresupuesto');
           modalElement.addEventListener('hidden.bs.modal', function () {
+            window.open(
+              '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&previewPresupuesto&id=' + response.presupuesto_id,
+              '_blank'
+            );
+
+            // opcional: refrescar la pantalla actual
             location.reload();
           }, { once: true });
 
@@ -260,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (formEditarPresupuesto) {
     formEditarPresupuesto.addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       // Limpiar cualquier mensaje de error antes de hacer la solicitud
       $('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
 
@@ -313,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### ELIMINAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function (){
+  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
     modal.show();
   });
@@ -368,104 +374,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
-
-/*   function buscarMercaderiaPorCodigo(codigo) {
-    if (codigo.length >= 2) {
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
-        method: 'POST',
-        data: { 'codigo_mercaderia': codigo },
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-
-            console.log('Datos de la mercadería seleccionada - código:', {
-              id: response.mercaderia_id,
-              codigo: response.codigo_mercaderia,
-              descripcion: response.descripcion_mercaderia,
-            });
-
-            inputMercaderiaIdBusqueda.value = response.mercaderia_id;
-            inputCodigoBusqueda.value = response.codigo_mercaderia;
-            inputDescripcionBusqueda.value = response.descripcion_mercaderia;
-
-            mensajeBusqueda.classList.add('d-none');
-
-          } else {
-            inputMercaderiaIdBusqueda.value = '';
-            $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text(response.message);
-          }
-        },
-        error: function () {
-          inputMercaderiaIdBusqueda.value = '';
-          inputCodigoBusqueda.value = '';
-          inputDescripcionBusqueda.value = '';
-          $('#mensaje-busqueda').removeClass('d-none').find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
-        }
-      });
-    } else {
-      inputMercaderiaIdBusqueda.value = '';
-      mensajeBusqueda.classList.add('d-none');
-    }
-  } */
-
-/*   function buscarMercaderiaPorCodigo(codigo, opciones = {}) {
-
-    const {
-      inputId = inputMercaderiaIdBusqueda,
-      inputCodigo = inputCodigoBusqueda,
-      inputDescripcion = inputDescripcionBusqueda,
-      mensaje = mensajeBusqueda
-    } = opciones;
-
-    if (codigo.length >= 2) {
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
-        method: 'POST',
-        data: { codigo_mercaderia: codigo },
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-
-            console.log('Mercadería encontrada:', response);
-
-            inputId.value = response.mercaderia_id ?? '';
-            inputCodigo.value = response.codigo_mercaderia ?? '';
-            inputDescripcion.value = response.descripcion_mercaderia ?? '';
-
-            if (mensaje) {
-              mensaje.classList.add('d-none');
-            }
-
-          } else {
-            inputId.value = '';
-            if (mensaje) {
-              mensaje.classList.remove('d-none');
-              mensaje.querySelector('.mensaje-texto').textContent = response.message;
-            }
-          }
-        },
-        error: function () {
-          inputId.value = '';
-          inputCodigo.value = '';
-          inputDescripcion.value = '';
-          mensaje.classList.remove('d-none');
-          mensaje.querySelector('.mensaje-texto').textContent =
-            'Error de conexión al buscar la mercadería.';
-        }
-      });
-    } else {
-      inputId.value = '';
-      mensaje.classList.add('d-none');
-    }
-  } */
-
-/*   inputCodigoBusqueda.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      buscarMercaderiaPorCodigo(this.value.trim());
-    }
-  }); */
 
   function buscarMercaderiaPorCodigo(codigo) {
     return $.ajax({
@@ -573,18 +481,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-  
+
 
   /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
-/*   modalSeleccionar.addEventListener('show.bs.modal', function () {
-    if (!presupuestoSeleccionado) {
-      mensajeErrorSeleccionar.classList.remove('d-none');
-      mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
-        'Debe seleccionar un presupuesto primero.';
-    }
-  }); */
-
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
   if (modalSeleccionar) {
@@ -683,61 +583,61 @@ document.addEventListener('DOMContentLoaded', function () {
   var modalEditarMercaderia = document.getElementById('modalEditarMercaderia');
   if (modalEditarMercaderia) {
 
-      const itemId = document.querySelector('#editarItemId').value;
-      var codigoSelect = document.getElementById('editarCodigoMercaderia');
-      var descripcionInput = document.getElementById('editarDescripcionMercaderiaContenedor');
+    const itemId = document.querySelector('#editarItemId').value;
+    var codigoSelect = document.getElementById('editarCodigoMercaderia');
+    var descripcionInput = document.getElementById('editarDescripcionMercaderiaContenedor');
 
-      if (codigoSelect && descripcionInput) {
-      
-        codigoSelect.addEventListener('change', function () {
-          const codigo = this.value;
+    if (codigoSelect && descripcionInput) {
 
-          if (!codigo) {
-            descripcionInput.value = '';
-            return;
-          }
+      codigoSelect.addEventListener('change', function () {
+        const codigo = this.value;
 
-          buscarMercaderiaPorCodigo(codigo)
-            .done(function (response) {
-              let $descripcion = $(descripcionInput);
-              $descripcion.empty();
-              if (response.success) {
-                // Cargo la opción por defecto
-                  $descripcion.append($('<input>', {
-                    type: 'text',
-                    class: 'form-control text-primary',
-                    name: 'descripcion_mercaderia',
-                    id: 'editarDescripcionMercaderia',
-                    value: response.descripcion_mercaderia
-                  }));
-              } else {
-                descripcionInput.value = '';
-              }
-            })
-            .fail(function () {
+        if (!codigo) {
+          descripcionInput.value = '';
+          return;
+        }
+
+        buscarMercaderiaPorCodigo(codigo)
+          .done(function (response) {
+            let $descripcion = $(descripcionInput);
+            $descripcion.empty();
+            if (response.success) {
+              // Cargo la opción por defecto
+              $descripcion.append($('<input>', {
+                type: 'text',
+                class: 'form-control text-primary',
+                name: 'descripcion_mercaderia',
+                id: 'editarDescripcionMercaderia',
+                value: response.descripcion_mercaderia
+              }));
+            } else {
               descripcionInput.value = '';
-              console.error('Error al buscar la mercadería');
-            });
-        });
-      }
+            }
+          })
+          .fail(function () {
+            descripcionInput.value = '';
+            console.error('Error al buscar la mercadería');
+          });
+      });
+    }
   }
 
   document.addEventListener('click', function (e) {
 
-	const btnEditar = e.target.closest('.btn-editar-mercaderia');
-	if (!btnEditar) return;
+    const btnEditar = e.target.closest('.btn-editar-mercaderia');
+    if (!btnEditar) return;
 
-	console.count('click editar mercaderia');
+    console.count('click editar mercaderia');
 
-	const modal = document.getElementById('modalEditarMercaderia');
+    const modal = document.getElementById('modalEditarMercaderia');
 
-	modal.querySelector('[name="item_id"]').value = btnEditar.dataset.id;
-	modal.querySelector('[name="codigo_mercaderia"]').value = btnEditar.dataset.codigom;
-	modal.querySelector('[name="descripcion_mercaderia"]').value = btnEditar.dataset.descripcionm;
-	modal.querySelector('[name="cantidad"]').value = btnEditar.dataset.cantidad;
-	modal.querySelector('[name="precio_venta"]').value = btnEditar.dataset.preciov;
+    modal.querySelector('[name="item_id"]').value = btnEditar.dataset.id;
+    modal.querySelector('[name="codigo_mercaderia"]').value = btnEditar.dataset.codigom;
+    modal.querySelector('[name="descripcion_mercaderia"]').value = btnEditar.dataset.descripcionm;
+    modal.querySelector('[name="cantidad"]').value = btnEditar.dataset.cantidad;
+    modal.querySelector('[name="precio_venta"]').value = btnEditar.dataset.preciov;
 
-});
+  });
 
   // Interceptar el envío del formulario con AJAX
   const formEditar = document.querySelector('#formEditarMercaderia');
@@ -767,7 +667,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             /* const tabla = $('#miTablaDetalle').DataTable(); */
 
-          recargarDetalle(presupuesto_id);
+            recargarDetalle(presupuesto_id);
 
           } else {
             console.log('Error al modificar la mercadería:', response.message);
