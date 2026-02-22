@@ -63,7 +63,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
 									<td class="border text-primary text-between">
 										<dl class="row">
-											<dt class="col-sm-3">$</dt><dd class="col-sm-9"><?= number_format($mercaderia['precio_compra'], 2, ',', '.') ?></dd>
+											<dt class="col-sm-3">$</dt>
+											<dd class="col-sm-9"><?= number_format($mercaderia['precio_compra'], 2, ',', '.') ?></dd>
 										</dl>
 									</td>
 									<td class="border text-primary text-between">
@@ -72,7 +73,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<dd class="col-sm-9"><?= number_format($mercaderia['precio_venta'], 2, ',', '.') ?></dd>
 										</dl>
 									</td>
-
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
@@ -218,31 +218,31 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="crearCantidadPropuestaMercaderia" class="form-label text-primary">Cantidad Propuesta</label>
-														<input type="number" class="form-control" name="cantidad_propuesta" id="crearCantidadPropuestaMercaderia">
+														<input type="number" step="1" class="form-control" name="cantidad_propuesta" id="crearCantidadPropuestaMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="crearPesoPropuestoMercaderia" class="form-label text-primary">Peso Propuesto</label>
-														<input type="number" class="form-control" name="peso_propuesto" id="crearPesoPropuestoMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_propuesto" id="crearPesoPropuestoMercaderia">
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="crearPesoMinMercaderia" class="form-label text-primary">Peso Mínimo</label>
-														<input type="number" class="form-control" name="peso_min" id="crearPesoMinMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_min" id="crearPesoMinMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="crearPesoMaxMercaderia" class="form-label text-primary">Peso Máximo</label>
-														<input type="number" class="form-control" name="peso_max" id="crearPesoMaxMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_max" id="crearPesoMaxMercaderia">
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="crearPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
-														<input type="number" class="form-control" name="precio_compra" id="crearPrecioCompraMercaderia">
+														<input type="number" step="0.01" class="form-control" name="precio_compra" id="crearPrecioCompraMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="crearPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
-														<input type="number" class="form-control" name="precio_venta" id="crearPrecioVentaMercaderia">
+														<input type="number" step="0.01" class="form-control" name="precio_venta" id="crearPrecioVentaMercaderia">
 													</div>
 												</div>
 											</div>
@@ -367,31 +367,31 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="editarCantidadPropuestaMercaderia" class="form-label text-primary">Cantidad Propuesta</label>
-														<input type="number" class="form-control" name="cantidad_propuesta" id="editarCantidadPropuestaMercaderia">
+														<input type="number" step="1" class="form-control" name="cantidad_propuesta" id="editarCantidadPropuestaMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="editarPesoPropuestoMercaderia" class="form-label text-primary">Peso Propuesto</label>
-														<input type="number" class="form-control" name="peso_propuesto" id="editarPesoPropuestoMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_propuesto" id="editarPesoPropuestoMercaderia">
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center pt-2">
 													<div class="col-md-6">
 														<label for="editarPesoMinMercaderia" class="form-label text-primary">Peso Mínimo</label>
-														<input type="number" class="form-control" name="peso_min" id="editarPesoMinMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_min" id="editarPesoMinMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="editarPesoMaxMercaderia" class="form-label text-primary">Peso Máximo</label>
-														<input type="number" class="form-control" name="peso_max" id="editarPesoMaxMercaderia">
+														<input type="number" step="0.01" class="form-control" name="peso_max" id="editarPesoMaxMercaderia">
 													</div>
 												</div>
 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="editarPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
-														<input type="number" class="form-control" name="precio_compra" id="editarPrecioCompraMercaderia">
+														<input type="number" step="0.01" class="form-control" name="precio_compra" id="editarPrecioCompraMercaderia">
 													</div>
 													<div class="col-md-6">
 														<label for="editarPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
-														<input type="number" class="form-control" name="precio_venta" id="editarPrecioVentaMercaderia">
+														<input type="number" step="0.01" class="form-control" name="precio_venta" id="editarPrecioVentaMercaderia">
 													</div>
 												</div>
 											</div>
