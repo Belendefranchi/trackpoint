@@ -114,8 +114,12 @@
 														<div class="col"><?= $filaResumen['cliente_direccion'] ?></div>
 														<div class="col"><?= $filaResumen['cliente_contacto'] ?></div>
 														<div class="col"><?= $filaResumen['cantidad'] ?></div>
-														<div class="col"><?= $filaResumen['total'] ?></div>
-
+														<div class="col">
+															<dl class="row d-flex align-items-center mb-0">
+																<dt class="col-sm-3 mb-0">$</dt>
+																<dd class="col-sm-9 mb-0"><?= $filaResumen['total'] ?></dd>
+															</dl>
+														</div>
 														<!-- Acciones -->
 														<div class="col d-flex flex-nowrap justify-content-center">
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap rounded-5"

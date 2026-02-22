@@ -28,19 +28,32 @@
 			<div class="card tabla-card mb-2 shadow-sm rounded-4 fila-detalle" id="fila-detalle-<?= (int)$filaDetalle['item_id']; ?>" data-item-id="<?= (int)$filaDetalle['item_id']; ?>">
 				<div class="card-body py-2">
 					<div class="row text-primary align-items-center">
-
 						<div class="col text-center"><?= $filaDetalle['presupuesto_id']; ?></div>
 						<div class="col"><?= $filaDetalle['codigo_mercaderia']; ?></div>
 						<div class="col-4"><?= $filaDetalle['descripcion_mercaderia']; ?></div>
 						<div class="col-1"><?= $filaDetalle['cantidad']; ?></div>
-						<div class="col-1">$ <?= $filaDetalle['precio_costo']; ?></div>
-						<div class="col-1">$ <?= $filaDetalle['precio_venta']; ?></div>
-						<div class="col">$ <?= $filaDetalle['subtotal']; ?></div>
+						<div class="col-1">
+							<dl class="row d-flex align-items-center mb-0">
+								<dt class="col-sm-3 mb-0">$</dt>	
+								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_costo']; ?></dd>
+							</dl>
+						</div>
+						<div class="col-1">
+							<dl class="row d-flex align-items-center mb-0">
+								<dt class="col-sm-3 mb-0">$</dt>	
+								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_venta']; ?></dd>
+							</dl>
+						</div>
+						<div class="col">
+							<dl class="row d-flex align-items-center mb-0">
+								<dt class="col-sm-3 mb-0">$</dt>	
+								<dd class="col-sm-9 mb-0"><?= $filaDetalle['subtotal']; ?></dd>
+							</dl>
+						</div>
 
 						<!-- ACCIONES -->
 						<div class="col-1 text-center">
 							<div class="d-flex justify-content-center">
-
 								<button
 									type="button"
 									class="btn btn-sm btn-warning mx-1 d-flex rounded-5 btn-editar-mercaderia"

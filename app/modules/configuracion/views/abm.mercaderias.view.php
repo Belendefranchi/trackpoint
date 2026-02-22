@@ -61,16 +61,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_propuesto']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_min']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['peso_max']) ?></td>
-									<td class="border text-primary text-between">
-										<dl class="row">
-											<dt class="col-sm-3">$</dt>
-											<dd class="col-sm-9"><?= number_format($mercaderia['precio_compra'], 2, ',', '.') ?></dd>
+									<td class="border text-primary">
+										<dl class="row d-flex align-items-center mb-0">
+											<dt class="col-sm-3 mb-0">$</dt>
+											<dd class="col-sm-9 mb-0"><?= number_format($mercaderia['precio_compra'], 2, ',', '.') ?></dd>
 										</dl>
 									</td>
-									<td class="border text-primary text-between">
-										<dl class="row">
-											<dt class="col-sm-3">$</dt>
-											<dd class="col-sm-9"><?= number_format($mercaderia['precio_venta'], 2, ',', '.') ?></dd>
+									<td class="border text-primary">
+										<dl class="row d-flex align-items-center mb-0">
+											<dt class="col-sm-3 mb-0">$</dt>
+											<dd class="col-sm-9 mb-0"><?= number_format($mercaderia['precio_venta'], 2, ',', '.') ?></dd>
 										</dl>
 									</td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
