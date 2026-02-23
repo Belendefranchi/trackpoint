@@ -1,4 +1,10 @@
-<?php $detalle = $_SESSION['detalle_presupuesto'] ?? []; ?>
+<?php 
+$detalle = $_SESSION['detalle_presupuesto'] ?? [];
+/* echo '<pre>';
+print_r($_SESSION);
+echo '</pre>'; */
+
+?>
 
 <?php if (empty($detalle)): ?>
 
@@ -35,7 +41,7 @@
 						<div class="col-1">
 							<dl class="row d-flex align-items-center mb-0">
 								<dt class="col-sm-3 mb-0">$</dt>	
-								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_costo']; ?></dd>
+								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_compra']; ?></dd>
 							</dl>
 						</div>
 						<div class="col-1">
@@ -63,6 +69,7 @@
 									data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
 									data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
 									data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
+									data-precioc="<?= htmlspecialchars($filaDetalle['precio_compra']) ?>"
 									data-preciov="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>"
 								>
 									<i class="bi bi-pencil"></i>

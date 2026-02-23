@@ -269,6 +269,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
 		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
+		$precio_compra_mercaderia = $_POST['precio_compra_mercaderia'] ?? '';
+		$precio_venta_mercaderia = $_POST['precio_venta_mercaderia'] ?? '';
 		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
 
 		if (empty($mercaderia_id)) {
@@ -279,7 +281,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'success' => true,
 				'mercaderia_id' => $mercaderia_id,
 				'codigo_mercaderia' => $codigo_mercaderia,
-				'descripcion_mercaderia' => $descripcion_mercaderia
+				'descripcion_mercaderia' => $descripcion_mercaderia,
+				'precio_compra_mercaderia' => $precio_compra_mercaderia,
+				'precio_venta_mercaderia' => $precio_venta_mercaderia
 			]);
 			exit;
 		}
@@ -304,7 +308,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						'success' => true,
 						'mercaderia_id' => $mercaderia['mercaderia_id'],
 						'codigo_mercaderia' => $mercaderia['codigo'],
-						'descripcion_mercaderia' => $mercaderia['descripcion']
+						'descripcion_mercaderia' => $mercaderia['descripcion'],
+						'precio_compra_mercaderia' => $mercaderia['precio_compra'],
+						'precio_venta_mercaderia' => $mercaderia['precio_venta']
 					]);
 					exit;
 				} else {
@@ -328,12 +334,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad' => round((float) $_POST['cantidad']),
-			'precio_venta' => round((float) $_POST['precio_venta'], 2),
+			'precio_compra_mercaderia' => round((float) $_POST['precio_compra_mercaderia'], 2),
+			'precio_venta_mercaderia' => round((float) $_POST['precio_venta_mercaderia'], 2),
 			'operador_id' => $_SESSION['operador_id'],
 		];
 
 		// Validar datos obligatorios
-		if (empty($datos['codigo_mercaderia']) || empty($datos['cantidad']) || empty($datos['precio_venta'])) {
+		if (empty($datos['codigo_mercaderia']) || empty($datos['cantidad']) || empty($datos['precio_venta_mercaderia'])) {
 			echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios']);
 			exit;
 		}
@@ -452,7 +459,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			if ($result) {
 				registrarEvento("Presupuestos Controller: Ítem eliminado correctamente", "INFO");
-				echo json_encode(['success' => true]);
+				echo json_encode(['success' => true, 'message' => "item_id: $item_id"]);
 				exit;
 			} else {
 				// Respuesta de error

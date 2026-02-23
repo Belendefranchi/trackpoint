@@ -72,12 +72,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<div class="row d-flex align-items-center justify-content-center">
 								<label for="precio_venta" class="col-md-5 p-0 col-form-label text-primary text-center">Precio Venta</label>
 								<div class="col-md-7">
-									<input type="number" step="1" min="1" class="form-control form-control text-end fw-bold text-primary"
-										name="precio_venta" id="precio_venta" value="1">
+									<input type="number" step="0.01" min="1" class="form-control form-control text-end fw-bold text-primary"
+										name="precio_venta" id="precio_venta_mercaderia" value="<?php echo $mercaderiaSeleccionada['precio_venta_mercaderia'] ?? 1; ?>">
 								</div>
 							</div>
 						</div>
 						<input type="hidden" name="presupuesto_id" id="presupuesto_id">
+						<input type="hidden" name="precio_compra_mercaderia" id="precio_compra_mercaderia" value="<?php echo $mercaderiaSeleccionada['precio_compra_mercaderia'] ?? 1; ?>">
 						<!-- Botón Agregar -->
 						<div class="col-md-2 d-flex justify-content-end">
 							<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
@@ -503,6 +504,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-center">ID</td>
 									<td class="border">Código</td>
 									<td class="border">Descripción</td>
+									<td class="border">Precio Compra</td>
+									<td class="border">Precio Venta</td>
 									<td class="border"><i class="bi-check-circle me-2"></i></td>
 								</tr>
 							</thead>
@@ -517,11 +520,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
 											<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
 											<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+											<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_compra']) ?></td>
+											<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_venta']) ?></td>
 											<td class="border text-primary">
 												<input type="radio" name="seleccion_mercaderia" class="form-check-input seleccionar-mercaderia"
 													data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
 													data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
-													data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>">
+													data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
+													data-preciocompram="<?= htmlspecialchars($mercaderia['precio_compra']) ?>"
+													data-precioventam="<?= htmlspecialchars($mercaderia['precio_venta']) ?>">
 											</td>
 										</tr>
 									<?php endforeach; ?>
@@ -534,6 +541,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 					<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
 					<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
+					<input type="hidden" name="precio_compra_mercaderia" id="input-precio-compra-mercaderia">
+					<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia">
 				</div>
 				<div class="modal-footer d-flex justify-content-center p-2">
 					<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal"><i

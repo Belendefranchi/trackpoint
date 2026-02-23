@@ -373,6 +373,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputMercaderiaIdBusqueda = document.getElementById('mercaderia_id');
   const inputCodigoBusqueda = document.getElementById('codigo_mercaderia');
   const inputDescripcionBusqueda = document.getElementById('descripcion_mercaderia');
+  const inputPrecioCompraBusqueda = document.getElementById('precio_compra_mercaderia');
+  const inputPrecioVentaBusqueda = document.getElementById('precio_venta_mercaderia');
   const mensajeBusqueda = document.getElementById('mensaje-busqueda');
 
   function buscarMercaderiaPorCodigo(codigo) {
@@ -395,6 +397,8 @@ document.addEventListener('DOMContentLoaded', function () {
           inputMercaderiaIdBusqueda.value = response.mercaderia_id;
           inputCodigoBusqueda.value = response.codigo_mercaderia;
           inputDescripcionBusqueda.value = response.descripcion_mercaderia;
+          inputPrecioCompraBusqueda.value = response.precio_compra_mercaderia;
+          inputPrecioVentaBusqueda.value = response.precio_venta_mercaderia;
           mensajeBusqueda.classList.add('d-none');
         } else {
           inputMercaderiaIdBusqueda.value = '';
@@ -406,6 +410,8 @@ document.addEventListener('DOMContentLoaded', function () {
         inputMercaderiaIdBusqueda.value = '';
         inputCodigoBusqueda.value = '';
         inputDescripcionBusqueda.value = '';
+        inputPrecioCompraBusqueda.value = '';
+        inputPrecioVentaBusqueda.value = '';
         $('#mensaje-busqueda').removeClass('d-none')
           .find('.mensaje-texto').text('Error de conexión al buscar la mercadería.');
       });
@@ -436,7 +442,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
       const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
       const cantidad = document.getElementById('cantidad').value;
-      const precioVenta = document.getElementById('precio_venta').value;
+      const precioCompra = document.getElementById('precio_compra_mercaderia').value;
+      const precioVenta = document.getElementById('precio_venta_mercaderia').value;
 
       const formData = new FormData();
 
@@ -444,7 +451,8 @@ document.addEventListener('DOMContentLoaded', function () {
       formData.append('codigo_mercaderia', codigoMercaderia);
       formData.append('descripcion_mercaderia', descripcionMercaderia);
       formData.append('cantidad', cantidad);
-      formData.append('precio_venta', precioVenta);
+      formData.append('precio_compra_mercaderia', precioCompra);
+      formData.append('precio_venta_mercaderia', precioVenta);
 
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
@@ -500,11 +508,16 @@ document.addEventListener('DOMContentLoaded', function () {
       modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
       modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
       modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
+      modalSeleccionar.querySelector('#input-precio-compra-mercaderia').value = '';
+      modalSeleccionar.querySelector('#input-precio-venta-mercaderia').value = '';
+
     });
 
     const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
     const inputCodigoModal = document.getElementById('codigo_mercaderia');
     const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
+    const inputPrecioCompraModal = document.getElementById('precio_compra_mercaderia');
+    const inputPrecioVentaModal = document.getElementById('precio_venta_mercaderia');
 
 
     // Enviar formulario con AJAX para seleccionar mercadería
@@ -521,6 +534,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid || '';
         const codigo = radioSeleccionado?.dataset.codigom || '';
         const descripcion = radioSeleccionado?.dataset.descripcionm || '';
+        const precioCompra = radioSeleccionado?.dataset.preciocompram || '1';
+        const precioVenta = radioSeleccionado?.dataset.precioventam || '1';
 
         // Validar que se haya seleccionado una mercadería
         if (!mercaderiaId) {
@@ -536,6 +551,8 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('mercaderia_id', mercaderiaId);
         formData.append('codigo_mercaderia', codigo);
         formData.append('descripcion_mercaderia', descripcion);
+        formData.append('precio_compra_mercaderia', precioCompra);
+        formData.append('precio_venta_mercaderia', precioVenta);
 
 
         // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
@@ -553,12 +570,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 id: response.mercaderia_id,
                 codigo: response.codigo_mercaderia,
                 descripcion: response.descripcion_mercaderia,
+                precio_compra: response.precio_compra_mercaderia,
+                precio_venta: response.precio_venta_mercaderia
               });
 
-              // Actualizar los inputs del modal con los datos de la mercadería seleccionada
+              // Actualizar los inputs del form con los datos de la mercadería seleccionada
               inputMercaderiaIdModal.value = response.mercaderia_id;
               inputCodigoModal.value = response.codigo_mercaderia;
               inputDescripcionModal.value = response.descripcion_mercaderia;
+              inputPrecioCompraModal.value = response.precio_compra_mercaderia;
+              inputPrecioVentaModal.value = response.precio_venta_mercaderia;
 
               // Cerrar el modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));

@@ -183,7 +183,7 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
     peso_bruto DECIMAL(10,2) NULL,
     tara_pri DECIMAL(10,2) NULL,
     tara_sec DECIMAL(10,2) NULL,
-    precio_costo DECIMAL(10,2) NULL,
+    precio_compra DECIMAL(10,2) NULL,
     iva_tasa DECIMAL(5,2) NULL,
 
     -- Datos de auditoría
@@ -384,7 +384,7 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
     descripcion_mercaderia VARCHAR(255) NULL,
     cantidad INT NOT NULL,
     codigo_externo VARCHAR(50) NULL,
-    precio_costo DECIMAL(10,2) NULL,
+    precio_compra DECIMAL(10,2) NULL,
     precio_venta DECIMAL(10,2) NULL,
     iva_tasa DECIMAL(5,2) NULL,
     descuento_porcentaje DECIMAL(5,2) NULL,

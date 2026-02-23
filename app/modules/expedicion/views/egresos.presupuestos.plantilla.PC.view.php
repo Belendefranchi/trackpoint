@@ -15,7 +15,7 @@
 	<header>
 		<table>
 			<tr>
-				<td style="width: 100%; height: 3mm; background-color: #51AEE5; border: 0cm"></td>
+				<td></td>
 			</tr>
 		</table>
 	</header>
@@ -97,7 +97,7 @@
 			</table>
 
 			<!-- DETALLE -->
-			<div>
+			<div class="tabla-detalle">
 
 				<table style="font-size:12px; border-collapse: collapse;" class="tabla-detalle">
 					<thead>
@@ -123,13 +123,13 @@
 				</table>
 			</div>
 
-			<div>
+			<div class="tabla-totales">
 				<table>
 					<tr>
 						<td>
 							
 						</td>
-						<td style="width: 45%; padding-bottom: 0;">
+						<td style="width: 45%; padding-bottom: 0; padding-top: 0;">
 							<div class="bloque-totales">
 								<table style="width: 100%; font-size:12px;">
 									<tr style="color: #737373;">
@@ -239,9 +239,9 @@
 	</main>
 
 	<footer>
-		<table style="width:100%; height:100%;">
+		<table>
 			<tr>
-				<td style="width: 100%; height: 3mm; background-color: #51AEE5; border: 0cm"></td>
+				<td></td>
 			</tr>
 		</table>
 	</footer>

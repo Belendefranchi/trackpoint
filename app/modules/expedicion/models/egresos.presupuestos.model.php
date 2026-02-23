@@ -129,7 +129,7 @@ function obtenerDetallePresupuesto($presupuesto_id){
 								descripcion_mercaderia,
 								codigo_externo,
 								cantidad,
-								precio_costo,
+								precio_compra,
 								precio_venta,
 								iva_tasa,
 								descuento_porcentaje,
@@ -359,6 +359,7 @@ function agregarMercaderia($datos){
 										descripcion_mercaderia,
 										cantidad,
 										/* codigo_externo, */
+										precio_compra,
 										precio_venta,
 										/* iva_tasa, */
 										/* descuento_porcentaje, */
@@ -371,6 +372,7 @@ function agregarMercaderia($datos){
 										:descripcion_mercaderia,
 										:cantidad,
 										/* :codigo_externo, */
+										:precio_compra,
 										:precio_venta,
 										/* :iva_tasa, */
 										/* :descuento_porcentaje, */
@@ -384,7 +386,8 @@ function agregarMercaderia($datos){
 		$stmt->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindValue(':cantidad', $datos['cantidad']);
 		/* $stmt->bindValue(':codigo_externo', $datos['codigo_externo']); */
-		$stmt->bindValue(':precio_venta', $datos['precio_venta']);
+		$stmt->bindValue(':precio_compra', $datos['precio_compra_mercaderia']);
+		$stmt->bindValue(':precio_venta', $datos['precio_venta_mercaderia']);
 		/* $stmt->bindValue(':iva_tasa', $datos['iva_tasa']); */
 		/* $stmt->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$stmt->bindValue(':operador_id', $datos['operador_id']);
@@ -413,6 +416,7 @@ function editarMercaderiaPresupuesto($datos){
 															codigo_mercaderia = :codigo_mercaderia,
 															descripcion_mercaderia = :descripcion_mercaderia,
 															cantidad = :cantidad,
+															precio_compra = :precio_compra,
 															precio_venta = :precio_venta
 															/* iva_tasa = :iva_tasa,
 															descuento_porcentaje = :descuento_porcentaje, */
@@ -423,7 +427,8 @@ function editarMercaderiaPresupuesto($datos){
 		$stmt->bindParam(':codigo_mercaderia', $datos['codigo_mercaderia']);
 		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindParam(':cantidad', $datos['cantidad']);
-		$stmt->bindParam(':precio_venta', $datos['precio_venta']);
+		$stmt->bindParam(':precio_compra', $datos['precio_compra_mercaderia']);
+		$stmt->bindParam(':precio_venta', $datos['precio_venta_mercaderia']);
 		/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
 			$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
 		$result = $stmt->execute();
