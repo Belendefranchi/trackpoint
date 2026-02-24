@@ -21,7 +21,7 @@ echo '</pre>'; */
 			<div class="col-1">Cantidad</div>
 			<div class="col-1">Precio Compra</div>
 			<div class="col-1">Precio Venta</div>
-			<div class="col-1">Ganancia</div>
+			<div class="col-1">Margen</div>
 			<div class="col">Subtotal</div>
 			<div class="col-1 text-center">Acciones</div>
 		</div>
@@ -104,8 +104,16 @@ echo '</pre>'; */
 
 <?php endif; ?>
 <div class="d-flex justify-content-end">
-	<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal"
+<!-- 	<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal"
 	id="btnMostrarConfirmacion">
 		<i class="bi bi-check-circle pt-1 me-2"></i>Generar
-	</button>
+	</button> -->
+
+	<a href="#" id="btnMostrarGenerarPresupuesto"
+	class="btn btn-sm btn-success mx-1 my-3"
+	data-bs-toggle="modal"
+	data-bs-target="#modalGenerarPresupuesto"
+	data-id="<?= htmlspecialchars($filaDetalle['presupuesto_id']) ?>">
+	<i class="bi bi-check-circle pt-1 me-2"></i>Generar
+</a>
 </div>
