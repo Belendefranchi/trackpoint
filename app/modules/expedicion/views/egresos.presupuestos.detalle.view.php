@@ -21,6 +21,7 @@ echo '</pre>'; */
 			<div class="col-1">Cantidad</div>
 			<div class="col-1">Precio Compra</div>
 			<div class="col-1">Precio Venta</div>
+			<div class="col-1">Ganancia</div>
 			<div class="col">Subtotal</div>
 			<div class="col-1 text-center">Acciones</div>
 		</div>
@@ -48,6 +49,12 @@ echo '</pre>'; */
 							<dl class="row d-flex align-items-center mb-0">
 								<dt class="col-sm-3 mb-0">$</dt>	
 								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_venta']; ?></dd>
+							</dl>
+						</div>
+						<div class="col">
+							<dl class="row d-flex align-items-center mb-0">
+								<dt class="col-sm-3 mb-0">$</dt>	
+								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_venta'] - $filaDetalle['precio_compra']; ?></dd>
 							</dl>
 						</div>
 						<div class="col">
