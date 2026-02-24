@@ -375,7 +375,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad' => $_POST['cantidad'],
-			'precio_venta' => $_POST['precio_venta'],
+			'precio_compra_mercaderia' => $_POST['precio_compra_mercaderia'],
+			'precio_venta_mercaderia' => $_POST['precio_venta_mercaderia'],
 		];
 
 		if (empty($datos['item_id'])) {

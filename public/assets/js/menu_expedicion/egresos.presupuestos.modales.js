@@ -656,7 +656,8 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.querySelector('[name="codigo_mercaderia"]').value = btnEditar.dataset.codigom;
     modal.querySelector('[name="descripcion_mercaderia"]').value = btnEditar.dataset.descripcionm;
     modal.querySelector('[name="cantidad"]').value = btnEditar.dataset.cantidad;
-    modal.querySelector('[name="precio_venta"]').value = btnEditar.dataset.preciov;
+    modal.querySelector('[name="precio_compra_mercaderia"]').value = btnEditar.dataset.preciocompram;
+    modal.querySelector('[name="precio_venta_mercaderia"]').value = btnEditar.dataset.precioventam;
 
   });
 

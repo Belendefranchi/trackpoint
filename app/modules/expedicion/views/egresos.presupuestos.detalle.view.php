@@ -69,8 +69,8 @@ echo '</pre>'; */
 									data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
 									data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
 									data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
-									data-precioc="<?= htmlspecialchars($filaDetalle['precio_compra']) ?>"
-									data-preciov="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>"
+									data-preciocompram="<?= htmlspecialchars($filaDetalle['precio_compra']) ?>"
+									data-precioventam="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>"
 								>
 									<i class="bi bi-pencil"></i>
 								</button>

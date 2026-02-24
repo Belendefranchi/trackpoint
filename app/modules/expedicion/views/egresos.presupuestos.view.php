@@ -606,10 +606,15 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<label for="editarCantidadMercaderia" class="form-label text-primary">Cantidad</label>
 						<input type="number" class="form-control text-primary" name="cantidad" id="editarCantidadMercaderia">
 					</div>
+					
+					<div class="mb-3">
+						<label for="editarPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
+						<input type="number" step="0.01" class="form-control text-primary" name="precio_compra_mercaderia" id="editarPrecioCompraMercaderia">
+					</div>
 
 					<div class="mb-3">
-						<label for="editarPrecioMercaderia" class="form-label text-primary">Precio Venta</label>
-						<input type="number" class="form-control text-primary" name="precio_venta" id="editarPrecioMercaderia">
+						<label for="editarPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
+						<input type="number" step="0.01" class="form-control text-primary" name="precio_venta_mercaderia" id="editarPrecioVentaMercaderia">
 					</div>
 
 					<div class="modal-footer d-flex justify-content-center p-2">
