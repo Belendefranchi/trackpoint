@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 		</a>
 	</div>
 	<div class="d-flex justify-content-end align-items-center">
-		<a href="/trackpoint/public/index.php?route=/expedicion/egresos/verPresupuesto" class="btn btn-sm btn-primary">
+		<a href="/trackpoint/public/index.php?route=/ventas/egresos/verPresupuesto" class="btn btn-sm btn-primary">
 			<i class="bi-plus-circle me-2"></i>Ver Presupuesto
 		</a>
 	</div>
@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 		<!-- FORM AGREGAR -->
 		<form method="POST" id="formAgregarMercaderia"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&agregarMercaderia">
 			<!-- Selección de productos o servicios -->
 			<div class="card mb-3">
 				<div class="card-header bg-light text-primary">
@@ -96,7 +96,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 		<!-- FORM GENERAR -->
 		<form method="POST" id="formGenerarPresupuesto"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&generarPresupuesto">
 			<div class="card mb-3">
 				<div class="card-header bg-light d-flex align-items-center">
 					<div class="">
@@ -148,7 +148,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formCrearPresupuesto"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crearPresupuesto">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&crearPresupuesto">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalCrearPresupuestoLabel">Crear nuevo presupuesto</h5>
@@ -282,7 +282,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEditarPresupuesto"
-			action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&editarPresupuesto">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarPresupuesto">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalEditarPresupuestoLabel">Editar presupuesto</h5>
@@ -378,7 +378,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEliminarPresupuesto"
-			action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&eliminarPresupuesto">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&eliminarPresupuesto">
 			<div class="modal-content shadow">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalEliminarPresupuestoLabel">Eliminar presupuesto</h5>
@@ -429,7 +429,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formGenerarPresupuesto"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&generarPresupuesto">
 			<div class="modal-content shadow">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalGenerarPresupuestoLabel">Generar presupuesto</h5>
@@ -481,7 +481,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formSeleccionarMercaderia"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
@@ -561,7 +561,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEditarMercaderia"
-			action="/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarMercaderia">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarMercaderia">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalEditarMercaderiaLabel">Editar mercadería</h5>
@@ -634,7 +634,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEliminarMercaderia"
-			action="/trackpoint/public/index.php?route=/expedicio/egresos/presupuestos&eliminarMercaderia">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&eliminarMercaderia">
 			<div class="modal-content shadow">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalEliminarMercaderiaLabel">Eliminar mercadería</h5>
@@ -694,11 +694,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 <?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
-<!-- <script src="/trackpoint/public/assets/js/datatables.js"></script> -->
-<script src="/trackpoint/public/assets/js/menu_expedicion/menu.expedicion.js"></script>
-<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.js"></script>
-<script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.apertura.js"></script>
-<!-- <script src="/trackpoint/public/assets/js/menu_expedicion/egresos.presupuestos.modales.eliminacion.js"></script> -->
+<script src="/trackpoint/public/assets/js/menu_ventas/egresos.presupuestos.modales.js"></script>
+<script src="/trackpoint/public/assets/js/menu_ventas/egresos.presupuestos.modales.apertura.js"></script>
+<!-- <script src="/trackpoint/public/assets/js/menu_ventas/egresos.presupuestos.modales.eliminacion.js"></script> -->
 
 
 

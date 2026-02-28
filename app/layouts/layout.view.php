@@ -43,6 +43,7 @@
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Recepción</a>
             <ul class="dropdown-menu p-2">
               <div class="d-flex gap-3 p-2">
+								<!-- ABM Mercaderías -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -55,6 +56,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Ingreso de mercaderías -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -70,11 +72,13 @@
               </div>
             </ul>
           </li>
+
           <!-- PRODUCCIÓN -->
           <li class="nav-item dropdown">
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Producción</a>
             <ul class="dropdown-menu p-2">
               <div class="d-flex gap-3 p-2">
+								<!-- ABM Mercaderías -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -87,6 +91,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Procesos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -99,6 +104,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Recetas -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -111,6 +117,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Planificación de la producción -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -125,6 +132,7 @@
                 </li>
               </div>
               <div class="d-flex justify-content-center gap-3 p-2">
+								<!-- Ingreso a producción -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -137,6 +145,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Etiquetas primarias -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -149,6 +158,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Etiquetas secundarias -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -161,20 +171,22 @@
                     </div>
                   </a>
                 </li>
-
               </div>
             </ul>
           </li>
+
           <!-- DEPÓSITOS -->
           <li class="nav-item dropdown">
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Depósitos</a>
 
           </li>
+
           <!-- EXPEDICIÓN -->
           <li class="nav-item dropdown">
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Expedición</a>
             <ul class="dropdown-menu p-2">
-<!--               <div class="d-flex justify-content-center gap-3 p-2">
+              <div class="d-flex justify-content-center gap-3 p-2">
+								<!-- ABM Destinos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -187,6 +199,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Transportes -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -199,6 +212,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Vehículos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -213,6 +227,7 @@
                 </li>
               </div>
               <div class="d-flex justify-content-center gap-3 p-2">
+								<!-- Pedidos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -225,6 +240,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Despachos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -237,6 +253,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Remitos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -249,52 +266,77 @@
                     </div>
                   </a>
                 </li>
-              </div> -->
-              <div class="d-flex justify-content-center gap-3 p-2">
-                <li>
-                  <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/expedicion/egresos/presupuestos" class="text-dark text-decoration-none">
-                        <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Presupuestos</h6>
-                          <p class="card-text text-primary">Confección de presupuestos</p>
-                        </div>
-                      </a>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/expedicion/egresos/ventas" class="text-dark text-decoration-none">
-                        <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Ventas diarias</h6>
-                          <p class="card-text text-primary">Registro de ventas diarias</p>
-                        </div>
-                      </a>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-0" href="#">
-                    <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
-                      <a href="/trackpoint/public/expedicion/egresos/cierre" class="text-dark text-decoration-none">
-                        <div class="card-body text-center">
-                          <h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
-                          <p class="card-text text-primary">Cierre de caja diario</p>
-                        </div>
-                      </a>
-                    </div>
-                  </a>
-                </li>
               </div>
             </ul>
           </li>
+					
+          <!-- VENTAS -->
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ventas</a>
+            <ul class="dropdown-menu p-2">
+							<div class="d-flex justify-content-center gap-3 p-2">
+								<!-- Lista de precios -->
+								<li>
+									<a class="dropdown-item p-0" href="#">
+										<div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+											<a href="/trackpoint/public/ventas/egresos/listaPrecios" class="text-dark text-decoration-none">
+												<div class="card-body text-center">
+													<h6 class="card-title text-primary fw-bold">Lista de precios</h6>
+													<p class="card-text text-primary">Lista de precios de productos y servicios</p>
+												</div>
+											</a>
+										</div>
+									</a>
+								</li>	
+							<!-- Presupuestos -->
+								<li>
+									<a class="dropdown-item p-0" href="#">
+										<div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+											<a href="/trackpoint/public/ventas/egresos/presupuestos" class="text-dark text-decoration-none">
+												<div class="card-body text-center">
+													<h6 class="card-title text-primary fw-bold">Presupuestos</h6>
+													<p class="card-text text-primary">Confección de presupuestos</p>
+												</div>
+											</a>
+										</div>
+									</a>
+								</li>
+								<!-- Ventas diarias -->
+								<li>
+									<a class="dropdown-item p-0" href="#">
+										<div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+											<a href="/trackpoint/public/ventas/egresos/ventas" class="text-dark text-decoration-none">
+												<div class="card-body text-center">
+													<h6 class="card-title text-primary fw-bold">Ventas diarias</h6>
+													<p class="card-text text-primary">Registro de ventas diarias</p>
+												</div>
+											</a>
+										</div>
+									</a>
+								</li>
+								<!-- Cierre de caja -->
+								<li>
+									<a class="dropdown-item p-0" href="#">
+										<div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
+											<a href="/trackpoint/public/ventas/egresos/cierre" class="text-dark text-decoration-none">
+												<div class="card-body text-center">
+													<h6 class="card-title text-primary fw-bold">Cierre de caja</h6>
+													<p class="card-text text-primary">Cierre de caja diario</p>
+												</div>
+											</a>
+										</div>
+									</a>
+								</li>
+							</div>
+						</ul>
+          </li>
+
           <!-- CONFIGURACIÓN -->
           <li class="nav-item dropdown">
             <a class="nav-link text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Configuración</a>
             <ul class="dropdown-menu p-2">
               <div class="d-flex gap-3 p-2">
+								<!-- ABM Operadores -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -307,6 +349,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Perfiles -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -319,6 +362,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Perfiles Por Operador -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -331,6 +375,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Permisos Por Perfil -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -345,6 +390,7 @@
                 </li>
               </div>
               <div class="d-flex justify-content-center gap-3 p-2">
+								<!-- ABM Mercaderías -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -357,6 +403,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Grupos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -369,6 +416,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Subgrupos -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -381,6 +429,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Traducciones -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -395,6 +444,7 @@
                 </li>
               </div>
               <div class="d-flex justify-content-center gap-3 p-2">
+								<!-- ABM Personas -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -407,6 +457,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- ABM Numeradores -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -419,6 +470,7 @@
                     </div>
                   </a>
                 </li>
+								<!-- Configuración PCs -->
                 <li>
                   <a class="dropdown-item p-0" href="#">
                     <div class="card item-menu-hover shadow-sm" style="width: 15rem; height: 7rem; background-color: #f8f9fa">
@@ -434,6 +486,7 @@
               </div>
             </ul>
           </li>
+
           <!-- SISTEMA -->
           <?php if (isset($_SESSION['username']) && $_SESSION['username'] === superadmin): ?>
           <li class="nav-item dropdown">

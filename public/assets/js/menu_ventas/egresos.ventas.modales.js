@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
         $.ajax({
-          url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&seleccionarMercaderia',
+          url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&seleccionarMercaderia',
           method: 'POST',
           data: formData,
           processData: false,
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function buscarMercaderiaPorCodigo(codigo) {
     if (codigo.length >= 2) {
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&seleccionarCodigoMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&seleccionarCodigoMercaderia',
         method: 'POST',
         data: { 'codigo_mercaderia': codigo },
         dataType: 'json',
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&agregarMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&agregarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const formData = new FormData(this);
 
 			$.ajax({
-				url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&editarMercaderia',
+				url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&editarMercaderia',
 				type: 'POST',
 				data: formData,
 				processData: false,
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&eliminarMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&eliminarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalCerrarTicket')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&cerrarTicket',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&cerrarTicket',
         type: 'POST',
         dataType: 'json',
         success: function (response) {
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalCancelarTicket')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/ventas&cancelarTicket',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/ventas&cancelarTicket',
         type: 'POST',
         dataType: 'json',
         success: function (response) {

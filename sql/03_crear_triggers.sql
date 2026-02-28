@@ -97,30 +97,30 @@ END;
 GO
 
 CREATE TRIGGER trg_Update_presupuestos_resumen
-ON expedicion_egresos_presupuestos_resumen
+ON ventas_egresos_presupuestos_resumen
 AFTER UPDATE
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	UPDATE expedicion_egresos_presupuestos_resumen
+	UPDATE ventas_egresos_presupuestos_resumen
 	SET editado_en = GETDATE(),
 		fecha_modificacion = GETDATE()
-	FROM expedicion_egresos_presupuestos_resumen p
+	FROM ventas_egresos_presupuestos_resumen p
 	INNER JOIN inserted i ON p.presupuesto_id = i.presupuesto_id;
 END;
 GO
 
 CREATE TRIGGER trg_Update_presupuestos_detalle
-ON expedicion_egresos_presupuestos_detalle
+ON ventas_egresos_presupuestos_detalle
 AFTER UPDATE
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	UPDATE expedicion_egresos_presupuestos_detalle
+	UPDATE ventas_egresos_presupuestos_detalle
 	SET fecha_modificacion = GETDATE()
-	FROM expedicion_egresos_presupuestos_detalle p
+	FROM ventas_egresos_presupuestos_detalle p
 	INNER JOIN inserted i ON p.presupuesto_id = i.presupuesto_id;
 END;
 GO

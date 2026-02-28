@@ -4,8 +4,9 @@ $routes = [
 	'/' => 'app/auth/controllers/login.controller.php',
 	'/login' => 'app/auth/controllers/login.controller.php',
 	'/logout' => 'app/auth/controllers/logout.php',
-	'/home' => 'app/dashboard/controllers/home.controller.php',
 	'/register' => 'app/auth/controllers/register.controller.php',
+
+	'/home' => 'app/dashboard/controllers/home.controller.php',
 	'/forbidden' => 'app/layouts/error403.view.php',
 	'/notFound' => 'app/layouts/error404.view.php',
 	'/clearLocalStorage' => 'public/clear.localStorage.js',
@@ -38,15 +39,14 @@ $routes = [
 	'/expedicion/egresos/despachos' => 'app/modules/expedicion/controllers/egresos.despachos.controller.php',
 	'/expedicion/egresos/remitos' => 'app/modules/expedicion/controllers/egresos.remitos.controller.php',
 
-	'/expedicion/egresos/presupuestos' => 'app/modules/expedicion/controllers/egresos.presupuestos.controller.php',
-	'/expedicion/egresos/verPresupuesto' => 'app/modules/expedicion/views/egresos.presupuestos.plantilla.view.php',
-	'/expedicion/egresos/previewPresupuesto' => 'app/modules/expedicion/views/egresos.presupuestos.plantilla.view.php',
+	/* ########################################### ------------VENTAS------------- ########################################### */
 
-
-
-
-	'/expedicion/egresos/ventas' => 'app/modules/expedicion/controllers/egresos.ventas.controller.php',
-	'/expedicion/egresos/cierre' => 'app/modules/expedicion/controllers/egresos.cierre.controller.php',
+	'/ventas/egresos/listaPrecios' => 'app/modules/ventas/controllers/egresos.listaPrecios.controller.php',
+	'/ventas/egresos/presupuestos' => 'app/modules/ventas/controllers/egresos.presupuestos.controller.php',
+	'/ventas/egresos/verPresupuesto' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.PC.view.php',
+	'/ventas/egresos/previewPresupuesto' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.PC.view.php',
+	'/ventas/egresos/ventas' => 'app/modules/ventas/controllers/egresos.ventas.controller.php',
+	'/ventas/egresos/cierre' => 'app/modules/ventas/controllers/egresos.cierre.controller.php',
 	
 	/* ########################################### ---------CONFIGURACIÓN--------- ########################################### */
 	

@@ -485,4 +485,4 @@ $datosVista = [
 ];
 
 // Llamar a la función común que carga todo en el layout
-cargarVista('/expedicion/views/egresos.presupuestos.view.php', $datosVista);
+cargarVista('/ventas/views/egresos.presupuestos.view.php', $datosVista);

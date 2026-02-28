@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&crearPresupuesto',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&crearPresupuesto',
         type: 'POST',
         data: formData,
         processData: false,
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.count('recargarDetalle llamado');
 
     $.ajax({
-      url: "/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&actualizarDetalle",
+      url: "/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&actualizarDetalle",
       type: "POST",
       data: { presupuesto_id },
       dataType: "json",
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalGenerarPresupuesto')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&generarPresupuesto',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&generarPresupuesto',
         type: 'POST',
         data: { 'presupuesto_id': document.getElementById('generarPresupuestoId').value },
         dataType: 'json',
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
           const modalElement = document.getElementById('modalMensajePresupuesto');
           modalElement.addEventListener('hidden.bs.modal', function () {
             window.open(
-              '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&previewPresupuesto&id=' + response.presupuesto_id,
+              '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&previewPresupuesto&id=' + response.presupuesto_id,
               '_blank'
             );
 
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarPresupuesto',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarPresupuesto',
         type: 'POST',
         data: formData,
         processData: false,
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bootstrap.Modal.getInstance(document.getElementById('modalEliminarPresupuesto')).hide();
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarPresupuesto',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&eliminarPresupuesto',
         type: 'POST',
         data: { 'presupuesto_id': document.getElementById('eliminarPresupuestoId').value },
         dataType: 'json',
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function buscarMercaderiaPorCodigo(codigo) {
     return $.ajax({
-      url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarCodigoMercaderia',
+      url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarCodigoMercaderia',
       method: 'POST',
       data: { codigo_mercaderia: codigo },
       dataType: 'json'
@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&agregarMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&agregarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -557,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
         $.ajax({
-          url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&seleccionarMercaderia',
+          url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia',
           method: 'POST',
           data: formData,
           processData: false,
@@ -675,7 +675,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Datos del formulario de edición mercadería:', Array.from(formData.entries()));
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&editarMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
 
       $.ajax({
-        url: '/trackpoint/public/index.php?route=/expedicion/egresos/presupuestos&eliminarMercaderia',
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&eliminarMercaderia',
         type: 'POST',
         data: formData,
         processData: false,

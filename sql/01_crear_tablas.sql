@@ -203,8 +203,6 @@ CREATE TABLE recepcion_noProductivos_mercaderias_detalle (
 
 
 
-
-
 /* ############################################################################################## */
 /* -------------------------------------- TABLAS PRODUCCIÓN ------------------------------------- */
 /* ############################################################################################## */
@@ -356,7 +354,14 @@ CREATE TABLE expedicion_abm_vehiculos (
 );
 GO
 
-CREATE TABLE expedicion_egresos_presupuestos_resumen (
+
+
+/* ############################################################################################## */
+/* ---------------------------------------- TABLAS VENTAS --------------------------------------- */
+/* ############################################################################################## */
+
+
+CREATE TABLE ventas_presupuestos_resumen (
     presupuesto_id INT PRIMARY KEY IDENTITY(1,1),
     empresa_nombre VARCHAR(100) NOT NULL,
     sucursal_nombre VARCHAR(100) NULL,
@@ -377,7 +382,7 @@ CREATE TABLE expedicion_egresos_presupuestos_resumen (
 );
 GO
 
-CREATE TABLE expedicion_egresos_presupuestos_detalle (
+CREATE TABLE ventas_presupuestos_detalle (
     item_id INT PRIMARY KEY IDENTITY(1,1),
     presupuesto_id INT NOT NULL,
     codigo_mercaderia VARCHAR(50) NULL,
@@ -399,3 +404,4 @@ CREATE TABLE expedicion_egresos_presupuestos_detalle (
     FOREIGN KEY (presupuesto_id) REFERENCES expedicion_egresos_presupuestos_resumen(presupuesto_id),
     /* FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id) */
 );
+GO

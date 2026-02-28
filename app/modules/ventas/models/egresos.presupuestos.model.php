@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 function obtenerPresupuestoId($operador_id){
 	try {
 		$conn = getConnection();
-		$sql = "SELECT presupuesto_id FROM expedicion_egresos_presupuestos_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
+		$sql = "SELECT presupuesto_id FROM ventas_egresos_presupuestos_resumen WHERE estado = 'pendiente' AND operador_id = :operador_id LIMIT 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
 		$stmt->execute();
@@ -20,7 +20,7 @@ function obtenerUltimoPresupuestoId()
 {
 	try {
 		$conn = getConnection();
-		$sql = "SELECT MAX(presupuesto_id) AS ultimo_id FROM expedicion_egresos_presupuestos_resumen";
+		$sql = "SELECT MAX(presupuesto_id) AS ultimo_id FROM ventas_egresos_presupuestos_resumen";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchColumn();
@@ -46,8 +46,8 @@ function obtenerResumenPresupuesto($operador_id){
 							r.estado,
 							SUM(d.cantidad) AS cantidad,
 							SUM(d.cantidad * d.precio_venta) AS total
-						FROM expedicion_egresos_presupuestos_resumen r
-						LEFT JOIN expedicion_egresos_presupuestos_detalle d
+						FROM ventas_egresos_presupuestos_resumen r
+						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
 						WHERE r.operador_id = :operador_id
 							AND r.estado = 'pendiente'
@@ -91,8 +91,8 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 							r.estado,
 							SUM(d.cantidad) AS cantidad,
 							SUM(d.cantidad * d.precio_venta) AS total
-						FROM expedicion_egresos_presupuestos_resumen r
-						LEFT JOIN expedicion_egresos_presupuestos_detalle d
+						FROM ventas_egresos_presupuestos_resumen r
+						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
 						WHERE r.presupuesto_id = :presupuesto_id
 						GROUP BY
@@ -134,7 +134,7 @@ function obtenerDetallePresupuesto($presupuesto_id){
 								iva_tasa,
 								descuento_porcentaje,
 								(cantidad * precio_venta) AS subtotal
-						FROM expedicion_egresos_presupuestos_detalle
+						FROM ventas_egresos_presupuestos_detalle
 						WHERE presupuesto_id = :presupuesto_id
 							--AND estado = 'pendiente'
 						";
@@ -155,7 +155,7 @@ function crearPresupuesto($datos){
 
 	try {
 		$conn = getConnection();
-		$sql = "INSERT INTO expedicion_egresos_presupuestos_resumen (
+		$sql = "INSERT INTO ventas_egresos_presupuestos_resumen (
 							empresa_nombre,
 							sucursal_nombre,
 							rubro_nombre,
@@ -217,7 +217,7 @@ function editarPresupuesto($datos){
 
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
+		$stmt = $conn->prepare("UPDATE ventas_egresos_presupuestos_resumen
 														SET
 															empresa_nombre = :empresa_nombre,
 															sucursal_nombre = :sucursal_nombre,
@@ -265,7 +265,7 @@ function eliminarPresupuesto($presupuesto_id){
 	try {
 		$conn = getConnection();
 
-		$stmt = $conn->prepare("SELECT COUNT(*) FROM expedicion_egresos_presupuestos_resumen 
+		$stmt = $conn->prepare("SELECT COUNT(*) FROM ventas_egresos_presupuestos_resumen 
                             WHERE presupuesto_id = :presupuesto_id 
                               AND estado = 'pendiente' 
                               AND operador_id = :operador_id");
@@ -280,14 +280,14 @@ function eliminarPresupuesto($presupuesto_id){
 		}
 
 		// Actualizar el estado en la tabla de detalle
-		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
+		$stmt = $conn->prepare("UPDATE ventas_egresos_presupuestos_detalle
                             SET estado = 'cancelado'
                             WHERE presupuesto_id = :presupuesto_id AND estado = 'pendiente'");
 		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
 		$stmt->execute();
 
 		// Actualizar el estado en la tabla de resumen
-		$stmtResumen = $conn->prepare("UPDATE expedicion_egresos_presupuestos_resumen
+		$stmtResumen = $conn->prepare("UPDATE ventas_egresos_presupuestos_resumen
                                   SET estado = 'cancelado'
                                   WHERE presupuesto_id = :presupuesto_id");
 		$stmtResumen->bindValue(':presupuesto_id', $presupuesto_id);
@@ -307,7 +307,7 @@ function generarPresupuesto($presupuesto_id){
 		$conn = getConnection();
 		$stmt = $conn->prepare("
 				SELECT TOP 1 1 
-				FROM expedicion_egresos_presupuestos_detalle 
+				FROM ventas_egresos_presupuestos_detalle 
 				WHERE presupuesto_id = :presupuesto_id
 			");
 		$stmt->execute([':presupuesto_id' => $presupuesto_id]);
@@ -320,13 +320,13 @@ function generarPresupuesto($presupuesto_id){
 		} else {
 			registrarEvento("Presupuestos Model: Mercaderías encontradas para el presupuesto.", "INFO");
 
-			$sqlCerrarResumen = "UPDATE expedicion_egresos_presupuestos_resumen SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
+			$sqlCerrarResumen = "UPDATE ventas_egresos_presupuestos_resumen SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
 			$stmtCerrarResumen = $conn->prepare($sqlCerrarResumen);
 			$stmtCerrarResumen->execute([
 				':presupuesto_id' => $presupuesto_id
 			]);
 
-			$sqlCerrarDetalle = "UPDATE expedicion_egresos_presupuestos_detalle SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
+			$sqlCerrarDetalle = "UPDATE ventas_egresos_presupuestos_detalle SET estado = 'cerrado' WHERE presupuesto_id = :presupuesto_id";
 			$stmtCerrarDetalle = $conn->prepare($sqlCerrarDetalle);
 			$stmtCerrarDetalle->execute([
 				':presupuesto_id' => $presupuesto_id
@@ -353,7 +353,7 @@ function agregarMercaderia($datos){
 	try {
 		$conn = getConnection();
 
-		$sql = "INSERT INTO expedicion_egresos_presupuestos_detalle (
+		$sql = "INSERT INTO ventas_egresos_presupuestos_detalle (
 										presupuesto_id,
 										codigo_mercaderia,
 										descripcion_mercaderia,
@@ -411,7 +411,7 @@ function agregarMercaderia($datos){
 function editarMercaderiaPresupuesto($datos){
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE expedicion_egresos_presupuestos_detalle
+		$stmt = $conn->prepare("UPDATE ventas_egresos_presupuestos_detalle
 														SET
 															codigo_mercaderia = :codigo_mercaderia,
 															descripcion_mercaderia = :descripcion_mercaderia,
@@ -448,7 +448,7 @@ function editarMercaderiaPresupuesto($datos){
 function eliminarMercaderiaPresupuesto($item_id){
 	try {
 		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM expedicion_egresos_presupuestos_detalle WHERE item_id = :item_id");
+		$stmt = $conn->prepare("DELETE FROM ventas_egresos_presupuestos_detalle WHERE item_id = :item_id");
 		$stmt->bindParam(':item_id', $item_id);
 		return $stmt->execute();
 	} catch (PDOException $e) {
