@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
 
       // Limpiar cualquier mensaje de error antes de hacer la solicitud
-      $('#mensaje-error-editar-presupuesto').addClass('d-none').find('.mensaje-texto').text('');
+      $('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
 
       const formData = new FormData(this);
 
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
             location.reload();
           } else {
             console.log('Error al modificar el presupuesto:', response.message);
-            $('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text(response.message);
+            $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
           }
         },
         error: function (xhr, status, error) {
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Código de estado:', status);
           console.log('Mensaje de error:', error);
           console.log('Respuesta del servidor:', xhr.responseText);
-          $('#mensaje-error-editar-presupuesto').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+          $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
         }
       });
     });
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var modalEditarPresupuesto = document.getElementById('modalEditarPresupuesto');
   if (modalEditarPresupuesto) {
     modalEditarPresupuesto.addEventListener('hidden.bs.modal', function () {
-      var mensajeError = document.getElementById('mensaje-error-editar-presupuesto');
+      var mensajeError = document.getElementById('mensaje-error-editar');
       if (mensajeError) {
         mensajeError.classList.add('d-none'); // Ocultar el div
         mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto

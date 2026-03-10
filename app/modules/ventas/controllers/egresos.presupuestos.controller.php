@@ -116,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'cliente_direccion' => $_POST['cliente_direccion'],
 			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
 			'operador_id' => $_SESSION['operador_id'],
+			'lista_nombre' => $_POST['lista_nombre'] ?? null
 		];
 
 		try {
@@ -153,6 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
 			'cliente_direccion' => $_POST['cliente_direccion'] ?? null,
 			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
+			'lista_nombre' => $_POST['lista_nombre'] ?? null
 		];
 
 		if (empty($datos['presupuesto_id'])) {

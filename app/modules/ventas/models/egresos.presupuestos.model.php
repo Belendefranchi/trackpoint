@@ -45,7 +45,8 @@ function obtenerResumenPresupuesto($operador_id){
 							r.cliente_contacto,
 							r.estado,
 							SUM(d.cantidad) AS cantidad,
-							SUM(d.cantidad * d.precio_venta) AS total
+							SUM(d.cantidad * d.precio_venta) AS total,
+							r.lista_nombre
 						FROM ventas_egresos_presupuestos_resumen r
 						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
@@ -61,7 +62,8 @@ function obtenerResumenPresupuesto($operador_id){
 							r.cliente_nombre,
 							r.cliente_direccion,
 							r.cliente_contacto,
-							r.estado
+							r.estado,
+							r.lista_nombre
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
@@ -90,7 +92,8 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 							r.cliente_contacto,
 							r.estado,
 							SUM(d.cantidad) AS cantidad,
-							SUM(d.cantidad * d.precio_venta) AS total
+							SUM(d.cantidad * d.precio_venta) AS total,
+							r.lista_nombre
 						FROM ventas_egresos_presupuestos_resumen r
 						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
@@ -105,7 +108,8 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 							r.cliente_nombre,
 							r.cliente_direccion,
 							r.cliente_contacto,
-							r.estado
+							r.estado,
+							r.lista_nombre
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
@@ -166,6 +170,7 @@ function crearPresupuesto($datos){
 							cliente_contacto,
 							operador_id,
 							creado_por,
+							lista_nombre,
 							estado
 						)
 						VALUES (
@@ -179,6 +184,7 @@ function crearPresupuesto($datos){
 							:cliente_contacto,
 							:operador_id,
 							:creado_por,
+							:lista_nombre,
 							:estado)";
 
 		$stmt = $conn->prepare($sql);
@@ -191,6 +197,7 @@ function crearPresupuesto($datos){
 		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
 		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
 		$stmt->bindParam(':operador_id', $datos['operador_id']);
+		$stmt->bindParam(':lista_nombre', $datos['lista_nombre']);
 		$stmt->bindParam(':creado_por', $creado_por);
 		$stmt->bindValue(':estado', 'pendiente');
 
@@ -227,6 +234,7 @@ function editarPresupuesto($datos){
 															cliente_nombre = :cliente_nombre,
 															cliente_direccion = :cliente_direccion,
 															cliente_contacto = :cliente_contacto,
+															lista_nombre = :lista_nombre,
 															editado_por = :editado_por
 														WHERE
 															presupuesto_id = :presupuesto_id");
@@ -240,6 +248,7 @@ function editarPresupuesto($datos){
 		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
 		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
 		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
+		$stmt->bindParam(':lista_nombre', $datos['lista_nombre']);
 		$stmt->bindParam(':editado_por', $editado_por);
 
 		$result = $stmt->execute();

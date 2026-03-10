@@ -47,6 +47,7 @@ document.addEventListener('show.bs.modal', function (event) {
 			document.querySelector('#editarClientePresupuesto').value = button.getAttribute('data-cliente');
 			document.querySelector('#editarDireccionClientePresupuesto').value = button.getAttribute('data-direccionc');
 			document.querySelector('#editarContactoClientePresupuesto').value = button.getAttribute('data-contactoc');
+			document.querySelector('#editarListaPreciosPresupuesto').value = button.getAttribute('data-lista');
 			break;
 
 		/* -----------------------------------------

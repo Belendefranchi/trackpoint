@@ -38,7 +38,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<!-- Código de barras -->
 						<div class="col-md-6">
 							<div class="row d-flex align-items-center justify-content-center">
-								<label for="codigo_mercaderia" class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
+								<label for="codigo_mercaderia"
+									class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
 								<div class="col-md-10 ps-0">
 									<div class="input-group">
 										<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia"
@@ -70,15 +71,19 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 						<div class="col-md-2">
 							<div class="row d-flex align-items-center justify-content-center">
-								<label for="precio_venta" class="col-md-5 p-0 col-form-label text-primary text-center">Precio Venta</label>
+								<label for="precio_venta" class="col-md-5 p-0 col-form-label text-primary text-center">Precio
+									Venta</label>
 								<div class="col-md-7">
-									<input type="number" step="0.01" min="1" class="form-control form-control text-end fw-bold text-primary"
-										name="precio_venta" id="precio_venta_mercaderia" value="<?php echo $mercaderiaSeleccionada['precio_venta_mercaderia'] ?? 1; ?>">
+									<input type="number" step="0.01" min="1"
+										class="form-control form-control text-end fw-bold text-primary" name="precio_venta"
+										id="precio_venta_mercaderia"
+										value="<?php echo $mercaderiaSeleccionada['precio_venta_mercaderia'] ?? 1; ?>">
 								</div>
 							</div>
 						</div>
 						<input type="hidden" name="presupuesto_id" id="presupuesto_id">
-						<input type="hidden" name="precio_compra_mercaderia" id="precio_compra_mercaderia" value="<?php echo $mercaderiaSeleccionada['precio_compra_mercaderia'] ?? 1; ?>">
+						<input type="hidden" name="precio_compra_mercaderia" id="precio_compra_mercaderia"
+							value="<?php echo $mercaderiaSeleccionada['precio_compra_mercaderia'] ?? 1; ?>">
 						<!-- Botón Agregar -->
 						<div class="col-md-2 d-flex justify-content-end">
 							<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
@@ -132,20 +137,19 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 					</div>
 				</div>
-<!-- 				<div class="card-footer bg-light d-flex justify-content-end">
-					<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal"
-						id="btnMostrarConfirmacion">
-						<i class="bi bi-check-circle pt-1 me-2"></i>Generar
-					</button>
-				</div> -->
+				<!-- 				<div class="card-footer bg-light d-flex justify-content-end">
+									<button type="button" class="btn btn-sm btn-success mx-1 my-3" name="guardar_modal"
+										id="btnMostrarConfirmacion">
+										<i class="bi bi-check-circle pt-1 me-2"></i>Generar
+									</button>
+								</div> -->
 		</form>
 
 	</div>
 </div>
 
 <!-- Modal de creación de presupuesto -->
-<div class="modal fade" id="modalCrearPresupuesto" tabindex="-1" aria-labelledby="modalCrearPresupuestoLabel"
-	aria-hidden="true">
+<div class="modal fade" id="modalCrearPresupuesto" tabindex="-1" aria-labelledby="modalCrearPresupuestoLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formCrearPresupuesto"
 			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&crearPresupuesto">
@@ -155,7 +159,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 				</div>
 				<div class="modal-body">
-
+					
+				<!-- Mensaje de error -->
 					<div class="mb-3">
 						<div id="mensaje-error-crear" class="alert alert-danger rounded d-none p-2" role="alert">
 							<i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -204,7 +209,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearPresupuestoId" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
 									<div class="col-md-7 ps-0">
-										<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId" name="presupuesto_id" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>" disabled>
+										<input type="text" class="form-control text-primary text-end" id="crearPresupuestoId"
+											name="presupuesto_id" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>"
+											disabled>
 									</div>
 								</div>
 								<!-- Fecha Emisión -->
@@ -231,10 +238,12 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearClientePresupuesto" class="col-md-3 form-label text-primary">Cliente</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_nombre">
-											<option value="cliente1">Cliente 1</option>
-											<option value="cliente2">Cliente 2</option>
-										</select>
+										<input type="text" class="form-control text-primary" id="crearClientePresupuesto"
+											name="cliente_nombre" value="">
+										<!-- 														<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_nombre">
+															<option value="cliente1">Cliente 1</option>
+															<option value="cliente2">Cliente 2</option>
+														</select> -->
 									</div>
 									<input type="hidden" name="cliente_id" id="cliente_id">
 									<!-- <input type="hidden" name="contacto_cliente" id="contacto_cliente"> -->
@@ -243,21 +252,35 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearDireccionCliente" class="col-md-3 form-label text-primary">Dirección</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearDireccionClientePresupuesto" name="cliente_direccion">
-											<option value="direccion1">Dirección 1</option>
-											<option value="direccion2">Dirección 2</option>
-											<option value="direccion3">Dirección 3</option>
-										</select>
+										<input type="text" class="form-control text-primary" id="crearDireccionClientePresupuesto"
+											name="cliente_direccion" value="">
+										<!-- 														<select class="form-select text-primary" id="crearDireccionClientePresupuesto" name="cliente_direccion">
+															<option value="direccion1">Dirección 1</option>
+															<option value="direccion2">Dirección 2</option>
+															<option value="direccion3">Dirección 3</option>
+														</select> -->
 									</div>
 								</div>
 								<!-- Contacto Cliente -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearContactoCliente" class="col-md-3 form-label text-primary">Contacto</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearContactoClientePresupuesto" name="cliente_contacto">
-											<option value="contacto1">Contacto 1</option>
-											<option value="contacto2">Contacto 2</option>
-											<option value="contacto3">Contacto 3</option>
+										<input type="text" class="form-control text-primary" id="crearContactoClientePresupuesto"
+											name="cliente_contacto" value="">
+										<!-- 														<select class="form-select text-primary" id="crearContactoClientePresupuesto" name="cliente_contacto">
+															<option value="contacto1">Contacto 1</option>
+															<option value="contacto2">Contacto 2</option>
+															<option value="contacto3">Contacto 3</option>
+														</select> -->
+									</div>
+								</div>
+								<!-- Lista de Precios -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
+									<div class="col-md-9 ps-0">
+										<select class="form-select text-primary" id="crearListaPreciosPresupuesto" name="lista_nombre">
+											<option value="Mayorista">Mayorista</option>
+											<option value="Minorista">Minorista</option>
 										</select>
 									</div>
 								</div>
@@ -278,8 +301,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </div>
 
 <!-- Modal de edición de presupuesto -->
-<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel"
-	aria-hidden="true">
+<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEditarPresupuesto"
 			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarPresupuesto">
@@ -290,83 +312,126 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="presupuesto_id" id="editarPresupuestoId">
-
+					<!-- Mensaje de error -->
 					<div class="mb-3">
-						<div id="mensaje-error-editar-presupuesto" class="alert alert-danger rounded d-none" role="alert">
+						<div id="mensaje-error-editar" class="alert alert-danger rounded d-none p-2" role="alert">
 							<i class="bi bi-exclamation-triangle-fill me-2"></i>
 							<span class="mensaje-texto"></span>
-							<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+							<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
 						</div>
 					</div>
 
-					<div class="mb-3">
-						<label for="editarEmpresaPresupuesto" class="form-label text-primary">Empresa</label>
-						<select class="form-select text-primary" name="empresa_nombre" id="editarEmpresaPresupuesto">
-							<option value="Punto Seguro">Punto Seguro</option>
-							<option value="Punto Conectado">Punto Conectado</option>
+					<!-- Datos obligatorios -->
+					<div class="card mb-3">
+						<div class="card-header bg-light text-primary">
+							<strong>Datos obligatorios</strong>
+						</div>
+						<div class="card-body">
+							<div class="mb-3 align-items-center">
+								<!-- Empresa -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarEmpresaPresupuesto" class="col-md-5 form-label text-primary">Empresa</label>
+									<div class="col-md-7 ps-0">
+										<select class="form-select text-primary" id="editarEmpresaPresupuesto" name="empresa_nombre">
+											<option value="Punto Seguro">Punto Seguro</option>
+											<option value="Punto Conectado">Punto Conectado</option>
+										</select>
+									</div>
+								</div>
+								<!-- Sucursal  -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarSucursalPresupuesto" class="col-md-5 form-label text-primary">Sucursal</label>
+									<div class="col-md-7 ps-0">
+										<select class="form-select text-primary" id="editarSucursalPresupuesto" name="sucursal_nombre">
+											<option value="Los Polvorines">Los Polvorines</option>
+											<option value="Azul">Azul</option>
+										</select>
+									</div>
+								</div>
+								<!-- Rubro -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarRubroPresupuesto" class="col-md-5 form-label text-primary">Rubro</label>
+									<div class="col-md-7 ps-0">
+										<select class="form-select text-primary" id="editarRubroPresupuesto" name="rubro_nombre">
+											<option value="rubro">Rubro 1</option>
+										</select>
+									</div>
+								</div>
+								<!-- Nro. Presupuesto -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarPresupuestoId" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
+									<div class="col-md-7 ps-0">
+										<input type="text" class="form-control text-primary text-end" id="editarPresupuestoId"
+											name="presupuesto_id" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>"
+											disabled>
+									</div>
+								</div>
+								<!-- Fecha Emisión -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarFechaPresupuesto" class="col-md-5 form-label text-primary">Fecha Presupuesto</label>
+									<div class="col-md-7 ps-0">
+										<input type="date" class="form-control text-primary" id="editarFechaPresupuesto"
+											name="fecha_presupuesto">
+									</div>
+								</div>
+								<!-- Fecha Vencimiento -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarFechaVencimientoPresupuesto" class="col-md-5 form-label text-primary">Fecha
+										Vencimiento</label>
+									<div class="col-md-7 ps-0">
+										<input type="date" class="form-control text-primary" id="editarFechaVencimientoPresupuesto"
+											name="fecha_vencimiento">
+									</div>
+								</div>
+							</div>
 
-						</select>
+							<div class="mb-3 align-items-center">
+								<!-- Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarClientePresupuesto" class="col-md-3 form-label text-primary">Cliente</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="editarClientePresupuesto"
+											name="cliente_nombre" value="">
+									</div>
+									<input type="hidden" name="cliente_id" id="cliente_id">
+									<!-- <input type="hidden" name="contacto_cliente" id="contacto_cliente"> -->
+								</div>
+								<!-- Dirección Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarDireccionCliente" class="col-md-3 form-label text-primary">Dirección</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="editarDireccionClientePresupuesto"
+											name="cliente_direccion" value="">
+									</div>
+								</div>
+								<!-- Contacto Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarContactoCliente" class="col-md-3 form-label text-primary">Contacto</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="editarContactoClientePresupuesto"
+											name="cliente_contacto" value="">
+									</div>
+								</div>
+								<!-- Lista de Precios -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="editarListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
+									<div class="col-md-9 ps-0">
+										<select class="form-select text-primary" id="editarListaPreciosPresupuesto" name="lista_nombre">
+											<option value="Mayorista">Mayorista</option>
+											<option value="Minorista">Minorista</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
-					<div class="mb-3">
-						<label for="editarSucursalPresupuesto" class="form-label text-primary">Sucursal</label>
-						<select class="form-select text-primary" name="sucursal_nombre" id="editarSucursalPresupuesto">
-							<option value="Los Polvorines">Los Polvorines</option>
-							<option value="Azul">Azul</option>
-
-						</select>
-					</div>
-
-					<div class="mb-3">
-						<label for="editarRubroPresupuesto" class="form-label text-primary">Rubro</label>
-						<select class="form-select text-primary" name="rubro_nombre" id="editarRubroPresupuesto">
-							<option value="rubro">Rubro 1</option>
-						</select>
-					</div>
-
-					<div class="mb-3">
-						<label for="editarFechaPresupuesto" class="form-label text-primary">Fecha Presupuesto</label>
-						<input type="date" class="form-control text-primary" name="fecha_presupuesto" id="editarFechaPresupuesto">
-					</div>
-
-					<div class="mb-3">
-						<label for="editarFechaVencimientoPresupuesto" class="form-label text-primary">Fecha Vencimiento</label>
-						<input type="date" class="form-control text-primary" name="fecha_vencimiento"
-							id="editarFechaVencimientoPresupuesto">
-					</div>
-
-					<div class="mb-3">
-						<label for="editarClientePresupuesto" class="form-label text-primary">Cliente</label>
-						<select class="form-select text-primary" name="cliente_nombre" id="editarClientePresupuesto">
-							<option value="cliente1">Cliente 1</option>
-							<option value="cliente2">Cliente 2</option>
-						</select>
-					</div>
-
-					<div class="mb-3">
-						<label for="editarDireccionClientePresupuesto" class="form-label text-primary">Dirección Cliente</label>
-						<select class="form-select text-primary" name="cliente_direccion" id="editarDireccionClientePresupuesto">
-							<option value="direccion1">Dirección 1</option>
-							<option value="direccion2">Dirección 2</option>
-							<option value="direccion3">Dirección 3</option>
-						</select>
-					</div>
-
-					<div class="mb-3">
-						<label for="editarContactoClientePresupuesto" class="form-label text-primary">Contacto Cliente</label>
-						<select class="form-select text-primary" id="editarContactoClientePresupuesto" name="cliente_contacto">
-							<option value="contacto1">Contacto 1</option>
-							<option value="contacto2">Contacto 2</option>
-							<option value="contacto3">Contacto 3</option>
-						</select>
-					</div>
-
-					<div class="modal-footer d-flex justify-content-center p-2">
-						<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal"><i
-								class="bi bi-check-circle pt-1 me-2"></i>Guardar</button>
-						<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
-								class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
-					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center p-2">
+					<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal"><i
+							class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
+							class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 				</div>
 			</div>
 		</form>
@@ -437,7 +502,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				</div>
 				<?php if (empty($resumen)): ?>
 					<div class="modal-body text-center">
-						
+
 
 						<div class="mb-3">
 							<p class="text-muted text-center">Aún no hay presupuestos pendientes.</p>
@@ -606,15 +671,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<label for="editarCantidadMercaderia" class="form-label text-primary">Cantidad</label>
 						<input type="number" class="form-control text-primary" name="cantidad" id="editarCantidadMercaderia">
 					</div>
-					
+
 					<div class="mb-3">
 						<label for="editarPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
-						<input type="number" step="0.01" class="form-control text-primary" name="precio_compra_mercaderia" id="editarPrecioCompraMercaderia">
+						<input type="number" step="0.01" class="form-control text-primary" name="precio_compra_mercaderia"
+							id="editarPrecioCompraMercaderia">
 					</div>
 
 					<div class="mb-3">
 						<label for="editarPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
-						<input type="number" step="0.01" class="form-control text-primary" name="precio_venta_mercaderia" id="editarPrecioVentaMercaderia">
+						<input type="number" step="0.01" class="form-control text-primary" name="precio_venta_mercaderia"
+							id="editarPrecioVentaMercaderia">
 					</div>
 
 					<div class="modal-footer d-flex justify-content-center p-2">
