@@ -319,11 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### ELIMINAR PRESUPUESTO ###################### */
-  document.getElementById('btnMostrarEliminarPresupuesto').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('modalEliminarPresupuesto'));
-    modal.show();
-  });
-
   const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
   if (btnConfirmarEliminar) {
     btnConfirmarEliminar.addEventListener('click', function () {

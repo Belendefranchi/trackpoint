@@ -32,8 +32,9 @@ END;
 GO
 
 
+
 /* ############################################################################################## */
-/* -------------------------------------- AGREGAR COLUMNAS ------------------------------------ */
+/* --------------------------------------- AGREGAR COLUMNAS ------------------------------------- */
 /* ############################################################################################## */
 
 IF COL_LENGTH('ventas_egresos_presupuestos_resumen', 'lista_nombre') IS NULL
@@ -114,6 +115,13 @@ BEGIN
 END;
 GO
 
+
+
+/* ############################################################################################## */
+/* ---------------------------------------- AGREGAR TABLAS -------------------------------------- */
+/* ############################################################################################## */
+
+
 IF NOT EXISTS (
     SELECT 1
 FROM sys.tables
@@ -123,15 +131,15 @@ BEGIN
 	CREATE TABLE ventas_egresos_listaPrecios_resumen
 	(
 		lista_id INT PRIMARY KEY IDENTITY(1,1),
-		tipo_lista VARCHAR(50) NOT NULL,
-    nombre_lista VARCHAR(100) NOT NULL,
+		tipo VARCHAR(50) NOT NULL,
+		nombre VARCHAR(100) NOT NULL,
 		proveedor VARCHAR(100) NOT NULL,
 		moneda VARCHAR(100) NULL,
 		fecha_lista DATE NOT NULL,
 		fecha_sistema DATETIME DEFAULT GETDATE(),
 		fecha_modificacion DATETIME NULL,
 		operador_id INT NOT NULL,
-    activo BIT DEFAULT 1,
+		activo BIT DEFAULT 1,
 		estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
 	);
 END;
@@ -148,10 +156,7 @@ BEGIN
 	(
 		item_id INT PRIMARY KEY IDENTITY(1,1),
 		lista_id INT NOT NULL,
-		codigo_mercaderia VARCHAR(50) NULL,
-		descripcion_mercaderia VARCHAR(255) NULL,
-		cantidad INT NOT NULL,
-		codigo_externo VARCHAR(50) NULL,
+		mercaderia_id INT NOT NULL,
 		precio_compra DECIMAL(10,2) NULL,
 		precio_venta DECIMAL(10,2) NULL,
 		iva_tasa DECIMAL(5,2) NULL,
@@ -160,13 +165,16 @@ BEGIN
 		-- Datos de auditoría
 		fecha_sistema DATETIME DEFAULT GETDATE(),
 		fecha_modificacion DATETIME NULL,
-		operador_id INT NOT NULL,
-		estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
-		-- Estado inicial de la mercadería
+		activo BIT DEFAULT 0,
 
 		-- Claves foráneas
 		FOREIGN KEY (lista_id) REFERENCES ventas_egresos_listaPrecios_resumen(lista_id),
-		/* FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id) */
+		FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
 	);
 END;
 GO
+
+
+/* IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ventas_egresos_listaPrecios_detalle]') AND type in (N'U'))
+DROP TABLE [dbo].[ventas_egresos_listaPrecios_detalle]
+GO */

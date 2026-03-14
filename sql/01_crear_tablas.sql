@@ -387,7 +387,7 @@ GO
 /* ############################################################################################## */
 
 
-CREATE TABLE ventas_presupuestos_resumen
+CREATE TABLE ventas_egresos_presupuestos_resumen
 (
 	presupuesto_id INT PRIMARY KEY IDENTITY(1,1),
 	empresa_nombre VARCHAR(100) NOT NULL,
@@ -410,7 +410,7 @@ CREATE TABLE ventas_presupuestos_resumen
 );
 GO
 
-CREATE TABLE ventas_presupuestos_detalle
+CREATE TABLE ventas_egresos_presupuestos_detalle
 (
 	item_id INT PRIMARY KEY IDENTITY(1,1),
 	presupuesto_id INT NOT NULL,
@@ -430,16 +430,16 @@ CREATE TABLE ventas_presupuestos_detalle
 	estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
 
 	-- Claves foráneas
-	FOREIGN KEY (presupuesto_id) REFERENCES expedicion_egresos_presupuestos_resumen(presupuesto_id),
+	FOREIGN KEY (presupuesto_id) REFERENCES ventas_egresos_presupuestos_resumen(presupuesto_id),
 	/* FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id) */
 );
 GO
 
-CREATE TABLE ventas_listaPrecios_resumen
+CREATE TABLE ventas_egresos_listaPrecios_resumen
 (
 	lista_id INT PRIMARY KEY IDENTITY(1,1),
-	lista_tipo VARCHAR(50) NOT NULL,
-	lista_nombre VARCHAR(100) NOT NULL,
+	tipo VARCHAR(50) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
 	proveedor VARCHAR(100) NOT NULL,
 	moneda VARCHAR(100) NULL,
 	fecha_lista DATE NOT NULL,
@@ -451,14 +451,11 @@ CREATE TABLE ventas_listaPrecios_resumen
 );
 GO
 
-CREATE TABLE ventas_listaPrecios_detalle
+CREATE TABLE ventas_egresos_listaPrecios_detalle
 (
 	item_id INT PRIMARY KEY IDENTITY(1,1),
 	lista_id INT NOT NULL,
-	codigo_mercaderia VARCHAR(50) NULL,
-	descripcion_mercaderia VARCHAR(255) NULL,
-	cantidad INT NOT NULL,
-	codigo_externo VARCHAR(50) NULL,
+	mercaderia_id INT NOT NULL,
 	precio_compra DECIMAL(10,2) NULL,
 	precio_venta DECIMAL(10,2) NULL,
 	iva_tasa DECIMAL(5,2) NULL,
@@ -467,12 +464,10 @@ CREATE TABLE ventas_listaPrecios_detalle
 	-- Datos de auditoría
 	fecha_sistema DATETIME DEFAULT GETDATE(),
 	fecha_modificacion DATETIME NULL,
-	operador_id INT NOT NULL,
-	estado VARCHAR(20) NOT NULL DEFAULT 'pendiente',
-	-- Estado inicial de la mercadería
+	activo BIT DEFAULT 0,
 
 	-- Claves foráneas
-	FOREIGN KEY (lista_id) REFERENCES ventas_listaPrecios_resumen(lista_id),
-	/* FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id) */
+	FOREIGN KEY (lista_id) REFERENCES ventas_egresos_listaPrecios_resumen(lista_id),
+	FOREIGN KEY (mercaderia_id) REFERENCES configuracion_abm_mercaderias(mercaderia_id)
 );
 GO

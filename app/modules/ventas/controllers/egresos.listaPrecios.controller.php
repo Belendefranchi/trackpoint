@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$datos = [
+			'tipo' => $_POST['tipo'],
 			'proveedor' => $_POST['proveedor'],
 			'fecha_lista' => $_POST['fecha_lista'],
 			'moneda' => $_POST['moneda'],
@@ -86,9 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		try {
 			$result = crearListaPrecios($datos);
+			$lista_id = $result['lista_id'];
+			
+			foreach ($mercaderias as $mercaderia) {
+				$mercaderia_id = $mercaderia['mercaderia_id'];
+				agregarMercaderiasListaPrecios($lista_id, $mercaderia_id);
+			}
 
-			if ($result) {
-				registrarEvento("Lista de Precios Controller: Lista creada correctamente => " . $result['lista_id'], "INFO");
+			if ($lista_id) {
+				registrarEvento("Lista de Precios Controller: Lista creada correctamente => " . $lista_id, "INFO");
+				/* header("Refresh:1"); */
 				echo json_encode(['success' => true]);
 				exit;
 			} else {
@@ -111,8 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$datos = [
 			'lista_id' => $_POST['lista_id'],
+			'tipo' => $_POST['tipo'],
 			'proveedor' => $_POST['proveedor'],
-			'fecha' => $_POST['fecha'] ?? null,
+			'fecha_lista' => $_POST['fecha_lista'] ?? null,
 			'moneda' => $_POST['moneda'] ?? null,
 		];
 
@@ -148,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$operador_id = $_SESSION['operador_id'];
-		$resumen = obtenerResumenListaPrecios();
+		$resumen = obtenerResumenLista();
 		$lista_id = $_POST['lista_id'];
 
 		// Validar si hay mercaderías cargadas
@@ -175,6 +184,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} catch (Exception $e) {
 			registrarEvento("Lista de Precios Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+		}
+	}
+
+	// ####### SELECCIONAR MERCADERÍA #######
+	if (isset($_GET['seleccionarMercaderia'])) {
+
+		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
+		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
+		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
+		$precio_compra_mercaderia = $_POST['precio_compra_mercaderia'] ?? '';
+		$precio_venta_mercaderia = $_POST['precio_venta_mercaderia'] ?? '';
+		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
+
+		if (empty($mercaderia_id)) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
+			exit;
+		} else {
+			echo json_encode([
+				'success' => true,
+				'mercaderia_id' => $mercaderia_id,
+				'codigo_mercaderia' => $codigo_mercaderia,
+				'descripcion_mercaderia' => $descripcion_mercaderia,
+				'precio_compra_mercaderia' => $precio_compra_mercaderia,
+				'precio_venta_mercaderia' => $precio_venta_mercaderia
+			]);
+			exit;
 		}
 	}
 

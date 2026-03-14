@@ -89,7 +89,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 													<label for="crearProveedorLista" class="col-md-5 form-label text-primary">Proveedor</label>
 													<div class="col-md-7 ps-0">
 														<input type="text" class="form-control text-primary" id="crearProveedorLista" name="proveedor">
-
 													</div>
 												</div>
 												<!-- Fecha Lista -->
@@ -109,6 +108,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														</select>
 													</div>
 												</div>
+												<!-- Tipo -->
+												<div class="row p-2 d-flex align-items-center justify-content-center">
+													<label for="crearTipoLista" class="col-md-5 form-label text-primary">Tipo</label>
+													<div class="col-md-7 ps-0">
+														<select class="form-select text-primary" id="crearTipoLista" name="tipo">
+															<option value="Compra">Compra</option>
+															<option value="Venta">Venta</option>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -125,6 +134,247 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 				</div>
 
+				<!-- Modal de edición de lista de precios -->
+				<div class="modal fade" id="modalEditarListaPrecios" tabindex="-1" aria-labelledby="modalEditarListaPreciosLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEditarListaPrecios"
+							action="/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&editarLista">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEditarListaPreciosLabel">Editar lista de precios</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="lista_id" id="editarListaPreciosId">
+									<div class="mb-3">
+										<div id="mensaje-error-editar" class="alert alert-danger rounded d-none p-2" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<!-- Datos obligatorios -->
+									<div class="card mb-3">
+										<div class="card-header bg-light text-primary">
+											<strong>Datos obligatorios</strong>
+										</div>
+										<div class="card-body">
+											<div class="mb-3 align-items-center">
+												<!-- Proveedor -->
+												<div class="row p-2 d-flex align-items-center justify-content-center">
+													<label for="editarProveedorLista" class="col-md-5 form-label text-primary">Proveedor</label>
+													<div class="col-md-7 ps-0">
+														<input type="text" class="form-control text-primary" id="editarProveedorLista" name="proveedor">
+													</div>
+												</div>
+												<!-- Fecha Lista -->
+												<div class="row p-2 d-flex align-items-center justify-content-center">
+													<label for="editarFechaLista" class="col-md-5 form-label text-primary">Fecha</label>
+													<div class="col-md-7 ps-0">
+														<input type="date" class="form-control text-primary" id="editarFechaLista" name="fecha_lista">
+													</div>
+												</div>
+												<!-- Moneda -->
+												<div class="row p-2 d-flex align-items-center justify-content-center">
+													<label for="editarMonedaLista" class="col-md-5 form-label text-primary">Moneda</label>
+													<div class="col-md-7 ps-0">
+														<select class="form-select text-primary" id="editarMonedaLista" name="moneda">
+															<option value="ARS">ARS</option>
+															<option value="USD">USD</option>
+														</select>
+													</div>
+												</div>
+												<!-- Tipo -->
+												<div class="row p-2 d-flex align-items-center justify-content-center">
+													<label for="editarTipoLista" class="col-md-5 form-label text-primary">Tipo</label>
+													<div class="col-md-7 ps-0">
+														<select class="form-select text-primary" id="editarTipoLista" name="tipo">
+															<option value="Compra">Compra</option>
+															<option value="Venta">Venta</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal"><i
+											class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
+											class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Modal de eliminación de presupuesto -->
+				<div class="modal fade m-5" id="modalEliminarListaPrecios" tabindex="-1" aria-labelledby="modalEliminarListaPreciosLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formEliminarListaPrecios"
+							action="/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&eliminarLista">
+							<div class="modal-content shadow">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalEliminarListaPreciosLabel">Eliminar lista de precios</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<?php if (empty($resumen)): ?>
+									<div class="modal-body text-center">
+										<div class="mb-3">
+											<p class="text-muted text-center">Aún no hay listas de precios pendientes</p>
+										</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									</div>
+								<?php else: ?>
+									<div class="modal-body text-center">
+										<input type="hidden" name="lista_id" id="eliminarListaPreciosId">
+
+										<div class="mb-3">
+											<div id="mensaje-error-eliminar" class="alert alert-danger rounded d-none" role="alert">
+												<i class="bi bi-exclamation-triangle-fill me-2"></i>
+												<span class="mensaje-texto"></span>
+												<!-- Mensajes de error que se cargaran de forma dinámica en el modal -->
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<p>¿Estás seguro de que querés eliminar la lista de precios?</p>
+											<p>Esta acción no se puede deshacer</p>
+										</div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center p-2">
+										<button type="button" class="btn btn-sm btn-success" id="btnConfirmarEliminar">
+											<i class="bi bi-check-circle pt-1 me-2"></i>Confirmar
+										</button>
+										<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+											<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
+										</button>
+									</div>
+								<?php endif; ?>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+
+
+				<!-- Modal de selección y edición de mercadería -->
+				<div class="modal fade" id="modalVerListaPrecios" tabindex="-1" aria-labelledby="modalVerListaPreciosLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form method="POST" id="formVerListaPrecios"
+							action="/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verListaPrecios">
+							<div class="modal-content m-5">
+								<div class="modal-header table-primary text-white">
+									<h5 class="modal-title" id="modalVerListaPreciosLabel">Seleccionar mercadería</h5>
+									<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+								</div>
+								<div class="modal-body">
+									<input type="hidden" name="lista_id" id="verListaPreciosId">
+
+									<div class="mb-3">
+										<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none p-2" role="alert">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>
+											<span class="mensaje-texto"></span>
+											<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
+											<thead class="table-primary">
+												<tr class="text-light">
+													<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
+													<td class="border text-center">ID</td>
+													<td class="border">Código</td>
+													<td class="border">Descripción</td>
+													<td class="border">Precio Compra</td>
+													<td class="border">Precio Venta</td>
+												</tr>
+											</thead>
+											<tbody>
+												<?php if (empty($mercaderias)): ?>
+													<tr>
+														<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
+													</tr>
+												<?php else: ?>
+													<?php foreach ($mercaderias as $mercaderia): ?>
+														<tr class="text-start">
+															<td class="border text-primary text-center">
+																<input type="checkbox" name="seleccion_mercaderia" class="form-check-input seleccionar-mercaderia"
+																	data-mercaderiaid="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
+																	data-codigom="<?= htmlspecialchars($mercaderia['codigo']) ?>"
+																	data-descripcionm="<?= htmlspecialchars($mercaderia['descripcion']) ?>"
+																	data-preciocompram="<?= htmlspecialchars($mercaderia['precio_compra']) ?>"
+																	data-precioventam="<?= htmlspecialchars($mercaderia['precio_venta']) ?>">
+															</td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['mercaderia_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_compra']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($mercaderia['precio_venta']) ?></td>
+														</tr>
+													<?php endforeach; ?>
+												<?php endif; ?>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Campos ocultos para enviar en el form -->
+									<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+									<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
+									<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
+									<input type="hidden" name="precio_compra_mercaderia" id="input-precio-compra-mercaderia">
+									<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia">
+								</div>
+								<div class="modal-footer d-flex justify-content-center p-2">
+									<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal"><i
+											class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+									<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
+											class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+
+
+
+
+
+
+				<!-- Modal mensaje resultado -->
+				<div class="modal fade" id="modalMensajeListaPrecios" tabindex="-1" aria-labelledby="modalMensajeLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content border-0 shadow">
+							<div class="modal-header table-primary text-white">
+								<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+							</div>
+							<div class="modal-body text-center">
+								<div class="mb-3">
+									<p class="text-muted text-center" id="textoModalMensaje"></p>
+								</div>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</main>
     </div>
   </div>
@@ -132,6 +382,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <?php require_once __DIR__ . '/../../../layouts/layout.scripts.php'; ?>
 
 <script src="/trackpoint/public/assets/js/menu_ventas/egresos.listaPrecios.modales.js"></script>
+<script src="/trackpoint/public/assets/js/menu_ventas/egresos.listaPrecios.modales.apertura.js"></script>
+<script src="/trackpoint/public/assets/js/datatables.js"></script>
+
+
 
 
 

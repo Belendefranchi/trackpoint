@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 function obtenerListaId(){
 	try {
 		$conn = getConnection();
-		$sql = "SELECT lista_id FROM ventas_egresos_listaPrecios_resumen LIMIT 1 ORDER BY fecha DESC";
+		$sql = "SELECT lista_id FROM ventas_egresos_listaPrecios_resumen WHERE activo = 1 ORDER BY fecha DESC LIMIT 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchColumn();
@@ -19,7 +19,7 @@ function obtenerUltimaListaId()
 {
 	try {
 		$conn = getConnection();
-		$sql = "SELECT MAX(lista_id) AS ultimo_id FROM ventas_egresos_listaPrecios_resumen";
+		$sql = "SELECT MAX(lista_id) AS ultimo_id FROM ventas_egresos_listaPrecios_resumen WHERE activo = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchColumn();
@@ -33,24 +33,17 @@ function obtenerResumenLista(){
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
-							r.lista_id,
-							r.proveedor,
-							r.moneda,
-							r.fecha_lista,
-							r.fecha_sistema,
-							r.fecha_modificacion,
-							r.estado
-						FROM ventas_egresos_listaPrecios_resumen r
-						LEFT JOIN ventas_egresos_listaPrecios_detalle d
-							ON r.lista_id = d.lista_id
-						GROUP BY
-							r.lista_id,
-							r.proveedor,
-							r.moneda,
-							r.fecha_lista,
-							r.fecha_sistema,
-							r.fecha_modificacion,
-							r.estado
+							lista_id,
+							tipo,
+							nombre,
+							proveedor,
+							moneda,
+							fecha_lista,
+							fecha_sistema,
+							fecha_modificacion
+						FROM ventas_egresos_listaPrecios_resumen
+						WHERE activo = 1
+							AND estado = 'pendiente'
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
@@ -68,7 +61,8 @@ function obtenerResumenListaPorId($lista_id){
 		$conn = getConnection();
 		$sql = "SELECT 
 							r.lista_id,
-							r.fecha,
+							r.tipo,
+							r.fecha_lista,
 							r.proveedor,
 							r.moneda,
 							r.fecha_sistema,
@@ -78,8 +72,10 @@ function obtenerResumenListaPorId($lista_id){
 						LEFT JOIN ventas_egresos_listaPrecios_detalle d
 							ON r.lista_id = d.lista_id
 						WHERE r.lista_id = :lista_id
+							AND r.activo = 1
 						GROUP BY
 							r.lista_id,
+							r.tipo,
 							r.fecha,
 							r.proveedor,
 							r.moneda,
@@ -131,41 +127,45 @@ function obtenerDetalleLista($lista_id){
 
 function crearListaPrecios($datos){
 
-	$creado_por = $_SESSION['username'];
+	$nombre = $datos['fecha_lista'] . ' - ' . $datos['proveedor'];
 
 	try {
 		$conn = getConnection();
-		$sql = "INSERT INTO ventas_egresos_listaPrecios_resumen (
+		$sqlResumen = "INSERT INTO ventas_egresos_listaPrecios_resumen (
 							fecha_lista,
+							tipo,
+							nombre,
 							proveedor,
 							moneda,
 							operador_id,
-							creado_por,
 							estado
 						)
 						VALUES (
 							:fecha_lista,
+							:tipo,
+							:nombre,
 							:proveedor,
 							:moneda,
 							:operador_id,
-							:creado_por,
 							:estado)";
 
-		$stmt = $conn->prepare($sql);
-		$stmt->bindParam(':fecha_lista', $datos['fecha_lista']);
-		$stmt->bindParam(':proveedor', $datos['proveedor']);
-		$stmt->bindParam(':moneda', $datos['moneda']);
-		$stmt->bindParam(':operador_id', $datos['operador_id']);
-		$stmt->bindParam(':creado_por', $creado_por);
-		$stmt->bindValue(':estado', 'pendiente');
+		$stmtResumen = $conn->prepare($sqlResumen);
+		$stmtResumen->bindParam(':fecha_lista', $datos['fecha_lista']);
+		$stmtResumen->bindParam(':tipo', $datos['tipo']);
+		$stmtResumen->bindParam(':nombre', $nombre);
+		$stmtResumen->bindParam(':proveedor', $datos['proveedor']);
+		$stmtResumen->bindParam(':moneda', $datos['moneda']);
+		$stmtResumen->bindParam(':operador_id', $datos['operador_id']);
+		$stmtResumen->bindValue(':estado', 'pendiente');
 
-		$result = $stmt->execute();
+		$resultResumen = $stmtResumen->execute();
+		$lista_id = $conn->lastInsertId();
 
-		if ($result) {
+		if ($resultResumen) {
 			registrarEvento("ListaPrecios Model: lista creada correctamente.", "INFO");
-			$lista_id = $conn->lastInsertId();
 			return ['success' => true, 'lista_id' => $lista_id];
 		} else {
+			registrarEvento("ListaPrecios Model: Error al crear la lista, lista_id: " . $lista_id, "ERROR");
 			return ['success' => false, 'message' => 'Error al crear la lista.'];
 		}
 
@@ -176,26 +176,55 @@ function crearListaPrecios($datos){
 	}
 }
 
-function editarListaPrecios($datos){
+function agregarMercaderiasListaPrecios($lista_id, $mercaderia_id){
+	try{
+		$conn = getConnection();
+		$sqlDetalle = "INSERT INTO ventas_egresos_listaPrecios_detalle (
+							lista_id,
+							mercaderia_id,
+							precio_compra,
+							precio_venta,
+							iva_tasa,
+							descuento_porcentaje
+						)
+						VALUES (
+							:lista_id,
+							:mercaderia_id,
+							0.00,
+							0.00,
+							0.00,
+							0.00
+						)";
 
-	$editado_por = $_SESSION['username'];
+		$stmtDetalle = $conn->prepare($sqlDetalle);
+		$stmtDetalle->bindValue(':lista_id', $lista_id);
+		$stmtDetalle->bindValue(':mercaderia_id', $mercaderia_id);
+		$stmtDetalle->execute();
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("ListaPrecios Model: Error al agregar productos a la lista, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function editarListaPrecios($datos){
 
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("UPDATE ventas_egresos_listaPrecios_resumen
 														SET
+															tipo = :tipo,
 															fecha_lista = :fecha_lista,
 															proveedor = :proveedor,
-															moneda = :moneda,
-															editado_por = :editado_por
+															moneda = :moneda
 														WHERE
 															lista_id = :lista_id");
 
 		$stmt->bindParam(':lista_id', $datos['lista_id']);
+		$stmt->bindParam(':tipo', $datos['tipo']);
 		$stmt->bindParam(':fecha_lista', $datos['fecha_lista']);
 		$stmt->bindParam(':proveedor', $datos['proveedor']);
 		$stmt->bindParam(':moneda', $datos['moneda']);
-		$stmt->bindParam(':editado_por', $editado_por);
 
 		$result = $stmt->execute();
 
@@ -213,9 +242,6 @@ function editarListaPrecios($datos){
 
 function eliminarListaPrecios($lista_id){
 
-	$creado_por_id = $_SESSION['operador_id'];
-	$creado_por_username = $_SESSION['username'];
-
 	try {
 		$conn = getConnection();
 
@@ -231,11 +257,11 @@ function eliminarListaPrecios($lista_id){
 		}
 
 		// Actualizar el estado en la tabla de detalle
-		$stmt = $conn->prepare("UPDATE ventas_egresos_listaPrecios_detalle
+/* 		$stmtDetalle = $conn->prepare("UPDATE ventas_egresos_listaPrecios_detalle
                             SET estado = 'cancelado'
-                            WHERE lista_id = :lista_id AND estado = 'pendiente'");
-		$stmt->bindValue(':lista_id', $lista_id);
-		$stmt->execute();
+                            WHERE lista_id = :lista_id");
+		$stmtDetalle->bindValue(':lista_id', $lista_id);
+		$stmtDetalle->execute(); */
 
 		// Actualizar el estado en la tabla de resumen
 		$stmtResumen = $conn->prepare("UPDATE ventas_egresos_listaPrecios_resumen
