@@ -99,20 +99,17 @@ function obtenerDetalleLista($lista_id){
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
-								item_id,
-								lista_id,
-								codigo_mercaderia,
-								descripcion_mercaderia,
-								codigo_externo,
-								cantidad,
-								precio_compra,
-								precio_venta,
-								iva_tasa,
-								descuento_porcentaje,
-								(cantidad * precio_venta) AS subtotal
-						FROM ventas_egresos_listaPrecios_detalle
-						WHERE lista_id = :lista_id
-							--AND estado = 'pendiente'
+								d.item_id,
+								d.lista_id,
+								m.codigo,
+								m.descripcion,
+								d.precio_compra,
+								d.precio_venta,
+								d.iva_tasa
+						FROM ventas_egresos_listaPrecios_detalle d
+						INNER JOIN configuracion_abm_mercaderias m
+							ON d.mercaderia_id = m.mercaderia_id
+						WHERE d.lista_id = :lista_id
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':lista_id', $lista_id);

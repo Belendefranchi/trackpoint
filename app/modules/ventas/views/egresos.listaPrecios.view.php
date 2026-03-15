@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../controllers/egresos.listaPrecios.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
-
+/* unset($_SESSION['detalle_presupuesto']); */
 ?>
 
 <script>
@@ -272,7 +272,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
 						<form method="POST" id="formVerListaPrecios"
-							action="/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verListaPrecios">
+							action="/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista">
 							<div class="modal-content m-5">
 								<div class="modal-header table-primary text-white">
 									<h5 class="modal-title" id="modalVerListaPreciosLabel">Seleccionar mercadería</h5>
@@ -290,7 +290,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									</div>
 
 									<div class="mb-3">
-										<table id="miTablaEnModalMercaderia" class="display pt-2 pb-4" style="width:100%">
+										<table id="miTablaEnModalMercaderi" class="display pt-2 pb-4" style="width:100%">
 											<thead class="table-primary">
 												<tr class="text-light">
 													<td class="border text-center"><i class="bi-check-circle me-2"></i></td>

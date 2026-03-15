@@ -98,14 +98,16 @@ $(document).ready(function () {
 						margin: [0, 20, 0, 20]
 					});
 
-					doc.footer = function(currentPage, pageCount) {
+					doc.footer = function (currentPage, pageCount) {
 						return {
 							columns: [
 								'',
-								{ text: 'Página ' + currentPage + ' de ' + pageCount,
+								{
+									text: 'Página ' + currentPage + ' de ' + pageCount,
 									alignment: 'center',
 									fontSize: 9,
-									margin: [0, 10, 0, 0] },
+									margin: [0, 10, 0, 0]
+								},
 								''
 							]
 						};
@@ -249,7 +251,7 @@ $(document).ready(function () {
 												],
 												alignment: 'center'
 											},
-											{ 
+											{
 												text: [
 													{ text: subtitulo + ' - ', fontSize: 14, color: '#adadad' },
 													{ text: objetoSeleccionado, fontSize: 14, color: '#adadad' }
@@ -282,12 +284,12 @@ $(document).ready(function () {
 						},
 						margin: [0, 20, 0, 20]
 					});
-			
-					doc.footer = function(currentPage, pageCount) {
+
+					doc.footer = function (currentPage, pageCount) {
 						return {
 							columns: [
 								'',
-								{ 
+								{
 									text: 'Página ' + currentPage.toString() + ' de ' + pageCount,
 									alignment: 'center',
 									fontSize: 9,
@@ -297,7 +299,7 @@ $(document).ready(function () {
 							]
 						};
 					};
-			
+
 					doc.defaultStyle.fontSize = 10;
 					doc.styles.tableHeader = {
 						fillColor: '#22265D',
@@ -306,7 +308,7 @@ $(document).ready(function () {
 						fontSize: 11,
 						alignment: 'center'
 					};
-			
+
 					// Bordes para la tabla
 					let objLayout = {};
 					objLayout['hLineWidth'] = function () { return 0.5; };
@@ -314,7 +316,7 @@ $(document).ready(function () {
 					objLayout['hLineColor'] = function () { return '#adadad'; };
 					objLayout['vLineColor'] = function () { return '#adadad'; };
 					doc.content[doc.content.length - 1].layout = objLayout;
-			
+
 					doc.pageMargins = [30, 20, 30, 20];
 				}
 			},

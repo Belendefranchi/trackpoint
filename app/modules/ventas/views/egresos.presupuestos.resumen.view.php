@@ -1,5 +1,5 @@
 								<?php if (empty($resumen)): ?>
-									<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
+									<p class="text-muted text-center">Aún no se crearon presupuestos</p>
 								<?php else: ?>
 
 									<!-- ENCABEZADO -->

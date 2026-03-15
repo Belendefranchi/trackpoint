@@ -26,52 +26,6 @@ $mercaderias = obtenerMercaderiasActivas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	// === OBTENER DETALLE Y RENDERIZAR SOLO EL DIV ===
-	if (isset($_GET['actualizarDetalle'])) {
-
-		header('Content-Type: application/json');
-
-		$lista_id = $_POST['lista_id'] ?? null;
-
-		if (empty($lista_id)) {
-			echo json_encode([
-				'success' => false,
-				'message' => 'No se recibió el ID de la lista'
-			]);
-			exit;
-		}
-
-		try {
-			// 1) Obtener el detalle desde el modelo
-			$detalle = obtenerDetalleLista($lista_id);
-
-			// 2) Guardarlo en sesión
-			$_SESSION['detalle_lista'] = $detalle;
-
-			// 3) Renderizar el fragmento HTML usando la vista
-			ob_start();
-			include __DIR__ . "/../views/egresos.listaPrecios.detalle.view.php";
-			$html = ob_get_clean();
-
-			echo json_encode([
-				'success' => true,
-				'html' => $html,
-				'detalle' => $detalle
-			]);
-
-			exit;
-
-		} catch (Exception $e) {
-			registrarEvento("Error al obtener detalle: " . $e->getMessage(), "ERROR");
-
-			echo json_encode([
-				'success' => false,
-				'message' => 'Error: ' . $e->getMessage()
-			]);
-			exit;
-		}
-	}
-
 	// ####### CREAR LISTA DE PRECIOS #######
 	if (isset($_GET['crearLista'])) {
 
@@ -187,28 +141,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	// ####### SELECCIONAR MERCADERÍA #######
-	if (isset($_GET['seleccionarMercaderia'])) {
+	// ####### VER LISTA DE PRECIOS #######
+	if (isset($_GET['verLista'])) {
+		header('Content-Type: application/json');
 
-		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
-		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
-		$descripcion_mercaderia = $_POST['descripcion_mercaderia'] ?? '';
-		$precio_compra_mercaderia = $_POST['precio_compra_mercaderia'] ?? '';
-		$precio_venta_mercaderia = $_POST['precio_venta_mercaderia'] ?? '';
-		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
+		$lista_id = $_POST['lista_id'];
 
-		if (empty($mercaderia_id)) {
-			echo json_encode(['success' => false, 'message' => 'Error: No se recibio el ID de la mercaderia']);
+		if (empty($lista_id)) {
+			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID de la lista']);
 			exit;
-		} else {
+		}
+
+		try {
+
+			// Obtener el detalle desde el modelo
+			$detalle = obtenerDetalleLista($lista_id);
+
+			// Renderizar el fragmento HTML usando la vista
+			ob_start();
+			include __DIR__ . "/../views/egresos.listaPrecios.detalle.view.php";
+			$html = ob_get_clean();
+
 			echo json_encode([
 				'success' => true,
-				'mercaderia_id' => $mercaderia_id,
-				'codigo_mercaderia' => $codigo_mercaderia,
-				'descripcion_mercaderia' => $descripcion_mercaderia,
-				'precio_compra_mercaderia' => $precio_compra_mercaderia,
-				'precio_venta_mercaderia' => $precio_venta_mercaderia
+				'html' => $html
 			]);
+
+			exit;
+
+		} catch (Exception $e) {
+			registrarEvento("Error al obtener detalle: " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
 	}
@@ -217,7 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $datosVista = [
-	'mercaderias' => $mercaderias,
 	'resumen' => $resumen,
 	'ultimaListaId' => $ultimaListaId
 ];
