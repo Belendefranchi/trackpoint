@@ -33,12 +33,12 @@
 													</tbody>
 												</table>
 
-											<?php endif; ?>
-
-											<div class="d-flex justify-content-end">
-												<a href="#" id="btnMostrarEditarListaPrecios"
+												<div class="d-flex justify-content-end">
+													<a href="#" id="btnMostrarGuardarListaPrecios"
 													class="btn btn-sm btn-success mx-1 my-3"
 													data-id="<?= htmlspecialchars($lista_id) ?>">
-													<i class="bi bi-check-circle pt-1 me-2"></i>Editar
+													<i class="bi bi-check-circle pt-1 me-2"></i>Guardar
 												</a>
 											</div>
+
+										<?php endif; ?>
