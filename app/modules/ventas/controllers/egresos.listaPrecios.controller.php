@@ -176,6 +176,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
+	// ####### GUARDAR CAMBIOS EN LISTA DE PRECIOS #######
+	if (isset($_GET['guardarLista'])) {
+
+		header('Content-Type: application/json');
+
+    $lista_id = $_POST['lista_id'] ?? null;
+    $items = $_POST['items'] ?? [];
+
+    if (!$lista_id || empty($items)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Datos incompletos'
+        ]);
+        exit;
+    }
+
+		try {
+			$result = guardarCambiosListaPrecios($lista_id, $items);
+
+			if ($result) {
+				registrarEvento("Lista de Precios Controller: Cambios guardados correctamente => " . $lista_id, "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				registrarEvento("Lista de Precios Controller: Error al guardar cambios => " . $lista_id, "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudieron guardar los cambios']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Lista de Precios Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+			exit;
+		}
+	}
+
 }
 
 // Obtener datos para pasar a la vista

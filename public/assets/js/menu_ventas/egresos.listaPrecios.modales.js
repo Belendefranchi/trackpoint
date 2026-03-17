@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('resumen-tab').addEventListener('shown.bs.tab', function () {
 
     if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
-        $('#miTablaDetalle').DataTable().destroy();
+      $('#miTablaDetalle').DataTable().destroy();
     }
 
     document.getElementById('detalle-lista').innerHTML = `
@@ -165,6 +165,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('listaActivo').innerText = '';
 
-});
+  });
+
+  /* ###################### GUARDAR LISTA DE PRECIOS ###################### */
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('#btnMostrarGuardarListaPrecios');
+    if (!btn) return;
+    e.preventDefault();
+    const form = document.getElementById('formGuardarListaPrecios');
+    const formData = new FormData(form);
+    console.log('Guardando lista de precios con datos:', Array.from(formData.entries()));
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&guardarLista',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success) {
+          console.log(response);
+          $('#modalMensajeLabel').text('Lista de precios guardada');
+          $('#textoModalMensaje').text('La lista de precios fue guardada correctamente.');
+        } else {
+          $('#modalMensajeLabel').text('Error al guardar');
+          $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+        }
+
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeListaPrecios'));
+        modalMensaje.show();
+
+        // Esperar a que el modal se cierre para recargar
+        const modalElement = document.getElementById('modalMensajeListaPrecios');
+        modalElement.addEventListener('hidden.bs.modal', function () {
+          location.reload();
+        }, { once: true });
+
+      },
+      error: function (xhr, status, error) {
+        console.log('Error al guardar los datos');
+        console.log('Código de estado:', xhr.status);
+        console.log('Mensaje de error:', error);
+        console.log('Respuesta del servidor:', xhr.responseText);
+        $('#modalMensajeLabel').text('Error inesperado');
+        $('#textoModalMensaje').text('Hubo un problema al intentar guardar la lista de precios.');
+        const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajeListaPrecios'));
+        modalMensaje.show();
+      }
+    });
+  });
 
 });

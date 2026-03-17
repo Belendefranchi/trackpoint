@@ -2,7 +2,8 @@
 require_once __DIR__ . '/../../../../core/config/db.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
-function obtenerListaId(){
+function obtenerListaId()
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT lista_id FROM ventas_egresos_listaPrecios_resumen WHERE activo = 1 ORDER BY fecha DESC LIMIT 1";
@@ -29,7 +30,8 @@ function obtenerUltimaListaId()
 	}
 }
 
-function obtenerResumenLista(){
+function obtenerResumenLista()
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
@@ -56,7 +58,8 @@ function obtenerResumenLista(){
 
 }
 
-function obtenerResumenListaPorId($lista_id){
+function obtenerResumenListaPorId($lista_id)
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
@@ -95,12 +98,14 @@ function obtenerResumenListaPorId($lista_id){
 
 }
 
-function obtenerDetalleLista($lista_id){
+function obtenerDetalleLista($lista_id)
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
 								d.item_id,
 								d.lista_id,
+								d.mercaderia_id,
 								m.codigo,
 								m.descripcion,
 								d.precio_compra,
@@ -122,7 +127,8 @@ function obtenerDetalleLista($lista_id){
 	}
 }
 
-function crearListaPrecios($datos){
+function crearListaPrecios($datos)
+{
 
 	$nombre = $datos['fecha_lista'] . ' - ' . $datos['proveedor'];
 
@@ -173,8 +179,9 @@ function crearListaPrecios($datos){
 	}
 }
 
-function agregarMercaderiasListaPrecios($lista_id, $mercaderia_id){
-	try{
+function agregarMercaderiasListaPrecios($lista_id, $mercaderia_id)
+{
+	try {
 		$conn = getConnection();
 		$sqlDetalle = "INSERT INTO ventas_egresos_listaPrecios_detalle (
 							lista_id,
@@ -204,7 +211,8 @@ function agregarMercaderiasListaPrecios($lista_id, $mercaderia_id){
 	}
 }
 
-function editarListaPrecios($datos){
+function editarListaPrecios($datos)
+{
 
 	try {
 		$conn = getConnection();
@@ -237,7 +245,8 @@ function editarListaPrecios($datos){
 	}
 }
 
-function eliminarListaPrecios($lista_id){
+function eliminarListaPrecios($lista_id)
+{
 
 	try {
 		$conn = getConnection();
@@ -276,111 +285,42 @@ function eliminarListaPrecios($lista_id){
 	}
 }
 
-function agregarMercaderia($datos){
+function guardarCambiosListaPrecios($lista_id, $items)
+{
+	echo "Guardando cambios para lista_id: $lista_id con datos: " . print_r($items, true);
 	try {
 		$conn = getConnection();
+		foreach ($items as $item_id => $item) {
 
-		$sql = "INSERT INTO ventas_egresos_listaPrecios_detalle (
-										lista_id,
-										codigo_mercaderia,
-										descripcion_mercaderia,
-										cantidad,
-										/* codigo_externo, */
-										precio_compra,
-										precio_venta,
-										/* iva_tasa, */
-										/* descuento_porcentaje, */
-										operador_id,
-										estado
-									)
-                  VALUES (
-										:lista_id,
-										:codigo_mercaderia,
-										:descripcion_mercaderia,
-										:cantidad,
-										/* :codigo_externo, */
-										:precio_compra,
-										:precio_venta,
-										/* :iva_tasa, */
-										/* :descuento_porcentaje, */
-										:operador_id,
-										:estado
-									)";
+			$sql = "UPDATE ventas_egresos_listaPrecios_detalle
+                    SET 
+                        precio_compra = :precio_compra,
+                        precio_venta  = :precio_venta,
+                        iva_tasa      = :iva_tasa
+                    WHERE item_id = :item_id
+                      AND lista_id = :lista_id";
 
-		$stmt = $conn->prepare($sql);
-		$stmt->bindValue(':lista_id', $datos['lista_id']);
-		$stmt->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
-		$stmt->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
-		$stmt->bindValue(':cantidad', $datos['cantidad']);
-		/* $stmt->bindValue(':codigo_externo', $datos['codigo_externo']); */
-		$stmt->bindValue(':precio_compra', $datos['precio_compra_mercaderia']);
-		$stmt->bindValue(':precio_venta', $datos['precio_venta_mercaderia']);
-		/* $stmt->bindValue(':iva_tasa', $datos['iva_tasa']); */
-		/* $stmt->bindValue(':descuento_porcentaje', $datos['descuento_porcentaje']); */
-		$stmt->bindValue(':operador_id', $datos['operador_id']);
-		$stmt->bindValue(':estado', 'pendiente');
+			$stmt = $conn->prepare($sql);
 
-		$result = $stmt->execute();
+			$stmt->bindValue(':precio_compra', $item['precio_compra']);
+			$stmt->bindValue(':precio_venta', $item['precio_venta']);
+			$stmt->bindValue(':iva_tasa', $item['iva_tasa']);
+			$stmt->bindValue(':item_id', $item_id);
+			$stmt->bindValue(':lista_id', $lista_id);
+
+			$result = $stmt->execute();
+		}
 
 		if ($result) {
-			registrarEvento("Presupuestos Model: mercadería agregada correctamente.", "INFO");
-			return ['success' => true];
+			registrarEvento("ListaPrecios Model: lista guardada correctamente.", "INFO");
+			return ['success' => true, 'lista_id' => $lista_id];
 		} else {
-			return ['success' => false, 'message' => 'Error al insertar en detalle'];
+			registrarEvento("ListaPrecios Model: Error al guardar la lista, lista_id: " . $lista_id, "ERROR");
+			return ['success' => false, 'message' => 'Error al guardar la lista.'];
 		}
 
 	} catch (PDOException $e) {
-		registrarEvento("Presupuestos Model: Error al buscar pendientes, " . $e->getMessage(), "ERROR");
-		return ['success' => false, 'message' => $e->getMessage()];
-	}
-}
-
-function editarMercaderiaPresupuesto($datos){
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("UPDATE ventas_egresos_listaPrecios_detalle
-														SET
-															codigo_mercaderia = :codigo_mercaderia,
-															descripcion_mercaderia = :descripcion_mercaderia,
-															cantidad = :cantidad,
-															precio_compra = :precio_compra,
-															precio_venta = :precio_venta
-															/* iva_tasa = :iva_tasa,
-															descuento_porcentaje = :descuento_porcentaje, */
-														WHERE
-															item_id = :item_id");
-
-		$stmt->bindParam(':item_id', $datos['item_id']);
-		$stmt->bindParam(':codigo_mercaderia', $datos['codigo_mercaderia']);
-		$stmt->bindParam(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
-		$stmt->bindParam(':cantidad', $datos['cantidad']);
-		$stmt->bindParam(':precio_compra', $datos['precio_compra_mercaderia']);
-		$stmt->bindParam(':precio_venta', $datos['precio_venta_mercaderia']);
-		/* $stmt->bindParam(':iva_tasa', $datos['iva_tasa']);
-			$stmt->bindParam(':descuento_porcentaje', $datos['descuento_porcentaje']); */
-		$result = $stmt->execute();
-
-		if ($result) {
-			registrarEvento("Presupuestos Model: mercadería editada correctamente.", "INFO");
-		}
-		return ['success' => true, 'message' => 'Mercadería editada correctamente.'];
-
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Presupuestos Model: Error al editar la mercadería, " . $e->getMessage(), "ERROR");
-		return false;
-	}
-}
-
-function eliminarMercaderiaPresupuesto($item_id){
-	try {
-		$conn = getConnection();
-		$stmt = $conn->prepare("DELETE FROM ventas_egresos_listaPrecios_detalle WHERE item_id = :item_id");
-		$stmt->bindParam(':item_id', $item_id);
-		return $stmt->execute();
-	} catch (PDOException $e) {
-		// Manejo de errores
-		registrarEvento("Presupuestos Model: Error al eliminar la mercadería, " . $e->getMessage(), "ERROR");
-		return false;
+		registrarEvento("ListaPrecios Model: Error al guardar cambios para lista_id => " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => 'Error al guardar los cambios.'];
 	}
 }
