@@ -23,7 +23,7 @@
 																	<td class="border"><input class="form-control" name="items[<?= $filaDetalle['item_id'] ?>][precio_compra]" value="<?= $filaDetalle['precio_compra'] ?>"></td>
 																	<td class="border"><input class="form-control" name="items[<?= $filaDetalle['item_id'] ?>][precio_venta]" value="<?= $filaDetalle['precio_venta'] ?>"></td>
 																	<td class="border"><input class="form-control" name="items[<?= $filaDetalle['item_id'] ?>][iva_tasa]" value="<?= $filaDetalle['iva_tasa'] ?>"></td>
-																	<td class="border"><input type="hidden" name="items[<?= $filaDetalle['item_id'] ?>][mercaderia_id]" value="<?= $filaDetalle['mercaderia_id'] ?>"></td>
+																	<td class=""><input type="hidden" name="items[<?= $filaDetalle['item_id'] ?>][mercaderia_id]" value="<?= $filaDetalle['mercaderia_id'] ?>"></td>
 																</tr>
 															<?php endforeach; ?>
 														</tbody>

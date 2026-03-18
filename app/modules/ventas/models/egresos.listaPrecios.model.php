@@ -287,7 +287,6 @@ function eliminarListaPrecios($lista_id)
 
 function guardarCambiosListaPrecios($lista_id, $items)
 {
-	echo "Guardando cambios para lista_id: $lista_id con datos: " . print_r($items, true);
 	try {
 		$conn = getConnection();
 		foreach ($items as $item_id => $item) {

@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### DETALLE LISTA DE PRECIOS ###################### */
-  document.addEventListener('click', function (e) {
+/*   document.addEventListener('click', function (e) {
 
     const btn = e.target.closest('.btn-ver-lista');
     if (!btn) return;
@@ -165,7 +165,94 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('listaActivo').innerText = '';
 
+  }); */
+
+
+
+
+
+
+  /* ###################### SELECCIÓN DE LISTA DE PRECIOS ###################### */
+
+  // --- SELECCIONAR LISTA ---
+  document.querySelectorAll('.tabla-lista').forEach(fila => {
+    fila.addEventListener('click', function (event) {
+
+      // Evitar que clic en <a> o <button> o inputs dispare selección
+      if (event.target.closest('a, button, input, label')) {
+        return;
+      }
+
+      // Seleccionar radio si existe
+      const radio = this.querySelector('.seleccionar-lista');
+      console.log('Radio seleccionado:', radio.dataset.nombre);
+      if (radio) {
+        radio.checked = true;
+      }
+
+      listaSeleccionada = radio?.dataset?.nombre;
+
+      // Actualizar la etiqueta superior (UI)
+      actualizarEtiqueta(listaSeleccionada);
+    });
   });
+
+  function actualizarEtiqueta(listaSeleccionada) {
+
+    let etiqueta = document.getElementById('listaActivo');
+    if (etiqueta) {
+      etiqueta.textContent = listaSeleccionada;
+    }
+  }
+
+  // --- CARGAR DETALLE DE LA LISTA SELECCIONADA ---
+
+  function recargarDetalle(lista_id) {
+    console.count('recargarDetalle llamado');
+
+    $.ajax({
+      url: "/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista",
+      type: "POST",
+      data: { lista_id },
+      dataType: "json",
+
+      success: function (response) {
+        if (response.success) {
+          $("#detalle-lista").html(response.html);
+
+        } else {
+          console.error(response.message);
+        }
+      },
+
+      error: function () {
+        alert("Error al obtener el detalle de la lista de precios");
+      }
+    });
+  }
+
+  $(document).ready(function () {
+
+    // Detectar apertura de la pestaña DETALLE
+    $('a[data-bs-toggle="tab"][href="#detalle"]').on('shown.bs.tab', function () {
+
+      let seleccionado = document.querySelector('input[name="seleccion_lista"]:checked');
+      let lista_id = seleccionado?.getAttribute('data-listaid') ?? null;
+
+      console.log(lista_id);
+      if (!lista_id) {
+        console.warn("No hay lista seleccionada al intentar mostrar detalle");
+        return;
+      }
+      recargarDetalle(lista_id);
+    });
+  });
+
+
+
+
+
+
 
   /* ###################### GUARDAR LISTA DE PRECIOS ###################### */
   document.addEventListener('click', function (e) {
@@ -174,13 +261,14 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     const form = document.getElementById('formGuardarListaPrecios');
     const formData = new FormData(form);
-    console.log('Guardando lista de precios con datos:', Array.from(formData.entries()));
+    /* console.log('Guardando lista de precios con datos:', Array.from(formData.entries())); */
     $.ajax({
       url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&guardarLista',
       type: 'POST',
       data: formData,
       processData: false,
       contentType: false,
+      dataType: 'json',
       success: function (response) {
         if (response.success) {
           console.log(response);

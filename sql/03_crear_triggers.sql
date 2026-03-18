@@ -124,3 +124,31 @@ BEGIN
 	INNER JOIN inserted i ON p.presupuesto_id = i.presupuesto_id;
 END;
 GO
+
+CREATE TRIGGER trg_Update_listaPrecios_resumen
+ON ventas_egresos_listaPrecios_resumen
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE ventas_egresos_listaPrecios_resumen
+	SET fecha_modificacion = GETDATE()
+	FROM ventas_egresos_listaPrecios_resumen p
+	INNER JOIN inserted i ON p.lista_id = i.lista_id;
+END;
+GO
+
+CREATE TRIGGER trg_Update_listaPrecios_detalle
+ON ventas_egresos_listaPrecios_detalle
+AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE ventas_egresos_listaPrecios_detalle
+	SET fecha_modificacion = GETDATE()
+	FROM ventas_egresos_listaPrecios_detalle p
+	INNER JOIN inserted i ON p.lista_id = i.lista_id;
+END;
+GO

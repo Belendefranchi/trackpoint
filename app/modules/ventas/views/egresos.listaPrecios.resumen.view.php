@@ -5,6 +5,7 @@
 												<table id="miTablaResumen" class="display" style="width:100%">
 													<thead class="table-primary">
 														<tr class="text-light">
+															<td class="border text-center">Sel.</td>
 															<td class="border text-center">ID</td>
 															<td class="border">Fecha</td>
 															<td class="border">Tipo</td>
@@ -16,7 +17,10 @@
 													</thead>
 													<tbody>
 														<?php foreach ($resumen as $filaResumen): ?>
-															<tr class="text-start">
+															<tr class="text-start tabla-lista">
+																<td class="border text-center">
+																	<input type="radio" name="seleccion_lista" class="form-check-input seleccionar-lista" data-listaid="<?= htmlspecialchars($filaResumen['lista_id']) ?>" data-nombre="<?= htmlspecialchars($filaResumen['nombre']) ?>">
+																</td>
 																<td class="border text-primary text-center"><?= htmlspecialchars($filaResumen['lista_id']) ?></td>
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['fecha_lista']) ?></td>
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['tipo']) ?></td>
@@ -41,10 +45,10 @@
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
 																			<i class="bi bi-trash"></i>
 																		</a>
-																		<a href="#" role="button" class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5 btn-ver-lista"
+<!-- 																		<a href="#" role="button" class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5 btn-ver-lista"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
 																			<i class="bi bi-eye"></i>
-																		</a>
+																		</a> -->
 																	</div>
 																</td>
 															</tr>

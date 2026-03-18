@@ -37,10 +37,10 @@ GO
 /* --------------------------------------- AGREGAR COLUMNAS ------------------------------------- */
 /* ############################################################################################## */
 
-IF COL_LENGTH('ventas_egresos_presupuestos_resumen', 'lista_nombre') IS NULL
+IF COL_LENGTH('ventas_egresos_presupuestos_resumen', 'nombre') IS NULL
 BEGIN
     ALTER TABLE ventas_egresos_presupuestos_resumen
-        ADD lista_nombre VARCHAR(100) NULL;
+        ADD nombre VARCHAR(100) NULL;
 
 END
 
