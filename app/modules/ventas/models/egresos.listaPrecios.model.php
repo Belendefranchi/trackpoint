@@ -30,6 +30,27 @@ function obtenerUltimaListaId()
 	}
 }
 
+function obtenerListasActivas(){
+	try {
+		$conn = getConnection();
+		$sql = "SELECT 
+							lista_id,
+							tipo,
+							nombre
+						FROM ventas_egresos_listaPrecios_resumen
+						WHERE activo = 1
+							AND estado = 'pendiente'
+						";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento("ListaPrecios Model: Error al buscar resumen, " . $e->getMessage(), "ERROR");
+		return ['success' => false, 'message' => $e->getMessage()];
+	}
+}
+
 function obtenerResumenLista()
 {
 	try {

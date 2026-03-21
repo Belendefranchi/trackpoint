@@ -1,6 +1,6 @@
-window.addEventListener('load', function () {
+/* window.addEventListener('load', function () {
   localStorage.removeItem('presupuestoSeleccionado');
-});
+}); */
 
 // --- VARIABLES GLOBALES ---
 let presupuestoSeleccionado = null;
@@ -67,70 +67,93 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ###################### SELECCIÓN DE PRESUPUESTO ###################### */
 
   // --- SELECCIONAR PRESUPUESTO ---
-  document.querySelectorAll('.tabla-card').forEach(card => {
-    card.addEventListener('click', function (event) {
+  let presupuestoSeleccionado = null;
 
-      // Evitar que clic en <a> o <button> o inputs dispare selección
-      if (event.target.closest('a, button, input, label')) {
-        return;
-      }
+  // --- MANEJO DE SELECCIÓN (DELEGACIÓN) ---
+  document.addEventListener('click', function (event) {
 
-      // Seleccionar radio si existe
-      const radio = this.querySelector('.seleccionar-presupuesto');
-      if (radio) {
-        radio.checked = true;
-      }
+    const card = event.target.closest('.tabla-card');
+    if (!card) return;
 
-      presupuestoSeleccionado = radio?.dataset?.presupuestoid;
+    // Evitar clicks en elementos interactivos internos
+    if (event.target.closest('a, button, input, label')) return;
 
-      if (!presupuestoSeleccionado) {
-        console.warn('No se encontró data-presupuestoid en la tarjeta clickeada.');
-        return;
-      }
+    const radio = card.querySelector('.seleccionar-presupuesto');
+    if (!radio) return;
 
-      // Guardarlo en localStorage (siempre como string)
-      localStorage.setItem('presupuestoSeleccionado', String(presupuestoSeleccionado));
+    // Marcar radio
+    radio.checked = true;
 
-      // Crear o actualizar input hidden en el formAgregarMercaderia
-      const form = document.getElementById('formAgregarMercaderia');
-      if (form) {
-        let inputHidden = document.getElementById('presupuesto_id');
-        if (!inputHidden) {
-          inputHidden = document.createElement('input');
-          inputHidden.type = 'hidden';
-          inputHidden.name = 'presupuesto_id';
-          inputHidden.id = 'presupuesto_id';
-          form.appendChild(inputHidden);
-        }
-        inputHidden.value = presupuestoSeleccionado;
-      } else {
-        console.warn('No se encontró #formAgregarMercaderia en el DOM.');
-      }
+    // Obtener ID
+    const id = radio.dataset.presupuestoid;
+    if (!id) return;
 
-      // Activar botón "Agregar" del formulario superior (si existe)
-      const btnGuardar = document.getElementById('btn-guardar-mercaderia');
-      if (btnGuardar) {
-        btnGuardar.disabled = false;
-      }
+    presupuestoSeleccionado = id;
 
-      // Quitar selección previa y añadir clase visual
-      document.querySelectorAll('.tabla-card.selected-row')
-        .forEach(c => c.classList.remove('selected-row'));
+    // Activar botón "Agregar" del formulario superior (si existe)
+    const btnGuardar = document.getElementById('btn-guardar-mercaderia');
+    if (btnGuardar) {
+      btnGuardar.disabled = false;
+    }
 
-      this.classList.add('selected-row');
+    // Sincronizar con form
+    const inputHidden = document.getElementById('presupuesto_id');
+    if (inputHidden) {
+      inputHidden.value = id;
+    }
 
-      // Actualizar la etiqueta superior (UI)
-      actualizarEtiquetaPresupuesto();
-    });
+    // UI selección
+    document.querySelectorAll('.tabla-card.selected-row')
+      .forEach(c => c.classList.remove('selected-row'));
+
+    card.classList.add('selected-row');
+
+    actualizarEtiquetaPresupuesto();
   });
 
+  // --- ACTUALIZAR ETIQUETA ---
   function actualizarEtiquetaPresupuesto() {
-    let id = localStorage.getItem('presupuestoSeleccionado');
-    if (!id) return;
+    const etiqueta = document.getElementById('presupuestoActivo');
+    if (etiqueta && presupuestoSeleccionado) {
+      etiqueta.textContent = `Presupuesto Nº: ${presupuestoSeleccionado}`;
+    }
+  }
+
+  document.getElementById('btn-guardar-mercaderia').disabled = false;
+
+  // --- RESTAURAR SELECCIÓN DESPUÉS DE AJAX ---
+  function restaurarSeleccionPresupuesto() {
+    if (!presupuestoSeleccionado) return;
+
+    const radio = document.querySelector(
+      `.seleccionar-presupuesto[data-presupuestoid="${presupuestoSeleccionado}"]`
+    );
+
+    if (radio) {
+      radio.checked = true;
+
+      const card = radio.closest('.tabla-card');
+      if (card) {
+        card.classList.add('selected-row');
+      }
+    }
+
+    // mantener sincronizado el form
+    const inputHidden = document.getElementById('presupuesto_id');
+    if (inputHidden) {
+      inputHidden.value = presupuestoSeleccionado;
+    }
+
+    actualizarEtiquetaPresupuesto();
+  }
+
+  function actualizarEtiquetaPresupuesto() {
+/*     let id = localStorage.getItem('presupuestoSeleccionado');
+    if (!id) return; */
 
     let etiqueta = document.getElementById('presupuestoActivo');
     if (etiqueta) {
-      etiqueta.textContent = `Presupuesto Nº: ${id}`;
+      etiqueta.textContent = `Presupuesto Nº: ${presupuestoSeleccionado}`;
     }
   }
 
@@ -146,14 +169,33 @@ document.addEventListener('DOMContentLoaded', function () {
       success: function (response) {
         if (response.success) {
           $("#detalle-presupuesto").html(response.html);
-
+          restaurarSeleccionPresupuesto();
         } else {
           console.error(response.message);
         }
       },
-
       error: function () {
         alert("Error al obtener el detalle del presupuesto");
+      }
+    });
+  }
+
+  function recargarResumen(presupuesto_id) {
+    $.ajax({
+      url: "/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&actualizarResumen",
+      type: "POST",
+      data: { presupuesto_id },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          $("#resumen-presupuesto").html(response.html);
+          restaurarSeleccionPresupuesto();
+        } else {
+          console.error(response.message);
+        }
+      },
+      error: function () {
+        alert("Error al obtener el resumen del presupuesto");
       }
     });
   }
@@ -202,6 +244,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('btn-guardar-mercaderia').disabled = true;
 
 
+
+
+  
   /* ###################### GENERAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarGenerarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGenerarPresupuesto'));
@@ -413,80 +458,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  /* ###################### VACIAR MERCADERÍA ###################### */
-  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
-  if (btnVaciarMercaderia) {
-    btnVaciarMercaderia.addEventListener('click', function () {
-      // Limpiar todo el localStorage
-      localStorage.clear();
-
-      // Resetear el formulario
-      document.getElementById('formAgregarMercaderia').reset();
-    });
-  }
-
-
-  /* ###################### AGREGAR MERCADERÍA ###################### */
-  const formAgregar = document.querySelector('#formAgregarMercaderia');
-  if (formAgregar) {
-    formAgregar.addEventListener('submit', function (e) {
-      e.preventDefault();
-      $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
-
-      const presupuestoId = document.getElementById('presupuesto_id').value;
-      const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
-      const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
-      const cantidad = document.getElementById('cantidad').value;
-      const precioCompra = document.getElementById('precio_compra_mercaderia').value;
-      const precioVenta = document.getElementById('precio_venta_mercaderia').value;
-
-      const formData = new FormData();
-
-      formData.append('presupuesto_id', presupuestoId);
-      formData.append('codigo_mercaderia', codigoMercaderia);
-      formData.append('descripcion_mercaderia', descripcionMercaderia);
-      formData.append('cantidad', cantidad);
-      formData.append('precio_compra_mercaderia', precioCompra);
-      formData.append('precio_venta_mercaderia', precioVenta);
-
-      console.log('Datos del formulario:', Array.from(formData.entries()));
-
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&agregarMercaderia',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: function (response) {
-          console.log('Respuesta del servidor:', response);
-          if (response.success) {
-            if (response.presupuesto_id) {
-              document.getElementById('presupuesto_id').value = response.presupuesto_id;
-            }
-
-            console.log('Respuesta del servidor:', response);
-            console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
-
-            recargarDetalle(presupuestoId);
-
-          } else {
-            $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
-          }
-        },
-        error: function (xhr, status, error) {
-          console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
-          console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText);
-          $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
-        }
-      });
-    });
-  }
-
-
-  /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
+    /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
@@ -591,6 +563,83 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
     }
+  }
+
+
+  /* ###################### VACIAR MERCADERÍA ###################### */
+  const btnVaciarMercaderia = document.getElementById('btn-vaciar-mercaderia');
+  if (btnVaciarMercaderia) {
+    btnVaciarMercaderia.addEventListener('click', function () {
+      // Limpiar todo el localStorage
+      localStorage.clear();
+
+      // Resetear el formulario
+      document.getElementById('formAgregarMercaderia').reset();
+    });
+  }
+
+
+  /* ###################### AGREGAR MERCADERÍA ###################### */
+  const formAgregar = document.querySelector('#formAgregarMercaderia');
+  if (formAgregar) {
+    formAgregar.addEventListener('submit', function (e) {
+      e.preventDefault();
+      $('#mensaje-error-agregar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const presupuestoId = document.getElementById('presupuesto_id').value;
+      const mercaderiaId = document.getElementById('mercaderia_id').value;
+      const codigoMercaderia = document.getElementById('codigo_mercaderia').value;
+      const descripcionMercaderia = document.getElementById('descripcion_mercaderia').value;
+      const cantidad = document.getElementById('cantidad').value;
+      const precioCompra = document.getElementById('precio_compra_mercaderia').value;
+      const precioVenta = document.getElementById('precio_venta_mercaderia').value;
+      
+      const formData = new FormData();
+      
+      formData.append('presupuesto_id', presupuestoSeleccionado);
+      //formData.append('presupuesto_id', presupuestoId);
+      formData.append('mercaderia_id', mercaderiaId);
+      formData.append('codigo_mercaderia', codigoMercaderia);
+      formData.append('descripcion_mercaderia', descripcionMercaderia);
+      formData.append('cantidad', cantidad);
+      formData.append('precio_compra_mercaderia', precioCompra);
+      formData.append('precio_venta_mercaderia', precioVenta);
+
+      console.log('Datos del formulario:', Array.from(formData.entries()));
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&agregarMercaderia',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+          if (response.success) {
+            if (response.presupuesto_id) {
+              document.getElementById('presupuesto_id').value = response.presupuesto_id;
+            }
+
+            console.log('Respuesta del servidor:', response);
+            console.log('Valor actual de presupuesto_id en el formulario:', document.getElementById('presupuesto_id')?.value);
+
+            recargarDetalle(presupuestoId);
+            recargarResumen(presupuestoId);
+
+          } else {
+            $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-agregar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
   }
 
 

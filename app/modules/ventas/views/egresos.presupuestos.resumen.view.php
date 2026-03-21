@@ -58,6 +58,7 @@
 														<div class="col"><?= $filaResumen['lista_nombre'] ?></div>
 														<!-- Acciones -->
 														<div class="col d-flex flex-nowrap justify-content-center" style="width: 145mm Important!;">
+															<!-- BOTON DE EDITAR -->
 															<a href="#" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap rounded-5"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEditarPresupuesto"
@@ -70,9 +71,10 @@
 																data-cliente="<?= htmlspecialchars($filaResumen['cliente_nombre']) ?>"
 																data-direccionc="<?= htmlspecialchars($filaResumen['cliente_direccion']) ?>"
 																data-contactoc="<?= htmlspecialchars($filaResumen['cliente_contacto']) ?>"
-																data-lista="<?= htmlspecialchars($filaResumen['lista_nombre']) ?>">
+																data-lista="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
 																<i class="bi bi-pencil"></i>
 															</a>
+															<!-- BOTON DE ELIMINAR -->
 															<a href="#" id="btnMostrarEliminarPresupuesto"
 																class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap rounded-5"
 																data-bs-toggle="modal"
@@ -80,13 +82,14 @@
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-trash"></i>
 															</a>
-															<a href="#" id="btnMostrarGenerarPresupuesto"
+															<!-- BOTON DE GENERAR -->
+<!-- 															<a href="#" id="btnMostrarGenerarPresupuesto"
 																class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5"
 																data-bs-toggle="modal"
 																data-bs-target="#modalGenerarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-filetype-pdf"></i>
-															</a>
+															</a> -->
 														</div>
 													</div>
 												</div>

@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/egresos.presupuestos.model.php';
+require_once __DIR__ . '/../models/egresos.listaPrecios.model.php';
 require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
@@ -23,6 +24,9 @@ $ultimoPresupuestoId = obtenerUltimoPresupuestoId();
 
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
+
+// Obtener listas de precios
+$listas = obtenerListasActivas();
 
 // Vista previa del presupuesto
 if (isset($_GET['previewPresupuesto'])) {
@@ -44,11 +48,6 @@ if (isset($_GET['previewPresupuesto'])) {
 	}
 
 	// 2. Cargar vista
-
-/* 	if (isset($_GET['previewPresupuesto'])) {
-		die('ENTRO A PREVIEW');
-	} */
-
 	require __DIR__ . '/../views/egresos.presupuestos.plantilla.PC.view.php';
 	exit;
 }
@@ -101,6 +100,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
+	if (isset($_GET['actualizarResumen'])) {
+
+		header('Content-Type: application/json');
+
+		$presupuesto_id = $_POST['presupuesto_id'] ?? null;
+
+		if (empty($presupuesto_id)) {
+			echo json_encode([
+				'success' => false,
+				'message' => 'No se recibió el ID del presupuesto'
+			]);
+			exit;
+		}
+
+		try {
+			// 1) Obtener el detalle desde el modelo
+			$detalle = obtenerResumenPresupuesto($presupuesto_id);
+
+			// 2) Guardarlo en sesión
+			$_SESSION['resumen_presupuesto'] = $resumen;
+
+			// 3) Renderizar el fragmento HTML usando la vista
+			ob_start();
+			include __DIR__ . "/../views/egresos.presupuestos.resumen.view.php";
+			$html = ob_get_clean();
+
+			echo json_encode([
+				'success' => true,
+				'html' => $html,
+				'detalle' => $resumen
+			]);
+
+			exit;
+
+		} catch (Exception $e) {
+			registrarEvento("Error al obtener resumen: " . $e->getMessage(), "ERROR");
+
+			echo json_encode([
+				'success' => false,
+				'message' => 'Error: ' . $e->getMessage()
+			]);
+			exit;
+		}
+	}
+
 	// ####### CREAR PRESUPUESTO #######
 	if (isset($_GET['crearPresupuesto'])) {
 
@@ -116,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'cliente_direccion' => $_POST['cliente_direccion'],
 			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
 			'operador_id' => $_SESSION['operador_id'],
-			'lista_nombre' => $_POST['lista_nombre'] ?? null
+			'lista_id' => $_POST['lista_id'] ?? null
 		];
 
 		try {
@@ -154,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'cliente_nombre' => $_POST['cliente_nombre'] ?? null,
 			'cliente_direccion' => $_POST['cliente_direccion'] ?? null,
 			'cliente_contacto' => $_POST['cliente_contacto'] ?? '',
-			'lista_nombre' => $_POST['lista_nombre'] ?? null
+			'lista_id' => $_POST['lista_id'] ?? null
 		];
 
 		if (empty($datos['presupuesto_id'])) {
@@ -333,6 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$datos = [
 			'presupuesto_id' => $_POST['presupuesto_id'],
+			'mercaderia_id' => $_POST['mercaderia_id'],
 			'codigo_mercaderia' => $_POST['codigo_mercaderia'],
 			'descripcion_mercaderia' => $_POST['descripcion_mercaderia'],
 			'cantidad' => round((float) $_POST['cantidad']),
@@ -482,6 +527,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Obtener datos para pasar a la vista
 $datosVista = [
 	'mercaderias' => $mercaderias,
+	'listas' => $listas,
 	'resumen' => $resumen,
 	'ultimoPresupuestoId' => $ultimoPresupuestoId
 ];

@@ -15,11 +15,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 			<i class="bi-plus-circle me-2"></i>Nuevo Presupuesto
 		</a>
 	</div>
-	<div class="d-flex justify-content-end align-items-center">
+<!-- 	<div class="d-flex justify-content-end align-items-center">
 		<a href="/trackpoint/public/index.php?route=/ventas/egresos/verPresupuesto" class="btn btn-sm btn-primary">
 			<i class="bi-plus-circle me-2"></i>Ver Presupuesto
 		</a>
-	</div>
+	</div> -->
 
 
 	<!-- ############################################################################# -->
@@ -240,10 +240,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="col-md-9 ps-0">
 										<input type="text" class="form-control text-primary" id="crearClientePresupuesto"
 											name="cliente_nombre" value="">
-										<!-- 														<select class="form-select text-primary" id="crearClientePresupuesto" name="cliente_nombre">
-															<option value="cliente1">Cliente 1</option>
-															<option value="cliente2">Cliente 2</option>
-														</select> -->
 									</div>
 									<input type="hidden" name="cliente_id" id="cliente_id">
 									<!-- <input type="hidden" name="contacto_cliente" id="contacto_cliente"> -->
@@ -254,11 +250,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="col-md-9 ps-0">
 										<input type="text" class="form-control text-primary" id="crearDireccionClientePresupuesto"
 											name="cliente_direccion" value="">
-										<!-- 														<select class="form-select text-primary" id="crearDireccionClientePresupuesto" name="cliente_direccion">
-															<option value="direccion1">Dirección 1</option>
-															<option value="direccion2">Dirección 2</option>
-															<option value="direccion3">Dirección 3</option>
-														</select> -->
 									</div>
 								</div>
 								<!-- Contacto Cliente -->
@@ -267,20 +258,20 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<div class="col-md-9 ps-0">
 										<input type="text" class="form-control text-primary" id="crearContactoClientePresupuesto"
 											name="cliente_contacto" value="">
-										<!-- 														<select class="form-select text-primary" id="crearContactoClientePresupuesto" name="cliente_contacto">
-															<option value="contacto1">Contacto 1</option>
-															<option value="contacto2">Contacto 2</option>
-															<option value="contacto3">Contacto 3</option>
-														</select> -->
 									</div>
 								</div>
 								<!-- Lista de Precios -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="crearListaPreciosPresupuesto" name="lista_nombre">
-											<option value="Mayorista">Mayorista</option>
-											<option value="Minorista">Minorista</option>
+										<select class="form-select text-primary" id="crearListaPreciosPresupuesto" name="lista_id">
+											<?php if (empty($listas)): ?>
+												<option value="">No hay listas de precios disponibles</option>
+											<?php else: ?>
+												<?php foreach ($listas as $lista): ?>
+													<option value="<?= htmlspecialchars($lista['lista_id']) ?>"><?= htmlspecialchars($lista['nombre']) ?></option>
+												<?php endforeach; ?>
+											<?php endif; ?>
 										</select>
 									</div>
 								</div>
@@ -416,9 +407,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="editarListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
 									<div class="col-md-9 ps-0">
-										<select class="form-select text-primary" id="editarListaPreciosPresupuesto" name="lista_nombre">
-											<option value="Mayorista">Mayorista</option>
-											<option value="Minorista">Minorista</option>
+										<select class="form-select text-primary" id="editarListaPreciosPresupuesto" name="lista_id">
+											<?php if (empty($listas)): ?>
+												<option value="">No hay listas de precios disponibles</option>
+											<?php else: ?>
+												<?php foreach ($listas as $lista): ?>
+													<option value="<?= htmlspecialchars($lista['lista_id']) ?>"><?= htmlspecialchars($lista['nombre']) ?></option>
+												<?php endforeach; ?>
+											<?php endif; ?>
 										</select>
 									</div>
 								</div>

@@ -44,10 +44,13 @@ function obtenerResumenPresupuesto($operador_id){
 							r.cliente_direccion,
 							r.cliente_contacto,
 							r.estado,
+							r.lista_id,
+							l.nombre AS lista_nombre,
 							SUM(d.cantidad) AS cantidad,
-							SUM(d.cantidad * d.precio_venta) AS total,
-							r.lista_nombre
+							SUM(d.cantidad * d.precio_venta) AS total
 						FROM ventas_egresos_presupuestos_resumen r
+						LEFT JOIN ventas_egresos_listaPrecios_resumen l
+							ON r.lista_id = l.lista_id
 						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
 						WHERE r.operador_id = :operador_id
@@ -63,7 +66,8 @@ function obtenerResumenPresupuesto($operador_id){
 							r.cliente_direccion,
 							r.cliente_contacto,
 							r.estado,
-							r.lista_nombre
+							r.lista_id,
+							l.nombre
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':operador_id', $operador_id);
@@ -91,10 +95,13 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 							r.cliente_direccion,
 							r.cliente_contacto,
 							r.estado,
+							r.lista_id,
+							l.nombre AS lista_nombre,
 							SUM(d.cantidad) AS cantidad,
-							SUM(d.cantidad * d.precio_venta) AS total,
-							r.lista_nombre
+							SUM(d.cantidad * d.precio_venta) AS total
 						FROM ventas_egresos_presupuestos_resumen r
+						LEFT JOIN ventas_egresos_listaPrecios_resumen l
+							ON r.lista_id = l.lista_id
 						LEFT JOIN ventas_egresos_presupuestos_detalle d
 							ON r.presupuesto_id = d.presupuesto_id
 						WHERE r.presupuesto_id = :presupuesto_id
@@ -109,7 +116,8 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 							r.cliente_direccion,
 							r.cliente_contacto,
 							r.estado,
-							r.lista_nombre
+							r.lista_id,
+							l.nombre
 						";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':presupuesto_id', $presupuesto_id);
@@ -170,7 +178,7 @@ function crearPresupuesto($datos){
 							cliente_contacto,
 							operador_id,
 							creado_por,
-							lista_nombre,
+							lista_id,
 							estado
 						)
 						VALUES (
@@ -184,7 +192,7 @@ function crearPresupuesto($datos){
 							:cliente_contacto,
 							:operador_id,
 							:creado_por,
-							:lista_nombre,
+							:lista_id,
 							:estado)";
 
 		$stmt = $conn->prepare($sql);
@@ -197,7 +205,7 @@ function crearPresupuesto($datos){
 		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
 		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
 		$stmt->bindParam(':operador_id', $datos['operador_id']);
-		$stmt->bindParam(':lista_nombre', $datos['lista_nombre']);
+		$stmt->bindParam(':lista_id', $datos['lista_id']);
 		$stmt->bindParam(':creado_por', $creado_por);
 		$stmt->bindValue(':estado', 'pendiente');
 
@@ -234,7 +242,7 @@ function editarPresupuesto($datos){
 															cliente_nombre = :cliente_nombre,
 															cliente_direccion = :cliente_direccion,
 															cliente_contacto = :cliente_contacto,
-															lista_nombre = :lista_nombre,
+															lista_id = :lista_id,
 															editado_por = :editado_por
 														WHERE
 															presupuesto_id = :presupuesto_id");
@@ -248,7 +256,7 @@ function editarPresupuesto($datos){
 		$stmt->bindParam(':cliente_nombre', $datos['cliente_nombre']);
 		$stmt->bindParam(':cliente_direccion', $datos['cliente_direccion']);
 		$stmt->bindParam(':cliente_contacto', $datos['cliente_contacto']);
-		$stmt->bindParam(':lista_nombre', $datos['lista_nombre']);
+		$stmt->bindParam(':lista_id', $datos['lista_id']);
 		$stmt->bindParam(':editado_por', $editado_por);
 
 		$result = $stmt->execute();
@@ -364,6 +372,7 @@ function agregarMercaderia($datos){
 
 		$sql = "INSERT INTO ventas_egresos_presupuestos_detalle (
 										presupuesto_id,
+										mercaderia_id,
 										codigo_mercaderia,
 										descripcion_mercaderia,
 										cantidad,
@@ -377,6 +386,7 @@ function agregarMercaderia($datos){
 									)
                   VALUES (
 										:presupuesto_id,
+										:mercaderia_id,
 										:codigo_mercaderia,
 										:descripcion_mercaderia,
 										:cantidad,
@@ -391,6 +401,7 @@ function agregarMercaderia($datos){
 
 		$stmt = $conn->prepare($sql);
 		$stmt->bindValue(':presupuesto_id', $datos['presupuesto_id']);
+		$stmt->bindValue(':mercaderia_id', $datos['mercaderia_id']);
 		$stmt->bindValue(':codigo_mercaderia', $datos['codigo_mercaderia']);
 		$stmt->bindValue(':descripcion_mercaderia', $datos['descripcion_mercaderia']);
 		$stmt->bindValue(':cantidad', $datos['cantidad']);
