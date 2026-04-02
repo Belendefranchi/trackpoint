@@ -38,6 +38,28 @@ document.addEventListener('DOMContentLoaded', function () {
   const panels = Array.from(document.querySelectorAll('[data-sidebar-panel]'));
   const closeButtons = Array.from(document.querySelectorAll('[data-sidebar-close]'));
   const currentPath = window.location.pathname.replace(/\/$/, '');
+  const SIDEBAR_STATE_KEY = 'trackpointSidebarState';
+  const rootElement = document.documentElement;
+
+  function clearPreopenSidebar() {
+    rootElement.classList.remove('sidebar-preopen');
+    rootElement.removeAttribute('data-sidebar-preopen-key');
+  }
+
+
+  function getSidebarState() {
+    try {
+      return JSON.parse(sessionStorage.getItem(SIDEBAR_STATE_KEY) || 'null');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setSidebarState(state) {
+    try {
+      sessionStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(state));
+    } catch (error) {}
+  }
 
 
 
@@ -108,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return path.replace(window.location.origin, '').replace(/\/$/, '');
   }
 
-  function closePanels() {
+  function closePanels(rememberState = true) {
     modules.forEach(function (module) {
       module.classList.remove('sidebar-active');
     });
@@ -123,21 +145,69 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     body.classList.remove('sidebar-panel-open');
+    clearPreopenSidebar();
+
+    if (rememberState) {
+      setSidebarState({ mode: 'closed' });
+    }
   }
 
-  function openPanel(key) {
+  function openPanel(key, rememberState = true) {
     const targetModule = document.querySelector('.sidebar-module[data-module-key="' + key + '"]');
     const targetTrigger = document.querySelector('[data-sidebar-trigger="' + key + '"]');
     const targetPanel = document.querySelector('[data-sidebar-panel="' + key + '"]');
 
     if (!targetModule || !targetTrigger || !targetPanel) return;
 
-    closePanels();
+    closePanels(false);
     targetModule.classList.add('sidebar-active');
     targetTrigger.setAttribute('aria-expanded', 'true');
     targetPanel.classList.add('show');
     targetPanel.setAttribute('aria-hidden', 'false');
     body.classList.add('sidebar-panel-open');
+    clearPreopenSidebar();
+
+    if (rememberState) {
+      setSidebarState({ mode: 'open', key: key });
+    }
+  }
+
+  function collapsePanelKeepActive(key, rememberState = true) {
+    const targetModule = document.querySelector('.sidebar-module[data-module-key="' + key + '"]');
+    const targetTrigger = document.querySelector('[data-sidebar-trigger="' + key + '"]');
+    const targetPanel = document.querySelector('[data-sidebar-panel="' + key + '"]');
+
+    if (!targetModule || !targetTrigger || !targetPanel) return;
+
+    modules.forEach(function (module) {
+      if (module !== targetModule) {
+        module.classList.remove('sidebar-active');
+      }
+    });
+
+    triggers.forEach(function (trigger) {
+      if (trigger !== targetTrigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    panels.forEach(function (panel) {
+      if (panel !== targetPanel) {
+        panel.classList.remove('show');
+        panel.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    targetModule.classList.add('sidebar-active');
+    targetTrigger.setAttribute('aria-expanded', 'false');
+    targetPanel.classList.remove('show');
+    targetPanel.setAttribute('aria-hidden', 'true');
+    body.classList.remove('sidebar-panel-open');
+    clearPreopenSidebar();
+
+    if (rememberState) {
+      setSidebarState({ mode: 'collapsed', key: key });
+    }
   }
 
   triggers.forEach(function (trigger) {
@@ -150,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const isOpen = panel && panel.classList.contains('show');
 
       if (isOpen) {
-        closePanels();
+        collapsePanelKeepActive(key);
         return;
       }
 
@@ -162,7 +232,11 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
-      closePanels();
+
+      const key = button.getAttribute('data-sidebar-close');
+      if (!key) return;
+
+      collapsePanelKeepActive(key);
     });
   });
 
@@ -173,8 +247,22 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.addEventListener('click', function (event) {
+    if (
+      event.target.closest('.modal') ||
+      event.target.closest('.modal-backdrop') ||
+      event.target.classList.contains('modal-backdrop') ||
+      document.body.classList.contains('modal-open')
+    ) {
+      return;
+    }
+
     if (!event.target.closest('.sidebar-nav') && !event.target.closest('.sidebar-context-panel')) {
-      closePanels();
+      const activeModule = document.querySelector('.sidebar-module.sidebar-active');
+      if (activeModule) {
+        collapsePanelKeepActive(activeModule.getAttribute('data-module-key'));
+      } else {
+        closePanels();
+      }
     }
   });
 
@@ -184,29 +272,69 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  let activeModuleKey = null;
+
   document.querySelectorAll('.sidebar-context-item').forEach(function (item) {
     const hrefPath = normalizePath(item.getAttribute('href'));
     if (hrefPath && currentPath === hrefPath) {
       item.classList.add('sidebar-item-active');
       const module = item.closest('[data-sidebar-panel]');
-      if (module) {
-        openPanel(module.getAttribute('data-sidebar-panel'));
+      if (module && !activeModuleKey) {
+        activeModuleKey = module.getAttribute('data-sidebar-panel');
       }
     }
   });
 
-  if (!body.classList.contains('sidebar-panel-open')) {
+  if (!activeModuleKey) {
     const matchingModule = modules.find(function (module) {
       const routeMatch = module.getAttribute('data-route-match');
       return routeMatch && currentPath.indexOf(routeMatch.replace(/\/$/, '')) !== -1;
     });
 
     if (matchingModule) {
-      openPanel(matchingModule.getAttribute('data-module-key'));
+      activeModuleKey = matchingModule.getAttribute('data-module-key');
     }
   }
 
+  const savedSidebarState = getSidebarState();
 
+  if (savedSidebarState && savedSidebarState.mode === 'open' && savedSidebarState.key) {
+    const keyToOpen = activeModuleKey || savedSidebarState.key;
+    openPanel(keyToOpen, false);
+  } else if (savedSidebarState && savedSidebarState.mode === 'collapsed' && savedSidebarState.key) {
+    const collapsedKey = activeModuleKey || savedSidebarState.key;
+    const collapsedModule = document.querySelector('.sidebar-module[data-module-key="' + collapsedKey + '"]');
+    const collapsedTrigger = document.querySelector('[data-sidebar-trigger="' + collapsedKey + '"]');
+
+    if (collapsedModule) {
+      modules.forEach(function (module) {
+        module.classList.remove('sidebar-active');
+      });
+      collapsedModule.classList.add('sidebar-active');
+    }
+
+    if (collapsedTrigger) {
+      triggers.forEach(function (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      collapsedTrigger.setAttribute('aria-expanded', 'false');
+    }
+
+    panels.forEach(function (panel) {
+      panel.classList.remove('show');
+      panel.setAttribute('aria-hidden', 'true');
+    });
+
+    body.classList.remove('sidebar-panel-open');
+  } else if (savedSidebarState && savedSidebarState.mode === 'closed') {
+    closePanels(false);
+  } else if (activeModuleKey) {
+    openPanel(activeModuleKey, false);
+  }
+
+  requestAnimationFrame(function () {
+    clearPreopenSidebar();
+  });
 
   enhanceScreenSearchBars(document);
   enhanceDataTablesSearch(document);

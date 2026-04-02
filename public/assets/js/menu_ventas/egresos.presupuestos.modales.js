@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
-  /*   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+    var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
     var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
   
     if (modalSeleccionar) {
@@ -578,35 +578,35 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         });
       }
-    } */
+    }
 
 
 
   /* ###################### MODAL SELECCIONAR MERCADERIA ###################### */
 
-  var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
-  var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+/*   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+  var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar'); */
 
-  // Inputs del FORM PRINCIPAL (fuera del modal)
-  var inputMercaderiaId = document.getElementById('mercaderia_id');
+    // Inputs del FORM PRINCIPAL (fuera del modal)
+/*   var inputMercaderiaId = document.getElementById('mercaderia_id');
   var inputCodigo = document.getElementById('codigo_mercaderia');
   var inputDescripcion = document.getElementById('descripcion_mercaderia');
   var inputPrecioCompra = document.getElementById('precio_compra_mercaderia');
-  var inputPrecioVenta = document.getElementById('precio_venta_mercaderia');
+  var inputPrecioVenta = document.getElementById('precio_venta_mercaderia'); */
 
-  // Botón principal (para validación)
-  var btnGuardar = document.getElementById('btn-guardar-mercaderia');
+    // Botón principal (para validación)
+/*   var btnGuardar = document.getElementById('btn-guardar-mercaderia'); */
 
   if (modalSeleccionar) {
 
-    var inputPrecioVenta = document.getElementById('precio_venta_mercaderia');
+/*     var inputPrecioVenta = document.getElementById('precio_venta_mercaderia');
 
     if (inputPrecioVenta) {
       inputPrecioVenta.addEventListener('input', validarBotonAgregar);
-    }
+    } */
 
     /* =============================== LIMPIEZA AL CERRAR ================================ */
-    modalSeleccionar.addEventListener('hidden.bs.modal', function () {
+/*     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
 
       if (mensajeErrorSeleccionar) {
         mensajeErrorSeleccionar.classList.add('d-none');
@@ -617,10 +617,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var radios = modalSeleccionar.querySelectorAll('.seleccionar-mercaderia');
       radios.forEach(function (r) { r.checked = false; });
 
-    });
+    }); */
 
     /* =========================== CARGA DE MERCADERIAS (AJAX) =========================== */
-    modalSeleccionar.addEventListener('show.bs.modal', function () {
+/*     modalSeleccionar.addEventListener('show.bs.modal', function () {
 
       var tbody = $('#miTablaEnModalMercaderia tbody');
       tbody.html('<tr><td colspan="6" class="text-center">Cargando...</td></tr>');
@@ -676,10 +676,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
 
-    });
+    }); */
 
     /* ======================= SELECCIONAR MERCADERIA (SIN SUBMIT) ======================= */
-    document.addEventListener('change', function (event) {
+/*     document.addEventListener('change', function (event) {
 
       if (!event.target.classList.contains('seleccionar-mercaderia')) return;
 
@@ -709,10 +709,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Validar botón
       validarBotonAgregar();
-    });
+    }); */
 
     /* ====================== BOTON ACEPTAR SELECCION DE MERCADERIA ====================== */
-    document.getElementById('btnAceptarMercaderia').addEventListener('click', function () {
+/*     document.getElementById('btnAceptarMercaderia').addEventListener('click', function () {
 
       const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
 
@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var modalInstance = bootstrap.Modal.getInstance(modalSeleccionar);
       if (modalInstance) modalInstance.hide();
 
-    });
+    }); */
 
   }
 

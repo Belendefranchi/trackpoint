@@ -89,12 +89,10 @@ document.addEventListener('show.bs.modal', function (event) {
 
 			if (!presupuestoSeleccionado) {
 
-				console.warn('No hay presupuesto seleccionado');
-
 				if (mensajeErrorSeleccionar) {
 					mensajeErrorSeleccionar.classList.remove('d-none');
-					mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
-						'Puede seleccionar mercadería, pero deberá ingresar el precio manualmente.';
+					/* mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+						'Puede seleccionar mercadería, pero deberá ingresar el precio manualmente.'; */
 				}
 
 			} else {

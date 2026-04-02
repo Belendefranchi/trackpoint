@@ -540,8 +540,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-<!-- 		<form method="POST" id="formSeleccionarMercaderia"
-			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia"> -->
+		<form method="POST" id="formSeleccionarMercaderia"
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
@@ -570,7 +570,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</tr>
 							</thead>
 							<tbody>
-<!-- 								<?php if (empty($mercaderias)): ?>
+								<?php if (empty($mercaderias)): ?>
 									<tr>
 										<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
 									</tr>
@@ -592,7 +592,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</td>
 										</tr>
 									<?php endforeach; ?>
-								<?php endif; ?> -->
+								<?php endif; ?>
 							</tbody>
 						</table>
 					</div>
@@ -612,7 +612,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 				</div>
 			</div>
 
-<!-- 		</form> -->
+		</form>
 	</div>
 </div>
 
