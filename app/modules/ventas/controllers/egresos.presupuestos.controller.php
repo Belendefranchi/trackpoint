@@ -313,7 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	// ####### SELECCIONAR MERCADERÍA #######
-/* 	if (isset($_GET['seleccionarMercaderia'])) {
+	if (isset($_GET['seleccionarMercaderia'])) {
 
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';
@@ -336,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			]);
 			exit;
 		}
-	} */
+	}
 
 	if (isset($_GET['ajaxMercaderias'])) {
 
