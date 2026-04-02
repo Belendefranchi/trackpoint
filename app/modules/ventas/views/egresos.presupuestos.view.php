@@ -598,14 +598,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</div>
 
 					<!-- Campos ocultos para enviar en el form -->
-<!-- 					<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+					<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 					<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
 					<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
 					<input type="hidden" name="precio_compra_mercaderia" id="input-precio-compra-mercaderia">
-					<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia"> -->
+					<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia">
 				</div>
 				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="button" class="btn btn-sm btn-success m-2" name="seleccionar_modal" id="btnAceptarMercaderia">
+					<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal" id="btnAceptarMercaderia">
 						<i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
 					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal">
 						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
