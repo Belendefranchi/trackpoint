@@ -38,10 +38,9 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<!-- Código de barras -->
 						<div class="col-md-6">
 							<div class="row d-flex align-items-center justify-content-center">
-								<label for="codigo_mercaderia"
-									class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
+								<label for="codigo_mercaderia" class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
 								<div class="col-md-10 ps-0">
-									<div class="input-group">
+									<div class="input-group d-flex">
 										<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia"
 											value="<?php echo $mercaderiaSeleccionada['codigo_mercaderia'] ?? ''; ?>">
 										<a href="#" class="btn btn-primary" data-bs-toggle="modal"
@@ -71,11 +70,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						</div>
 						<div class="col-md-2">
 							<div class="row d-flex align-items-center justify-content-center">
-								<label for="precio_venta" class="col-md-5 p-0 col-form-label text-primary text-center">Precio
+								<label for="precio_venta_mercaderia" class="col-md-5 p-0 col-form-label text-primary text-center">Precio
 									Venta</label>
 								<div class="col-md-7">
 									<input type="number" step="0.01" min="1"
-										class="form-control form-control text-end fw-bold text-primary" name="precio_venta"
+										class="form-control form-control text-end fw-bold text-primary" name="precio_venta_mercaderia"
 										id="precio_venta_mercaderia"
 										value="<?php echo $mercaderiaSeleccionada['precio_venta_mercaderia'] ?? 1; ?>">
 								</div>
@@ -541,8 +540,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <div class="modal fade" id="modalSeleccionarMercaderia" tabindex="-1" aria-labelledby="modalSeleccionarMercaderiaLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-		<form method="POST" id="formSeleccionarMercaderia"
-			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia">
+<!-- 		<form method="POST" id="formSeleccionarMercaderia"
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia"> -->
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalSeleccionarMercaderiaLabel">Seleccionar mercadería</h5>
@@ -571,7 +570,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</tr>
 							</thead>
 							<tbody>
-								<?php if (empty($mercaderias)): ?>
+<!-- 								<?php if (empty($mercaderias)): ?>
 									<tr>
 										<td colspan="4" class="text-center">No hay mercaderías disponibles</td>
 									</tr>
@@ -593,27 +592,27 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											</td>
 										</tr>
 									<?php endforeach; ?>
-								<?php endif; ?>
+								<?php endif; ?> -->
 							</tbody>
 						</table>
 					</div>
 
 					<!-- Campos ocultos para enviar en el form -->
-					<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
+<!-- 					<input type="hidden" name="mercaderia_id" id="input-mercaderia-id">
 					<input type="hidden" name="codigo_mercaderia" id="input-codigo-mercaderia">
 					<input type="hidden" name="descripcion_mercaderia" id="input-descripcion-mercaderia">
 					<input type="hidden" name="precio_compra_mercaderia" id="input-precio-compra-mercaderia">
-					<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia">
+					<input type="hidden" name="precio_venta_mercaderia" id="input-precio-venta-mercaderia"> -->
 				</div>
 				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="submit" class="btn btn-sm btn-success m-2" name="seleccionar_modal"><i
-							class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
-					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
-							class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+					<button type="button" class="btn btn-sm btn-success m-2" name="seleccionar_modal" id="btnAceptarMercaderia">
+						<i class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
+					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal">
+						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
 				</div>
 			</div>
 
-		</form>
+<!-- 		</form> -->
 	</div>
 </div>
 

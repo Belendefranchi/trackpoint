@@ -1,0 +1,287 @@
+/* Colores personalizados */
+:root {
+	--bs-primary: #22265D;
+	--bs-secondary: #00B0E6;
+/*  --bs-light: #D3EBF9;*/
+/*  --bs-body-bg: #D3EBF9; */ 
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+h2{
+  font-size: 1.8rem !important;
+}
+
+/* Sobrescribir botones */
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* .btn-secondary {
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
+} */
+
+/* Colores de texto */
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.text-secondary {
+  color: var(--bs-secondary) !important;
+}
+
+.table {
+  background-color: var(--bs-primary) !important;
+}
+
+.border{
+  border: 1px solid #2668c526 !important;
+  border-collapse: collapse !important;
+}
+
+.table-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: #2668c526 !important;
+}
+
+.table-hover:hover {
+	border: none !important;
+	background-color: #181c53 !important;
+	color: white !important;
+}
+
+.active-lateral {
+  border-left: 4px solid #00B0E6;
+  padding-left: 0.75rem; /* opcional: para que no se monte el texto encima del borde */
+  background-color: #3A4280; /* opcional: un leve fondo para destacar */
+}
+
+.nav-link.active-lateral {
+	color: white !important;
+	font-weight: 600;
+	border-left: 4px solid #00B0E6;
+	border-radius: 0.25rem;
+	padding-left: 0.75rem; /* igual a ps-3 */
+	background-color: #3A4280; /* opcional, mejora contraste */
+}
+
+.shadow-custom {
+	transition: top 0.5s, transform 0.5s;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.nav-tabs .nav-link.active {
+	background-color: #3A4280 !important;
+	color: white !important;
+	font-weight: 600;
+	border-radius: 0.25rem;
+	border-color: #3A4280 !important;
+}
+
+/* Ajustar el tamaño del grip de redimensionado */
+table.dataTable td.dtr-resizable {
+  cursor: ew-resize !important;
+}
+
+table.dataTable th.dtr-resizable {
+  cursor: ew-resize !important;
+}
+
+/* Hacer la barra de desplazamiento más grande */
+table.dataTable td.dtr-resizable:after, 
+table.dataTable th.dtr-resizable:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 20px !important;  /* Cambia el tamaño del grip */
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize !important;
+}
+
+/* Texto de cantidad de registros */
+.dataTables_length label, 
+/* Filtro cantidad de registros */
+.dataTables_wrapper .dataTables_filter label,
+/* Buscador */
+.dataTables_filter label,
+/* Texto de información */
+.dataTables_info,
+/* Paginador */
+.dataTables_paginate {
+  color: #adadad !important;
+  margin: 10px 0 !important;
+}
+
+/* Estilo general para todos los botones de paginación */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border: 1px solid #ccc;
+  padding: 4px 12px !important;
+  margin: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Boton de pagina actual y Botones de número de páginas pero no actuales al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: transparent !important;
+  background-color: #adadad !important;
+  color: white !important;
+  border: 1px solid #DEE2E6 !important;
+}
+
+/* Boton Anterior y Siguiente deshabilitados */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
+  color: #adadad !important;
+}
+
+/* Boton Anterior y Siguiente deshabilitados al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
+  background: transparent !important;
+  color: #adadad !important;
+  border: none !important;
+}
+
+/* Boton Anterior y Siguiente habilitados al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover.active-lateral {
+  background: transparent !important;
+  background-color: #adadad !important;
+  color: white !important;
+  border: 1px solid #DEE2E6 !important;
+}
+
+/* Buscador y filtro de registros */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+  color: #adadad !important;
+  border: 1px solid #DEE2E6 !important;
+  border-radius: 4px !important;
+  padding: 4px !important;
+}
+
+/* Foco en el buscador y filtro de registros */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}
+
+/* Linea de separación */
+table.dataTable.no-footer {
+  border-bottom: 1px solid #DEE2E6 !important;
+}
+
+/* Quitar el borde inferior del encabezado generado por DataTables */
+.dataTables_scrollHeadInner table {
+  border-bottom: none !important;
+}
+
+/* Asegurarse que no haya bordes o espacios entre el thead y tbody */
+.dataTables_scrollHead table, 
+.dataTables_scrollBody table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+/* Aplica a las celdas de la tabla */
+table.dataTable td, 
+table.dataTable th {
+  white-space: nowrap !important; /* No permite salto de línea */
+  overflow: hidden !important;    /* Oculta el contenido que desborda */
+}
+
+.table.dataTable tbody th, table.dataTable tbody td {
+  padding: 4px !important;
+}
+
+
+/* Visibilidad de columnas */
+.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis {
+  background: transparent !important;
+  color: #adadad !important;
+  border: 1px solid #DEE2E6 !important;
+  margin-top: 10px !important;
+  margin-left: 20px !important;
+  padding: 4px !important;
+  border-radius: 4px !important;
+}
+
+/* Botones de exportación */
+.btn.btn-secondary.buttons-copy.buttons-html5,
+.btn.btn-secondary.buttons-pdf.buttons-html5,
+.btn.btn-secondary.buttons-excel.buttons-html5,
+.btn.btn-secondary.buttons-print{
+  background: transparent !important;
+  color: #adadad !important;
+  border: 1px solid #DEE2E6 !important;
+  margin-top: 10px !important;
+  margin-left: 10px !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+}
+
+/* Boton de visibilidad de columnas */
+button.buttons-colvis::after {
+  display: none !important;
+}
+
+/* Estilo para el caret del dropdown */
+.dropdown-caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.3em; 
+  vertical-align: middle;
+  border-top: 0.4em solid;
+  border-right: 0.4em solid transparent;
+  border-left: 0.4em solid transparent;
+}
+
+/* Estilo para el checkbox */
+.form-check-input {
+  background-color: #dc3545 !important;
+}
+.form-check-input:checked {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
+/* Estilo para el input disabled */
+.input-disabled-style {
+  background-color: #e9ecef;  /* gris claro típico de bootstrap disabled */
+  color: #6c757d;             /* texto gris */
+  opacity: 1;                 /* para que no se vea transparente */
+  cursor: not-allowed;
+}
+
+
+.item-menu-hover:hover {
+  background-color: #c8e2f7 !important; /* Cambia el color de fondo al pasar el cursor */
+  color: white !important; /* Cambia el color del texto al pasar el cursor */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  transform: scale(1.02); /* Efecto de zoom */
+}
+
+.tabla-card:hover {
+    background: #c8e2f7;
+    transition: 0.15s;
+}
+
+.tabla-card.selected-row {
+    background-color: #DEE2E6; /* azul muy claro */
+    border: 1px solid #adadad; /* azul Bootstrap */
+}
+
+
+
+
+

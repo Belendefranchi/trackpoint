@@ -80,20 +80,30 @@ document.addEventListener('show.bs.modal', function (event) {
 				MODAL SELECCIONAR MERCADERÍA
 		----------------------------------------- */
 		case 'modalSeleccionarMercaderia':
-			// Limpia errores, reinicia el buscador
+
 			$('#mensaje-error-seleccionar').addClass('d-none');
 
-			const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
-			const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado');
+			var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+
+			console.log('DEBUG estado actual:', presupuestoSeleccionado, listaPrecioId);
 
 			if (!presupuestoSeleccionado) {
+
 				console.warn('No hay presupuesto seleccionado');
-				mensajeErrorSeleccionar.classList.remove('d-none');
-				mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
-					'Debe seleccionar un presupuesto primero.';
+
+				if (mensajeErrorSeleccionar) {
+					mensajeErrorSeleccionar.classList.remove('d-none');
+					mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+						'Puede seleccionar mercadería, pero deberá ingresar el precio manualmente.';
+				}
+
 			} else {
-				console.log('Presupuesto seleccionado ID:', presupuestoSeleccionado);
+
+				console.log('Presupuesto OK:', presupuestoSeleccionado);
+				console.log('Lista OK:', listaPrecioId);
+
 			}
+
 			break;
 
 		/* -----------------------------------------

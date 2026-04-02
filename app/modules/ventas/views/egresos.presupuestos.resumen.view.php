@@ -6,13 +6,13 @@
 									<div class="container-fluid p-0">
 										<div class="card tabla-card mb-2 shadow-sm rounded-4 bg-primary">
 											<div class="card-body py-2">
-												<div class="row text-white fw-bold align-items-center">
+												<div class="row text-white align-items-center">
 													<div class="col-auto">Sel.</div>
 													<div class="col-auto">Nº</div>
 													<div class="col">Empresa</div>
 													<div class="col">Sucursal</div>
-													<div class="col">Fecha Presupuesto</div>
-													<div class="col">Fecha Vencimiento</div>
+													<div class="col">Fecha</div>
+													<div class="col">Vencimiento</div>
 													<div class="col">Cliente</div>
 													<div class="col">Dirección</div>
 													<div class="col">Contacto</div>
@@ -36,7 +36,8 @@
 														<div class="col-auto px-3">
 															<input type="radio" name="seleccion_presupuesto"
 																class="form-check-input seleccionar-presupuesto"
-																data-presupuestoid="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
+																data-presupuestoid="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
+																data-listaid="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
 														</div>
 
 														<!-- Campos -->

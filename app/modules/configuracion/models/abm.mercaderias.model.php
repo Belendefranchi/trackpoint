@@ -2,7 +2,8 @@
 require_once __DIR__ . '/../../../../core/config/db.php';
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
-function obtenerMercaderias() {
+function obtenerMercaderias()
+{
 	try {
 
 		$conn = getConnection();
@@ -41,7 +42,8 @@ function obtenerMercaderias() {
 	}
 }
 
-function obtenerMercaderiaPorId($mercaderia_id) {
+function obtenerMercaderiaPorId($mercaderia_id)
+{
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("SELECT * FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id AND activo = 1");
@@ -55,7 +57,8 @@ function obtenerMercaderiaPorId($mercaderia_id) {
 	}
 }
 
-function obtenerMercaderiaPorCodigo($codigo) {
+function obtenerMercaderiaPorCodigo($codigo)
+{
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("SELECT mercaderia_id, codigo, descripcion, cantidad_propuesta, peso_propuesto, precio_compra, precio_venta FROM configuracion_abm_mercaderias WHERE codigo = :codigo AND activo = 1");
@@ -69,7 +72,8 @@ function obtenerMercaderiaPorCodigo($codigo) {
 	}
 }
 
-function obtenerMercaderiasActivas() {
+function obtenerMercaderiasActivas()
+{
 	try {
 		$conn = getConnection();
 		$stmt = $conn->query("SELECT
@@ -107,8 +111,43 @@ function obtenerMercaderiasActivas() {
 		return false;
 	}
 }
+function obtenerMercaderiasConPreciosPorLista($listaId)
+{
+	try {
+		$conn = getConnection();
+		if (!$listaId) {
+			$sql = "SELECT mercaderia_id, codigo, descripcion, NULL as precio_compra, NULL as precio_venta FROM configuracion_abm_mercaderias";
+			$stmt = $conn->prepare($sql);
+			$stmt->execute();
+		} else {
+			$sql = "SELECT 
+                    m.mercaderia_id,
+                    m.codigo,
+                    m.descripcion,
+                    lp.precio_compra,
+                    lp.precio_venta
+                FROM configuracion_abm_mercaderias m
+                LEFT JOIN ventas_egresos_listaPrecios_detalle lp 
+                  ON lp.mercaderia_id = m.mercaderia_id
+                  AND lp.lista_id = :lista_id
+								WHERE m.activo = 1";
 
-function mercaderiaExists($codigo) {
+			$stmt = $conn->prepare($sql);
+			$stmt->bindParam(':lista_id', $listaId);
+			$stmt->execute();
+		}
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("Mercaderías Model: Error al obtener las mercaderías activas por lista, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
+function mercaderiaExists($codigo)
+{
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("SELECT mercaderia_id, codigo FROM configuracion_abm_mercaderias WHERE codigo = :codigo");
@@ -122,7 +161,8 @@ function mercaderiaExists($codigo) {
 	}
 }
 
-function crearMercaderia($datos) {
+function crearMercaderia($datos)
+{
 	session_start();
 	$creado_por = $_SESSION['username'];
 	try {
@@ -196,7 +236,8 @@ function crearMercaderia($datos) {
 	}
 }
 
-function editarMercaderia($datos) {
+function editarMercaderia($datos)
+{
 	session_start();
 	$editado_por = $_SESSION['username'];
 	try {
@@ -242,7 +283,7 @@ function editarMercaderia($datos) {
 		$stmt->bindParam(':editado_por', $editado_por);
 		$stmt->bindParam(':activo', $datos['activo']);
 		$stmt->execute();
-		
+
 		$result = $stmt->execute();
 
 		if ($result) {
@@ -256,7 +297,8 @@ function editarMercaderia($datos) {
 	}
 }
 
-function eliminarMercaderia($mercaderia_id) {
+function eliminarMercaderia($mercaderia_id)
+{
 	try {
 		$conn = getConnection();
 		$stmt = $conn->prepare("DELETE FROM configuracion_abm_mercaderias WHERE mercaderia_id = :mercaderia_id");

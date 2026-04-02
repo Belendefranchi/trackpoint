@@ -1,9 +1,6 @@
-/* window.addEventListener('load', function () {
-  localStorage.removeItem('presupuestoSeleccionado');
-}); */
-
 // --- VARIABLES GLOBALES ---
 let presupuestoSeleccionado = null;
+var listaPrecioId = null;
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -66,9 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ###################### SELECCIÓN DE PRESUPUESTO ###################### */
 
-  // --- SELECCIONAR PRESUPUESTO ---
-  let presupuestoSeleccionado = null;
-
   // --- MANEJO DE SELECCIÓN (DELEGACIÓN) ---
   document.addEventListener('click', function (event) {
 
@@ -76,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!card) return;
 
     // Evitar clicks en elementos interactivos internos
-    if (event.target.closest('a, button, input, label')) return;
+    if (event.target.closest('a, button')) return;
 
     const radio = card.querySelector('.seleccionar-presupuesto');
     if (!radio) return;
@@ -85,10 +79,17 @@ document.addEventListener('DOMContentLoaded', function () {
     radio.checked = true;
 
     // Obtener ID
-    const id = radio.dataset.presupuestoid;
-    if (!id) return;
+    const presupuestoId = radio.dataset.presupuestoid;
+    const listaId = radio.dataset.listaid;
 
-    presupuestoSeleccionado = id;
+    if (!presupuestoId) return;
+
+    presupuestoSeleccionado = presupuestoId;
+    listaPrecioId = listaId
+
+    console.log('Presupuesto seleccionado: ' + presupuestoSeleccionado)
+    console.log('Lista del presupuesto: ' + listaPrecioId)
+
 
     // Activar botón "Agregar" del formulario superior (si existe)
     const btnGuardar = document.getElementById('btn-guardar-mercaderia');
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sincronizar con form
     const inputHidden = document.getElementById('presupuesto_id');
     if (inputHidden) {
-      inputHidden.value = id;
+      inputHidden.value = presupuestoId;
     }
 
     // UI selección
@@ -118,8 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
       etiqueta.textContent = `Presupuesto Nº: ${presupuestoSeleccionado}`;
     }
   }
-
-  document.getElementById('btn-guardar-mercaderia').disabled = false;
 
   // --- RESTAURAR SELECCIÓN DESPUÉS DE AJAX ---
   function restaurarSeleccionPresupuesto() {
@@ -148,8 +147,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function actualizarEtiquetaPresupuesto() {
-/*     let id = localStorage.getItem('presupuestoSeleccionado');
-    if (!id) return; */
+    /*     let id = localStorage.getItem('presupuestoSeleccionado');
+        if (!id) return; */
 
     let etiqueta = document.getElementById('presupuestoActivo');
     if (etiqueta) {
@@ -200,6 +199,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function validarBotonAgregar() {
+
+    var btnGuardar = document.getElementById('btn-guardar-mercaderia');
+    if (!btnGuardar) return;
+
+    var precio = document.getElementById('precio_compra_mercaderia')?.value;
+
+    if (presupuestoSeleccionado && precio && parseFloat(precio) > 0) {
+      validarBotonAgregar();
+    } else {
+      btnGuardar.disabled = true;
+    }
+  }
+
   // --- CARGAR DETALLE DEL PRESUPUESTO SELECCIONADO ---
   $(document).ready(function () {
 
@@ -246,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  
+
   /* ###################### GENERAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarGenerarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGenerarPresupuesto'));
@@ -458,111 +471,280 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-    /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
+  /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
+  /*   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
+    var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+  
+    if (modalSeleccionar) {
+  
+      // Listener para vaciar selección cuando se cierra el modal
+      modalSeleccionar.addEventListener('hidden.bs.modal', function () {
+        
+        // Limpia el mensaje de error
+        if (mensajeErrorSeleccionar) {
+          mensajeErrorSeleccionar.classList.add('d-none');
+          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
+        }
+        
+        // Limpia los inputs hidden del modal
+        modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
+        modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
+        modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
+        modalSeleccionar.querySelector('#input-precio-compra-mercaderia').value = '';
+        modalSeleccionar.querySelector('#input-precio-venta-mercaderia').value = '';
+  
+      });
+  
+      const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
+      const inputCodigoModal = document.getElementById('codigo_mercaderia');
+      const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
+      const inputPrecioCompraModal = document.getElementById('precio_compra_mercaderia');
+      const inputPrecioVentaModal = document.getElementById('precio_venta_mercaderia');
+  
+  
+      // Enviar formulario con AJAX para seleccionar mercadería
+      const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
+      if (formSeleccionar) {
+        formSeleccionar.addEventListener('submit', function (e) {
+          e.preventDefault();
+  
+          // Limpiar cualquier mensaje de error antes de hacer la solicitud
+          $('#mensaje-error-seleccionar').addClass('d-none').find('.mensaje-texto').text('');
+  
+          // Obtener el radio seleccionado y sus datos
+          const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
+          const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid || '';
+          const codigo = radioSeleccionado?.dataset.codigom || '';
+          const descripcion = radioSeleccionado?.dataset.descripcionm || '';
+          const precioCompra = radioSeleccionado?.dataset.preciocompram || '1';
+          const precioVenta = radioSeleccionado?.dataset.precioventam || '1';
+  
+          // Validar que se haya seleccionado una mercadería
+          if (!mercaderiaId) {
+            if (mensajeErrorSeleccionar) {
+              mensajeErrorSeleccionar.classList.remove('d-none');
+              mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar una mercadería.';
+            }
+            return;
+          }
+  
+          // Crear objeto FormData para agregar los datos de la mercadería a los dataset
+          const formData = new FormData();
+          formData.append('mercaderia_id', mercaderiaId);
+          formData.append('codigo_mercaderia', codigo);
+          formData.append('descripcion_mercaderia', descripcion);
+          formData.append('precio_compra_mercaderia', precioCompra);
+          formData.append('precio_venta_mercaderia', precioVenta);
+  
+  
+          // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
+          $.ajax({
+            url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (response) {
+              if (response.success) {
+  
+                console.log('Datos de la mercadería seleccionada - descripción:', {
+                  id: response.mercaderia_id,
+                  codigo: response.codigo_mercaderia,
+                  descripcion: response.descripcion_mercaderia,
+                  precio_compra: response.precio_compra_mercaderia,
+                  precio_venta: response.precio_venta_mercaderia
+                });
+  
+                // Actualizar los inputs del form con los datos de la mercadería seleccionada
+                inputMercaderiaIdModal.value = response.mercaderia_id;
+                inputCodigoModal.value = response.codigo_mercaderia;
+                inputDescripcionModal.value = response.descripcion_mercaderia;
+                inputPrecioCompraModal.value = response.precio_compra_mercaderia;
+                inputPrecioVentaModal.value = response.precio_venta_mercaderia;
+  
+                // Cerrar el modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
+                if (modal) modal.hide();
+              } else {
+                mensajeErrorSeleccionar.classList.remove('d-none');
+                mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
+              }
+            },
+            error: function () {
+              mensajeErrorSeleccionar.classList.remove('d-none');
+              mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
+            }
+          });
+        });
+      }
+    } */
+
+
+
+  /* ###################### MODAL SELECCIONAR MERCADERIA ###################### */
+
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
+  // Inputs del FORM PRINCIPAL (fuera del modal)
+  var inputMercaderiaId = document.getElementById('mercaderia_id');
+  var inputCodigo = document.getElementById('codigo_mercaderia');
+  var inputDescripcion = document.getElementById('descripcion_mercaderia');
+  var inputPrecioCompra = document.getElementById('precio_compra_mercaderia');
+  var inputPrecioVenta = document.getElementById('precio_venta_mercaderia');
+
+  // Botón principal (para validación)
+  var btnGuardar = document.getElementById('btn-guardar-mercaderia');
+
   if (modalSeleccionar) {
 
-    // Listener para vaciar selección cuando se cierra el modal
+    var inputPrecioVenta = document.getElementById('precio_venta_mercaderia');
+
+    if (inputPrecioVenta) {
+      inputPrecioVenta.addEventListener('input', validarBotonAgregar);
+    }
+
+    /* =============================== LIMPIEZA AL CERRAR ================================ */
     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
-      // Limpia el mensaje de error
+
       if (mensajeErrorSeleccionar) {
         mensajeErrorSeleccionar.classList.add('d-none');
         mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
       }
-      // Limpia los inputs hidden del modal
-      modalSeleccionar.querySelector('#input-mercaderia-id').value = '';
-      modalSeleccionar.querySelector('#input-codigo-mercaderia').value = '';
-      modalSeleccionar.querySelector('#input-descripcion-mercaderia').value = '';
-      modalSeleccionar.querySelector('#input-precio-compra-mercaderia').value = '';
-      modalSeleccionar.querySelector('#input-precio-venta-mercaderia').value = '';
+
+      // Limpiar selección
+      var radios = modalSeleccionar.querySelectorAll('.seleccionar-mercaderia');
+      radios.forEach(function (r) { r.checked = false; });
 
     });
 
-    const inputMercaderiaIdModal = document.getElementById('mercaderia_id');
-    const inputCodigoModal = document.getElementById('codigo_mercaderia');
-    const inputDescripcionModal = document.getElementById('descripcion_mercaderia');
-    const inputPrecioCompraModal = document.getElementById('precio_compra_mercaderia');
-    const inputPrecioVentaModal = document.getElementById('precio_venta_mercaderia');
+    /* =========================== CARGA DE MERCADERIAS (AJAX) =========================== */
+    modalSeleccionar.addEventListener('show.bs.modal', function () {
 
+      var tbody = $('#miTablaEnModalMercaderia tbody');
+      tbody.html('<tr><td colspan="6" class="text-center">Cargando...</td></tr>');
 
-    // Enviar formulario con AJAX para seleccionar mercadería
-    const formSeleccionar = document.getElementById('formSeleccionarMercaderia');
-    if (formSeleccionar) {
-      formSeleccionar.addEventListener('submit', function (e) {
-        e.preventDefault();
+      console.log('listaPrecioId:', listaPrecioId);
 
-        // Limpiar cualquier mensaje de error antes de hacer la solicitud
-        $('#mensaje-error-seleccionar').addClass('d-none').find('.mensaje-texto').text('');
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&ajaxMercaderias',
+        method: 'POST',
+        data: { lista_id: listaPrecioId || '' },
+        dataType: 'json',
 
-        // Obtener el radio seleccionado y sus datos
-        const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
-        const mercaderiaId = radioSeleccionado?.dataset.mercaderiaid || '';
-        const codigo = radioSeleccionado?.dataset.codigom || '';
-        const descripcion = radioSeleccionado?.dataset.descripcionm || '';
-        const precioCompra = radioSeleccionado?.dataset.preciocompram || '1';
-        const precioVenta = radioSeleccionado?.dataset.precioventam || '1';
+        success: function (respuesta) {
 
-        // Validar que se haya seleccionado una mercadería
-        if (!mercaderiaId) {
-          if (mensajeErrorSeleccionar) {
-            mensajeErrorSeleccionar.classList.remove('d-none');
-            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar una mercadería.';
+          tbody.html('');
+
+          if (!respuesta || respuesta.length === 0) {
+            tbody.html('<tr><td colspan="6" class="text-center">No hay mercaderías disponibles</td></tr>');
+            return;
           }
-          return;
+
+          $.each(respuesta, function (index, mercaderia) {
+
+            var precioCompra = mercaderia.precio_compra ? mercaderia.precio_compra : '';
+            var precioVenta = mercaderia.precio_venta ? mercaderia.precio_venta : '';
+
+            var fila = ''
+              + '<tr class="text-start">'
+              + '<td class="border text-primary">' + mercaderia.mercaderia_id + '</td>'
+              + '<td class="border text-primary">' + mercaderia.codigo + '</td>'
+              + '<td class="border text-primary">' + mercaderia.descripcion + '</td>'
+              + '<td class="border text-primary">' + precioCompra + '</td>'
+              + '<td class="border text-primary">' + precioVenta + '</td>'
+              + '<td class="border text-primary">'
+              + '<input type="radio" name="seleccion_mercaderia" class="form-check-input seleccionar-mercaderia" '
+              + 'data-mercaderiaid="' + mercaderia.mercaderia_id + '" '
+              + 'data-codigom="' + mercaderia.codigo + '" '
+              + 'data-descripcionm="' + mercaderia.descripcion + '" '
+              + 'data-preciocompram="' + precioCompra + '" '
+              + 'data-precioventam="' + precioVenta + '">'
+              + '</td>'
+              + '</tr>';
+
+            tbody.append(fila);
+          });
+
+        },
+
+        error: function (xhr) {
+          console.log('ERROR AJAX');
+          console.log(xhr.responseText);
+          tbody.html('<tr><td colspan="6" class="text-center text-danger">Error al cargar mercaderías</td></tr>');
         }
-
-        // Crear objeto FormData para agregar los datos de la mercadería a los dataset
-        const formData = new FormData();
-        formData.append('mercaderia_id', mercaderiaId);
-        formData.append('codigo_mercaderia', codigo);
-        formData.append('descripcion_mercaderia', descripcion);
-        formData.append('precio_compra_mercaderia', precioCompra);
-        formData.append('precio_venta_mercaderia', precioVenta);
-
-
-        // Hacer la solicitud AJAX para pasar los datos de mercadería a la vista
-        $.ajax({
-          url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarMercaderia',
-          method: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: 'json',
-          success: function (response) {
-            if (response.success) {
-
-              console.log('Datos de la mercadería seleccionada - descripción:', {
-                id: response.mercaderia_id,
-                codigo: response.codigo_mercaderia,
-                descripcion: response.descripcion_mercaderia,
-                precio_compra: response.precio_compra_mercaderia,
-                precio_venta: response.precio_venta_mercaderia
-              });
-
-              // Actualizar los inputs del form con los datos de la mercadería seleccionada
-              inputMercaderiaIdModal.value = response.mercaderia_id;
-              inputCodigoModal.value = response.codigo_mercaderia;
-              inputDescripcionModal.value = response.descripcion_mercaderia;
-              inputPrecioCompraModal.value = response.precio_compra_mercaderia;
-              inputPrecioVentaModal.value = response.precio_venta_mercaderia;
-
-              // Cerrar el modal
-              const modal = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarMercaderia'));
-              if (modal) modal.hide();
-            } else {
-              mensajeErrorSeleccionar.classList.remove('d-none');
-              mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = response.message || 'Error al seleccionar.';
-            }
-          },
-          error: function () {
-            mensajeErrorSeleccionar.classList.remove('d-none');
-            mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Error de conexión al intentar seleccionar la mercadería.';
-          }
-        });
       });
-    }
+
+    });
+
+    /* ======================= SELECCIONAR MERCADERIA (SIN SUBMIT) ======================= */
+    document.addEventListener('change', function (event) {
+
+      if (!event.target.classList.contains('seleccionar-mercaderia')) return;
+
+      var radio = event.target;
+
+      var mercaderiaId = radio.dataset.mercaderiaid || '';
+      var codigo = radio.dataset.codigom || '';
+      var descripcion = radio.dataset.descripcionm || '';
+      var precioCompra = radio.dataset.preciocompram || '';
+      var precioVenta = radio.dataset.precioventam || '';
+
+      if (!mercaderiaId) {
+        if (mensajeErrorSeleccionar) {
+          mensajeErrorSeleccionar.classList.remove('d-none');
+          mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+            'Debe seleccionar una mercadería.';
+        }
+        return;
+      }
+
+      // Cargar en el FORM PRINCIPAL
+      if (inputMercaderiaId) inputMercaderiaId.value = mercaderiaId;
+      if (inputCodigo) inputCodigo.value = codigo;
+      if (inputDescripcion) inputDescripcion.value = descripcion;
+      if (inputPrecioCompra) inputPrecioCompra.value = precioCompra;
+      if (inputPrecioVenta) inputPrecioVenta.value = precioVenta;
+
+      // Validar botón
+      validarBotonAgregar();
+    });
+
+    /* ====================== BOTON ACEPTAR SELECCION DE MERCADERIA ====================== */
+    document.getElementById('btnAceptarMercaderia').addEventListener('click', function () {
+
+      const radioSeleccionado = document.querySelector('.seleccionar-mercaderia:checked');
+
+      if (!radioSeleccionado) {
+        mensajeErrorSeleccionar.classList.remove('d-none');
+        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+          'Debe seleccionar una mercadería.';
+        return;
+      }
+      
+      // Obtener datos
+      var mercaderiaId = radioSeleccionado.dataset.mercaderiaid || '';
+      var codigo = radioSeleccionado.dataset.codigom || '';
+      var descripcion = radioSeleccionado.dataset.descripcionm || '';
+      var precioCompra = radioSeleccionado.dataset.preciocompram || '';
+      var precioVenta = radioSeleccionado.dataset.precioventam || '';
+      
+      // Cargar en el FORM PRINCIPAL
+      if (inputMercaderiaId) inputMercaderiaId.value = mercaderiaId;
+      if (inputCodigo) inputCodigo.value = codigo;
+      if (inputDescripcion) inputDescripcion.value = descripcion;
+      if (inputPrecioCompra) inputPrecioCompra.value = precioCompra;
+      if (inputPrecioVenta) inputPrecioVenta.value = precioVenta;
+
+      validarBotonAgregar();
+
+      // Cerrar modal
+      var modalInstance = bootstrap.Modal.getInstance(modalSeleccionar);
+      if (modalInstance) modalInstance.hide();
+
+    });
+
   }
 
 
@@ -593,9 +775,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const cantidad = document.getElementById('cantidad').value;
       const precioCompra = document.getElementById('precio_compra_mercaderia').value;
       const precioVenta = document.getElementById('precio_venta_mercaderia').value;
-      
+
+      /* precioVenta.addEventListener('input', validarBotonAgregar); */
+
       const formData = new FormData();
-      
+
       formData.append('presupuesto_id', presupuestoSeleccionado);
       //formData.append('presupuesto_id', presupuestoId);
       formData.append('mercaderia_id', mercaderiaId);
@@ -604,6 +788,7 @@ document.addEventListener('DOMContentLoaded', function () {
       formData.append('cantidad', cantidad);
       formData.append('precio_compra_mercaderia', precioCompra);
       formData.append('precio_venta_mercaderia', precioVenta);
+
 
       console.log('Datos del formulario:', Array.from(formData.entries()));
 
