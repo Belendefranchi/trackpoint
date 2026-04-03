@@ -430,7 +430,10 @@ document.addEventListener('DOMContentLoaded', function () {
     return $.ajax({
       url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&seleccionarCodigoMercaderia',
       method: 'POST',
-      data: { codigo_mercaderia: codigo },
+      data: {
+        codigo_mercaderia: codigo,
+        lista_id: listaPrecioSeleccionada
+      },
       dataType: 'json'
     });
   }

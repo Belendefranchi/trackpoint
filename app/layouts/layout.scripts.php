@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeButtons = Array.from(document.querySelectorAll('[data-sidebar-close]'));
   const currentPath = window.location.pathname.replace(/\/$/, '');
   const SIDEBAR_STATE_KEY = 'trackpointSidebarState';
+  const rootElement = document.documentElement;
+
+  function clearPreopenSidebar() {
+    rootElement.classList.remove('sidebar-preopen');
+    rootElement.removeAttribute('data-sidebar-preopen-key');
+  }
+
 
   function getSidebarState() {
     try {
@@ -93,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       let field = group.querySelector('.screen-search-field');
-      let icon = group.querySelector('.screen-search-leading-icon');
+      const icon = group.querySelector('.screen-search-leading-icon');
 
       if (!field) {
         field = document.createElement('div');
@@ -109,6 +116,81 @@ document.addEventListener('DOMContentLoaded', function () {
         field.appendChild(input);
       }
     });
+  }
+
+  function applyDataTablesPaginationTheme(root) {
+    (root || document).querySelectorAll('.dataTables_wrapper .dataTables_paginate').forEach(function (paginate) {
+      paginate.querySelectorAll('.paginate_button, .page-item, .page-link').forEach(function (node) {
+        node.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
+        node.style.setProperty('border-color', 'rgb(34 38 93 / 10%)', 'important');
+        node.style.setProperty('box-shadow', 'none', 'important');
+      });
+
+      paginate.querySelectorAll('.page-link').forEach(function (link) {
+        link.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
+        link.style.setProperty('border', '1px solid rgb(34 38 93 / 10%)', 'important');
+        link.style.setProperty('background', '#FFFFFF', 'important');
+        link.style.setProperty('background-color', '#FFFFFF', 'important');
+        link.style.setProperty('box-shadow', 'none', 'important');
+        link.style.setProperty('opacity', '1', 'important');
+      });
+
+      paginate.querySelectorAll('.page-item.disabled, .paginate_button.disabled').forEach(function (node) {
+        node.style.setProperty('opacity', '1', 'important');
+      });
+
+      paginate.querySelectorAll('.page-item.disabled .page-link, .paginate_button.disabled .page-link, .paginate_button.disabled, .paginate_button.previous, .paginate_button.next, .paginate_button.current').forEach(function (node) {
+        node.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
+        node.style.setProperty('border', '1px solid rgb(34 38 93 / 10%)', 'important');
+        node.style.setProperty('background', '#FFFFFF', 'important');
+        node.style.setProperty('background-color', '#FFFFFF', 'important');
+        node.style.setProperty('opacity', '1', 'important');
+        node.style.setProperty('box-shadow', 'none', 'important');
+      });
+    });
+  }
+
+  let dataTablesLayoutTimer = null;
+
+  function refreshDataTablesLayout() {
+    if (!window.jQuery || !window.jQuery.fn || !window.jQuery.fn.dataTable) return;
+
+    window.requestAnimationFrame(function () {
+      try {
+        const tablesApi = window.jQuery.fn.dataTable.tables({ visible: true, api: true });
+        if (tablesApi && tablesApi.columns) {
+          tablesApi.columns.adjust();
+        }
+      } catch (error) {}
+
+      document.querySelectorAll('.dataTables_scroll').forEach(function (scrollWrapper) {
+        const bodyTable = scrollWrapper.querySelector('.dataTables_scrollBody table');
+        const headInner = scrollWrapper.querySelector('.dataTables_scrollHeadInner');
+        const headTable = headInner ? headInner.querySelector('table') : null;
+
+        if (!bodyTable || !headInner || !headTable) return;
+
+        const bodyWidth = Math.ceil(bodyTable.getBoundingClientRect().width);
+        if (!bodyWidth) return;
+
+        headInner.style.width = bodyWidth + 'px';
+        headTable.style.width = bodyWidth + 'px';
+      });
+
+      applyDataTablesPaginationTheme(document);
+    });
+  }
+
+  function scheduleDataTablesLayoutRefresh(delay) {
+    if (dataTablesLayoutTimer) {
+      window.clearTimeout(dataTablesLayoutTimer);
+    }
+
+    dataTablesLayoutTimer = window.setTimeout(function () {
+      refreshDataTablesLayout();
+      window.setTimeout(refreshDataTablesLayout, 120);
+      window.setTimeout(refreshDataTablesLayout, 360);
+    }, typeof delay === 'number' ? delay : 0);
   }
 
   if (!modules.length) return;
@@ -133,10 +215,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     body.classList.remove('sidebar-panel-open');
+    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'closed' });
     }
+
+    scheduleDataTablesLayoutRefresh(80);
   }
 
   function openPanel(key, rememberState = true) {
@@ -152,10 +237,13 @@ document.addEventListener('DOMContentLoaded', function () {
     targetPanel.classList.add('show');
     targetPanel.setAttribute('aria-hidden', 'false');
     body.classList.add('sidebar-panel-open');
+    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'open', key: key });
     }
+
+    scheduleDataTablesLayoutRefresh(80);
   }
 
   function collapsePanelKeepActive(key, rememberState = true) {
@@ -189,10 +277,13 @@ document.addEventListener('DOMContentLoaded', function () {
     targetPanel.classList.remove('show');
     targetPanel.setAttribute('aria-hidden', 'true');
     body.classList.remove('sidebar-panel-open');
+    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'collapsed', key: key });
     }
+
+    scheduleDataTablesLayoutRefresh(80);
   }
 
   triggers.forEach(function (trigger) {
@@ -317,17 +408,43 @@ document.addEventListener('DOMContentLoaded', function () {
     openPanel(activeModuleKey, false);
   }
 
-
+  requestAnimationFrame(function () {
+    clearPreopenSidebar();
+  });
 
   enhanceScreenSearchBars(document);
   enhanceDataTablesSearch(document);
+  scheduleDataTablesLayoutRefresh(0);
 
   const searchObserver = new MutationObserver(function () {
     enhanceScreenSearchBars(document);
-  enhanceDataTablesSearch(document);
+    enhanceDataTablesSearch(document);
+    scheduleDataTablesLayoutRefresh(0);
   });
 
   searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  window.addEventListener('resize', function () {
+    scheduleDataTablesLayoutRefresh(0);
+  });
+
+  document.addEventListener('shown.bs.tab', function () {
+    scheduleDataTablesLayoutRefresh(0);
+  });
+
+  document.addEventListener('shown.bs.collapse', function () {
+    scheduleDataTablesLayoutRefresh(0);
+  });
+
+  document.addEventListener('shown.bs.modal', function () {
+    scheduleDataTablesLayoutRefresh(0);
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target.closest('.paginate_button')) {
+      scheduleDataTablesLayoutRefresh(0);
+    }
+  });
 
   document.querySelectorAll('[data-sidebar-search]').forEach(function (input) {
     input.addEventListener('input', function () {

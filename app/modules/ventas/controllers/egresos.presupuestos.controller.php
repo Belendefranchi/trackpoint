@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/egresos.presupuestos.model.php';
 require_once __DIR__ . '/../models/egresos.listaPrecios.model.php';
-require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php';
+/* require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php'; */
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener presupuesto seleccionado para cargar la lista de prec
@@ -381,35 +381,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	if (isset($_GET['ajaxMercaderias'])) {
-
-		// Obtener lista_id (puede venir null)
-		$listaId = $_GET['lista_id'] ?? null;
-
-		// Sanitizar (opcional pero recomendado)
-		$listaId = $listaId !== '' ? (int) $listaId : null;
-
-		try {
-			// Llamar al modelo
-			$mercaderias = obtenerMercaderiasConPreciosPorLista($listaId);
-
-			// Respuesta OK
-			echo json_encode($mercaderias);
-		} catch (Exception $e) {
-			// Error controlado
-			echo json_encode([
-				'success' => false,
-				'message' => 'Error al obtener mercaderías'
-			]);
-		}
-		exit;
-	}
-
 	// ####### SELECCIONAR X CODIGO #######
 	if (isset($_GET['seleccionarCodigoMercaderia'])) {
 
 		header('Content-Type: application/json');
 
+		$lista_id = $_POST['lista_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? null;
 
 		if (empty($codigo_mercaderia)) {
@@ -417,15 +394,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		} else {
 			try {
-				$mercaderia = obtenerMercaderiaPorCodigo($codigo_mercaderia);
+					$mercaderia = obtenerMercaderiaPorCodigoEnLista($codigo_mercaderia, $lista_id);
 
 				if ($mercaderia) {
 					echo json_encode([
 						'success' => true,
 						'mercaderia_id' => $mercaderia['mercaderia_id'],
-						'codigo_mercaderia' => $mercaderia['codigo'],
+/* 						'codigo_mercaderia' => $mercaderia['codigo'],
 						'descripcion_mercaderia' => $mercaderia['descripcion'],
-						'precio_compra_mercaderia' => $mercaderia['precio_compra'],
+						'precio_compra_mercaderia' => $mercaderia['precio_compra'], */
 						'precio_venta_mercaderia' => $mercaderia['precio_venta']
 					]);
 					exit;

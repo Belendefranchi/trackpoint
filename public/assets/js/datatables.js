@@ -7,7 +7,7 @@ $(document).ready(function () {
 		pageLength: 10,
 		language: {
 			sZeroRecords: "No se encontraron resultados",
-			sSearch: "Buscar:",
+			sSearch: "",
 			sEmptyTable: "No hay datos disponibles en la tabla",
 			oPaginate: {
 				sFirst: "Primero",
@@ -178,10 +178,10 @@ $(document).ready(function () {
 			"sProcessing": "Procesando...",
 			"sLengthMenu": "Mostrar _MENU_ registros",
 			"sZeroRecords": "No se encontraron resultados",
-			"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-			"sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+			"sInfo": "Mostrando _START_ de _TOTAL_ registros",
+			"sInfoEmpty": "Mostrando 0 de 0 registros",
 			"sInfoFiltered": "(filtrado de _MAX_ registros en total)",
-			"sSearch": "Buscar:",
+			"sSearch": "",
 			"sEmptyTable": "No hay datos disponibles en la tabla",
 			"sLoadingRecords": "Cargando...",
 			"oPaginate": {
@@ -372,10 +372,10 @@ $(document).ready(function () {
 			"sProcessing": "Procesando...",
 			"sLengthMenu": "Mostrar _MENU_ registros",
 			"sZeroRecords": "No se encontraron resultados",
-			"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-			"sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+			"sInfo": "Mostrando _START_  de _TOTAL_ registros",
+			"sInfoEmpty": "Mostrando 0 de 0 registros",
 			"sInfoFiltered": "(filtrado de _MAX_ registros en total)",
-			"sSearch": "Buscar:",
+			"sSearch": "",
 			"sEmptyTable": "No hay datos disponibles en la tabla",
 			"sLoadingRecords": "Cargando...",
 			"oPaginate": {

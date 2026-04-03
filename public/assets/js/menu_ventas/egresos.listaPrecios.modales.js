@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fila.addEventListener('click', function (event) {
 
       // Evitar que clic en <a> o <button> o inputs dispare selección
-      if (event.target.closest('a, button, input, label')) {
+      if (event.target.closest('a, button')) {
         return;
       }
 

@@ -148,6 +148,31 @@ function obtenerDetalleLista($lista_id)
 	}
 }
 
+function obtenerMercaderiaPorCodigoEnLista($codigo_mercaderia, $lista_id)
+{
+	try {
+		$conn = getConnection();
+		$stmt = $conn->prepare("SELECT
+															l.mercaderia_id,
+															l.precio_compra,
+															l.precio_venta
+															FROM ventas_egresos_listaPrecios_detalle l
+															INNER JOIN configuracion_abm_mercaderias m
+																ON l.mercaderia_id = m.mercaderia_id
+															WHERE m.codigo = :codigo
+																AND l.lista_id = :lista_id
+																/* AND l.activo = 1 */");
+		$stmt->bindParam(':codigo', $codigo_mercaderia);
+		$stmt->bindParam(':lista_id', $lista_id);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		// Manejo de errores
+		registrarEvento("ListaPrecios Model: Error al obtener la mercadería por código, " . $e->getMessage(), "ERROR");
+		return false;
+	}
+}
+
 function crearListaPrecios($datos)
 {
 

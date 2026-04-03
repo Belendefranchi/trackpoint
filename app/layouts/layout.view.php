@@ -277,6 +277,19 @@ if ($isSuperadmin) {
   <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/jquery.dataTables.colResize.css" />
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
+
+  <script>
+    (function () {
+      try {
+        var sidebarState = JSON.parse(sessionStorage.getItem('trackpointSidebarState') || 'null');
+        if (sidebarState && sidebarState.mode === 'open' && sidebarState.key) {
+          document.documentElement.classList.add('sidebar-preopen');
+          document.documentElement.setAttribute('data-sidebar-preopen-key', sidebarState.key);
+        }
+      } catch (error) {}
+    })();
+  </script>
+
 </head>
 
 <body class="layout-sidebar" style="background-color: #f4f7fc;">
