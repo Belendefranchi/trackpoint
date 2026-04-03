@@ -76,8 +76,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
-										<div class="d-flex no-wrap">
-											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+										<div class="d-flex flex-nowrap">
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarMercaderia"
 												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
@@ -100,7 +100,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
 												<i class="bi bi-pencil me-2"></i>Editar
 											</a>
-											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarMercaderia"
 												data-ide="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"

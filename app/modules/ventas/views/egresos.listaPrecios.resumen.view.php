@@ -29,7 +29,7 @@
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['moneda']) ?></td>
 																<td class="border text-primary text-center">
 																	<div class="col d-flex flex-nowrap justify-content-center">
-																		<a href="#" role="button" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap rounded-5"
+																		<a href="#" role="button" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap"
 																			data-bs-toggle="modal" 
 																			data-bs-target="#modalEditarListaPrecios"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>"
@@ -37,13 +37,13 @@
 																			data-tipo="<?= htmlspecialchars($filaResumen['tipo']) ?>"
 																			data-proveedor="<?= htmlspecialchars($filaResumen['proveedor']) ?>"
 																			data-moneda="<?= htmlspecialchars($filaResumen['moneda']) ?>">
-																			<i class="bi bi-pencil"></i>
+																			<i class="bi bi-pencil me-2"></i>Editar
 																		</a>
-																		<a href="#" id="btnMostrarEliminarListaPrecios" role="button" class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap rounded-5"
+																		<a href="#" id="btnMostrarEliminarListaPrecios" role="button" class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap"
 																			data-bs-toggle="modal"
 																			data-bs-target="#modalEliminarListaPrecios"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
-																			<i class="bi bi-trash"></i>
+																			<i class="bi bi-trash me-2"></i>Eliminar
 																		</a>
 <!-- 																		<a href="#" role="button" class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5 btn-ver-lista"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">

@@ -1098,3 +1098,19 @@ table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
   background-color: #FFFFFF !important;
   box-shadow: inset 0 0 0 9999px #FFFFFF !important;
 }
+
+/* Ajuste solicitado v1.1: color del texto/placeholder en barras de busqueda de pantalla */
+main .screen-search-group .screen-search-field input.form-control,
+main .screen-search-group .screen-search-field input[type="text"],
+main .screen-search-group .screen-search-field input[type="search"],
+main .screen-search-group .screen-search-field .form-control {
+  color: rgb(34 38 93 / 50%) !important;
+}
+
+main .screen-search-group .screen-search-field input.form-control::placeholder,
+main .screen-search-group .screen-search-field input[type="text"]::placeholder,
+main .screen-search-group .screen-search-field input[type="search"]::placeholder,
+main .screen-search-group .screen-search-field .form-control::placeholder {
+  color: rgb(34 38 93 / 50%) !important;
+  opacity: 1 !important;
+}
