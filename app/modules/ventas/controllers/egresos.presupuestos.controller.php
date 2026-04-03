@@ -26,7 +26,7 @@ $resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
 $ultimoPresupuestoId = obtenerUltimoPresupuestoId();
 
 // Obtener procesos y mercaderías
-$mercaderias = obtenerMercaderiasActivas();
+/* $mercaderias = obtenerMercaderiasActivas(); */
 
 // Obtener listas de precios
 $listas = obtenerListasActivas();
@@ -312,6 +312,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	}
 
+	// ####### RENDERIZAR MERCADERÍA #######
+	if (isset($_GET['renderizarMercaderia'])) {
+
+		header('Content-Type: application/json');
+
+		$lista_id = $_POST['lista_id'] ?? null;
+
+		if (empty($lista_id)) {
+			echo json_encode([
+				'success' => false,
+				'message' => 'No se recibió la lista de precios'
+			]);
+			exit;
+		}
+		try {
+			$mercaderias = obtenerDetalleLista($lista_id);
+
+			// Validar error del model
+			if (isset($mercaderias['success']) && $mercaderias['success'] === false) {
+				echo json_encode($mercaderias);
+				exit;
+			}
+
+			// Validar sin resultados
+			if (empty($mercaderias)) {
+				echo json_encode([
+					'success' => false,
+					'message' => 'No hay mercaderías en la lista seleccionada'
+				]);
+				exit;
+			}
+
+			echo json_encode([
+				'success' => true,
+				'data' => $mercaderias
+			]);
+			exit;
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+		}
+	}
+
 	// ####### SELECCIONAR MERCADERÍA #######
 	if (isset($_GET['seleccionarMercaderia'])) {
 
@@ -391,7 +434,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					exit;
 				}
 			} catch (Exception $e) {
-				registrarEvento("Recepción Mercaderías Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+				registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 				echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			}
 		}
@@ -553,7 +596,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener datos para pasar a la vista
 $datosVista = [
-	'mercaderias' => $mercaderias,
+	/* 'mercaderias' => $mercaderias, */
 	'listas' => $listas,
 	'resumen' => $resumen,
 	'ultimoPresupuestoId' => $ultimoPresupuestoId

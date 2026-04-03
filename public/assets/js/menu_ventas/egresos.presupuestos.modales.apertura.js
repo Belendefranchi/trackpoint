@@ -100,16 +100,16 @@ document.addEventListener('show.bs.modal', function (event) {
 			$('#mensaje-error-seleccionar').addClass('d-none');
 
 			const mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
-			const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado');
+			/* const presupuestoSeleccionado = localStorage.getItem('presupuestoSeleccionado'); */
 
-			if (!presupuestoSeleccionado) {
+/* 			if (!presupuestoSeleccionado) {
 				console.warn('No hay presupuesto seleccionado');
 				mensajeErrorSeleccionar.classList.remove('d-none');
 				mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
 					'Debe seleccionar un presupuesto primero.';
 			} else {
 				console.log('Presupuesto seleccionado ID:', presupuestoSeleccionado);
-			}
+			} */
 			break;
 
 		/* -----------------------------------------

@@ -81,6 +81,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							</div>
 						</div>
 						<input type="hidden" name="presupuesto_id" id="presupuesto_id">
+						<input type="hidden" name="lista_id" id="lista_id">
 						<input type="hidden" name="precio_compra_mercaderia" id="precio_compra_mercaderia"
 							value="<?php echo $mercaderiaSeleccionada['precio_compra_mercaderia'] ?? 1; ?>">
 						<!-- Botón Agregar -->

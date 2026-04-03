@@ -39,13 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeButtons = Array.from(document.querySelectorAll('[data-sidebar-close]'));
   const currentPath = window.location.pathname.replace(/\/$/, '');
   const SIDEBAR_STATE_KEY = 'trackpointSidebarState';
-  const rootElement = document.documentElement;
-
-  function clearPreopenSidebar() {
-    rootElement.classList.remove('sidebar-preopen');
-    rootElement.removeAttribute('data-sidebar-preopen-key');
-  }
-
 
   function getSidebarState() {
     try {
@@ -108,13 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
         group.insertBefore(field, input);
       }
 
-      if (!icon) {
-        icon = document.createElement('span');
-        icon.className = 'screen-search-leading-icon bi bi-search';
-      }
-
-      if (icon.parentElement !== field) {
-        field.insertBefore(icon, field.firstChild || null);
+      if (icon) {
+        icon.remove();
       }
 
       if (input.parentElement !== field) {
@@ -145,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     body.classList.remove('sidebar-panel-open');
-    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'closed' });
@@ -165,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
     targetPanel.classList.add('show');
     targetPanel.setAttribute('aria-hidden', 'false');
     body.classList.add('sidebar-panel-open');
-    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'open', key: key });
@@ -203,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function () {
     targetPanel.classList.remove('show');
     targetPanel.setAttribute('aria-hidden', 'true');
     body.classList.remove('sidebar-panel-open');
-    clearPreopenSidebar();
 
     if (rememberState) {
       setSidebarState({ mode: 'collapsed', key: key });
@@ -332,9 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
     openPanel(activeModuleKey, false);
   }
 
-  requestAnimationFrame(function () {
-    clearPreopenSidebar();
-  });
+
 
   enhanceScreenSearchBars(document);
   enhanceDataTablesSearch(document);

@@ -819,39 +819,3 @@ body.layout-sidebar main {
   border-radius: var(--bs-border-radius-sm) !important;
 }
 
-
-/* Pre-render sidebar panel open state to avoid layout jump on navigation */
-html.sidebar-preopen body.layout-sidebar {
-  padding-left: calc(var(--sidebar-rail-width) + var(--sidebar-panel-width));
-  transition: none;
-}
-
-html.sidebar-preopen[data-sidebar-preopen-key="recepcion"] [data-sidebar-panel="recepcion"],
-html.sidebar-preopen[data-sidebar-preopen-key="produccion"] [data-sidebar-panel="produccion"],
-html.sidebar-preopen[data-sidebar-preopen-key="expedicion"] [data-sidebar-panel="expedicion"],
-html.sidebar-preopen[data-sidebar-preopen-key="ventas"] [data-sidebar-panel="ventas"],
-html.sidebar-preopen[data-sidebar-preopen-key="configuracion"] [data-sidebar-panel="configuracion"],
-html.sidebar-preopen[data-sidebar-preopen-key="sistema"] [data-sidebar-panel="sistema"] {
-  display: block;
-}
-
-html.sidebar-preopen[data-sidebar-preopen-key="recepcion"] .sidebar-module[data-module-key="recepcion"] > .sidebar-link,
-html.sidebar-preopen[data-sidebar-preopen-key="produccion"] .sidebar-module[data-module-key="produccion"] > .sidebar-link,
-html.sidebar-preopen[data-sidebar-preopen-key="expedicion"] .sidebar-module[data-module-key="expedicion"] > .sidebar-link,
-html.sidebar-preopen[data-sidebar-preopen-key="ventas"] .sidebar-module[data-module-key="ventas"] > .sidebar-link,
-html.sidebar-preopen[data-sidebar-preopen-key="configuracion"] .sidebar-module[data-module-key="configuracion"] > .sidebar-link,
-html.sidebar-preopen[data-sidebar-preopen-key="sistema"] .sidebar-module[data-module-key="sistema"] > .sidebar-link {
-  background: rgba(255, 255, 255, 0.10);
-  border-color: rgb(255 255 255 / 12%);
-  color: #FFFFFF !important;
-}
-
-html.sidebar-preopen[data-sidebar-preopen-key="recepcion"] .sidebar-module[data-module-key="recepcion"] > .sidebar-link .sidebar-link-icon,
-html.sidebar-preopen[data-sidebar-preopen-key="produccion"] .sidebar-module[data-module-key="produccion"] > .sidebar-link .sidebar-link-icon,
-html.sidebar-preopen[data-sidebar-preopen-key="expedicion"] .sidebar-module[data-module-key="expedicion"] > .sidebar-link .sidebar-link-icon,
-html.sidebar-preopen[data-sidebar-preopen-key="ventas"] .sidebar-module[data-module-key="ventas"] > .sidebar-link .sidebar-link-icon,
-html.sidebar-preopen[data-sidebar-preopen-key="configuracion"] .sidebar-module[data-module-key="configuracion"] > .sidebar-link .sidebar-link-icon,
-html.sidebar-preopen[data-sidebar-preopen-key="sistema"] .sidebar-module[data-module-key="sistema"] > .sidebar-link .sidebar-link-icon {
-  background: rgba(255, 255, 255, 0.14);
-}
-

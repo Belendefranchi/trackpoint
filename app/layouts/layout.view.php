@@ -277,19 +277,6 @@ if ($isSuperadmin) {
   <link rel="stylesheet" href="/trackpoint/public/assets/css/plugins/jquery.dataTables.colResize.css" />
   <link rel="stylesheet" href="/trackpoint/public/assets/css/style.css">
   <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
-
-  <script>
-    (function () {
-      try {
-        var sidebarState = JSON.parse(sessionStorage.getItem('trackpointSidebarState') || 'null');
-        if (sidebarState && sidebarState.mode === 'open' && sidebarState.key) {
-          document.documentElement.classList.add('sidebar-preopen');
-          document.documentElement.setAttribute('data-sidebar-preopen-key', sidebarState.key);
-        }
-      } catch (error) {}
-    })();
-  </script>
-
 </head>
 
 <body class="layout-sidebar" style="background-color: #f4f7fc;">
@@ -363,11 +350,9 @@ if ($isSuperadmin) {
       </div>
 
       <div class="topbar-actions d-flex align-items-center justify-content-end flex-wrap">
-				<div class="card">
-					<p class="card-text p-2"><?php echo $_SESSION['username']; ?></p>
-				</div>
+        <a class="nav-link topbar-link p-2"><?php echo $_SESSION['username']; ?></a>
         <p class="topbar-divider nav-link p-2 m-0"> | </p>
-        <a class="btn btn-primary p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
+        <a class="nav-link topbar-link p-2" href="/trackpoint/public/logout">Cerrar sesión</a>
       </div>
     </div>
   </header>

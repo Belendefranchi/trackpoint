@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!card) return;
 
     // Evitar clicks en elementos interactivos internos
-    if (event.target.closest('a, button, input, label')) return;
+    if (event.target.closest('a, button')) return;
 
     const radio = card.querySelector('.seleccionar-presupuesto');
     if (!radio) return;
@@ -85,21 +85,32 @@ document.addEventListener('DOMContentLoaded', function () {
     radio.checked = true;
 
     // Obtener ID
-    const id = radio.dataset.presupuestoid;
-    if (!id) return;
+    const presupuestoId = radio.dataset.presupuestoid;
+    const listaPrecioId = radio.dataset.listaid;
+    if (!presupuestoId) return;
 
-    presupuestoSeleccionado = id;
+    presupuestoSeleccionado = presupuestoId;
+    listaPrecioSeleccionada = listaPrecioId;
 
-    // Activar botón "Agregar" del formulario superior (si existe)
+    console.log('Presupuesto seleccionado:', presupuestoSeleccionado);
+    console.log('Lista de precios seleccionada:', listaPrecioSeleccionada);
+
+    // Activar botón "Agregar" del formulario superior
     const btnGuardar = document.getElementById('btn-guardar-mercaderia');
     if (btnGuardar) {
       btnGuardar.disabled = false;
     }
 
     // Sincronizar con form
-    const inputHidden = document.getElementById('presupuesto_id');
-    if (inputHidden) {
-      inputHidden.value = id;
+    const inputPresupuesto = document.getElementById('presupuesto_id');
+    const inputLista = document.getElementById('lista_id');
+
+    if (inputPresupuesto && presupuestoId) {
+      inputPresupuesto.value = presupuestoId;
+    }
+
+    if (inputLista && listaPrecioId) {
+      inputLista.value = listaPrecioId;
     }
 
     // UI selección
@@ -148,8 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function actualizarEtiquetaPresupuesto() {
-/*     let id = localStorage.getItem('presupuestoSeleccionado');
-    if (!id) return; */
+    /*     let id = localStorage.getItem('presupuestoSeleccionado');
+        if (!id) return; */
 
     let etiqueta = document.getElementById('presupuestoActivo');
     if (etiqueta) {
@@ -245,8 +256,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-  
   /* ###################### GENERAR PRESUPUESTO ###################### */
   document.getElementById('btnMostrarGenerarPresupuesto').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('modalGenerarPresupuesto'));
@@ -458,11 +467,56 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-    /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
+  /* ###################### MODAL BUSQUEDA POR DESCRIPCIÓN ###################### */
   var modalSeleccionar = document.getElementById('modalSeleccionarMercaderia');
   var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
 
   if (modalSeleccionar) {
+
+    // Listener para cargar mercaderías al abrir el modal
+    modalSeleccionar.addEventListener('show.bs.modal', function () {
+
+      // Validación base
+      if (!presupuestoSeleccionado || !listaPrecioSeleccionada) {
+        mensajeErrorSeleccionar.classList.remove('d-none');
+        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
+          'Debe seleccionar un presupuesto con lista de precios.';
+        return;
+      }
+
+      // Mostrar estado de carga
+      const tbody = document.querySelector('#miTablaEnModalMercaderia tbody');
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center">Cargando...</td></tr>`;
+
+      console.log('listaPrecioSeleccionada:', listaPrecioSeleccionada);
+
+      // AJAX
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&renderizarMercaderia',
+        method: 'POST',
+        data: {
+          lista_id: listaPrecioSeleccionada
+        },
+        dataType: 'json',
+        success: function (response) {
+
+          if (!response.success) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center">${response.message}</td></tr>`;
+            return;
+          }
+
+          renderTablaMercaderias(response.data);
+        },
+        error: function (xhr, status, error) {
+          console.log('STATUS:', status);
+          console.log('ERROR:', error);
+          console.log('RESPONSE:', xhr.responseText);
+
+          tbody.innerHTML = `<tr><td colspan="6">Error al cargar</td></tr>`;
+        }
+      });
+
+    });
 
     // Listener para vaciar selección cuando se cierra el modal
     modalSeleccionar.addEventListener('hidden.bs.modal', function () {
@@ -563,6 +617,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
     }
+
+    function renderTablaMercaderias(mercaderias) {
+
+      const tbody = document.querySelector('#miTablaEnModalMercaderia tbody');
+      tbody.innerHTML = '';
+
+      if (!mercaderias || mercaderias.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center">Sin mercaderías en la lista</td></tr>`;
+        return;
+      }
+
+      mercaderias.forEach(m => {
+
+        const row = `<tr class="text-start">
+                      <td class="border text-primary">${m.mercaderia_id}</td>
+                      <td class="border text-primary">${m.codigo}</td>
+                      <td class="border text-primary">${m.descripcion}</td>
+                      <td class="border text-primary">${m.precio_compra}</td>
+                      <td class="border text-primary">${m.precio_venta}</td>
+                      <td class="border text-primary">
+                        <input type="radio" name="seleccion_mercaderia"
+                          class="form-check-input seleccionar-mercaderia"
+                          data-mercaderiaid="${m.mercaderia_id}"
+                          data-codigom="${m.codigo}"
+                          data-descripcionm="${m.descripcion}"
+                          data-preciocompram="${m.precio_compra}"
+                          data-precioventam="${m.precio_venta}">
+                      </td>
+                    </tr>
+                  `;
+
+
+        tbody.innerHTML += row;
+      });
+    }
   }
 
 
@@ -593,9 +682,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const cantidad = document.getElementById('cantidad').value;
       const precioCompra = document.getElementById('precio_compra_mercaderia').value;
       const precioVenta = document.getElementById('precio_venta_mercaderia').value;
-      
+
       const formData = new FormData();
-      
+
       formData.append('presupuesto_id', presupuestoSeleccionado);
       //formData.append('presupuesto_id', presupuestoId);
       formData.append('mercaderia_id', mercaderiaId);
