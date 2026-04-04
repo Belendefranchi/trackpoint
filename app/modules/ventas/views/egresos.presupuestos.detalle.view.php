@@ -65,34 +65,29 @@ echo '</pre>'; */
 						</div>
 
 						<!-- ACCIONES -->
-						<div class="col-1 text-center">
-							<div class="d-flex justify-content-center">
-								<button
-									type="button"
-									class="btn btn-sm btn-warning mx-1 d-flex rounded-5 btn-editar-mercaderia"
-									data-bs-toggle="modal"
-									data-bs-target="#modalEditarMercaderia"
-									data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
-									data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
-									data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
-									data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
-									data-preciocompram="<?= htmlspecialchars($filaDetalle['precio_compra']) ?>"
-									data-precioventam="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>"
-								>
-									<i class="bi bi-pencil"></i>
-								</button>
+						<div class="col-1 d-flex justify-content-center">
+							<button
+								class="btn btn-sm btn-warning mx-1 d-flex rounded-5 btn-editar-mercaderia"
+								data-bs-toggle="modal"
+								data-bs-target="#modalEditarMercaderia"
+								data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
+								data-codigom="<?= htmlspecialchars($filaDetalle['codigo_mercaderia']) ?>"
+								data-descripcionm="<?= htmlspecialchars($filaDetalle['descripcion_mercaderia']) ?>"
+								data-cantidad="<?= htmlspecialchars($filaDetalle['cantidad']) ?>"
+								data-preciocompram="<?= htmlspecialchars($filaDetalle['precio_compra']) ?>"
+								data-precioventam="<?= htmlspecialchars($filaDetalle['precio_venta']) ?>"
+							>
+								<i class="bi bi-pencil"></i>
+							</button>
 
-								<button
-									type="button"
-									class="btn btn-sm btn-danger mx-1 d-flex rounded-5 btn-eliminar-mercaderia"
-									data-bs-toggle="modal"
-									data-bs-target="#modalEliminarMercaderia"
-									data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
-								>
-									<i class="bi bi-trash"></i>
-								</button>
-
-							</div>
+							<button
+								class="btn btn-sm btn-danger mx-1 d-flex rounded-5 btn-eliminar-mercaderia"
+								data-bs-toggle="modal"
+								data-bs-target="#modalEliminarMercaderia"
+								data-id="<?= htmlspecialchars($filaDetalle['item_id']) ?>"
+							>
+								<i class="bi bi-trash"></i>
+							</button>
 						</div>
 
 					</div>

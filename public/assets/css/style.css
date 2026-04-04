@@ -1114,3 +1114,56 @@ main .screen-search-group .screen-search-field .form-control::placeholder {
   color: rgb(34 38 93 / 50%) !important;
   opacity: 1 !important;
 }
+
+/* Ajuste solicitado v1.2: iconos blancos en botones de acciones tambien fuera de DataTables */
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning:focus-visible,
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger:focus-visible {
+  color: #FFFFFF !important;
+}
+
+.btn-warning i,
+.btn-warning .bi,
+.btn-warning svg,
+.btn-warning img,
+.btn-warning span,
+.btn-warning::before,
+.btn-warning::after,
+.btn-danger i,
+.btn-danger .bi,
+.btn-danger svg,
+.btn-danger img,
+.btn-danger span,
+.btn-danger::before,
+.btn-danger::after,
+.btn-warning *,
+.btn-danger * {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+
+/* Ajuste solicitado v1.3: evitar flash/reflow visible durante la inicializacion de DataTables */
+html.dt-preinit main table.display,
+html.dt-preinit main table.dataTable,
+html.dt-preinit main .dataTables_wrapper {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+main table.display,
+main table.dataTable,
+main .dataTables_wrapper,
+main .dataTables_wrapper .dataTables_scroll,
+main .dataTables_wrapper .dataTables_scrollHead,
+main .dataTables_wrapper .dataTables_scrollBody {
+  transition: none !important;
+}

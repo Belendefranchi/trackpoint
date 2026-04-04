@@ -28,8 +28,8 @@
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['proveedor']) ?></td>
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['moneda']) ?></td>
 																<td class="border text-primary text-center">
-																	<div class="col d-flex flex-nowrap justify-content-center">
-																		<a href="#" role="button" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap"
+																	<div class="d-flex gap-2 flex-nowrap justify-content-center">
+																		<a href="#" role="button" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 																			data-bs-toggle="modal" 
 																			data-bs-target="#modalEditarListaPrecios"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>"
@@ -37,13 +37,13 @@
 																			data-tipo="<?= htmlspecialchars($filaResumen['tipo']) ?>"
 																			data-proveedor="<?= htmlspecialchars($filaResumen['proveedor']) ?>"
 																			data-moneda="<?= htmlspecialchars($filaResumen['moneda']) ?>">
-																			<i class="bi bi-pencil me-2"></i>Editar
+																			<i class="bi bi-pencil"></i>
 																		</a>
-																		<a href="#" id="btnMostrarEliminarListaPrecios" role="button" class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap"
+																		<a href="#" id="btnMostrarEliminarListaPrecios" role="button" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 																			data-bs-toggle="modal"
 																			data-bs-target="#modalEliminarListaPrecios"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">
-																			<i class="bi bi-trash me-2"></i>Eliminar
+																			<i class="bi bi-trash"></i>
 																		</a>
 <!-- 																		<a href="#" role="button" class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5 btn-ver-lista"
 																			data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>">

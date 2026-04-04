@@ -76,8 +76,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['etiqueta_sec']) ?></td>
 									<td class="border text-primary"><?= $mercaderia['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
-										<div class="d-flex flex-nowrap">
-											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-warning mx-1 d-flex flex-nowrap"
+										<div class="d-flex gap-2 flex-nowrap justify-content-center">
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarMercaderia"
 												data-id="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
@@ -98,14 +98,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-preciov="<?= htmlspecialchars($mercaderia['precio_venta']) ?>"
 												data-etiquetasec="<?= htmlspecialchars($mercaderia['etiqueta_sec']) ?>"
 												data-activo="<?= htmlspecialchars($mercaderia['activo']) ?>">
-												<i class="bi bi-pencil me-2"></i>Editar
+												<i class="bi bi-pencil"></i>
 											</a>
-											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-danger mx-1 d-flex flex-nowrap"
+											<a href="javascript:void(0)" role="button" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarMercaderia"
 												data-ide="<?= htmlspecialchars($mercaderia['mercaderia_id']) ?>"
 												data-codigoe="<?= htmlspecialchars($mercaderia['codigo']) ?>">
-												<i class="bi bi-trash me-2"></i>Eliminar
+												<i class="bi bi-trash"></i>
 											</a>
 										</div>
 									</td>

@@ -44,22 +44,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($permiso['editado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['editado_por']) ?></td>
 									<td class="border text-primary text-center">
-										<div class="d-flex no-wrap">
-											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+										<div class="d-flex gap-2 flex-nowrap justify-content-center">
+											<a href="#" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarPermiso"
 												data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
 												data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>"
 												data-descripcion="<?= htmlspecialchars($permiso['descripcion']) ?>"
 												data-pantalla="<?= htmlspecialchars($permiso['pantalla']) ?>">
-												<i class="bi bi-pencil me-2"></i>Editar
+												<i class="bi bi-pencil"></i>
 											</a>
-											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+											<a href="#" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarPermiso"
 												data-id="<?= htmlspecialchars($permiso['permiso_id']) ?>"
 												data-nombre="<?= htmlspecialchars($permiso['nombre']) ?>">
-												<i class="bi bi-trash me-2"></i>Eliminar
+												<i class="bi bi-trash"></i>
 											</a>
 										</div>
 									</td>

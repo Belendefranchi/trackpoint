@@ -151,6 +151,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   let dataTablesLayoutTimer = null;
+  let dataTablesBootReleased = false;
+  let dataTablesBootReleaseTimer = null;
+
+  function releaseDataTablesBoot(force) {
+    if (dataTablesBootReleased) return;
+
+    if (dataTablesBootReleaseTimer) {
+      window.clearTimeout(dataTablesBootReleaseTimer);
+    }
+
+    dataTablesBootReleaseTimer = window.setTimeout(function () {
+      refreshDataTablesLayout();
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          rootElement.classList.remove('dt-preinit');
+          dataTablesBootReleased = true;
+        });
+      });
+    }, force ? 0 : 90);
+  }
 
   function refreshDataTablesLayout() {
     if (!window.jQuery || !window.jQuery.fn || !window.jQuery.fn.dataTable) return;
@@ -415,14 +435,21 @@ document.addEventListener('DOMContentLoaded', function () {
   enhanceScreenSearchBars(document);
   enhanceDataTablesSearch(document);
   scheduleDataTablesLayoutRefresh(0);
+  releaseDataTablesBoot(false);
 
   const searchObserver = new MutationObserver(function () {
     enhanceScreenSearchBars(document);
     enhanceDataTablesSearch(document);
     scheduleDataTablesLayoutRefresh(0);
+    releaseDataTablesBoot(false);
   });
 
   searchObserver.observe(document.body, { childList: true, subtree: true });
+
+  window.addEventListener('load', function () {
+    scheduleDataTablesLayoutRefresh(0);
+    releaseDataTablesBoot(true);
+  });
 
   window.addEventListener('resize', function () {
     scheduleDataTablesLayoutRefresh(0);

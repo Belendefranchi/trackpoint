@@ -47,17 +47,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<?php if ($operador['username'] === superadmin): ?>
-										<div class="d-flex no-wrap">
-											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap">
-												<i class="bi bi-pencil me-2"></i>Editar
+										<div class="d-flex gap-2 flex-nowrap justify-content-center">
+											<a href="#" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle">
+												<i class="bi bi-pencil"></i>
 											</a>
-											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap">
-												<i class="bi bi-trash me-2"></i>Eliminar
+											<a href="#" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle">
+												<i class="bi bi-trash"></i>
 											</a>
 										</div>
 										<?php else: ?>
-										<div class="d-flex no-wrap">
-											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+										<div class="d-flex gap-2 flex-nowrap justify-content-center">
+											<a href="#" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarOperador"
 												data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
@@ -66,14 +66,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												data-email="<?= htmlspecialchars($operador['email']) ?>"
 												data-rol="<?= htmlspecialchars($operador['rol']) ?>"
 												data-activo="<?= htmlspecialchars($operador['activo']) ?>">
-												<i class="bi bi-pencil me-2"></i>Editar
+												<i class="bi bi-pencil"></i>
 											</a>
-											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+											<a href="#" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarOperador"
 												data-id="<?= htmlspecialchars($operador['operador_id']) ?>"
 												data-username="<?= htmlspecialchars($operador['username']) ?>">
-												<i class="bi bi-trash me-2"></i>Eliminar
+												<i class="bi bi-trash"></i>
 											</a>
 										</div>
 										<?php endif ?>

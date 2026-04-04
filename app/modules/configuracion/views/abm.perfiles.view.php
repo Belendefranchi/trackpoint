@@ -42,22 +42,22 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($perfil['editado_por']) ?></td>
 									<td class="border text-primary"><?= $perfil['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
-										<div class="d-flex no-wrap">
-											<a href="#" class="btn btn-sm btn-warning mx-1 d-flex no-wrap"
+										<div class="d-flex gap-2 flex-nowrap justify-content-center">
+											<a href="#" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal" 
 												data-bs-target="#modalEditarPerfil"
 												data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
 												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
 												data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>"
 												data-activo="<?= htmlspecialchars($perfil['activo']) ?>">
-												<i class="bi bi-pencil me-2"></i>Editar
+												<i class="bi bi-pencil"></i>
 											</a>
-											<a href="#" class="btn btn-sm btn-danger mx-1 d-flex no-wrap"
+											<a href="#" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 												data-bs-toggle="modal"
 												data-bs-target="#modalEliminarPerfil"
 												data-id="<?= htmlspecialchars($perfil['perfil_id']) ?>"
 												data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>">
-												<i class="bi bi-trash me-2"></i>Eliminar
+												<i class="bi bi-trash"></i>
 											</a>
 										</div>
 									</td>

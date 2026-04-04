@@ -280,6 +280,8 @@ if ($isSuperadmin) {
 
   <script>
     (function () {
+      document.documentElement.classList.add('dt-preinit');
+
       try {
         var sidebarState = JSON.parse(sessionStorage.getItem('trackpointSidebarState') || 'null');
         if (sidebarState && sidebarState.mode === 'open' && sidebarState.key) {
