@@ -1,6 +1,6 @@
 /* Colores personalizados */
 :root {
-	--bs-primary: #22265D;
+	--bs-primary: #171A3D;
 	--bs-secondary: #00B0E6;
 /*  --bs-light: #D3EBF9;*/
 /*  --bs-body-bg: #D3EBF9; */ 
@@ -101,76 +101,69 @@ table.dataTable th.dtr-resizable:after {
   cursor: ew-resize !important;
 }
 
-/* Texto de cantidad de registros */
-.dataTables_length label, 
-/* Filtro cantidad de registros */
+/* Controles DataTables */
+.dataTables_length label,
 .dataTables_wrapper .dataTables_filter label,
-/* Buscador */
 .dataTables_filter label,
-/* Texto de información */
 .dataTables_info,
-/* Paginador */
 .dataTables_paginate {
-  color: #adadad !important;
+  color: rgb(23 26 61 / 50%) !important;
   margin: 10px 0 !important;
 }
 
-/* Estilo general para todos los botones de paginación */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  border: 1px solid #ccc;
+/* Paginación DataTables */
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .page-link,
+.dataTables_wrapper .dataTables_paginate .page-item .page-link {
+  color: rgb(23 26 61 / 50%) !important;
+  border: 1px solid rgb(23 26 61 / 10%) !important;
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
   padding: 4px 12px !important;
   margin: 2px;
   border-radius: 4px;
   cursor: pointer;
 }
 
-/* Boton de pagina actual y Botones de número de páginas pero no actuales al pasar el cursor */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-  background: transparent !important;
-  background-color: #adadad !important;
-  color: white !important;
-  border: 1px solid #DEE2E6 !important;
-}
-
-/* Boton Anterior y Siguiente deshabilitados */
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
-  color: #adadad !important;
-}
-
-/* Boton Anterior y Siguiente deshabilitados al pasar el cursor */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .page-link:hover,
+.dataTables_wrapper .dataTables_paginate .page-link:focus,
+.dataTables_wrapper .dataTables_paginate .page-item.disabled .page-link,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
-  background: transparent !important;
-  color: #adadad !important;
-  border: none !important;
+  color: rgb(23 26 61 / 50%) !important;
+  border: 1px solid rgb(23 26 61 / 10%) !important;
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
 }
 
-/* Boton Anterior y Siguiente habilitados al pasar el cursor */
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover.active-lateral {
-  background: transparent !important;
-  background-color: #adadad !important;
-  color: white !important;
-  border: 1px solid #DEE2E6 !important;
-}
-
-/* Buscador y filtro de registros */
+/* Buscador y selector de cantidad */
 .dataTables_wrapper .dataTables_filter input,
 .dataTables_wrapper .dataTables_length select {
-  color: #adadad !important;
-  border: 1px solid #DEE2E6 !important;
+  color: rgb(23 26 61 / 50%) !important;
+  border: 1px solid rgb(23 26 61 / 10%) !important;
   border-radius: 4px !important;
   padding: 4px !important;
 }
 
-/* Foco en el buscador y filtro de registros */
-.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_filter input::placeholder {
+  color: rgb(23 26 61 / 50%) !important;
+  opacity: 1 !important;
+}
+
+/* Foco en buscador y selector */
+.dataTables_wrapper .dataTables_filter input:focus,
 .dataTables_wrapper .dataTables_length select:focus {
+  color: rgb(23 26 61 / 50%) !important;
   outline: none;
   box-shadow: none;
-  border-color: inherit;
+  border-color: rgb(23 26 61 / 10%) !important;
 }
 
 /* Linea de separación */
@@ -202,29 +195,30 @@ table.dataTable th {
 }
 
 
-/* Visibilidad de columnas */
-.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis {
-  background: transparent !important;
-  color: #adadad !important;
-  border: 1px solid #DEE2E6 !important;
-  margin-top: 10px !important;
-  margin-left: 20px !important;
-  padding: 4px !important;
-  border-radius: 4px !important;
-}
-
-/* Botones de exportación */
+/* Botones de DataTables */
+.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis,
 .btn.btn-secondary.buttons-copy.buttons-html5,
 .btn.btn-secondary.buttons-pdf.buttons-html5,
 .btn.btn-secondary.buttons-excel.buttons-html5,
-.btn.btn-secondary.buttons-print{
+.btn.btn-secondary.buttons-print {
   background: transparent !important;
-  color: #adadad !important;
-  border: 1px solid #DEE2E6 !important;
+  color: rgb(23 26 61 / 50%) !important;
+  border: 1px solid rgb(23 26 61 / 10%) !important;
   margin-top: 10px !important;
-  margin-left: 10px !important;
   padding: 4px 12px !important;
   border-radius: 4px !important;
+}
+
+.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis {
+  margin-left: 20px !important;
+  padding: 4px !important;
+}
+
+.btn.btn-secondary.buttons-copy.buttons-html5,
+.btn.btn-secondary.buttons-pdf.buttons-html5,
+.btn.btn-secondary.buttons-excel.buttons-html5,
+.btn.btn-secondary.buttons-print {
+  margin-left: 10px !important;
 }
 
 /* Boton de visibilidad de columnas */
@@ -310,7 +304,7 @@ body.layout-sidebar.sidebar-panel-open {
   bottom: 0;
   width: var(--sidebar-rail-width);
   min-height: calc(100vh - var(--topbar-height));
-  background: linear-gradient(180deg, #22265D 0%, #181b46 100%);
+  background: #171A3D;
   z-index: 1040;
   display: flex;
   flex-direction: column;
@@ -421,6 +415,7 @@ body.layout-sidebar.sidebar-panel-open {
   width: var(--sidebar-panel-width);
   display: none;
   z-index: 1035;
+  background: #171A3D;
 }
 
 .sidebar-context-panel.show {
@@ -430,7 +425,7 @@ body.layout-sidebar.sidebar-panel-open {
 .sidebar-context-shell {
   height: 100%;
   padding: 1.1rem 1rem 1.25rem;
-  background: linear-gradient(180deg, #1F234F 0%, #171A3D 100%);
+  background: #171A3D;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 14px 0 36px rgba(10, 13, 38, 0.18);
   display: flex;
@@ -622,7 +617,7 @@ body.layout-sidebar.sidebar-panel-open {
   right: 0;
   height: var(--topbar-height);
   padding: 0.75rem 0;
-  background: linear-gradient(180deg, #22265D 0%, #181b46 100%);
+  background: #171A3D;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 1050;
 }
@@ -856,209 +851,6 @@ html.sidebar-preopen[data-sidebar-preopen-key="sistema"] .sidebar-module[data-mo
 }
 
 
-/* Ajuste solicitado: controles DataTables */
-.dataTables_length label,
-.dataTables_wrapper .dataTables_filter label,
-.dataTables_filter label,
-.dataTables_info,
-.dataTables_paginate,
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis,
-.btn.btn-secondary.buttons-copy.buttons-html5,
-.btn.btn-secondary.buttons-pdf.buttons-html5,
-.btn.btn-secondary.buttons-excel.buttons-html5,
-.btn.btn-secondary.buttons-print {
-  color: rgb(34 38 93 / 50%) !important;
-}
-
-.dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_length select,
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis,
-.btn.btn-secondary.buttons-copy.buttons-html5,
-.btn.btn-secondary.buttons-pdf.buttons-html5,
-.btn.btn-secondary.buttons-excel.buttons-html5,
-.btn.btn-secondary.buttons-print {
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-}
-
-.dataTables_wrapper .dataTables_filter input::placeholder {
-  color: rgb(34 38 93 / 50%) !important;
-}
-
-
-/* Ajuste solicitado: iconos blancos en botones de acciones de tablas */
-table .btn-warning,
-table .btn-warning:hover,
-table .btn-warning:focus,
-table .btn-warning:active,
-table .btn-danger,
-table .btn-danger:hover,
-table .btn-danger:focus,
-table .btn-danger:active {
-  color: #FFFFFF !important;
-}
-
-table .btn-warning i,
-table .btn-warning .bi,
-table .btn-warning svg,
-table .btn-danger i,
-table .btn-danger .bi,
-table .btn-danger svg {
-  color: #FFFFFF !important;
-  fill: #FFFFFF !important;
-}
-
-/* Ajuste solicitado: restaurar color de texto y borde en controles visibles de DataTables */
-.dataTables_wrapper .dataTables_length label,
-.dataTables_wrapper .dataTables_length label select,
-.dataTables_wrapper .dataTables_filter label,
-.dataTables_wrapper .dataTables_filter label input,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dt-buttons .btn,
-.dataTables_wrapper .dt-buttons .btn-secondary,
-.dataTables_wrapper .dt-buttons .dt-button,
-.dataTables_wrapper .dt-buttons .buttons-collection,
-.dataTables_wrapper .dt-buttons .buttons-copy,
-.dataTables_wrapper .dt-buttons .buttons-pdf,
-.dataTables_wrapper .dt-buttons .buttons-excel,
-.dataTables_wrapper .dt-buttons .buttons-print,
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .page-link,
-.dataTables_wrapper .dataTables_paginate .page-item,
-.dataTables_wrapper .dataTables_paginate .page-item .page-link {
-  color: rgb(34 38 93 / 50%) !important;
-}
-
-.dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_length select,
-.dataTables_wrapper .dt-buttons .btn,
-.dataTables_wrapper .dt-buttons .btn-secondary,
-.dataTables_wrapper .dt-buttons .dt-button,
-.dataTables_wrapper .dt-buttons .buttons-collection,
-.dataTables_wrapper .dt-buttons .buttons-copy,
-.dataTables_wrapper .dt-buttons .buttons-pdf,
-.dataTables_wrapper .dt-buttons .buttons-excel,
-.dataTables_wrapper .dt-buttons .buttons-print,
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .page-link,
-.dataTables_wrapper .dataTables_paginate .page-item .page-link {
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-}
-
-.dataTables_wrapper .dataTables_filter input::placeholder {
-  color: rgb(34 38 93 / 50%) !important;
-  opacity: 1 !important;
-}
-
-.dataTables_wrapper .dataTables_filter input:focus,
-.dataTables_wrapper .dataTables_length select:focus,
-.dataTables_wrapper .dt-buttons .btn:focus,
-.dataTables_wrapper .dt-buttons .btn-secondary:focus,
-.dataTables_wrapper .dt-buttons .dt-button:focus,
-.dataTables_wrapper .dataTables_paginate .paginate_button:focus,
-.dataTables_wrapper .dataTables_paginate .page-link:focus {
-  color: rgb(34 38 93 / 50%) !important;
-  border-color: rgb(34 38 93 / 10%) !important;
-  box-shadow: none !important;
-}
-
-/* Ajuste solicitado: forzar color y borde correctos en paginacion DataTables */
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.page-item .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.disabled .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.active .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.current .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.current.page-item .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.previous .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.next .page-link {
-  color: rgb(34 38 93 / 50%) !important;
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  box-shadow: none !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.active .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.current .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.page-item .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.disabled .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.previous .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.next .page-link:hover,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.page-item .page-link:focus,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item .page-link:focus {
-  color: rgb(34 38 93 / 50%) !important;
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  box-shadow: none !important;
-}
-
-
-/* Ajuste solicitado: forzar paginacion DataTables con color y borde aprobados */
-.dataTables_wrapper .dataTables_paginate .pagination,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button,
-.dataTables_wrapper .dataTables_paginate .pagination .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.disabled .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.active .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.current .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.previous .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.next .page-link {
-  color: rgb(34 38 93 / 50%) !important;
-  border-color: rgb(34 38 93 / 10%) !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .pagination .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.disabled .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .page-item.active .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.current .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.previous .page-link,
-.dataTables_wrapper .dataTables_paginate .pagination .paginate_button.next .page-link {
-  color: rgb(34 38 93 / 50%) !important;
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  opacity: 1 !important;
-  box-shadow: none !important;
-}
-
-
-/* Ajuste solicitado: texto de paginacion DataTables forzado tambien en anchors directos */
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
-  color: rgb(34 38 93 / 50%) !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
-  border: 1px solid rgb(34 38 93 / 10%) !important;
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  opacity: 1 !important;
-  box-shadow: none !important;
-}
 
 
 /* Ajuste solicitado: quitar zebra striping de DataTables sin remover odd/even */
@@ -1167,3 +959,83 @@ main .dataTables_wrapper .dataTables_scrollHead,
 main .dataTables_wrapper .dataTables_scrollBody {
   transition: none !important;
 }
+
+/* Ajuste v1.9: indicador de orden DataTables paralelo, compacto y con flecha activa en blanco */
+.dataTables_wrapper table.dataTable thead th.tp-dt-sortable,
+.dataTables_wrapper table.dataTable thead td.tp-dt-sortable {
+  position: relative;
+  padding-right: 1.95rem !important;
+}
+
+table.dataTable thead > tr > th.sorting::before,
+table.dataTable thead > tr > th.sorting::after,
+table.dataTable thead > tr > th.sorting_asc::before,
+table.dataTable thead > tr > th.sorting_asc::after,
+table.dataTable thead > tr > th.sorting_desc::before,
+table.dataTable thead > tr > th.sorting_desc::after,
+table.dataTable thead > tr > th.sorting_disabled::before,
+table.dataTable thead > tr > th.sorting_disabled::after,
+table.dataTable thead > tr > td.sorting::before,
+table.dataTable thead > tr > td.sorting::after,
+table.dataTable thead > tr > td.sorting_asc::before,
+table.dataTable thead > tr > td.sorting_asc::after,
+table.dataTable thead > tr > td.sorting_desc::before,
+table.dataTable thead > tr > td.sorting_desc::after,
+table.dataTable thead > tr > td.sorting_disabled::before,
+table.dataTable thead > tr > td.sorting_disabled::after,
+.dataTables_wrapper table.dataTable thead th .dt-column-order::before,
+.dataTables_wrapper table.dataTable thead th .dt-column-order::after,
+.dataTables_wrapper table.dataTable thead td .dt-column-order::before,
+.dataTables_wrapper table.dataTable thead td .dt-column-order::after {
+  display: none !important;
+  content: none !important;
+}
+
+.dataTables_wrapper table.dataTable thead th .dt-column-order,
+.dataTables_wrapper table.dataTable thead td .dt-column-order {
+  display: none !important;
+}
+
+.dataTables_wrapper table.dataTable thead th .tp-dt-sort-icon,
+.dataTables_wrapper table.dataTable thead td .tp-dt-sort-icon {
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.02rem;
+  width: auto;
+  height: auto;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.dataTables_wrapper table.dataTable thead th .tp-dt-sort-icon .bi,
+.dataTables_wrapper table.dataTable thead td .tp-dt-sort-icon .bi {
+  display: inline-block;
+  font-size: 0.72rem;
+  line-height: 0.72rem;
+  color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.dataTables_wrapper table.dataTable thead th .tp-dt-sort-icon .tp-dt-sort-up,
+.dataTables_wrapper table.dataTable thead td .tp-dt-sort-icon .tp-dt-sort-up {
+  margin-right: -0.08rem;
+}
+
+.dataTables_wrapper table.dataTable thead th .tp-dt-sort-icon .tp-dt-sort-down,
+.dataTables_wrapper table.dataTable thead td .tp-dt-sort-icon .tp-dt-sort-down {
+  margin-left: -0.08rem;
+}
+
+.dataTables_wrapper table.dataTable thead th.tp-dt-sort-asc .tp-dt-sort-up,
+.dataTables_wrapper table.dataTable thead td.tp-dt-sort-asc .tp-dt-sort-up,
+.dataTables_wrapper table.dataTable thead th.tp-dt-sort-desc .tp-dt-sort-down,
+.dataTables_wrapper table.dataTable thead td.tp-dt-sort-desc .tp-dt-sort-down {
+  color: #FFFFFF !important;
+}
+

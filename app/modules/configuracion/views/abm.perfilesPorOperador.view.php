@@ -7,8 +7,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
   const subtitulo = 'Perfiles por Operador';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
-					<div class="d-flex justify-content-between align-items-center pe-2">
+				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
+					<div class="d-flex justify-content-between align-items-center">
 						<h2 class="text-primary">Perfiles por Operador</h2>
 						<a href="#" class="btn btn-sm btn-primary"
 							data-bs-toggle="modal" 
@@ -54,10 +54,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
+								<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
 								<td class="border text-center">ID</td>
 								<td class="border">Perfil</td>
 								<td class="border">Descripción</td>
-								<td class="border"><i class="bi-check-circle me-2"></i></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -65,13 +65,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<?php foreach ($perfiles as $perfil): ?>
 								<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
 								<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-									<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-									<td class="border text-primary">
+									<td class="border text-primary text-center">
 										<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
 										<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
 									</td>
+									<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
@@ -100,23 +100,18 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
+														<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
 														<td class="border text-center">ID</td>
 														<td class="border">Usuario</td>
 														<td class="border">Nombre</td>
 														<td class="border">Email</td>
 														<td class="border">Rol</td>
-														<td class="border"><i class="bi-check-circle me-2"></i></td>
 													</tr>
 												</thead>
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
 														<tr class="text-start">
-															<td class="border text-primary"><?= htmlspecialchars($operador['operador_id']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
-															<td class="border text-primary">
+															<td class="border text-primary text-center">
 																<input type="radio" name="seleccion_operador"
 																	class="form-check-input seleccionar-operador"
 																	data-operadorid="<?= htmlspecialchars($operador['operador_id']) ?>"
@@ -125,6 +120,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 																	data-email="<?= htmlspecialchars($operador['email']) ?>"
 																	data-rol="<?= htmlspecialchars($operador['rol']) ?>">
 															</td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['operador_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['username']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
 														</tr>
 													<?php endforeach; ?>
 												</tbody>

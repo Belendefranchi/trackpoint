@@ -82,6 +82,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function enhanceDataTablesSortIcons(root) {
+    (root || document).querySelectorAll('.dataTables_wrapper table.dataTable thead th, .dataTables_wrapper table.dataTable thead td').forEach(function (cell) {
+      const className = cell.className || '';
+      const ariaSort = (cell.getAttribute('aria-sort') || '').toLowerCase();
+      const isSortable = /(^|\s)(sorting|sorting_asc|sorting_desc|sorting_disabled|dt-orderable-asc|dt-orderable-desc|dt-ordering-asc|dt-ordering-desc)(\s|$)/.test(className)
+        || cell.hasAttribute('aria-sort')
+        || !!cell.querySelector('.dt-column-order');
+
+      if (!isSortable) return;
+
+      cell.classList.add('tp-dt-sortable');
+      cell.classList.remove('tp-dt-sort-asc', 'tp-dt-sort-desc');
+
+      if (/(^|\s)(sorting_asc|dt-ordering-asc)(\s|$)/.test(className) || ariaSort === 'ascending') {
+        cell.classList.add('tp-dt-sort-asc');
+      } else if (/(^|\s)(sorting_desc|dt-ordering-desc)(\s|$)/.test(className) || ariaSort === 'descending') {
+        cell.classList.add('tp-dt-sort-desc');
+      }
+
+      let customIcon = null;
+      Array.from(cell.children).forEach(function (child) {
+        if (child.classList && child.classList.contains('tp-dt-sort-icon')) {
+          customIcon = child;
+        }
+      });
+
+      if (!customIcon) {
+        customIcon = document.createElement('span');
+        customIcon.className = 'tp-dt-sort-icon';
+        customIcon.setAttribute('aria-hidden', 'true');
+        customIcon.innerHTML = ''
+          + '<i class="tp-dt-sort-up bi bi-arrow-up"></i>'
+          + '<i class="tp-dt-sort-down bi bi-arrow-down"></i>';
+        cell.appendChild(customIcon);
+      }
+    });
+  }
+
   function enhanceScreenSearchBars(root) {
     (root || document).querySelectorAll('main .input-group').forEach(function (group) {
       const hasSearchButton = group.querySelector('.bi-search');
@@ -119,34 +157,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function applyDataTablesPaginationTheme(root) {
-    (root || document).querySelectorAll('.dataTables_wrapper .dataTables_paginate').forEach(function (paginate) {
-      paginate.querySelectorAll('.paginate_button, .page-item, .page-link').forEach(function (node) {
-        node.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
-        node.style.setProperty('border-color', 'rgb(34 38 93 / 10%)', 'important');
-        node.style.setProperty('box-shadow', 'none', 'important');
-      });
+    const nodes = (root || document).querySelectorAll(
+      '.dataTables_wrapper .dataTables_paginate .paginate_button, '
+      + '.dataTables_wrapper .dataTables_paginate .page-item, '
+      + '.dataTables_wrapper .dataTables_paginate .page-link'
+    );
 
-      paginate.querySelectorAll('.page-link').forEach(function (link) {
-        link.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
-        link.style.setProperty('border', '1px solid rgb(34 38 93 / 10%)', 'important');
-        link.style.setProperty('background', '#FFFFFF', 'important');
-        link.style.setProperty('background-color', '#FFFFFF', 'important');
-        link.style.setProperty('box-shadow', 'none', 'important');
-        link.style.setProperty('opacity', '1', 'important');
-      });
+    nodes.forEach(function (node) {
+      node.style.setProperty('color', 'rgb(23 26 61 / 50%)', 'important');
+      node.style.setProperty('border-color', 'rgb(23 26 61 / 10%)', 'important');
+      node.style.setProperty('box-shadow', 'none', 'important');
+      node.style.setProperty('opacity', '1', 'important');
+    });
 
-      paginate.querySelectorAll('.page-item.disabled, .paginate_button.disabled').forEach(function (node) {
-        node.style.setProperty('opacity', '1', 'important');
-      });
-
-      paginate.querySelectorAll('.page-item.disabled .page-link, .paginate_button.disabled .page-link, .paginate_button.disabled, .paginate_button.previous, .paginate_button.next, .paginate_button.current').forEach(function (node) {
-        node.style.setProperty('color', 'rgb(34 38 93 / 50%)', 'important');
-        node.style.setProperty('border', '1px solid rgb(34 38 93 / 10%)', 'important');
-        node.style.setProperty('background', '#FFFFFF', 'important');
-        node.style.setProperty('background-color', '#FFFFFF', 'important');
-        node.style.setProperty('opacity', '1', 'important');
-        node.style.setProperty('box-shadow', 'none', 'important');
-      });
+    (root || document).querySelectorAll('.dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .page-link').forEach(function (node) {
+      node.style.setProperty('color', 'rgb(23 26 61 / 50%)', 'important');
+      node.style.setProperty('border', '1px solid rgb(23 26 61 / 10%)', 'important');
+      node.style.setProperty('background', '#FFFFFF', 'important');
+      node.style.setProperty('background-color', '#FFFFFF', 'important');
+      node.style.setProperty('box-shadow', 'none', 'important');
+      node.style.setProperty('opacity', '1', 'important');
     });
   }
 
@@ -198,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       applyDataTablesPaginationTheme(document);
+      enhanceDataTablesSortIcons(document);
     });
   }
 
@@ -434,12 +465,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   enhanceScreenSearchBars(document);
   enhanceDataTablesSearch(document);
+  enhanceDataTablesSortIcons(document);
   scheduleDataTablesLayoutRefresh(0);
   releaseDataTablesBoot(false);
 
   const searchObserver = new MutationObserver(function () {
     enhanceScreenSearchBars(document);
     enhanceDataTablesSearch(document);
+    enhanceDataTablesSortIcons(document);
     scheduleDataTablesLayoutRefresh(0);
     releaseDataTablesBoot(false);
   });
