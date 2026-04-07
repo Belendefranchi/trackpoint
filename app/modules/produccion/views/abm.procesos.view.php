@@ -22,10 +22,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border text-center">ID</td>
 								<td class="border">Código</td>
 								<td class="border">Descripción</td>
-								<td class="border">Fecha de creación</td>
+<!-- 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
-								<td class="border">Editado por</td>
+								<td class="border">Editado por</td> -->
 								<td class="border">Activo</td>
 								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
@@ -36,10 +36,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary text-center"><?= htmlspecialchars($proceso['proceso_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($proceso['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($proceso['descripcion']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($proceso['creado_en']) ?></td>
+<!-- 									<td class="border text-primary"><?= htmlspecialchars($proceso['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($proceso['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($proceso['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($proceso['editado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($proceso['editado_por']) ?></td> -->
 									<td class="border text-primary"><?= $proceso['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex gap-2 flex-nowrap justify-content-center">

@@ -22,10 +22,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border text-center">ID</td>
 								<td class="border">Código</td>
 								<td class="border">Descripción</td>
-								<td class="border">Fecha de creación</td>
+<!-- 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
-								<td class="border">Editado por</td>
+								<td class="border">Editado por</td> -->
 								<td class="border">Activo</td>
 								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
@@ -36,10 +36,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary text-center"><?= htmlspecialchars($grupo['grupo_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($grupo['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($grupo['descripcion']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['creado_en']) ?></td>
+<!-- 									<td class="border text-primary"><?= htmlspecialchars($grupo['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($grupo['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($grupo['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($grupo['editado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($grupo['editado_por']) ?></td> -->
 									<td class="border text-primary"><?= $grupo['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<div class="d-flex gap-2 flex-nowrap justify-content-center">

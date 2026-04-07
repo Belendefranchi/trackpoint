@@ -24,10 +24,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								<td class="border">Nombre y Apellido</td>
 								<td class="border">Email</td>
 								<td class="border">Rol</td>
-								<td class="border">Fecha de creación</td>
+<!-- 								<td class="border">Fecha de creación</td>
 								<td class="border">Creado por</td>
 								<td class="border">Fecha de edición</td>
-								<td class="border">Editado por</td>
+								<td class="border">Editado por</td> -->
 								<td class="border">Activo</td>
 								<td class="border text-center no-export" style="max-width: 150px;">Acciones</td>
 							</tr>
@@ -40,10 +40,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($operador['nombre_completo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($operador['email']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($operador['rol']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($operador['creado_en']) ?></td>
+<!-- 									<td class="border text-primary"><?= htmlspecialchars($operador['creado_en']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($operador['creado_por']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($operador['editado_en']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($operador['editado_por']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($operador['editado_por']) ?></td> -->
 									<td class="border text-primary"><?= $operador['activo'] == 1 ? 'Si' : 'No' ?></td>
 									<td class="border text-primary text-center">
 										<?php if ($operador['username'] === superadmin): ?>
