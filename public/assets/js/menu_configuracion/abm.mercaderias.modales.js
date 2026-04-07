@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   $subgrupo.append(
                     $('<option>', {
                       value: subgrupo.subgrupo_id,
-                      text: subgrupo.codigo
+                      text: subgrupo.descripcion
                     })
                   );
                 });
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   $subgrupo.append(
                     $('<option>', {
                       value: subgrupo.subgrupo_id,
-                      text: subgrupo.codigo
+                      text: subgrupo.descripcion
                     })
                   );
                 });

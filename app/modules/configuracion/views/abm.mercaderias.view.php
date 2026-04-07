@@ -51,8 +51,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['codigo']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['unidad_medida']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo_codigo']) ?></td>
-									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo_codigo']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['grupo_descripcion']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($mercaderia['subgrupo_descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_pri']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['envase_sec']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($mercaderia['marca']) ?></td>
@@ -183,7 +183,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php else: ?>
 																<option value=""></option>
 																<?php foreach ($grupos as $grupo): ?>
-																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['descripcion']) ?></option>
 																<?php endforeach; ?>
 															<?php endif; ?>
 														</select>
@@ -332,7 +332,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 															<?php else: ?>
 																<option value=""></option>
 																<?php foreach ($grupos as $grupo): ?>
-																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['codigo']) ?></option>
+																	<option value="<?= htmlspecialchars($grupo['grupo_id']) ?>"><?= htmlspecialchars($grupo['descripcion']) ?></option>
 																<?php endforeach; ?>
 															<?php endif; ?>
 														</select>
