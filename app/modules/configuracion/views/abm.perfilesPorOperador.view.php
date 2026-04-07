@@ -54,7 +54,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
+								<td class="border text-center"><i class="bi-check-square me-2"></i></td>
 								<td class="border text-center">ID</td>
 								<td class="border">Perfil</td>
 								<td class="border">Descripción</td>

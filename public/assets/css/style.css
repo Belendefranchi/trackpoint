@@ -2,10 +2,18 @@
 :root {
 	--bs-primary: #171A3D;
 	--bs-secondary: #00B0E6;
+	--sidebar-rail-width: 108px;
+	--sidebar-panel-width: 330px;
+	--sidebar-panel-gutter: 1rem;
+	--topbar-height: 76px;
 /*  --bs-light: #D3EBF9;*/
 /*  --bs-body-bg: #D3EBF9; */ 
 }
 
+
+body.d-flex.align-items-center.justify-content-center.min-vh-100 {
+  background-color: #171A3D !important;
+}
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
@@ -81,17 +89,12 @@ h2{
 }
 
 /* Ajustar el tamaño del grip de redimensionado */
-table.dataTable td.dtr-resizable {
-  cursor: ew-resize !important;
-}
-
-table.dataTable th.dtr-resizable {
+table.dataTable :is(td, th).dtr-resizable {
   cursor: ew-resize !important;
 }
 
 /* Hacer la barra de desplazamiento más grande */
-table.dataTable td.dtr-resizable:after, 
-table.dataTable th.dtr-resizable:after {
+table.dataTable :is(td, th).dtr-resizable:after {
   content: "";
   position: absolute;
   right: 0;
@@ -104,7 +107,6 @@ table.dataTable th.dtr-resizable:after {
 /* Controles DataTables */
 .dataTables_length label,
 .dataTables_wrapper .dataTables_filter label,
-.dataTables_filter label,
 .dataTables_info,
 .dataTables_paginate {
   color: rgb(23 26 61 / 50%) !important;
@@ -113,11 +115,9 @@ table.dataTable th.dtr-resizable:after {
 
 /* Paginación DataTables */
 .dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .page-link,
-.dataTables_wrapper .dataTables_paginate .page-item .page-link {
+.dataTables_wrapper .dataTables_paginate .page-link {
   color: rgb(23 26 61 / 50%) !important;
   border: 1px solid rgb(23 26 61 / 10%) !important;
-  background: #FFFFFF !important;
   background-color: #FFFFFF !important;
   box-shadow: none !important;
   opacity: 1 !important;
@@ -132,12 +132,9 @@ table.dataTable th.dtr-resizable:after {
 .dataTables_wrapper .dataTables_paginate .page-link:hover,
 .dataTables_wrapper .dataTables_paginate .page-link:focus,
 .dataTables_wrapper .dataTables_paginate .page-item.disabled .page-link,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
   color: rgb(23 26 61 / 50%) !important;
   border: 1px solid rgb(23 26 61 / 10%) !important;
-  background: #FFFFFF !important;
   background-color: #FFFFFF !important;
   box-shadow: none !important;
   opacity: 1 !important;
@@ -160,7 +157,6 @@ table.dataTable th.dtr-resizable:after {
 /* Foco en buscador y selector */
 .dataTables_wrapper .dataTables_filter input:focus,
 .dataTables_wrapper .dataTables_length select:focus {
-  color: rgb(23 26 61 / 50%) !important;
   outline: none;
   box-shadow: none;
   border-color: rgb(23 26 61 / 10%) !important;
@@ -190,10 +186,9 @@ table.dataTable th {
   overflow: hidden !important;    /* Oculta el contenido que desborda */
 }
 
-.table.dataTable tbody th, table.dataTable tbody td {
+table.dataTable tbody th, table.dataTable tbody td {
   padding: 4px !important;
 }
-
 
 /* Botones de DataTables */
 .btn.btn-secondary.buttons-collection.dropdown-toggle.buttons-colvis,
@@ -255,7 +250,6 @@ button.buttons-colvis::after {
   cursor: not-allowed;
 }
 
-
 .item-menu-hover:hover {
   background-color: #c8e2f7 !important; /* Cambia el color de fondo al pasar el cursor */
   color: white !important; /* Cambia el color del texto al pasar el cursor */
@@ -273,19 +267,7 @@ button.buttons-colvis::after {
     border: 1px solid #adadad; /* azul Bootstrap */
 }
 
-
-
-
-
-
-
 /* Sidebar layout */
-:root {
-  --sidebar-rail-width: 108px;
-  --sidebar-panel-width: 330px;
-  --sidebar-panel-gutter: 1rem;
-  --topbar-height: 76px;
-}
 
 body.layout-sidebar {
   padding-top: var(--topbar-height);
@@ -297,6 +279,13 @@ body.layout-sidebar.sidebar-panel-open {
   padding-left: calc(var(--sidebar-rail-width) + var(--sidebar-panel-width));
 }
 
+.sidebar-nav,
+.sidebar-context-panel,
+.sidebar-context-shell,
+.topbar {
+  background: #171A3D;
+}
+
 .sidebar-nav {
   position: fixed;
   top: var(--topbar-height);
@@ -304,7 +293,6 @@ body.layout-sidebar.sidebar-panel-open {
   bottom: 0;
   width: var(--sidebar-rail-width);
   min-height: calc(100vh - var(--topbar-height));
-  background: #171A3D;
   z-index: 1040;
   display: flex;
   flex-direction: column;
@@ -415,7 +403,6 @@ body.layout-sidebar.sidebar-panel-open {
   width: var(--sidebar-panel-width);
   display: none;
   z-index: 1035;
-  background: #171A3D;
 }
 
 .sidebar-context-panel.show {
@@ -425,7 +412,6 @@ body.layout-sidebar.sidebar-panel-open {
 .sidebar-context-shell {
   height: 100%;
   padding: 1.1rem 1rem 1.25rem;
-  background: #171A3D;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 14px 0 36px rgba(10, 13, 38, 0.18);
   display: flex;
@@ -516,11 +502,13 @@ body.layout-sidebar.sidebar-panel-open {
   margin-bottom: 1rem;
 }
 
-.sidebar-context-search .bi-search {
+.sidebar-context-search .bi-search,
+.search-bar .bi-search {
   color: #FFFFFF !important;
 }
 
-.sidebar-context-search-input {
+.sidebar-context-search-input,
+.search-input {
   border: none !important;
   background: transparent !important;
   color: #FFFFFF !important;
@@ -617,7 +605,6 @@ body.layout-sidebar.sidebar-panel-open {
   right: 0;
   height: var(--topbar-height);
   padding: 0.75rem 0;
-  background: #171A3D;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 1050;
 }
@@ -675,23 +662,12 @@ body.layout-sidebar.sidebar-panel-open {
   min-width: 0;
   max-width: none;
   padding: 0.75rem 0.95rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: #00000000;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
   box-shadow: none;
 }
 
-.search-bar .bi-search {
-  color: #FFFFFF !important;
-}
-
-.search-input {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  color: #FFFFFF !important;
-}
 
 .search-input::placeholder {
   color: rgba(255, 255, 255, 0.62);
@@ -800,20 +776,11 @@ body.layout-sidebar main {
   }
 }
 
-
-/* Ajuste solicitado: botones btn btn-sm btn-primary */
-.btn.btn-sm.btn-primary {
+/* Ajuste solicitado: botones btn btn-sm btn-primary / btn-secondary */
+.btn.btn-sm:is(.btn-primary, .btn-secondary) {
   --bs-border-radius-sm: 0.5rem;
   border-radius: var(--bs-border-radius-sm) !important;
 }
-
-
-/* Ajuste solicitado: botones btn btn-sm btn-secondary */
-.btn.btn-sm.btn-secondary {
-  --bs-border-radius-sm: 0.5rem;
-  border-radius: var(--bs-border-radius-sm) !important;
-}
-
 
 /* Pre-render sidebar panel open state to avoid layout jump on navigation */
 html.sidebar-preopen body.layout-sidebar {
@@ -850,59 +817,22 @@ html.sidebar-preopen[data-sidebar-preopen-key="sistema"] .sidebar-module[data-mo
   background: rgba(255, 255, 255, 0.14);
 }
 
-
-
-
 /* Ajuste solicitado: quitar zebra striping de DataTables sin remover odd/even */
-table.dataTable.display tbody tr.odd,
-table.dataTable.display tbody tr.even,
-table.dataTable.stripe tbody tr.odd,
-table.dataTable.stripe tbody tr.even,
-table.dataTable.order-column.stripe tbody tr.odd,
-table.dataTable.order-column.stripe tbody tr.even {
+table.dataTable:is(.display, .stripe, .order-column.stripe) tbody tr:is(.odd, .even) {
   background-color: #FFFFFF !important;
 }
 
-table.dataTable.display tbody tr.odd > *,
-table.dataTable.display tbody tr.even > *,
-table.dataTable.stripe tbody tr.odd > *,
-table.dataTable.stripe tbody tr.even > *,
-table.dataTable.order-column.stripe tbody tr.odd > *,
-table.dataTable.order-column.stripe tbody tr.even > *,
-table.dataTable.display tbody tr.odd > .sorting_1,
-table.dataTable.display tbody tr.odd > .sorting_2,
-table.dataTable.display tbody tr.odd > .sorting_3,
-table.dataTable.display tbody tr.even > .sorting_1,
-table.dataTable.display tbody tr.even > .sorting_2,
-table.dataTable.display tbody tr.even > .sorting_3,
-table.dataTable.stripe tbody tr.odd > .sorting_1,
-table.dataTable.stripe tbody tr.odd > .sorting_2,
-table.dataTable.stripe tbody tr.odd > .sorting_3,
-table.dataTable.stripe tbody tr.even > .sorting_1,
-table.dataTable.stripe tbody tr.even > .sorting_2,
-table.dataTable.stripe tbody tr.even > .sorting_3,
-table.dataTable.order-column.stripe tbody tr.odd > .sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd > .sorting_2,
-table.dataTable.order-column.stripe tbody tr.odd > .sorting_3,
-table.dataTable.order-column.stripe tbody tr.even > .sorting_1,
-table.dataTable.order-column.stripe tbody tr.even > .sorting_2,
-table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
+table.dataTable:is(.display, .stripe, .order-column.stripe) tbody tr:is(.odd, .even) > * {
   background-color: #FFFFFF !important;
   box-shadow: inset 0 0 0 9999px #FFFFFF !important;
 }
 
 /* Ajuste solicitado v1.1: color del texto/placeholder en barras de busqueda de pantalla */
-main .screen-search-group .screen-search-field input.form-control,
-main .screen-search-group .screen-search-field input[type="text"],
-main .screen-search-group .screen-search-field input[type="search"],
-main .screen-search-group .screen-search-field .form-control {
+main .screen-search-group .screen-search-field :is(input.form-control, input[type="text"], input[type="search"], .form-control) {
   color: rgb(34 38 93 / 50%) !important;
 }
 
-main .screen-search-group .screen-search-field input.form-control::placeholder,
-main .screen-search-group .screen-search-field input[type="text"]::placeholder,
-main .screen-search-group .screen-search-field input[type="search"]::placeholder,
-main .screen-search-group .screen-search-field .form-control::placeholder {
+main .screen-search-group .screen-search-field :is(input.form-control, input[type="text"], input[type="search"], .form-control)::placeholder {
   color: rgb(34 38 93 / 50%) !important;
   opacity: 1 !important;
 }
@@ -921,27 +851,16 @@ main .screen-search-group .screen-search-field .form-control::placeholder {
   color: #FFFFFF !important;
 }
 
-.btn-warning i,
-.btn-warning .bi,
-.btn-warning svg,
-.btn-warning img,
-.btn-warning span,
+.btn-warning *,
 .btn-warning::before,
 .btn-warning::after,
-.btn-danger i,
-.btn-danger .bi,
-.btn-danger svg,
-.btn-danger img,
-.btn-danger span,
+.btn-danger *,
 .btn-danger::before,
-.btn-danger::after,
-.btn-warning *,
-.btn-danger * {
+.btn-danger::after {
   color: #FFFFFF !important;
   fill: #FFFFFF !important;
   stroke: #FFFFFF !important;
 }
-
 
 /* Ajuste solicitado v1.3: evitar flash/reflow visible durante la inicializacion de DataTables */
 html.dt-preinit main table.display,
