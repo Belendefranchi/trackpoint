@@ -26,8 +26,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<script>
 							const objetoSeleccionado = "<?= $operadorSeleccionado['username'] ?>";
 						</script>
-						<div class="mt-4">
-							<table class="display pt-2 pb-4" style="width:100%">
+						<div class="mt-4 mb-4">
+							<table class="display" style="width:100%">
 								<thead class="table-primary">
 									<tr class="text-light">
 										<td class="border text-center">ID</td>
@@ -100,7 +100,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="border text-center"><i class="bi-check-circle me-2"></i></td>
+														<td class="border text-center"><i class="bi-check-circle"></i></td>
 														<td class="border text-center">ID</td>
 														<td class="border">Usuario</td>
 														<td class="border">Nombre</td>

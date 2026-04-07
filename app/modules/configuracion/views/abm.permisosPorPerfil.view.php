@@ -7,9 +7,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
   const subtitulo = 'Permisos por perfil';
 </script>
 
-				<div class="bg-white bg-body-tertiary rounded shadow-lg mt-2 p-4 table-responsive">
-
-					<div class="d-flex justify-content-between align-items-center pe-2">
+				<div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
+					<div class="d-flex justify-content-between align-items-center">
 						<h2 class="ms-2 text-primary">Permisos por Perfil</h2>
 						<a href="#" class="btn btn-sm btn-primary"
 							data-bs-toggle="modal" 
@@ -27,10 +26,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<script>
 							const objetoSeleccionado = "<?= $perfilSeleccionado['nombre'] ?>";
 						</script>
-						<div class="mt-4">
-							<table class="display pt-2 pb-4" style="width:100%">
+						<div class="mt-4 mb-4">
+							<table class="display" style="width:100%">
 								<thead class="table-primary">
 									<tr class="text-light">
+										<td class="border text-center"><i class="bi-check-circle"></i></td>
 										<td class="border text-center">ID</td>
 										<td class="border">Perfil</td>
 										<td class="border">Descripción</td>
@@ -38,6 +38,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</thead>
 								<tbody>
 									<tr>
+										<td class="border text-primary text-center">
+											<input type="radio" name="seleccion_perfil"
+												class="form-check-input seleccionar-perfil" checked>
+										</td>
 										<td class="border text-primary text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
@@ -51,11 +55,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
+								<td class="border text-center"><i class="bi-check-square me-2"></i></td>
 								<td class="border text-center">ID</td>
 								<td class="border">Permiso</td>
 								<td class="border">Descripción</td>
 								<td class="border">Pantalla</td>
-								<td class="border"><i class="bi-check-circle me-2"></i></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -63,14 +67,14 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<?php foreach ($permisos as $permiso): ?>
 								<?php $checked = in_array($permiso['permiso_id'], $permisosAsignados) ? 'checked' : ''; ?>
 								<tr class="" data-permiso-id="<?= htmlspecialchars($permiso['permiso_id']) ?>">
+									<td class="border text-primary text-center">
+										<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
+										<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
+									</td>
 									<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
-									<td class="border text-primary">
-										<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
-										<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
-									</td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
@@ -99,25 +103,25 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
+														<td class="border text-center"><i class="bi-check-circle"></i></td>
 														<td class="border text-center">ID</td>
 														<td class="border">Perfil</td>
 														<td class="border">Descripción</td>
-														<td class="border"><i class="bi-check-circle me-2"></i></td>
 													</tr>
 												</thead>
 												<tbody>
-												<?php foreach ($perfiles as $perfil): ?>
+													<?php foreach ($perfiles as $perfil): ?>
 														<tr class="text-start">
-															<td class="border text-primary"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
-															<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
-															<td class="border text-primary">
+															<td class="border text-primary text-center">
 																<input type="radio" name="seleccion_perfil"
 																	class="form-check-input seleccionar-perfil"
 																	data-perfilid="<?= htmlspecialchars($perfil['perfil_id']) ?>"
 																	data-nombre="<?= htmlspecialchars($perfil['nombre']) ?>"
 																	data-descripcion="<?= htmlspecialchars($perfil['descripcion']) ?>">
 															</td>
+															<td class="border text-primary"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
+															<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 														</tr>
 													<?php endforeach; ?>
 												</tbody>

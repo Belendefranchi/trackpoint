@@ -17,7 +17,7 @@ require_once __DIR__ . '/../controllers/login.controller.php';
   <link rel="icon" href="/trackpoint/public/assets/images/logo_optimizado_453x453.png" type="image/x-icon">
 
 </head>
-<body style="background-color: #22265D;" class="d-flex align-items-center justify-content-center min-vh-100">
+<body class="d-flex align-items-center justify-content-center min-vh-100">
 
   <div class="bg-white rounded-4 shadow p-4 p-md-5 w-100" style="max-width: 420px;">
     <div class="text-center mb-4">

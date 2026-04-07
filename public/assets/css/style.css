@@ -958,3 +958,10 @@ table.dataTable thead > tr > td.sorting_disabled::after,
   color: #FFFFFF !important;
 }
 
+#miTablaConCheckbox td:nth-child(1),
+#miTablaConCheckbox td:nth-child(2),
+#miTablaConCheckbox th:nth-child(1),
+#miTablaConCheckbox th:nth-child(2) {
+  width: 1%;
+  white-space: nowrap;
+}
