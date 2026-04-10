@@ -30,6 +30,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<table class="display" style="width:100%">
 								<thead class="table-primary">
 									<tr class="text-light">
+										<td class="border text-center"><i class="bi-check-circle"></i></td>
 										<td class="border text-center">ID</td>
 										<td class="border">Operador</td>
 										<td class="border">Nombre y Apellido</td>
@@ -39,6 +40,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</thead>
 								<tbody>
 									<tr>
+										<td class="border text-primary text-center">
+											<input type="radio" name="seleccion_operador"
+												class="form-check-input seleccionar-operador" checked>
+										</td>
 										<td class="border text-primary text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
