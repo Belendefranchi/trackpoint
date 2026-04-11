@@ -164,13 +164,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<option value="Unidades">Unidades</option>
 													</select>
 												</div>
-												<div class="mb-3 align-items-center pt-2">
-													<label for="crearEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
-													<select class="form-select" name="etiqueta_sec" id="crearEtiquetaSecMercaderia">
-														<option value="etiqueta1">Etiqueta 1</option>
-														<option value="etiqueta2">Etiqueta 2</option>
-													</select>
-												</div>
 											</div>
 
 											<div class="tab-pane fade" id="datos-adicionales-crear" role="tabpanel" aria-labelledby="datos-adicionales-crear">
@@ -235,7 +228,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<input type="number" step="0.01" class="form-control" name="peso_max" id="crearPesoMaxMercaderia">
 													</div>
 												</div>
-												<div class="mb-3 row align-items-center">
+<!-- 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="crearPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
 														<input type="number" step="0.01" class="form-control" name="precio_compra" id="crearPrecioCompraMercaderia">
@@ -244,6 +237,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<label for="crearPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
 														<input type="number" step="0.01" class="form-control" name="precio_venta" id="crearPrecioVentaMercaderia">
 													</div>
+												</div> -->
+												<div class="mb-3 align-items-center pt-2">
+													<label for="crearEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
+													<select class="form-select" name="etiqueta_sec" id="crearEtiquetaSecMercaderia">
+														<option value="etiqueta1">Etiqueta 1</option>
+														<option value="etiqueta2">Etiqueta 2</option>
+													</select>
 												</div>
 											</div>
 										</div>
