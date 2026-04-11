@@ -30,19 +30,19 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<table class="display" style="width:100%">
 								<thead class="table-primary">
 									<tr class="text-light">
-										<td class="border text-center"><i class="bi-check-circle"></i></td>
-										<td class="border text-center">ID</td>
+										<td class="border" style="width: 1%; white-space: nowrap; padding: 10px 31.2px 10px 8px;"><i class="bi-check-circle"></i></td>
+										<td class="border" style="width: 1%; white-space: nowrap; padding: 10px 31.2px 10px 8px;">ID</td>
 										<td class="border">Perfil</td>
 										<td class="border">Descripción</td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="border text-primary text-center">
+										<td class="border p-2">
 											<input type="radio" name="seleccion_perfil"
 												class="form-check-input seleccionar-perfil" checked>
 										</td>
-										<td class="border text-primary text-center"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
+										<td class="border text-primary p-2"><?= htmlspecialchars($perfilSeleccionado['perfil_id']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['nombre']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($perfilSeleccionado['descripcion']) ?></td>
 									</tr>
@@ -55,8 +55,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<td class="border text-center"><i class="bi-check-square me-2"></i></td>
-								<td class="border text-center">ID</td>
+								<td class="border"><i class="bi-check-square me-2"></i></td>
+								<td class="border">ID</td>
 								<td class="border">Permiso</td>
 								<td class="border">Descripción</td>
 								<td class="border">Pantalla</td>
@@ -67,11 +67,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<?php foreach ($permisos as $permiso): ?>
 								<?php $checked = in_array($permiso['permiso_id'], $permisosAsignados) ? 'checked' : ''; ?>
 								<tr class="" data-permiso-id="<?= htmlspecialchars($permiso['permiso_id']) ?>">
-									<td class="border text-primary text-center">
+									<td class="border">
 										<input type="checkbox" class="form-check-input checkbox-permiso check-export" data-permiso_id="<?= htmlspecialchars($permiso['permiso_id']) ?>"<?= $checked ?>>
 										<input type="hidden" id="perfil_id" value="<?=$perfilSeleccionado['perfil_id']?>">
 									</td>
-									<td class="border text-primary text-center"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($permiso['permiso_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['nombre']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['descripcion']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($permiso['pantalla']) ?></td>
@@ -103,16 +103,16 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="border text-center"><i class="bi-check-circle"></i></td>
-														<td class="border text-center">ID</td>
+														<td class="border"><i class="bi-check-circle"></i></td>
+														<td class="border">ID</td>
 														<td class="border">Perfil</td>
 														<td class="border">Descripción</td>
 													</tr>
 												</thead>
 												<tbody>
 													<?php foreach ($perfiles as $perfil): ?>
-														<tr class="text-start">
-															<td class="border text-primary text-center">
+														<tr class="">
+															<td class="border">
 																<input type="radio" name="seleccion_perfil"
 																	class="form-check-input seleccionar-perfil"
 																	data-perfilid="<?= htmlspecialchars($perfil['perfil_id']) ?>"
