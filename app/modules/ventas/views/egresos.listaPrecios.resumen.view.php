@@ -5,7 +5,7 @@
 												<table id="miTablaResumen" class="display" style="width:100%">
 													<thead class="table-primary">
 														<tr class="text-light">
-															<td class="border text-center">Sel.</td>
+															<td class="border text-center"><i class="bi-check-circle"></i></td>
 															<td class="border text-center">ID</td>
 															<td class="border">Fecha</td>
 															<td class="border">Tipo</td>

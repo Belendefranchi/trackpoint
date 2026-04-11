@@ -30,8 +30,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<table class="display" style="width:100%">
 								<thead class="table-primary">
 									<tr class="text-light">
-										<td class="border text-center"><i class="bi-check-circle"></i></td>
-										<td class="border text-center">ID</td>
+										<td class="border" style="width: 1%; white-space: nowrap; padding: 10px 31.2px 10px 8px;"><i class="bi-check-circle"></i></td>
+										<td class="border" style="width: 1%; white-space: nowrap; padding: 10px 31.2px 10px 8px;">ID</td>
 										<td class="border">Operador</td>
 										<td class="border">Nombre y Apellido</td>
 										<td class="border">Email</td>
@@ -40,11 +40,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</thead>
 								<tbody>
 									<tr>
-										<td class="border text-primary text-center">
+										<td class="border p-2">
 											<input type="radio" name="seleccion_operador"
 												class="form-check-input seleccionar-operador" checked>
 										</td>
-										<td class="border text-primary text-center"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
+										<td class="border text-primary p-2"><?= htmlspecialchars($operadorSeleccionado['operador_id']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['username']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['nombre_completo']) ?></td>
 										<td class="border text-primary"><?= htmlspecialchars($operadorSeleccionado['email']) ?></td>
@@ -59,8 +59,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<table id="miTablaConCheckbox" class="display pt-2 pb-4" style="width:100%">
 						<thead class="table-primary">
 							<tr class="text-light">
-								<td class="border text-center"><i class="bi-check-square me-2"></i></td>
-								<td class="border text-center">ID</td>
+								<td class="border"><i class="bi-check-square me-2"></i></td>
+								<td class="border">ID</td>
 								<td class="border">Perfil</td>
 								<td class="border">Descripción</td>
 							</tr>
@@ -70,11 +70,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							<?php foreach ($perfiles as $perfil): ?>
 								<?php $checked = in_array($perfil['perfil_id'], $perfilesAsignados) ? 'checked' : ''; ?>
 								<tr class="" data-perfil-id="<?= htmlspecialchars($perfil['perfil_id']) ?>">
-									<td class="border text-primary text-center">
+									<td class="border">
 										<input type="checkbox" class="form-check-input checkbox-perfil check-export" data-perfil_id="<?= htmlspecialchars($perfil['perfil_id']) ?>"<?= $checked ?>>
 										<input type="hidden" id="operador_id" value="<?=$operadorSeleccionado['operador_id']?>">
 									</td>
-									<td class="border text-primary text-center"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
+									<td class="border text-primary"><?= htmlspecialchars($perfil['perfil_id']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($perfil['nombre']) ?></td>
 									<td class="border text-primary"><?= htmlspecialchars($perfil['descripcion']) ?></td>
 								</tr>
@@ -105,8 +105,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 											<table id="miTablaEnModal" class="display pt-2 pb-4" style="width:100%">
 												<thead class="table-primary">
 													<tr class="text-light">
-														<td class="border text-center"><i class="bi-check-circle"></i></td>
-														<td class="border text-center">ID</td>
+														<td class="border"><i class="bi-check-circle"></i></td>
+														<td class="border">ID</td>
 														<td class="border">Usuario</td>
 														<td class="border">Nombre</td>
 														<td class="border">Email</td>
@@ -115,8 +115,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 												</thead>
 												<tbody>
 												<?php foreach ($operadores as $operador): ?>
-														<tr class="text-start">
-															<td class="border text-primary text-center">
+														<tr class="">
+															<td class="border">
 																<input type="radio" name="seleccion_operador"
 																	class="form-check-input seleccionar-operador"
 																	data-operadorid="<?= htmlspecialchars($operador['operador_id']) ?>"

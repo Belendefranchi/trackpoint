@@ -959,9 +959,27 @@ table.dataTable thead > tr > td.sorting_disabled::after,
 }
 
 #miTablaConCheckbox td:nth-child(1),
-#miTablaConCheckbox td:nth-child(2),
 #miTablaConCheckbox th:nth-child(1),
-#miTablaConCheckbox th:nth-child(2) {
+#miTablaConCheckbox td:nth-child(2),
+#miTablaConCheckbox th:nth-child(2),
+#miTablaEnModal td:nth-child(1),
+#miTablaEnModal th:nth-child(1),
+#miTablaEnModal td:nth-child(2),
+#miTablaEnModal th:nth-child(2) {
   width: 1%;
   white-space: nowrap;
+  text-align: left !important;
+  padding-left: 8px !important;
+}
+
+#miTablaConCheckbox td:nth-child(1) .form-check,
+#miTablaConCheckbox td:nth-child(1) .form-check-input,
+#miTablaConCheckbox td:nth-child(1) input[type="checkbox"],
+#miTablaConCheckbox td:nth-child(1) input[type="radio"],
+#miTablaEnModal td:nth-child(1) .form-check,
+#miTablaEnModal td:nth-child(1) .form-check-input,
+#miTablaEnModal td:nth-child(1) input[type="checkbox"],
+#miTablaEnModal td:nth-child(1) input[type="radio"] {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
