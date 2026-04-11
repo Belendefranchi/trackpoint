@@ -306,13 +306,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<option value="Unidades">Unidades</option>
 													</select>
 												</div>
-												<div class="mb-3 align-items-center pt-2">
-													<label for="editarEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
-													<select class="form-select" name="etiqueta_sec" id="editarEtiquetaSecMercaderia">
-														<option value="etiqueta1">Etiqueta 1</option>
-														<option value="etiqueta2">Etiqueta 2</option>
-													</select>
-												</div>
 												<div class="mb-3">
 													<label for="editarActivoMercaderia" class="form-label text-primary">Activo</label>
 													<select class="form-select" name="activo" id="editarActivoMercaderia">
@@ -384,7 +377,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<input type="number" step="0.01" class="form-control" name="peso_max" id="editarPesoMaxMercaderia">
 													</div>
 												</div>
-												<div class="mb-3 row align-items-center">
+<!-- 												<div class="mb-3 row align-items-center">
 													<div class="col-md-6">
 														<label for="editarPrecioCompraMercaderia" class="form-label text-primary">Precio Compra</label>
 														<input type="number" step="0.01" class="form-control" name="precio_compra" id="editarPrecioCompraMercaderia">
@@ -393,6 +386,13 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 														<label for="editarPrecioVentaMercaderia" class="form-label text-primary">Precio Venta</label>
 														<input type="number" step="0.01" class="form-control" name="precio_venta" id="editarPrecioVentaMercaderia">
 													</div>
+												</div> -->
+												<div class="mb-3 align-items-center pt-2">
+													<label for="editarEtiquetaSecMercaderia" class="form-label text-primary">Etiqueta</label>
+													<select class="form-select" name="etiqueta_sec" id="editarEtiquetaSecMercaderia">
+														<option value="etiqueta1">Etiqueta 1</option>
+														<option value="etiqueta2">Etiqueta 2</option>
+													</select>
 												</div>
 											</div>
 										</div>
