@@ -1,23 +1,48 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ##################### MODAL DE SELECCIÓN ##################### */
+	/* ##################### MODAL DE SELECCIÓN ##################### */
 
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalSeleccionarPerfil = document.getElementById('modalSeleccionarPerfil');
-	
+	var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+
 	if (modalSeleccionarPerfil) {
 		modalSeleccionarPerfil.addEventListener('hidden.bs.modal', function () {
-			var mensajeError = document.getElementById('mensaje-error-seleccionar');
-			if (mensajeError) {
-				mensajeError.classList.add('d-none'); // Ocultar el div
-				mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+			var mensajeErrorSeleccionar = document.getElementById('mensaje-error-seleccionar');
+			if (mensajeErrorSeleccionar) {
+				mensajeErrorSeleccionar.classList.add('d-none'); // Ocultar el div
+				mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
 			}
+		});
+	}
+
+	const formSeleccionarPerfil = document.getElementById('formSeleccionarPerfil');
+
+	if (formSeleccionarPerfil) {
+		formSeleccionarPerfil.addEventListener('submit', function (e) {
+
+			const seleccionado = document.querySelector('input[name="seleccion_perfil"]:checked');
+
+			if (!seleccionado) {
+				e.preventDefault();
+
+				mensajeErrorSeleccionar.classList.remove('d-none');
+				mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = 'Debe seleccionar un perfil.';
+				return;
+			}
+
+			// opcional: limpiar error si todo está OK
+			mensajeErrorSeleccionar.classList.add('d-none');
 		});
 	}
 
 	// Manejar el cambio de selección del perfil
 	document.querySelectorAll('.seleccionar-perfil').forEach(radio => {
 		radio.addEventListener('change', function () {
+
+			// Limpiar mensaje de error al cambiar de selección
+			mensajeErrorSeleccionar.classList.add('d-none');
+			mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent = '';
 
 			// Cargar datos al formulario cuando se confirma el modal
 			document.getElementById('input-perfil-id').value = this.dataset.perfilid;
@@ -44,15 +69,15 @@ document.addEventListener('DOMContentLoaded', function () {
 						});
 					} else {
 						console.log('Error al obtener el permiso:', response.message);
-            $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
+						$('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
-				error: function(xhr, status, error) {
+				error: function (xhr, status, error) {
 					console.log('Código de estado:', xhr.status);
 					console.log('Mensaje de error:', error);
 					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos');
 				}
-				
+
 			});
 		});
 	});
@@ -68,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				permiso_id: permisoId,
 				asignar: estaTildado ? 1 : 0
 			});
-	
+
 			$.ajax({
 				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/permisosPorPerfil&asignar',
 				method: 'POST',
@@ -91,6 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		});
-	});	
+	});
 
 });
