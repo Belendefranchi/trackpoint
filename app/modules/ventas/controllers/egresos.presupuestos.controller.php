@@ -1,15 +1,19 @@
 <?php
 define('VISTA_INTERNA', true);
 
+
 // Iniciar sesión siempre al comienzo
 session_start();
+
+/* var_dump($_POST);
+exit; */
 
 unset($_SESSION['presupuesto_id']);
 unset($_SESSION['detalle_presupuesto']);
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+/* if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	unset($_SESSION['mercaderia_seleccionada']);
-}
+} */
 
 require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/egresos.presupuestos.model.php';
@@ -357,6 +361,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	// ####### SELECCIONAR MERCADERÍA #######
 	if (isset($_GET['seleccionarMercaderia'])) {
+
+		header('Content-Type: application/json');
 
 		$mercaderia_id = $_POST['mercaderia_id'] ?? null;
 		$codigo_mercaderia = $_POST['codigo_mercaderia'] ?? '';

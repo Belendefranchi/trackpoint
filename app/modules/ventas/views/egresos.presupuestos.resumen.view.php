@@ -60,8 +60,7 @@
 														<!-- Acciones -->
 														<div class="col d-flex gap-2 flex-nowrap justify-content-center">
 															<!-- BOTON DE EDITAR -->
-															<button 
-																class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
+															<button type="button" class="btn btn-sm btn-warning d-flex flex-nowrap rounded-circle"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEditarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
@@ -77,8 +76,7 @@
 																<i class="bi bi-pencil"></i>
 															</button>
 															<!-- BOTON DE ELIMINAR -->
-															<button id="btnMostrarEliminarPresupuesto"
-																class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
+															<button type="button" class="btn btn-sm btn-danger d-flex flex-nowrap rounded-circle"
 																data-bs-toggle="modal"
 																data-bs-target="#modalEliminarPresupuesto"
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">

@@ -96,6 +96,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
+												<p>Prueba</p>
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
 											</div>
@@ -161,7 +162,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
   <!-- Script DataTables y modales -->
   <script src="/trackpoint/public/assets/js/datatables.js"></script>
-  <script src="/trackpoint/public/assets/js/menu_configuracion/menu.configuracion.js"></script>
   <script src="/trackpoint/public/assets/js/menu_configuracion/abm.perfilesPorOperador.modales.js"></script>
 
 </body>

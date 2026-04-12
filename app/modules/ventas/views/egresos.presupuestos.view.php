@@ -350,10 +350,10 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Nro. Presupuesto -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="editarPresupuestoId" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
+									<label for="editarPresupuestoIdVisible" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
 									<div class="col-md-7 ps-0">
-										<input type="text" class="form-control text-primary text-end" id="editarPresupuestoId"
-											name="presupuesto_id" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>"
+										<input type="text" class="form-control text-primary text-end" id="editarPresupuestoIdVisible"
+											name="presupuesto_id_" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>"
 											disabled>
 									</div>
 								</div>

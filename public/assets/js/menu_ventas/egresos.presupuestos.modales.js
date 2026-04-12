@@ -1,7 +1,3 @@
-/* window.addEventListener('load', function () {
-  localStorage.removeItem('presupuestoSeleccionado');
-}); */
-
 // --- VARIABLES GLOBALES ---
 let presupuestoSeleccionado = null;
 
@@ -65,9 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### SELECCIÓN DE PRESUPUESTO ###################### */
-
-  // --- SELECCIONAR PRESUPUESTO ---
-  let presupuestoSeleccionado = null;
 
   // --- MANEJO DE SELECCIÓN (DELEGACIÓN) ---
   document.addEventListener('click', function (event) {
@@ -159,8 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function actualizarEtiquetaPresupuesto() {
-    /*     let id = localStorage.getItem('presupuestoSeleccionado');
-        if (!id) return; */
 
     let etiqueta = document.getElementById('presupuestoActivo');
     if (etiqueta) {
@@ -325,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
 
       const formData = new FormData(this);
-
+      console.log(formData.get('presupuesto_id'));
       $.ajax({
         url: '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarPresupuesto',
         type: 'POST',
@@ -338,9 +329,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
           if (response.success) {
             console.log('Presupuesto modificado con éxito');
-
-            /* const tabla = $('#miTablaResumen').DataTable();
-            localStorage.setItem('paginaPresupuestos', tabla.page()); */
 
             location.reload();
           } else {
@@ -478,14 +466,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Listener para cargar mercaderías al abrir el modal
     modalSeleccionar.addEventListener('show.bs.modal', function () {
-
-      // Validación base
-      if (!presupuestoSeleccionado || !listaPrecioSeleccionada) {
-        mensajeErrorSeleccionar.classList.remove('d-none');
-        mensajeErrorSeleccionar.querySelector('.mensaje-texto').textContent =
-          'Debe seleccionar un presupuesto con lista de precios.';
-        return;
-      }
 
       // Mostrar estado de carga
       const tbody = document.querySelector('#miTablaEnModalMercaderia tbody');
