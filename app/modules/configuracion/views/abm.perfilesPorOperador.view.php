@@ -83,7 +83,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					</table>
 
 					<!-- Modal de selección de operador -->
-					<div class="modal fade m-5" id="modalSeleccionarOperador" tabindex="-1" aria-labelledby="modalSeleccionarOperadorLabel" aria-hidden="true">
+					<div class="modal fade mt-5" id="modalSeleccionarOperador" tabindex="-1" aria-labelledby="modalSeleccionarOperadorLabel" aria-hidden="true">
 						<div class="modal-dialog d-flex">
 							<form method="POST" id="formSeleccionarOperador" action="/trackpoint/public/index.php?route=/configuracion/ABMs/perfilesPorOperador&seleccionar">
 								<div class="modal-content m-5">
@@ -96,7 +96,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 										<div class="mb-3">
 											<div id="mensaje-error-seleccionar" class="alert alert-danger rounded d-none" role="alert">
 												<i class="bi bi-exclamation-triangle-fill me-2"></i>
-												<p>Prueba</p>
 												<span class="mensaje-texto"></span>
 												<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
 											</div>

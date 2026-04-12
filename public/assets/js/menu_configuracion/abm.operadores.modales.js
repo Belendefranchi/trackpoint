@@ -16,49 +16,49 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-  // Interceptar el envío del formulario con AJAX
-  const formCrear = document.querySelector('#formCrearOperador');
-  if (formCrear) {
-    formCrear.addEventListener('submit', function (e) {
-      e.preventDefault();
+	// Interceptar el envío del formulario con AJAX
+	const formCrear = document.querySelector('#formCrearOperador');
+	if (formCrear) {
+		formCrear.addEventListener('submit', function (e) {
+			e.preventDefault();
 
-      // Limpiar cualquier mensaje de error antes de hacer la solicitud
-      $('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
+			// Limpiar cualquier mensaje de error antes de hacer la solicitud
+			$('#mensaje-error-crear').addClass('d-none').find('.mensaje-texto').text('');
 
-      const formData = new FormData(this);
+			const formData = new FormData(this);
 
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: function (response) {
-          console.log('Respuesta del servidor:', response);
+			$.ajax({
+				url: '/trackpoint/public/index.php?route=/configuracion/ABMs/operadores&crear',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					console.log('Respuesta del servidor:', response);
 
-          if (response.success) {
-            console.log('Operador creado con éxito:', response.message);
+					if (response.success) {
+						console.log('Operador creado con éxito:', response.message);
 
-            const tabla = $('#miTabla').DataTable();
-            localStorage.setItem('paginaOperadores', tabla.page());
+						const tabla = $('#miTabla').DataTable();
+						localStorage.setItem('paginaOperadores', tabla.page());
 
-            location.reload();
-          } else {
-            console.log('Error al crear el operador:', response.message);
-            $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
-          }
-        },
-        error: function (xhr, status, error) {
-          console.log('Error al guardar los datos');
-          console.log('Código de estado:', xhr.status);
-          console.log('Mensaje de error:', error);
-          console.log('Respuesta del servidor:', xhr.responseText); 
-          $('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
-        }
-      });
-    });
-  }
+						location.reload();
+					} else {
+						console.log('Error al crear el operador:', response.message);
+						$('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log('Error al guardar los datos');
+					console.log('Código de estado:', xhr.status);
+					console.log('Mensaje de error:', error);
+					console.log('Respuesta del servidor:', xhr.responseText);
+					$('#mensaje-error-crear').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+				}
+			});
+		});
+	}
 
 	// Limpiar el mensaje de error al cerrar el modal
 	var modalCrearOperador = document.getElementById('modalCrearOperador');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
-/* ##################### MODAL DE EDICIÓN ##################### */
+	/* ##################### MODAL DE EDICIÓN ##################### */
 
 	// Interceptar el evento de apertura del modal de edición
 	var modalEditarOperador = document.getElementById('modalEditarOperador');
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 						location.reload();
 					} else {
-						console.log('Error al modificar el operador:', response.message); 
+						console.log('Error al modificar el operador:', response.message);
 						$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
 					}
 				},
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					console.log('Error al guardar los datos');
 					console.log('Código de estado:', xhr.status);
 					console.log('Mensaje de error:', error);
-					console.log('Respuesta del servidor:', xhr.responseText); 
+					console.log('Respuesta del servidor:', xhr.responseText);
 					$('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
 				}
 			});
@@ -153,18 +153,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
-/* ##################### MODAL DE ELIMINACIÓN ##################### */
+	/* ##################### MODAL DE ELIMINACIÓN ##################### */
 
 	// Interceptar el evento de apertura del modal de eliminación
-  var modalEliminarOperador = document.getElementById('modalEliminarOperador');
-  if (modalEliminarOperador) {
-    modalEliminarOperador.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget;
+	var modalEliminarOperador = document.getElementById('modalEliminarOperador');
+	if (modalEliminarOperador) {
+		modalEliminarOperador.addEventListener('show.bs.modal', function (event) {
+			var button = event.relatedTarget;
 
-      modalEliminarOperador.querySelector('#eliminarOperadorId').value = button.getAttribute('data-id');
-      modalEliminarOperador.querySelector('#eliminarUsernameOperador').value = button.getAttribute('data-username');
-    });
-  }
+			modalEliminarOperador.querySelector('#eliminarOperadorId').value = button.getAttribute('data-id');
+			modalEliminarOperador.querySelector('#eliminarUsernameOperador').value = button.getAttribute('data-username');
+		});
+	}
 
 	// Interceptar el envío del formulario con AJAX
 	const formEliminar = document.querySelector('#formEliminarOperador');
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					console.log('Error al guardar los datos');
 					console.log('Código de estado:', xhr.status);
 					console.log('Mensaje de error:', error);
-					console.log('Respuesta del servidor:', xhr.responseText); 
+					console.log('Respuesta del servidor:', xhr.responseText);
 					$('#mensaje-error-eliminar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
 				}
 			});
@@ -221,5 +221,5 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	}
-	
+
 });
