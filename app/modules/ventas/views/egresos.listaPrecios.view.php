@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../controllers/egresos.listaPrecios.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
-/* unset($_SESSION['detalle_presupuesto']); */
 ?>
 
 <script>
@@ -263,27 +262,6 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<?php endif; ?>
 				</div>
 			</form>
-		</div>
-	</div>
-
-	<!-- Modal mensaje resultado -->
-	<div class="modal fade" id="modalMensajeListaPrecios" tabindex="-1" aria-labelledby="modalMensajeLabel"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content border-0 shadow">
-				<div class="modal-header table-primary text-white">
-					<h5 class="modal-title" id="modalMensajeLabel">Resultado de la operación</h5>
-					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-				</div>
-				<div class="modal-body text-center">
-					<div class="mb-3">
-						<p class="text-muted text-center" id="textoModalMensaje"></p>
-					</div>
-				</div>
-				<div class="modal-footer justify-content-center">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
 		</div>
 	</div>
 

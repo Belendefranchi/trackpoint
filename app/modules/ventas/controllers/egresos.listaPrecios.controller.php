@@ -21,6 +21,9 @@ $resumen = obtenerResumenLista();
 
 $ultimaListaId = obtenerUltimaListaId();
 
+// Obtener listas de precios
+$listas = obtenerListasCompraActivas();
+
 // Obtener procesos y mercaderías
 $mercaderias = obtenerMercaderiasActivas();
 
@@ -146,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Content-Type: application/json');
 
 		$lista_id = $_POST['lista_id'];
+		$lista_tipo = $_POST['lista_tipo'];
 
 		if (empty($lista_id)) {
 			echo json_encode(['success' => false, 'message' => 'Error: No se recibió el ID de la lista']);
@@ -174,6 +178,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
+	}
+
+	// ####### OBTENER PRECIOS DE COMPRA PARA LISTA DE VENTA #######
+	if (isset($_GET['obtenerPreciosCompra'])) {
+
+	header('Content-Type: application/json');
+
+	$lista_id = $_POST['lista_id'] ?? null;
+
+	if (!$lista_id) {
+		echo json_encode([
+			'success' => false,
+			'message' => 'Lista inválida'
+		]);
+		exit;
+	}
+
+	$datos = obtenerPreciosCompraLista($lista_id);
+
+	echo json_encode([
+		'success' => true,
+		'datos' => $datos
+	]);
+
+	exit;
 	}
 
 	// ####### GUARDAR CAMBIOS EN LISTA DE PRECIOS #######

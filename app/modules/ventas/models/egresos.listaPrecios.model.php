@@ -30,7 +30,8 @@ function obtenerUltimaListaId()
 	}
 }
 
-function obtenerListasActivas(){
+function obtenerListasActivas()
+{
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 
@@ -48,6 +49,54 @@ function obtenerListasActivas(){
 	} catch (PDOException $e) {
 		registrarEvento("ListaPrecios Model: Error al buscar resumen, " . $e->getMessage(), "ERROR");
 		return ['success' => false, 'message' => $e->getMessage()];
+	}
+}
+
+function obtenerListasCompraActivas()
+{
+	try {
+		$conn = getConnection();
+
+		$sql = "SELECT
+					lista_id,
+					nombre
+				FROM ventas_egresos_listaPrecios_resumen
+				WHERE activo = 1
+				  AND tipo = 'Compra'
+				  AND estado = 'pendiente'
+				ORDER BY lista_id DESC";
+
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento('Error listas compra activas: ' . $e->getMessage(), 'ERROR');
+		return [];
+	}
+}
+
+function obtenerPreciosCompraLista($lista_id)
+{
+	try {
+		$conn = getConnection();
+
+		$sql = "SELECT
+					mercaderia_id,
+					precio_compra
+				FROM ventas_egresos_listaPrecios_detalle
+				WHERE lista_id = :lista_id";
+
+		$stmt = $conn->prepare($sql);
+		$stmt->bindValue(':lista_id', $lista_id);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	} catch (PDOException $e) {
+		registrarEvento('Error precios compra: ' . $e->getMessage(), 'ERROR');
+		return [];
 	}
 }
 
@@ -339,16 +388,16 @@ function guardarCambiosListaPrecios($lista_id, $items)
 
 			$sql = "UPDATE ventas_egresos_listaPrecios_detalle
                     SET 
-                        precio_compra = :precio_compra,
-                        precio_venta  = :precio_venta,
+                        precio_compra = COALESCE(:precio_compra, precio_compra),
+												precio_venta  = COALESCE(:precio_venta, precio_venta),
                         iva_tasa      = :iva_tasa
                     WHERE item_id = :item_id
                       AND lista_id = :lista_id";
 
 			$stmt = $conn->prepare($sql);
 
-			$stmt->bindValue(':precio_compra', $item['precio_compra']);
-			$stmt->bindValue(':precio_venta', $item['precio_venta']);
+			$stmt->bindValue(':precio_compra', $item['precio_compra'] ?? 0);
+			$stmt->bindValue(':precio_venta', $item['precio_venta'] ?? 0);
 			$stmt->bindValue(':iva_tasa', $item['iva_tasa']);
 			$stmt->bindValue(':item_id', $item_id);
 			$stmt->bindValue(':lista_id', $lista_id);

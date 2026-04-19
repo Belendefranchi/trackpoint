@@ -111,61 +111,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ###################### DETALLE LISTA DE PRECIOS ###################### */
-/*   document.addEventListener('click', function (e) {
-
-    const btn = e.target.closest('.btn-ver-lista');
-    if (!btn) return;
-    e.preventDefault();
-    const listaId = btn.dataset.id;
-    console.log('Botón de ver lista de precios clickeado: ' + listaId);
-
-    $.ajax({
-      url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista',
-      type: 'POST',
-      data: { lista_id: listaId },
-      dataType: 'json',
-
-      success: function (response) {
-        if (response.success) {
-          console.log(response);
-          document.getElementById('detalle-lista').innerHTML = response.html;
-          const tabDetalle = new bootstrap.Tab(
-            document.querySelector('#detalle-tab')
-          );
-          tabDetalle.show();
-          setTimeout(function () {
-            if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
-              $('#miTablaDetalle').DataTable().columns.adjust();
-            }
-          }, 200);
+  /*   document.addEventListener('click', function (e) {
+  
+      const btn = e.target.closest('.btn-ver-lista');
+      if (!btn) return;
+      e.preventDefault();
+      const listaId = btn.dataset.id;
+      console.log('Botón de ver lista de precios clickeado: ' + listaId);
+  
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista',
+        type: 'POST',
+        data: { lista_id: listaId },
+        dataType: 'json',
+  
+        success: function (response) {
+          if (response.success) {
+            console.log(response);
+            document.getElementById('detalle-lista').innerHTML = response.html;
+            const tabDetalle = new bootstrap.Tab(
+              document.querySelector('#detalle-tab')
+            );
+            tabDetalle.show();
+            setTimeout(function () {
+              if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
+                $('#miTablaDetalle').DataTable().columns.adjust();
+              }
+            }, 200);
+          }
+        },
+  
+        error: function (xhr, status, error) {
+          console.log('Error al cargar la lista');
+          console.log('Código:', xhr.status);
+          console.log('Error:', error);
+          console.log('Respuesta:', xhr.responseText);
         }
-      },
-
-      error: function (xhr, status, error) {
-        console.log('Error al cargar la lista');
-        console.log('Código:', xhr.status);
-        console.log('Error:', error);
-        console.log('Respuesta:', xhr.responseText);
-      }
-
+  
+      });
     });
-  });
-
-  document.getElementById('resumen-tab').addEventListener('shown.bs.tab', function () {
-
-    if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
-      $('#miTablaDetalle').DataTable().destroy();
-    }
-
-    document.getElementById('detalle-lista').innerHTML = `
-        <p class="text-muted text-center">
-            Aún no se seleccionó ninguna lista de precios
-        </p>
-    `;
-
-    document.getElementById('listaActivo').innerText = '';
-
-  }); */
+  
+    document.getElementById('resumen-tab').addEventListener('shown.bs.tab', function () {
+  
+      if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
+        $('#miTablaDetalle').DataTable().destroy();
+      }
+  
+      document.getElementById('detalle-lista').innerHTML = `
+          <p class="text-muted text-center">
+              Aún no se seleccionó ninguna lista de precios
+          </p>
+      `;
+  
+      document.getElementById('listaActivo').innerText = '';
+  
+    }); */
 
 
 
@@ -207,13 +207,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- CARGAR DETALLE DE LA LISTA SELECCIONADA ---
 
-  function recargarDetalle(lista_id) {
+  function recargarDetalle(lista_id, lista_tipo) {
     console.count('recargarDetalle llamado');
 
     $.ajax({
       url: "/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista",
       type: "POST",
-      data: { lista_id },
+      data: { lista_id, lista_tipo },
       dataType: "json",
 
       success: function (response) {
@@ -237,21 +237,86 @@ document.addEventListener('DOMContentLoaded', function () {
     $('a[data-bs-toggle="tab"][href="#detalle"]').on('shown.bs.tab', function () {
 
       let seleccionado = document.querySelector('input[name="seleccion_lista"]:checked');
-      let lista_id = seleccionado?.getAttribute('data-listaid') ?? null;
+      let lista_id = seleccionado?.getAttribute('data-id') ?? null;
+      let lista_tipo = seleccionado?.getAttribute('data-tipo') ?? null;
 
       console.log(lista_id);
+      console.log(lista_tipo);
+
       if (!lista_id) {
         console.warn("No hay lista seleccionada al intentar mostrar detalle");
         return;
       }
-      recargarDetalle(lista_id);
+      recargarDetalle(lista_id, lista_tipo);
     });
   });
 
+  /* ###################### OBTENER PRECIOS DE COMPRA ###################### */
+  document.addEventListener('change', function (e) {
 
+    if (e.target.id !== 'selectListaCompra') return;
+    const listaId = e.target.value;
+    $.ajax({
+      url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&obtenerPreciosCompra',
+      type: 'POST',
+      data: { lista_id: listaId },
+      dataType: 'json',
 
+      success: function (response) {
 
+        $('.precio-compra').text('0');
+        $('.margen').text('-');
 
+        response.datos.forEach(function (item) {
+          const celdaCompra = document.querySelector(
+            '.precio-compra[data-mercaderia-id="' + item.mercaderia_id + '"]'
+          );
+          if (!celdaCompra) return;
+          celdaCompra.textContent = item.precio_compra;
+          const fila = celdaCompra.closest('tr');
+          calcularMargenFila(fila);
+        });
+      },
+
+      error: function () {
+        alert('Error al cargar precios de compra');
+      }
+    });
+  });
+
+  function calcularMargenFila(fila) {
+
+    if (!fila) return;
+
+    const compraCelda = fila.querySelector('.precio-compra');
+    const ventaInput = fila.querySelector('.precio-venta');
+    const margenCelda = fila.querySelector('.margen');
+
+    if (!compraCelda || !ventaInput || !margenCelda) return;
+
+    let compra = parseFloat(
+      compraCelda.textContent.trim().replace(',', '.')
+    ) || 0;
+
+    let venta = parseFloat(
+      ventaInput.value.trim().replace(',', '.')
+    ) || 0;
+
+    if (compra <= 0 || venta <= 0) {
+      margenCelda.textContent = '-';
+      return;
+    }
+
+    let margen = venta - compra;
+
+    margenCelda.textContent = "$ " + margen.toFixed(2);
+  }
+
+  document.addEventListener('input', function(e){
+    if(!e.target.classList.contains('precio-venta')) return;
+    const fila = e.target.closest('tr');
+    calcularMargenFila(fila);
+  });
 
 
   /* ###################### GUARDAR LISTA DE PRECIOS ###################### */
@@ -261,7 +326,6 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     const form = document.getElementById('formGuardarListaPrecios');
     const formData = new FormData(form);
-    /* console.log('Guardando lista de precios con datos:', Array.from(formData.entries())); */
     $.ajax({
       url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&guardarLista',
       type: 'POST',

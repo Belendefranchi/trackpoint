@@ -19,7 +19,7 @@
 														<?php foreach ($resumen as $filaResumen): ?>
 															<tr class="text-start tabla-lista">
 																<td class="border text-center">
-																	<input type="radio" name="seleccion_lista" class="form-check-input seleccionar-lista" data-listaid="<?= htmlspecialchars($filaResumen['lista_id']) ?>" data-nombre="<?= htmlspecialchars($filaResumen['nombre']) ?>">
+																	<input type="radio" name="seleccion_lista" class="form-check-input seleccionar-lista" data-id="<?= htmlspecialchars($filaResumen['lista_id']) ?>" data-nombre="<?= htmlspecialchars($filaResumen['nombre']) ?>" data-tipo="<?= htmlspecialchars($filaResumen['tipo']) ?>">
 																</td>
 																<td class="border text-primary text-center"><?= htmlspecialchars($filaResumen['lista_id']) ?></td>
 																<td class="border text-primary"><?= htmlspecialchars($filaResumen['fecha_lista']) ?></td>
