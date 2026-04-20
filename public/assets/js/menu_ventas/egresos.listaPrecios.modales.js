@@ -7,9 +7,10 @@ let presupuestoSeleccionado = null;
 
 document.addEventListener('DOMContentLoaded', function () {
 
+
   /* ###################### MODAL DE CREACIÓN DE LISTAS DE PRECIOS ###################### */
 
-  // Interceptar el envío del formulario con AJAX
+  // --- Interceptar el envío del formulario con AJAX ---
   const formCrear = document.querySelector('#formCrearListaPrecios');
   if (formCrear) {
     formCrear.addEventListener('submit', function (e) {
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Limpiar el mensaje de error al cerrar el modal
+  // --- Limpiar el mensaje de error al cerrar el modal ---
   var modalCrearListaPrecios = document.getElementById('modalCrearListaPrecios');
   modalCrearListaPrecios.addEventListener('hidden.bs.modal', function () {
     var mensajeError = document.getElementById('mensaje-error-crear');
@@ -62,6 +63,64 @@ document.addEventListener('DOMContentLoaded', function () {
       mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
     }
   });
+
+
+  /* ###################### MODAL EDITAR LISTA DE PRECIOS ###################### */
+
+  // --- Interceptar el envío del formulario con AJAX ---
+  const formEditar = document.querySelector('#formEditarListaPrecios');
+  if (formEditar) {
+    formEditar.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-editar').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&editarLista',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Lista de precios editada con éxito:', response.message);
+
+            const tabla = $('#miTablaResumen').DataTable();
+            localStorage.setItem('paginaListaPrecios', tabla.page());
+
+            location.reload();
+          } else {
+            console.log('Error al editar la lista de precios:', response.message);
+            $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-editar').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+
+  // --- Limpiar el mensaje de error al cerrar el modal ---
+  var modalEditarListaPrecios = document.getElementById('modalEditarListaPrecios');
+  modalEditarListaPrecios.addEventListener('hidden.bs.modal', function () {
+    var mensajeError = document.getElementById('mensaje-error-editar');
+    if (mensajeError) {
+      mensajeError.classList.add('d-none'); // Ocultar el div
+      mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+    }
+  });
+
 
 
   /* ###################### MODAL ELIMINAR LISTA DE PRECIOS ###################### */
@@ -110,67 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  /* ###################### DETALLE LISTA DE PRECIOS ###################### */
-  /*   document.addEventListener('click', function (e) {
-  
-      const btn = e.target.closest('.btn-ver-lista');
-      if (!btn) return;
-      e.preventDefault();
-      const listaId = btn.dataset.id;
-      console.log('Botón de ver lista de precios clickeado: ' + listaId);
-  
-      $.ajax({
-        url: '/trackpoint/public/index.php?route=/ventas/egresos/listaPrecios&verLista',
-        type: 'POST',
-        data: { lista_id: listaId },
-        dataType: 'json',
-  
-        success: function (response) {
-          if (response.success) {
-            console.log(response);
-            document.getElementById('detalle-lista').innerHTML = response.html;
-            const tabDetalle = new bootstrap.Tab(
-              document.querySelector('#detalle-tab')
-            );
-            tabDetalle.show();
-            setTimeout(function () {
-              if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
-                $('#miTablaDetalle').DataTable().columns.adjust();
-              }
-            }, 200);
-          }
-        },
-  
-        error: function (xhr, status, error) {
-          console.log('Error al cargar la lista');
-          console.log('Código:', xhr.status);
-          console.log('Error:', error);
-          console.log('Respuesta:', xhr.responseText);
-        }
-  
-      });
-    });
-  
-    document.getElementById('resumen-tab').addEventListener('shown.bs.tab', function () {
-  
-      if ($.fn.DataTable.isDataTable('#miTablaDetalle')) {
-        $('#miTablaDetalle').DataTable().destroy();
-      }
-  
-      document.getElementById('detalle-lista').innerHTML = `
-          <p class="text-muted text-center">
-              Aún no se seleccionó ninguna lista de precios
-          </p>
-      `;
-  
-      document.getElementById('listaActivo').innerText = '';
-  
-    }); */
-
-
-
-
-
 
   /* ###################### SELECCIÓN DE LISTA DE PRECIOS ###################### */
 
@@ -197,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // --- ACTUALIZAR ETIQUETA ---
   function actualizarEtiqueta(listaSeleccionada) {
 
     let etiqueta = document.getElementById('listaActivo');
@@ -206,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- CARGAR DETALLE DE LA LISTA SELECCIONADA ---
-
   function recargarDetalle(lista_id, lista_tipo) {
     console.count('recargarDetalle llamado');
 
@@ -231,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // --- RECARGAR DETALLE AL SELECCIONAR LA PESTAÑA DETALLE ---
   $(document).ready(function () {
 
     // Detectar apertura de la pestaña DETALLE
@@ -251,7 +250,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+
+
   /* ###################### OBTENER PRECIOS DE COMPRA ###################### */
+
+  // --- SELECCIONAR LISTA EN DETALLE ---
   document.addEventListener('change', function (e) {
 
     if (e.target.id !== 'selectListaCompra') return;
@@ -284,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // --- CALCULAR MARGEN DE GANANCIA POR FILA ---
   function calcularMargenFila(fila) {
 
     if (!fila) return;
@@ -312,14 +316,17 @@ document.addEventListener('DOMContentLoaded', function () {
     margenCelda.textContent = "$ " + margen.toFixed(2);
   }
 
-  document.addEventListener('input', function(e){
-    if(!e.target.classList.contains('precio-venta')) return;
+  // --- OBTENER MARGEN AL MODIFICAR PRECIOS DE VENTA ---
+  document.addEventListener('input', function (e) {
+    if (!e.target.classList.contains('precio-venta')) return;
     const fila = e.target.closest('tr');
     calcularMargenFila(fila);
   });
 
 
+
   /* ###################### GUARDAR LISTA DE PRECIOS ###################### */
+
   document.addEventListener('click', function (e) {
     const btn = e.target.closest('#btnMostrarGuardarListaPrecios');
     if (!btn) return;

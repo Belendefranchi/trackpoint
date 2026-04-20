@@ -203,7 +203,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 
 					</div>
 					<div class="modal-footer d-flex justify-content-center p-2">
-						<button type="submit" class="btn btn-sm btn-success m-2" name="editar_modal"><i
+						<button type="submit" class="btn btn-sm btn-success m-2" id="btnConfirmarEditar"><i
 								class="bi bi-check-circle pt-1 me-2"></i>Aceptar</button>
 						<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal"><i
 								class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
