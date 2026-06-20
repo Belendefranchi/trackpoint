@@ -847,7 +847,12 @@ main .screen-search-group .screen-search-field :is(input.form-control, input[typ
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:active,
-.btn-danger:focus-visible {
+.btn-danger:focus-visible,
+.btn-success,
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success:focus-visible {
   color: #FFFFFF !important;
 }
 
@@ -856,7 +861,10 @@ main .screen-search-group .screen-search-field :is(input.form-control, input[typ
 .btn-warning::after,
 .btn-danger *,
 .btn-danger::before,
-.btn-danger::after {
+.btn-danger::after,
+.btn-success *,
+.btn-success::before,
+.btn-success::after {
   color: #FFFFFF !important;
   fill: #FFFFFF !important;
   stroke: #FFFFFF !important;

@@ -131,7 +131,7 @@ function obtenerResumenPresupuestoPorId($presupuesto_id){
 
 }
 
-function obtenerDetallePresupuesto($presupuesto_id){
+function obtenerDetallePresupuestoPorId($presupuesto_id){
 	try {
 		$conn = getConnection();
 		$sql = "SELECT 

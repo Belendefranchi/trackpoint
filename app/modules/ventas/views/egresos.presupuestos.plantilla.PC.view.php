@@ -3,11 +3,13 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/trackpoint/public/assets/css/presupuesto.style.css">
+	<link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
+
 	<?php foreach ($resumenPresupuesto as $filaResumen): ?>
 	<title>Presupuesto Nº <?= $filaResumen['presupuesto_id'] ?? '' ?></title>
 	<?php endforeach; ?>
-	<link rel="stylesheet" href="/trackpoint/public/assets/css/presupuesto.style.css">
-  <link rel="icon" href="/trackpoint/public/assets/images/logo_fondo_blanco.png" type="image/x-icon" />
 
 </head>
 

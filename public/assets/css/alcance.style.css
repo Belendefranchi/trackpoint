@@ -1,0 +1,135 @@
+body{
+    margin:0;
+    padding:40px 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    background:white;
+    color:#6d6d6d;
+}
+
+.documento{
+    width:720px;
+    margin:auto;
+    background:white;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.header{
+    width:100%;
+    border:1px solid #5aa9e6;
+    border-collapse:collapse;
+    display:flex;
+    height:80px;
+}
+
+.logo-box{
+    width:100px;
+    border-right:1px solid #5aa9e6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo-box img{
+    width:60px;
+}
+
+.center-box{
+    flex:1;
+    border-right:1px solid #5aa9e6;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.center-box h1{
+    margin:0;
+    font-size:24px;
+    color:#2d2d69;
+    font-weight:700;
+    letter-spacing:0.5px;
+}
+
+.center-box p{
+    margin-top:10px;
+    margin-bottom:0;
+    font-size:14px;
+    color:#4aa4e5;
+    font-weight:700;
+}
+
+.right-box{
+    width:105px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:12px 10px;
+    box-sizing:border-box;
+    text-align:center;
+}
+
+.fecha{
+    font-size:16px;
+    color:#7a7a7a;
+}
+
+.numero{
+    font-size:16px;
+    color:#7a7a7a;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.content{
+    margin-top:60px;
+}
+
+.section-title{
+    color:#4aa4e5;
+    font-size:20px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:25px;
+    text-transform:uppercase;
+}
+
+.section-subtitle{
+    color:#7a7a7a;
+    font-size:18px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:25px;
+    text-transform:uppercase;
+}
+
+.paragraph{
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:10px;
+}
+
+.paragraph strong{
+    color:#5d5d5d;
+}
+
+ul{
+    margin-top:10px;
+    margin-bottom:30px;
+    padding-left:30px;
+}
+
+li{
+    margin-bottom:8px;
+    font-size:16px;
+}
+
+.signature{
+    margin-top:20px;
+    margin-bottom:20px;
+    height:130px;
+}

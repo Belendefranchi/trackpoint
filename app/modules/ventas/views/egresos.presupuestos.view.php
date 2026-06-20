@@ -2,6 +2,44 @@
 require_once __DIR__ . '/../controllers/egresos.presupuestos.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
 
+$opciones = [
+    [
+        'check' => 'opcion_camaras',
+        'cantidad' => 'cantidad_camaras',
+        'texto' => 'Tendido de cables UTP para cámaras.'
+    ],
+    [
+        'check' => 'opcion_control_acceso',
+        'cantidad' => 'cantidad_control_acceso',
+        'texto' => 'Tendido de cables UTP para control de acceso.'
+    ],
+    [
+        'check' => 'opcion_cerradura',
+        'cantidad' => 'cantidad_cerraduras',
+        'texto' => 'Tendido de cables UTP para control de cerradura eléctrica.'
+    ],
+		[
+				'check' => 'opcion_patchpanel',
+				'cantidad' => 'cantidad_patchpanel',
+				'texto' => 'Conexión a patchpanel.'
+		],
+    [
+        'check' => 'opcion_fichas',
+        'cantidad' => 'cantidad_fichas',
+        'texto' => 'Armado de fichas RJ45 en cables UTP.'
+    ],
+    [
+        'check' => 'opcion_rack',
+        'cantidad' => 'cantidad_rack',
+        'texto' => 'Armado e instalación de rack mural.'
+    ],
+    [
+        'check' => 'opcion_testeo',
+        'cantidad' => 'cantidad_testeo',
+        'texto' => 'Testeo de continuidad y verificación.'
+    ]
+];
+
 ?>
 
 <script>
@@ -11,14 +49,24 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 <div class="bg-white bg-body-tertiary rounded shadow-lg p-4">
 	<div class="d-flex justify-content-between align-items-center">
 		<h2 class="text-primary">Presupuestos</h2>
-		<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearPresupuesto">
-			<i class="bi-plus-circle me-2"></i>Nuevo Presupuesto
-		</a>
+		<div>
+			<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearPresupuesto">
+				<i class="bi-plus-circle me-2"></i>Nuevo Presupuesto
+			</a>
+			<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalGenerarAlcance">
+				<i class="bi-plus-circle me-2"></i>Nuevo Alcance
+			</a>
+		</div>
 	</div>
 <!-- 	<div class="d-flex justify-content-end align-items-center">
-		<a href="/trackpoint/public/index.php?route=/ventas/egresos/verPresupuesto" class="btn btn-sm btn-primary">
-			<i class="bi-plus-circle me-2"></i>Ver Presupuesto
-		</a>
+		<div>
+			<a href="/trackpoint/public/index.php?route=/ventas/egresos/previewPresupuesto" class="btn btn-sm btn-primary">
+				<i class="bi-plus-circle me-2"></i>Ver Presupuesto
+			</a>
+			<a href="/trackpoint/public/index.php?route=/ventas/egresos/previewAlcance" class="btn btn-sm btn-primary">
+				<i class="bi-plus-circle me-2"></i>Ver Alcance
+			</a>
+		</div>
 	</div> -->
 
 
@@ -38,7 +86,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 						<!-- Código de barras -->
 						<div class="col-md-6">
 							<div class="row d-flex align-items-center justify-content-center">
-								<label for="codigo_mercaderia" class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
+								<label for="codigo_mercaderia"
+									class="col-md-2 p-0 m-0 form-label text-primary text-center">Producto</label>
 								<div class="col-md-10 ps-0">
 									<div class="input-group d-flex">
 										<input type="text" class="form-control text-primary" name="codigo_mercaderia" id="codigo_mercaderia"
@@ -86,11 +135,11 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							value="<?php echo $mercaderiaSeleccionada['precio_compra_mercaderia'] ?? 1; ?>">
 						<!-- Botón Agregar -->
 						<div class="col-md-2 d-flex justify-content-end">
-							<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
-								<i class="bi-plus-circle me-2"></i>Agregar
-							</button>
 							<button type="button" class="btn btn-sm btn-secondary mx-1 my-3" id="btn-vaciar-mercaderia">
 								<i class="bi bi-x-circle me-2"></i>Vaciar
+							</button>
+							<button type="submit" class="btn btn-sm btn-primary mx-1 my-3" id="btn-guardar-mercaderia">
+								<i class="bi-plus-circle me-2"></i>Agregar
 							</button>
 						</div>
 
@@ -149,7 +198,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </div>
 
 <!-- Modal de creación de presupuesto -->
-<div class="modal fade" id="modalCrearPresupuesto" tabindex="-1" aria-labelledby="modalCrearPresupuestoLabel" aria-hidden="true">
+<div class="modal fade" id="modalCrearPresupuesto" tabindex="-1" aria-labelledby="modalCrearPresupuestoLabel"
+	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formCrearPresupuesto"
 			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&crearPresupuesto">
@@ -159,8 +209,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 				</div>
 				<div class="modal-body">
-					
-				<!-- Mensaje de error -->
+
+					<!-- Mensaje de error -->
 					<div class="mb-3">
 						<div id="mensaje-error-crear" class="alert alert-danger rounded d-none p-2" role="alert">
 							<i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -246,7 +296,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Dirección Cliente -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="crearDireccionCliente" class="col-md-3 form-label text-primary">Dirección</label>
+									<label for="crearDireccionClientePresupuesto"
+										class="col-md-3 form-label text-primary">Dirección</label>
 									<div class="col-md-9 ps-0">
 										<input type="text" class="form-control text-primary" id="crearDireccionClientePresupuesto"
 											name="cliente_direccion" value="">
@@ -254,7 +305,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Contacto Cliente -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="crearContactoCliente" class="col-md-3 form-label text-primary">Contacto</label>
+									<label for="crearContactoClientePresupuesto" class="col-md-3 form-label text-primary">Contacto</label>
 									<div class="col-md-9 ps-0">
 										<input type="text" class="form-control text-primary" id="crearContactoClientePresupuesto"
 											name="cliente_contacto" value="">
@@ -262,14 +313,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Lista de Precios -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="crearListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
+									<label for="crearListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de
+										Precios</label>
 									<div class="col-md-9 ps-0">
 										<select class="form-select text-primary" id="crearListaPreciosPresupuesto" name="lista_id">
 											<?php if (empty($listas)): ?>
 												<option value="">No hay listas de precios disponibles</option>
 											<?php else: ?>
 												<?php foreach ($listas as $lista): ?>
-													<option value="<?= htmlspecialchars($lista['lista_id']) ?>"><?= htmlspecialchars($lista['nombre']) ?></option>
+													<option value="<?= htmlspecialchars($lista['lista_id']) ?>">
+														<?= htmlspecialchars($lista['nombre']) ?>
+													</option>
 												<?php endforeach; ?>
 											<?php endif; ?>
 										</select>
@@ -292,7 +346,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 </div>
 
 <!-- Modal de edición de presupuesto -->
-<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditarPresupuesto" tabindex="-1" aria-labelledby="modalEditarPresupuestoLabel"
+	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" id="formEditarPresupuesto"
 			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&editarPresupuesto">
@@ -315,7 +370,7 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 					<!-- Datos obligatorios -->
 					<div class="card mb-3">
 						<div class="card-header bg-light text-primary">
-							<strong>Datos obligatorios</strong>
+							<strong>Datos del presupuesto</strong>
 						</div>
 						<div class="card-body">
 							<div class="mb-3 align-items-center">
@@ -350,7 +405,8 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Nro. Presupuesto -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="editarPresupuestoIdVisible" class="col-md-5 form-label text-primary">Presupuesto Nº</label>
+									<label for="editarPresupuestoIdVisible" class="col-md-5 form-label text-primary">Presupuesto
+										Nº</label>
 									<div class="col-md-7 ps-0">
 										<input type="text" class="form-control text-primary text-end" id="editarPresupuestoIdVisible"
 											name="presupuesto_id_" value="<?= $ultimoPresupuestoId ? $ultimoPresupuestoId + 1 : '' ?>"
@@ -405,14 +461,17 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 								</div>
 								<!-- Lista de Precios -->
 								<div class="row p-2 d-flex align-items-center justify-content-center">
-									<label for="editarListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de Precios</label>
+									<label for="editarListaPreciosPresupuesto" class="col-md-3 form-label text-primary">Lista de
+										Precios</label>
 									<div class="col-md-9 ps-0">
 										<select class="form-select text-primary" id="editarListaPreciosPresupuesto" name="lista_id">
 											<?php if (empty($listas)): ?>
 												<option value="">No hay listas de precios disponibles</option>
 											<?php else: ?>
 												<?php foreach ($listas as $lista): ?>
-													<option value="<?= htmlspecialchars($lista['lista_id']) ?>"><?= htmlspecialchars($lista['nombre']) ?></option>
+													<option value="<?= htmlspecialchars($lista['lista_id']) ?>">
+														<?= htmlspecialchars($lista['nombre']) ?>
+													</option>
 												<?php endforeach; ?>
 											<?php endif; ?>
 										</select>
@@ -724,6 +783,147 @@ require_once __DIR__ . '/../../../../core/config/constants.php';
 							class="bi bi-check-circle pt-1 me-2"></i>Eliminar</button>
 					<button type="button" class="btn btn-sm btn-secondary m-2" data-bs-dismiss="modal"><i
 							class="bi bi-x-circle pt-1 me-2"></i>Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Modal de creación de alcance -->
+<div class="modal fade" id="modalGenerarAlcance" tabindex="-1" aria-labelledby="modalGenerarAlcanceLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+		<form method="POST" id="formGenerarAlcance" action="/trackpoint/public/index.php?route=/ventas/egresos/previewAlcance", target="_blank">
+			<div class="modal-content m-5">
+				<div class="modal-header table-primary text-white">
+					<h5 class="modal-title" id="modalGenerarAlcanceLabel">Crear nuevo alcance de presupuesto</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Mensaje de error -->
+					<div class="mb-3">
+						<div id="mensaje-error-crear-detalle" class="alert alert-danger rounded d-none p-2" role="alert">
+							<i class="bi bi-exclamation-triangle-fill me-2"></i>
+							<span class="mensaje-texto"></span>
+							<!-- Mensajes de error que se cargarán de forma dinámica en el modal -->
+						</div>
+					</div>
+
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<a class="nav-link active p-2 text-primary" aria-current="page" id="datos" data-bs-toggle="tab" href="#datos-tab">Datos del presupuesto</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link p-2 text-primary" id="propuesta" data-bs-toggle="tab" href="#propuesta-tab">Propuesta comercial</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link p-2 text-primary" id="plazos" data-bs-toggle="tab" href="#plazos-tab">Plazos de entrega</a>
+						</li>
+					</ul>
+
+					<div class="tab-content" style="min-height: 300px;">
+						<!-- Datos del presupuesto -->
+						<div class="tab-pane fade show active" id="datos-tab" role="tabpanel" aria-labelledby="datos">
+							<div class="mt-3 mb-3 align-items-center">
+								<!-- Nro. Presupuesto -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearListaPreciosDetalle" class="col-md-5 form-label text-primary">Presupuesto
+										Nº</label>
+									<div class="col-md-7 ps-0">
+										<input type="text" class="form-control text-primary" id="crearPresupuestoIdAlcance"
+											name="presupuesto_id" readonly>
+										<!-- 										<select class="form-select text-primary" id="crearListaPreciosDetalle" name="presupuesto_id">
+												<?php if (empty($resumen)): ?>
+													<option value="">No hay presupuestos disponibles</option>
+												<?php else: ?>
+													<option value="">Seleccione un presupuesto</option>
+													<?php foreach ($resumen as $presupuesto): ?>
+														<option value="<?= htmlspecialchars($presupuesto['presupuesto_id']) ?>">
+															<?= htmlspecialchars($presupuesto['presupuesto_id']) ?></option>
+													<?php endforeach; ?>
+												<?php endif; ?>
+											</select> -->
+									</div>
+								</div>
+								<!-- Fecha Emisión -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearFechaDetalle" class="col-md-5 form-label text-primary">Fecha Presupuesto</label>
+									<div class="col-md-7 ps-0">
+										<input type="text" class="form-control text-primary" id="crearFechaDetalle" name="fecha_presupuesto" readonly>
+									</div>
+								</div>
+							</div>
+							<!-- Datos del presupuesto -->
+							<div class="mb-3 align-items-center">
+								<!-- Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearClienteDetalle" class="col-md-3 form-label text-primary">Cliente</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="crearClienteDetalle" name="cliente_nombre"
+											readonly>
+									</div>
+									<input type="hidden" name="cliente_id" id="cliente_id">
+									<input type="hidden" name="contacto_cliente" id="contacto_cliente">
+								</div>
+								<!-- Dirección Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearDireccionClienteDetalle" class="col-md-3 form-label text-primary">Dirección</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="crearDireccionClienteDetalle"
+											name="cliente_direccion" readonly>
+									</div>
+								</div>
+								<!-- Contacto Cliente -->
+								<div class="row p-2 d-flex align-items-center justify-content-center">
+									<label for="crearContactoClienteDetalle" class="col-md-3 form-label text-primary">Contacto</label>
+									<div class="col-md-9 ps-0">
+										<input type="text" class="form-control text-primary" id="crearContactoClienteDetalle"
+											name="cliente_contacto" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Propuesta Comercial -->
+						<div class="tab-pane fade" id="propuesta-tab" role="tabpanel" aria-labelledby="propuesta">
+							<div class="mt-3 mb-3 align-items-center">
+								<?php foreach ($opciones as $opcion): ?>
+									<div class="row align-items-center mb-2">
+											<div class="col-auto">
+												<input class="form-check-input" type="checkbox" name="<?= $opcion['check'] ?>" id="<?= $opcion['check'] ?>">
+											</div>
+											<div class="col">
+												<label class="form-label mb-0" for="<?= $opcion['check'] ?>">
+													<?= $opcion['texto'] ?>
+												</label>
+											</div>
+											<div class="col-3">
+												<input type="number" class="form-control" name="<?= $opcion['cantidad'] ?>" id="<?= $opcion['cantidad'] ?>">
+											</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+
+						<!-- Plazos de Entrega -->
+						<div class="tab-pane fade" id="plazos-tab" role="tabpanel" aria-labelledby="plazos">
+							<div class="mt-3 mb-3 align-items-center"></div>
+								<div class="row p-2 d-flex align-items-center justify-content-start">
+									<label for="plazo_entrega" class="col-md-6 form-label text-primary ms-2">Tiempo estimado de finalización</label>
+									<div class="col-md-5 ps-0">
+										<input type="text" class="form-control text-primary" name="plazo_entrega" id="plazo_entrega">
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center p-2">
+					<button type="submit" class="btn btn-sm btn-success m-2" name="crear_detalle_modal">
+						<i class="bi bi-check-circle pt-1 me-2" id="btnConfirmarAlcance"></i>Aceptar
+					</button>
+					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal">
+						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar
+					</button>
 				</div>
 			</div>
 		</form>

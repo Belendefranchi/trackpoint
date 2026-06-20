@@ -119,6 +119,18 @@ document.addEventListener('show.bs.modal', function (event) {
 		/* -----------------------------------------
 				MODAL MENSAJE (éxito / error / info)
 		----------------------------------------- */
+		case 'modalGenerarAlcance':
+			if (!button) return;
+
+			// Cargar los datos del presupuesto en el modal
+			document.querySelector('#crearPresupuestoIdAlcance').value = button.getAttribute('data-id');
+			document.querySelector('#crearFechaDetalle').value = button.getAttribute('data-fechap');
+			document.querySelector('#crearClienteDetalle').value = button.getAttribute('data-cliente');
+			document.querySelector('#crearDireccionClienteDetalle').value = button.getAttribute('data-direccionc');
+			document.querySelector('#crearContactoClienteDetalle').value = button.getAttribute('data-contactoc');
+			break;
+		
+		
 		case 'modalMensajePresupuesto':
 			// Se muestra un mensaje ya cargado previamente
 			// No requiere cargarse valores desde el botón

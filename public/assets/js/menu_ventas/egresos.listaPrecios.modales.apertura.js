@@ -60,6 +60,7 @@ document.addEventListener('show.bs.modal', function (event) {
 		/* -----------------------------------------
 				MODAL MENSAJE (éxito / error / info)
 		----------------------------------------- */
+		
 		case 'modalMensajeListaPrecios':
 			// Se muestra un mensaje ya cargado previamente
 			// No requiere cargarse valores desde el botón

@@ -82,14 +82,17 @@
 																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
 																<i class="bi bi-trash"></i>
 															</button>
-															<!-- BOTON DE GENERAR -->
-<!-- 															<a href="#" id="btnMostrarGenerarPresupuesto"
-																class="btn btn-sm btn-success mx-1 d-flex flex-nowrap rounded-5"
+															<!-- BOTON DE GENERAR ALCANCE -->
+															<button type="button" class="btn btn-sm btn-success d-flex flex-nowrap rounded-circle"
 																data-bs-toggle="modal"
-																data-bs-target="#modalGenerarPresupuesto"
-																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>">
+																data-bs-target="#modalGenerarAlcance"
+																data-id="<?= htmlspecialchars($filaResumen['presupuesto_id']) ?>"
+																data-fechap="<?= htmlspecialchars($filaResumen['fecha_presupuesto']) ?>"
+																data-cliente="<?= htmlspecialchars($filaResumen['cliente_nombre']) ?>"
+																data-direccionc="<?= htmlspecialchars($filaResumen['cliente_direccion']) ?>"
+																data-contactoc="<?= htmlspecialchars($filaResumen['cliente_contacto']) ?>">
 																<i class="bi bi-filetype-pdf"></i>
-															</a> -->
+															</button>
 														</div>
 													</div>
 												</div>

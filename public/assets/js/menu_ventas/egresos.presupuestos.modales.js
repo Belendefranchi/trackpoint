@@ -303,6 +303,73 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ###################### GENERAR ALCANCE ###################### */
+  document.getElementById('formGenerarAlcance').addEventListener('submit', function () {
+
+    const modalElement = document.getElementById('modalGenerarAlcance');
+
+    const modal = bootstrap.Modal.getInstance(modalElement);
+
+    if (modal) {
+        modal.hide();
+    }
+
+});
+  document.getElementById('btnMostrarGenerarAlcance').addEventListener('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('modalGenerarAlcance'));
+    modal.show();
+  });
+
+  const btnConfirmarAlcance = document.getElementById('btnConfirmarAlcance');
+  if (btnConfirmarAlcance) {
+    btnConfirmarAlcance.addEventListener('click', function () {
+      bootstrap.Modal.getInstance(document.getElementById('modalGenerarAlcance')).hide();
+
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/previewAlcance',
+        type: 'POST',
+        data: { 'presupuesto_id': document.getElementById('generarPresupuestoId').value },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            console.log(response)
+            $('#modalMensajeLabel').text('Alcance generado');
+            $('#textoModalMensaje').text('El alcance fue generado correctamente.');
+          } else {
+            $('#modalMensajeLabel').text('Error al generar');
+            $('#textoModalMensaje').text(response.message || 'Ocurrió un error inesperado.');
+          }
+
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+
+          // Esperar a que el modal se cierre para recargar
+          const modalElement = document.getElementById('modalMensajePresupuesto');
+          modalElement.addEventListener('hidden.bs.modal', function () {
+            window.open(
+              '/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&previewAlcance',
+              '_blank'
+            );
+
+            // opcional: refrescar la pantalla actual
+            location.reload();
+          }, { once: true });
+
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', xhr.status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#modalMensajeLabel').text('Error inesperado');
+          $('#textoModalMensaje').text('Hubo un problema al intentar guardar los datos.');
+          const modalMensaje = new bootstrap.Modal(document.getElementById('modalMensajePresupuesto'));
+          modalMensaje.show();
+        }
+      });
+    });
+  }
+
 
   /* ###################### MODAL DE EDICIÓN PRESUPUESTO ###################### */
 
@@ -890,5 +957,62 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+
+  /* ###################### MODAL DE CREACIÓN DE DETALLE ###################### */
+
+  // Interceptar el envío del formulario con AJAX
+/*   const formCrearDetalle = document.querySelector('#formCrearDetalle');
+  if (formCrearDetalle) {
+    formCrearDetalle.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar cualquier mensaje de error antes de hacer la solicitud
+      $('#mensaje-error-crear-detalle').addClass('d-none').find('.mensaje-texto').text('');
+
+      const formData = new FormData(this);
+      console.log(formData.get('crearListaPreciosDetalle'));
+      $.ajax({
+        url: '/trackpoint/public/index.php?route=/ventas/egresos/previewAlcance',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          console.log('Respuesta del servidor:', response);
+
+          if (response.success) {
+            console.log('Detalle creado con éxito');
+
+            location.reload();
+          } else {
+            console.log('Error al crear el detalle:', response.message);
+            $('#mensaje-error-crear-detalle').removeClass('d-none').find('.mensaje-texto').text(response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log('Error al guardar los datos');
+          console.log('Código de estado:', status);
+          console.log('Mensaje de error:', error);
+          console.log('Respuesta del servidor:', xhr.responseText);
+          $('#mensaje-error-crear-detalle').removeClass('d-none').find('.mensaje-texto').text('Hubo un error al intentar guardar los datos.');
+        }
+      });
+    });
+  }
+
+  // Limpiar el mensaje de error al cerrar el modal
+  var modalCrearDetalle = document.getElementById('modalCrearDetalle');
+  if (modalCrearDetalle) {
+    modalCrearDetalle.addEventListener('hidden.bs.modal', function () {
+      var mensajeError = document.getElementById('mensaje-error-crear-detalle');
+      if (mensajeError) {
+        mensajeError.classList.add('d-none'); // Ocultar el div
+        mensajeError.querySelector('.mensaje-texto').textContent = ''; // Limpiar el texto
+      }
+    });
+  } */
+
 
 });

@@ -43,8 +43,8 @@ $routes = [
 
 	'/ventas/egresos/listaPrecios' => 'app/modules/ventas/controllers/egresos.listaPrecios.controller.php',
 	'/ventas/egresos/presupuestos' => 'app/modules/ventas/controllers/egresos.presupuestos.controller.php',
-	'/ventas/egresos/verPresupuesto' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.PC.view.php',
 	'/ventas/egresos/previewPresupuesto' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.PC.view.php',
+	'/ventas/egresos/previewAlcance' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.alcance.view.php',
 	'/ventas/egresos/ventas' => 'app/modules/ventas/controllers/egresos.ventas.controller.php',
 	'/ventas/egresos/cierre' => 'app/modules/ventas/controllers/egresos.cierre.controller.php',
 	

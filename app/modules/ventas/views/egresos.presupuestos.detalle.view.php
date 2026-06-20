@@ -1,8 +1,10 @@
 <?php 
 $detalle = $_SESSION['detalle_presupuesto'] ?? [];
-/* echo '<pre>';
+$resumen = $_SESSION['resumen_presupuesto'] ?? [];
+
+echo '<pre>';
 print_r($_SESSION);
-echo '</pre>'; */
+echo '</pre>';
 
 ?>
 
@@ -103,12 +105,23 @@ echo '</pre>'; */
 	id="btnMostrarConfirmacion">
 		<i class="bi bi-check-circle pt-1 me-2"></i>Generar
 	</button> -->
-
+	<a href="#" id="btnMostrarGenerarAlcance"
+		class="btn btn-sm btn-secondary mx-1 my-3"
+		data-bs-toggle="modal"
+		data-bs-target="#modalGenerarAlcance"
+		data-id="<?= htmlspecialchars($resumen[0]['presupuesto_id']) ?>"
+		data-fechap="<?= htmlspecialchars($resumen[0]['fecha_presupuesto']) ?>"
+		data-cliente="<?= htmlspecialchars($resumen[0]['cliente_nombre']) ?>"
+		data-direccionc="<?= htmlspecialchars($resumen[0]['cliente_direccion']) ?>"
+		data-contactoc="<?= htmlspecialchars($resumen[0]['cliente_contacto']) ?>">
+		<i class="bi bi-check-circle pt-1 me-2"></i>Alcance
+	</a>
+	
 	<a href="#" id="btnMostrarGenerarPresupuesto"
-	class="btn btn-sm btn-success mx-1 my-3"
-	data-bs-toggle="modal"
-	data-bs-target="#modalGenerarPresupuesto"
-	data-id="<?= htmlspecialchars($filaDetalle['presupuesto_id']) ?>">
-	<i class="bi bi-check-circle pt-1 me-2"></i>Generar
-</a>
+		class="btn btn-sm btn-primary mx-1 my-3"
+		data-bs-toggle="modal"
+		data-bs-target="#modalGenerarPresupuesto"
+		data-id="<?= htmlspecialchars($resumen[0]['presupuesto_id']) ?>">
+		<i class="bi bi-check-circle pt-1 me-2"></i>Generar
+	</a>
 </div>

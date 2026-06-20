@@ -29,6 +29,8 @@ $resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
 
 $ultimoPresupuestoId = obtenerUltimoPresupuestoId();
 
+$presupuestoSeleccionadoDetalle = obtenerResumenPresupuestoPorId($presupuestoSeleccionado);
+
 // Obtener procesos y mercaderías
 /* $mercaderias = obtenerMercaderiasActivas(); */
 
@@ -78,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		try {
 			// 1) Obtener el detalle desde el modelo
-			$detalle = obtenerDetallePresupuesto($presupuesto_id);
+			$detalle = obtenerDetallePresupuestoPorId($presupuesto_id);
 
 			// 2) Guardarlo en sesión
 			$_SESSION['detalle_presupuesto'] = $detalle;
@@ -123,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		try {
 			// 1) Obtener el detalle desde el modelo
-			$detalle = obtenerResumenPresupuesto($presupuesto_id);
+			$resumen = obtenerResumenPresupuestoPorId($presupuesto_id);
 
 			// 2) Guardarlo en sesión
 			$_SESSION['resumen_presupuesto'] = $resumen;
@@ -136,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo json_encode([
 				'success' => true,
 				'html' => $html,
-				'detalle' => $resumen
+				'resumen' => $resumen
 			]);
 
 			exit;
@@ -571,6 +573,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} catch (Exception $e) {
 			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
 			echo json_encode(['success' => false, 'message' => 'Controller: Error: ' . $e->getMessage()]);
+			exit;
+		}
+	}
+
+	if (isset($_GET['crearAlcance'])) {
+
+		header('Content-Type: application/json');
+
+		$datos = [
+			'presupuesto_id' => $_POST['presupuesto_id'],
+			'opcion_camaras' => isset($_POST['opcion_camaras']) ? 1 : 0,
+			'cantidad_camaras' => trim($_POST['cantidad_camaras'] ?? ''),
+			'opcion_control_acceso' => isset($_POST['opcion_control_acceso']) ? 1 : 0,
+			'cantidad_control_acceso' => trim($_POST['cantidad_control_acceso'] ?? ''),
+			'opcion_cerradura' => isset($_POST['opcion_cerradura']) ? 1 : 0,
+			'cantidad_cerraduras' => trim($_POST['cantidad_cerraduras'] ?? ''),
+			'opcion_rack' => isset($_POST['opcion_rack']) ? 1 : 0,
+			'cantidad_patchpanel' => trim($_POST['cantidad_patchpanel'] ?? '')
+		];
+
+		try {
+			$result = crearAlcance($datos);
+
+			if ($result) {
+				registrarEvento("Presupuestos Controller: Alcance creado correctamente => " . $datos['presupuesto_id'], "INFO");
+				echo json_encode(['success' => true]);
+				exit;
+			} else {
+				registrarEvento("Presupuestos Controller: Error al crear el alcance => " . $datos['presupuesto_id'], "ERROR");
+				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el alcance']);
+				exit;
+			}
+		} catch (Exception $e) {
+			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
+			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 			exit;
 		}
 	}
