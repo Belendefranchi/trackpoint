@@ -26,23 +26,33 @@ app/
     models/
     views/
       home.view.php
+  layouts/
+    layout.scripts.php
+    layout.view.php
+  modules/
+    configuracion/
+    produccion/
+    recepcion/
+    sistema/
+    ventas/
+    module.controller.php
+    module.view.php
+core/
+  config/
+  helpers/
+  logs/
   middleware/
-    auth.middleware.php
-layouts/
-  auth.layout.php
-  app.layout.php
+  router.php
 public/
   assets/
     css/
       style.css
+    fonts/
+    icons/
     images/
     js/
   index.php
-src/
-  input.css
-tailwind.config.js
-postcss.config.js
-package.json
+
 ```
 
 ---
