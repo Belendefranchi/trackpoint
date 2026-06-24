@@ -1,6 +1,6 @@
 # 🐖 TrackPoint - Sistema de control de producción
 
-Aplicación web para el control de producción en una industria faenadora de porcinos. Desarrollado en PHP siguiendo el patrón MVC, con interfaz moderna usando Tailwind CSS.
+Aplicación web para el control de producción en una industria faenadora de porcinos. Desarrollado en PHP siguiendo el patrón MVC, con interfaz moderna usando Bootstrap 5.
 
 ---
 
