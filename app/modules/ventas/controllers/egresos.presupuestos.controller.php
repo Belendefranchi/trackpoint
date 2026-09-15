@@ -1,24 +1,15 @@
 <?php
 define('VISTA_INTERNA', true);
+use Dompdf\Dompdf;
 
-
-// Iniciar sesión siempre al comienzo
 session_start();
-
-/* var_dump($_POST);
-exit; */
 
 unset($_SESSION['presupuesto_id']);
 unset($_SESSION['detalle_presupuesto']);
 
-/* if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-	unset($_SESSION['mercaderia_seleccionada']);
-} */
-
 require_once __DIR__ . '/../../module.controller.php';
 require_once __DIR__ . '/../models/egresos.presupuestos.model.php';
 require_once __DIR__ . '/../models/egresos.listaPrecios.model.php';
-/* require_once __DIR__ . '/../../configuracion/models/abm.mercaderias.model.php'; */
 require_once __DIR__ . '/../../../../core/helpers/logs.helper.php';
 
 // Obtener presupuesto seleccionado para cargar la lista de prec
@@ -30,9 +21,6 @@ $resumen = obtenerResumenPresupuesto($_SESSION['operador_id'] ?? null);
 $ultimoPresupuestoId = obtenerUltimoPresupuestoId();
 
 $presupuestoSeleccionadoDetalle = obtenerResumenPresupuestoPorId($presupuestoSeleccionado);
-
-// Obtener procesos y mercaderías
-/* $mercaderias = obtenerMercaderiasActivas(); */
 
 // Obtener listas de precios
 $listas = obtenerListasActivas();
@@ -49,7 +37,7 @@ if (isset($_GET['previewPresupuesto'])) {
 
 	// 1. Volver a consultar a la base
 	$resumenPresupuesto = obtenerResumenPresupuestoPorId($presupuesto_id);
-	$mercaderias = obtenerDetallePresupuesto($presupuesto_id);
+	$mercaderias = obtenerDetallePresupuestoPorId($presupuesto_id);
 
 	if (!$presupuesto_id) {
 		echo 'Presupuesto no encontrado';
@@ -81,9 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		try {
 			// 1) Obtener el detalle desde el modelo
 			$detalle = obtenerDetallePresupuestoPorId($presupuesto_id);
+			$resumen = obtenerResumenPresupuestoPorId($presupuesto_id);
 
 			// 2) Guardarlo en sesión
 			$_SESSION['detalle_presupuesto'] = $detalle;
+			$_SESSION['resumen_presupuesto'] = $resumen;
 
 			// 3) Renderizar el fragmento HTML usando la vista
 			ob_start();
@@ -94,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				'success' => true,
 				'html' => $html,
 				'detalle' => $detalle
+				/* 'resumen' => $resumen */
 			]);
 
 			exit;
@@ -316,6 +307,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}
 
+	}
+
+	// ####### GENERAR ALCANCE #######
+	if (isset($_GET['generarAlcance'])) {
+
+		require_once __DIR__ . '/../services/egresos.presupuestos.pdf.alcance.php';
+		
+		generarAlcance();
+
+		exit;
 	}
 
 	// ####### RENDERIZAR MERCADERÍA #######
@@ -577,46 +578,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	if (isset($_GET['crearAlcance'])) {
-
-		header('Content-Type: application/json');
-
-		$datos = [
-			'presupuesto_id' => $_POST['presupuesto_id'],
-			'opcion_camaras' => isset($_POST['opcion_camaras']) ? 1 : 0,
-			'cantidad_camaras' => trim($_POST['cantidad_camaras'] ?? ''),
-			'opcion_control_acceso' => isset($_POST['opcion_control_acceso']) ? 1 : 0,
-			'cantidad_control_acceso' => trim($_POST['cantidad_control_acceso'] ?? ''),
-			'opcion_cerradura' => isset($_POST['opcion_cerradura']) ? 1 : 0,
-			'cantidad_cerraduras' => trim($_POST['cantidad_cerraduras'] ?? ''),
-			'opcion_rack' => isset($_POST['opcion_rack']) ? 1 : 0,
-			'cantidad_patchpanel' => trim($_POST['cantidad_patchpanel'] ?? '')
-		];
-
-		try {
-			$result = crearAlcance($datos);
-
-			if ($result) {
-				registrarEvento("Presupuestos Controller: Alcance creado correctamente => " . $datos['presupuesto_id'], "INFO");
-				echo json_encode(['success' => true]);
-				exit;
-			} else {
-				registrarEvento("Presupuestos Controller: Error al crear el alcance => " . $datos['presupuesto_id'], "ERROR");
-				echo json_encode(['success' => false, 'message' => 'Error: No se pudo crear el alcance']);
-				exit;
-			}
-		} catch (Exception $e) {
-			registrarEvento("Presupuestos Controller: Error al procesar los datos " . $e->getMessage(), "ERROR");
-			echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-			exit;
-		}
-	}
-
 }
 
 // Obtener datos para pasar a la vista
 $datosVista = [
-	/* 'mercaderias' => $mercaderias, */
 	'listas' => $listas,
 	'resumen' => $resumen,
 	'ultimoPresupuestoId' => $ultimoPresupuestoId

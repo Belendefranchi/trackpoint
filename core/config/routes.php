@@ -11,15 +11,11 @@ $routes = [
 	'/notFound' => 'app/layouts/error404.view.php',
 	'/clearLocalStorage' => 'public/clear.localStorage.js',
 
-
+	'/previewDompdf' => 'app/dompdf.php',
+	
 	/* ########################################### ----------RECEPCIÓN----------- ########################################### */
 
 	'/recepcion/ABMs/mercaderias' => 'app/modules/configuracion/controllers/abm.mercaderias.controller.php',
-
-/* 	'/recepcion/productivos/ingreso_hacienda' => 'app/modules/recepcion/controllers/productivos.hacienda.controller.php',
-	'/recepcion/productivos/ingreso_materiaPrima' => 'app/modules/recepcion/controllers/productivos.materiaPrima.controller.php',
-	'/recepcion/productivos/ingreso_insumos' => 'app/modules/recepcion/controllers/productivos.insumos.controller.php', */
-	
 	'/recepcion/noProductivos/ingreso_mercaderia' => 'app/modules/recepcion/controllers/noProductivos.mercaderias.controller.php',
 
 	/* ########################################### ----------PRODUCCIÓN----------- ########################################### */
@@ -43,8 +39,10 @@ $routes = [
 
 	'/ventas/egresos/listaPrecios' => 'app/modules/ventas/controllers/egresos.listaPrecios.controller.php',
 	'/ventas/egresos/presupuestos' => 'app/modules/ventas/controllers/egresos.presupuestos.controller.php',
+	
 	'/ventas/egresos/previewPresupuesto' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.PC.view.php',
 	'/ventas/egresos/previewAlcance' => 'app/modules/ventas/views/egresos.presupuestos.plantilla.alcance.view.php',
+
 	'/ventas/egresos/ventas' => 'app/modules/ventas/controllers/egresos.ventas.controller.php',
 	'/ventas/egresos/cierre' => 'app/modules/ventas/controllers/egresos.cierre.controller.php',
 	
@@ -64,8 +62,6 @@ $routes = [
 	'/sistema/ABMs/permisos' => 'app/modules/sistema/controllers/abm.permisos.controller.php',
 	'/sistema/ABMs/logs' => 'app/modules/sistema/controllers/abm.logs.controller.php',
 	'/sistema/ABMs/estados' => 'app/modules/sistema/controllers/abm.estados.controller.php',
-
-
 
 ];
 

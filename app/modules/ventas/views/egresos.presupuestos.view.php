@@ -3,41 +3,56 @@ require_once __DIR__ . '/../controllers/egresos.presupuestos.controller.php';
 require_once __DIR__ . '/../../../../core/config/constants.php';
 
 $opciones = [
-    [
-        'check' => 'opcion_camaras',
-        'cantidad' => 'cantidad_camaras',
-        'texto' => 'Tendido de cables UTP para cámaras.'
-    ],
-    [
-        'check' => 'opcion_control_acceso',
-        'cantidad' => 'cantidad_control_acceso',
-        'texto' => 'Tendido de cables UTP para control de acceso.'
-    ],
-    [
-        'check' => 'opcion_cerradura',
-        'cantidad' => 'cantidad_cerraduras',
-        'texto' => 'Tendido de cables UTP para control de cerradura eléctrica.'
-    ],
-		[
-				'check' => 'opcion_patchpanel',
-				'cantidad' => 'cantidad_patchpanel',
-				'texto' => 'Conexión a patchpanel.'
-		],
-    [
-        'check' => 'opcion_fichas',
-        'cantidad' => 'cantidad_fichas',
-        'texto' => 'Armado de fichas RJ45 en cables UTP.'
-    ],
-    [
-        'check' => 'opcion_rack',
-        'cantidad' => 'cantidad_rack',
-        'texto' => 'Armado e instalación de rack mural.'
-    ],
-    [
-        'check' => 'opcion_testeo',
-        'cantidad' => 'cantidad_testeo',
-        'texto' => 'Testeo de continuidad y verificación.'
-    ]
+	[
+		'check' => 'opcion_camaras',
+		'cantidad' => 'cantidad_camaras',
+		'texto' => 'Tendido de cables UTP para cámaras.'
+	],
+	[
+		'check' => 'opcion_control_acceso',
+		'cantidad' => 'cantidad_control_acceso',
+		'texto' => 'Tendido de cables UTP para control de acceso.'
+	],
+	[
+		'check' => 'opcion_cerradura',
+		'cantidad' => 'cantidad_cerraduras',
+		'texto' => 'Tendido de cables UTP para control de cerradura eléctrica.'
+	],
+	[
+		'check' => 'opcion_fichas',
+		'cantidad' => 'cantidad_fichas',
+		'texto' => 'Armado de fichas RJ45 en cables UTP.'
+	],
+	[
+		'check' => 'opcion_rack',
+		'cantidad' => 'cantidad_rack',
+		'texto' => 'Armado e instalación de rack mural.'
+	],
+	[
+		'check' => 'opcion_patchpanel',
+		'cantidad' => 'cantidad_patchpanel',
+		'texto' => 'Instalación de patchpanel.'
+	],
+	[
+		'check' => 'opcion_conexion_patchpanel',
+		'cantidad' => 'cantidad_conexion_patchpanel',
+		'texto' => 'Conexión a patchpanel.'
+	],
+	[
+		'check' => 'opcion_linea_tension',
+		'cantidad' => 'cantidad_linea_tension',
+		'texto' => 'Instalación de línea de tensión con disyuntor térmico.'
+	],
+	[
+		'check' => 'opcion_bandejas',
+		'cantidad' => 'cantidad_bandejas',
+		'texto' => 'Instalación de bandejas deslizables.'
+	],
+	[
+		'check' => 'opcion_testeo',
+		'cantidad' => 'cantidad_testeo',
+		'texto' => 'Testeo de continuidad y verificación.'
+	]
 ];
 
 ?>
@@ -58,7 +73,7 @@ $opciones = [
 			</a>
 		</div>
 	</div>
-<!-- 	<div class="d-flex justify-content-end align-items-center">
+	<!-- 	<div class="d-flex justify-content-end align-items-center">
 		<div>
 			<a href="/trackpoint/public/index.php?route=/ventas/egresos/previewPresupuesto" class="btn btn-sm btn-primary">
 				<i class="bi-plus-circle me-2"></i>Ver Presupuesto
@@ -793,7 +808,8 @@ $opciones = [
 <div class="modal fade" id="modalGenerarAlcance" tabindex="-1" aria-labelledby="modalGenerarAlcanceLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-		<form method="POST" id="formGenerarAlcance" action="/trackpoint/public/index.php?route=/ventas/egresos/previewAlcance", target="_blank">
+		<form method="POST" id="formGenerarAlcance"
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&generarAlcance" , target="_blank">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalGenerarAlcanceLabel">Crear nuevo alcance de presupuesto</h5>
@@ -811,13 +827,16 @@ $opciones = [
 
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link active p-2 text-primary" aria-current="page" id="datos" data-bs-toggle="tab" href="#datos-tab">Datos del presupuesto</a>
+							<a class="nav-link active p-2 text-primary" aria-current="page" id="datos" data-bs-toggle="tab"
+								href="#datos-tab">Datos del presupuesto</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link p-2 text-primary" id="propuesta" data-bs-toggle="tab" href="#propuesta-tab">Propuesta comercial</a>
+							<a class="nav-link p-2 text-primary" id="propuesta" data-bs-toggle="tab" href="#propuesta-tab">Propuesta
+								comercial</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link p-2 text-primary" id="plazos" data-bs-toggle="tab" href="#plazos-tab">Plazos de entrega</a>
+							<a class="nav-link p-2 text-primary" id="plazos" data-bs-toggle="tab" href="#plazos-tab">Plazos de
+								entrega</a>
 						</li>
 					</ul>
 
@@ -849,7 +868,8 @@ $opciones = [
 								<div class="row p-2 d-flex align-items-center justify-content-center">
 									<label for="crearFechaDetalle" class="col-md-5 form-label text-primary">Fecha Presupuesto</label>
 									<div class="col-md-7 ps-0">
-										<input type="text" class="form-control text-primary" id="crearFechaDetalle" name="fecha_presupuesto" readonly>
+										<input type="text" class="form-control text-primary" id="crearFechaDetalle" name="fecha_presupuesto"
+											readonly>
 									</div>
 								</div>
 							</div>
@@ -883,23 +903,25 @@ $opciones = [
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Propuesta Comercial -->
 						<div class="tab-pane fade" id="propuesta-tab" role="tabpanel" aria-labelledby="propuesta">
 							<div class="mt-3 mb-3 align-items-center">
 								<?php foreach ($opciones as $opcion): ?>
 									<div class="row align-items-center mb-2">
-											<div class="col-auto">
-												<input class="form-check-input" type="checkbox" name="<?= $opcion['check'] ?>" id="<?= $opcion['check'] ?>">
-											</div>
-											<div class="col">
-												<label class="form-label mb-0" for="<?= $opcion['check'] ?>">
-													<?= $opcion['texto'] ?>
-												</label>
-											</div>
-											<div class="col-3">
-												<input type="number" class="form-control" name="<?= $opcion['cantidad'] ?>" id="<?= $opcion['cantidad'] ?>">
-											</div>
+										<div class="col-auto">
+											<input class="form-check-input" type="checkbox" name="<?= $opcion['check'] ?>"
+												id="<?= $opcion['check'] ?>">
+										</div>
+										<div class="col">
+											<label class="form-label mb-0" for="<?= $opcion['check'] ?>">
+												<?= $opcion['texto'] ?>
+											</label>
+										</div>
+										<div class="col-3">
+											<input type="number" class="form-control" name="<?= $opcion['cantidad'] ?>"
+												id="<?= $opcion['cantidad'] ?>">
+										</div>
 									</div>
 								<?php endforeach; ?>
 							</div>
@@ -907,19 +929,21 @@ $opciones = [
 
 						<!-- Plazos de Entrega -->
 						<div class="tab-pane fade" id="plazos-tab" role="tabpanel" aria-labelledby="plazos">
-							<div class="mt-3 mb-3 align-items-center"></div>
+							<div class="mt-3 mb-3 align-items-center">
 								<div class="row p-2 d-flex align-items-center justify-content-start">
-									<label for="plazo_entrega" class="col-md-6 form-label text-primary ms-2">Tiempo estimado de finalización</label>
+									<label for="plazo_entrega" class="col-md-6 form-label text-primary ms-2">Tiempo estimado de
+										finalización</label>
 									<div class="col-md-5 ps-0">
 										<input type="text" class="form-control text-primary" name="plazo_entrega" id="plazo_entrega">
 									</div>
 								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer d-flex justify-content-center p-2">
-					<button type="submit" class="btn btn-sm btn-success m-2" name="crear_detalle_modal">
-						<i class="bi bi-check-circle pt-1 me-2" id="btnConfirmarAlcance"></i>Aceptar
+					<button type="submit" class="btn btn-sm btn-success m-2" name="crear_detalle_modal" id="btnConfirmarAlcance">
+						<i class="bi bi-check-circle pt-1 me-2"></i>Aceptar
 					</button>
 					<button type="button" class="btn btn-sm btn-danger m-2" data-bs-dismiss="modal">
 						<i class="bi bi-x-circle pt-1 me-2"></i>Cancelar

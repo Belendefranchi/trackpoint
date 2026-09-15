@@ -1,12 +1,6 @@
 <?php
 
 function handle_route($route) {
-  // Definí tus rutas en config/routes.php, algo como:
-  // $routes = [
-  //   '/' => 'dashboard/home.controller.php',
-  //   '/login' => 'auth/controllers/login.controller.php',
-  //   '/produccion' => 'modules/produccion/controllers/produccion.controller.php'
-  // ];
 
   global $routes;
 

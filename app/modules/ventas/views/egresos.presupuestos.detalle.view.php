@@ -2,43 +2,43 @@
 $detalle = $_SESSION['detalle_presupuesto'] ?? [];
 $resumen = $_SESSION['resumen_presupuesto'] ?? [];
 
-echo '<pre>';
+/* echo '<pre>';
 print_r($_SESSION);
-echo '</pre>';
+echo '</pre>'; */
 
 ?>
 
 <?php if (empty($detalle)): ?>
-
 	<p class="text-muted text-center">Aún no se ingresaron mercaderías</p>
-
 <?php else: ?>
 
 	<!-- ENCABEZADO -->
-	<div class="container-fluid mb-2">
-		<div class="row p-2 bg-primary text-white fw-bold rounded-4">
-			<div class="col">Presupuesto Nº</div>
-			<div class="col">Código</div>
-			<div class="col-4">Descripción</div>
-			<div class="col-1">Cantidad</div>
-			<div class="col-1">Precio Compra</div>
-			<div class="col-1">Precio Venta</div>
-			<div class="col-1">Margen</div>
-			<div class="col">Subtotal</div>
-			<div class="col-1 text-center">Acciones</div>
+	<div class="container-fluid p-0">
+		<div class="card tabla-card mb-2 shadow-sm rounded-4 bg-primary">
+			<div class="card-body py-2">
+				<div class="row text-white align-items-center">
+					<div class="col-1 ps-4">Nº</div>
+					<div class="col-1">Código</div>
+					<div class="col-4">Descripción</div>
+					<div class="col-1">Cantidad</div>
+					<div class="col-1">Precio Compra</div>
+					<div class="col-1">Precio Venta</div>
+					<div class="col-1">Margen</div>
+					<div class="col-1">Subtotal</div>
+					<div class="col-1 text-center">Acciones</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- FILAS -->
 	<div class="container-fluid p-0" id="detalle-presupuesto">
-
 		<?php foreach ($detalle as $filaDetalle): ?>
-
 			<div class="card tabla-card mb-2 shadow-sm rounded-4 fila-detalle" id="fila-detalle-<?= (int)$filaDetalle['item_id']; ?>" data-item-id="<?= (int)$filaDetalle['item_id']; ?>">
 				<div class="card-body py-2">
 					<div class="row text-primary align-items-center">
-						<div class="col text-center"><?= $filaDetalle['presupuesto_id']; ?></div>
-						<div class="col"><?= $filaDetalle['codigo_mercaderia']; ?></div>
+						<div class="col-1 ps-4"><?= $filaDetalle['presupuesto_id']; ?></div>
+						<div class="col-1"><?= $filaDetalle['codigo_mercaderia']; ?></div>
 						<div class="col-4"><?= $filaDetalle['descripcion_mercaderia']; ?></div>
 						<div class="col-1"><?= $filaDetalle['cantidad']; ?></div>
 						<div class="col-1">
@@ -53,13 +53,13 @@ echo '</pre>';
 								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_venta']; ?></dd>
 							</dl>
 						</div>
-						<div class="col">
+						<div class="col-1">
 							<dl class="row d-flex align-items-center mb-0">
 								<dt class="col-sm-3 mb-0">$</dt>	
 								<dd class="col-sm-9 mb-0"><?= $filaDetalle['precio_venta'] - $filaDetalle['precio_compra']; ?></dd>
 							</dl>
 						</div>
-						<div class="col">
+						<div class="col-1">
 							<dl class="row d-flex align-items-center mb-0">
 								<dt class="col-sm-3 mb-0">$</dt>	
 								<dd class="col-sm-9 mb-0"><?= $filaDetalle['subtotal']; ?></dd>
