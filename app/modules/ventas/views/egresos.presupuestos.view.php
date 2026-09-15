@@ -809,7 +809,7 @@ $opciones = [
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 		<form method="POST" id="formGenerarAlcance"
-			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&generarAlcance" , target="_blank">
+			action="/trackpoint/public/index.php?route=/ventas/egresos/presupuestos&amp;generarAlcance">
 			<div class="modal-content m-5">
 				<div class="modal-header table-primary text-white">
 					<h5 class="modal-title" id="modalGenerarAlcanceLabel">Crear nuevo alcance de presupuesto</h5>

@@ -1,3 +1,10 @@
+@page{
+    size:A4 portrait;
+    margin:16mm 14mm;
+}
+
+/* No aplicar margin a html: Dompdf lo combina con los márgenes de @page. */
+
 body{
     margin:0;
     padding:0;
@@ -7,9 +14,8 @@ body{
 }
 
 .documento{
-    /* width:100%; */
-    margin:auto;
-    padding:16mm 14mm 16mm 14mm;
+    margin:0;
+    padding:0;
     background:white;
 }
 
@@ -17,20 +23,9 @@ body{
    ENCABEZADO
 ========================= */
 
-/* .header{
-    width:100%;
-    border:1px solid #5aa9e6;
-    border-collapse:collapse;
-    display:flex;
-    height:10px;
-} */
-
 .logo-box{
     width:100px;
     border-right:1px solid #5aa9e6;
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 
 .logo-box img{
@@ -77,8 +72,6 @@ body{
     font-size:16px;
     line-height:1.7;
     margin-bottom:10px;
-    display:flex;
-    align-items:center;
 }
 
 .paragraph strong{

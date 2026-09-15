@@ -1,8 +1,21 @@
 <?php
 define('VISTA_INTERNA', true);
-use Dompdf\Dompdf;
 
 session_start();
+
+// El alcance usa los datos del formulario y debe terminar antes de cargar la página.
+if (isset($_GET['generarAlcance'])) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Allow: POST');
+        header('Content-Type: text/plain; charset=UTF-8');
+        echo 'Para descargar el alcance, enviá el formulario desde Presupuestos.';
+        exit;
+    }
+
+    require_once __DIR__ . '/../services/egresos.presupuestos.pdf.alcance.php';
+    generarAlcance();
+}
 
 unset($_SESSION['presupuesto_id']);
 unset($_SESSION['detalle_presupuesto']);
@@ -307,16 +320,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit;
 		}
 
-	}
-
-	// ####### GENERAR ALCANCE #######
-	if (isset($_GET['generarAlcance'])) {
-
-		require_once __DIR__ . '/../services/egresos.presupuestos.pdf.alcance.php';
-		
-		generarAlcance();
-
-		exit;
 	}
 
 	// ####### RENDERIZAR MERCADERÍA #######

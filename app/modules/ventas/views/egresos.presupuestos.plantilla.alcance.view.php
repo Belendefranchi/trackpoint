@@ -45,7 +45,7 @@
 			'check' => 'opcion_camaras',
 			'texto' => 'Tendido de cables UTP para cámaras.',
 			'cantidad' => trim($_POST['cantidad_camaras'] ?? ''),
-			'label' => $_POST['cantidad_camaras'] === "1"
+			'label' => ($_POST['cantidad_camaras'] ?? '') === "1"
 				? 'Tendido de cableado UTP para 1 cámara.'
 				: 'Tendido de cableado UTP para ' . trim($_POST['cantidad_camaras'] ?? '') . ' cámaras.'
 		],
@@ -53,7 +53,7 @@
 			'check' => 'opcion_control_acceso',
 			'texto' => 'Tendido de cables UTP para control de acceso.',
 			'cantidad' => trim($_POST['cantidad_control_acceso'] ?? ''),
-			'label' => $_POST['cantidad_control_acceso'] === "1"
+			'label' => ($_POST['cantidad_control_acceso'] ?? '') === "1"
 				? 'Tendido de cableado UTP para 1 control de acceso.'
 				: 'Tendido de cableado UTP para ' . trim($_POST['cantidad_control_acceso'] ?? '') . ' controles de acceso.'
 		],
@@ -61,7 +61,7 @@
 			'check' => 'opcion_cerradura',
 			'texto' => 'Tendido de cables UTP para control de cerradura eléctrica.',
 			'cantidad' => trim($_POST['cantidad_cerraduras'] ?? ''),
-			'label' => $_POST['cantidad_cerraduras'] === "1"
+			'label' => ($_POST['cantidad_cerraduras'] ?? '') === "1"
 				? 'Tendido de cableado UTP para 1 cerradura eléctrica.'
 				: 'Tendido de cableado UTP para ' . trim($_POST['cantidad_cerraduras'] ?? '') . ' cerraduras eléctricas.'
 		],
@@ -69,7 +69,7 @@
 			'check' => 'opcion_fichas',
 			'texto' => '',
 			'cantidad' => trim($_POST['cantidad_fichas'] ?? ''),
-			'label' => $_POST['cantidad_fichas'] === "1"
+			'label' => ($_POST['cantidad_fichas'] ?? '') === "1"
 				? 'Armado de ficha RJ45 en 1 cable UTP.'
 				: 'Armado de fichas RJ45 en ' . trim($_POST['cantidad_fichas'] ?? '') . ' cables UTP.'
 		],
@@ -77,7 +77,7 @@
 			'check' => 'opcion_rack',
 			'texto' => 'Armado e instalación de rack mural.',
 			'cantidad' => trim($_POST['cantidad_rack'] ?? ''),
-			'label' => $_POST['cantidad_rack'] === "1"
+			'label' => ($_POST['cantidad_rack'] ?? '') === "1"
 				? 'Armado y sujeción física de 1 rack mural.'
 				: 'Armado y sujeción física de  ' . trim($_POST['cantidad_rack'] ?? '') . ' racks murales.'
 		],
@@ -85,7 +85,7 @@
 			'check' => 'opcion_patchpanel',
 			'texto' => '',
 			'cantidad' => trim($_POST['cantidad_patchpanel'] ?? ''),
-			'label' => $_POST['cantidad_patchpanel'] === "1"
+			'label' => ($_POST['cantidad_patchpanel'] ?? '') === "1"
 				? 'Instalación de 1 patch panel.'
 				: 'Instalación de ' . trim($_POST['cantidad_patchpanel'] ?? '') . ' patchpanels.'
 		],
@@ -93,7 +93,7 @@
 			'check' => 'opcion_conexion_patchpanel',
 			'texto' => '',
 			'cantidad' => trim($_POST['cantidad_conexion_patchpanel'] ?? ''),
-			'label' => $_POST['cantidad_conexion_patchpanel'] === "1"
+			'label' => ($_POST['cantidad_conexion_patchpanel'] ?? '') === "1"
 				? 'Conexión de 1 cable UTP al patch panel en uno de sus extremos.'
 				: 'Conexión de ' . trim($_POST['cantidad_conexion_patchpanel'] ?? '') . ' cables UTP al patch panel en uno de sus extremos.'
 		],
@@ -101,7 +101,7 @@
 			'check' => 'opcion_linea_tension',
 			'texto' => '',
 			'cantidad' => trim($_POST['cantidad_linea_tension'] ?? ''),
-			'label' => $_POST['cantidad_linea_tension'] === "1"
+			'label' => ($_POST['cantidad_linea_tension'] ?? '') === "1"
 				? 'Instalación de 1 línea de tensión con disyuntor térmico.'
 				: 'Instalación de ' . trim($_POST['cantidad_linea_tension'] ?? '') . ' líneas de tensión con disyuntor térmico.'
 		],
@@ -109,7 +109,7 @@
 			'check' => 'opcion_bandejas',
 			'texto' => '',
 			'cantidad' => trim($_POST['cantidad_bandejas'] ?? ''),
-			'label' => $_POST['cantidad_bandejas'] === "1"
+			'label' => ($_POST['cantidad_bandejas'] ?? '') === "1"
 				? 'Instalación de 1 bandeja deslizable.'
 				: 'Instalación de ' . trim($_POST['cantidad_bandejas'] ?? '') . ' bandejas deslizables.'
 		],
@@ -266,3 +266,4 @@
 			</div>
 
 		</div>
+	</div>
